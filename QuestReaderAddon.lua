@@ -6,6 +6,49 @@ local icon = LibStub("LibDBIcon-1.0")
 -- smaller file is preferred.
 SOUND_EXTENSIONS = { ".ogg", ".wav" }
 
+-- Sound packs (per-expansion audio, shipped as separate addons) merge their
+-- duration index in here, keyed by the pack's addon name. Every lookup below
+-- searches this whole table, so it does not matter how many packs are
+-- installed, or whether a given one is: an absent pack just never adds an
+-- entry, and the "no audio for this quest" path already used for gaps in the
+-- base library covers it too. No error, no crash, just silence.
+addon.soundSources = {}
+addon.soundSources["QuestReaderAddon"] = QuestReaderSoundLengths
+
+-- Expansion packs are independent addons, and WoW gives no guarantee about
+-- which of two independent addons finishes loading first. A pack that loads
+-- *before* this one has nowhere to register yet, so it drops itself into a
+-- plain global that exists regardless of load order; a pack that loads
+-- *after* calls this function directly. Either way the pack's audio becomes
+-- visible as soon as both sides have run, whichever order that happens in.
+--
+-- Packs call this as:
+--   QuestReaderAddon_RegisterSoundPack(addonName, ThisPackSoundLengths)
+-- falling back to the pending-queue global if it is not yet defined. See
+-- the example pack under packs/ for the exact two-line pattern.
+function QuestReaderAddon_RegisterSoundPack(packName, soundLengths)
+    if type(packName) ~= "string" or type(soundLengths) ~= "table" then
+        return
+    end
+    -- Merge rather than replace: overwriting dropped the sounds bundled
+    -- with the base addon in an earlier version of this mechanism, and
+    -- breaking here meant only one pack could ever be registered.
+    addon.soundSources[packName] = soundLengths
+end
+
+-- Drain anything a pack queued before this file ran (see above).
+if type(_G.QuestReaderPendingSoundPacks) == "table" then
+    for _, entry in ipairs(_G.QuestReaderPendingSoundPacks) do
+        QuestReaderAddon_RegisterSoundPack(entry.name, entry.index)
+    end
+    _G.QuestReaderPendingSoundPacks = nil
+end
+
+-- Legacy mechanism, kept for the existing TWW language packs: explicitly
+-- named OptionalDeps that this addon loads and merges itself, rather than
+-- the pack registering on its own. New expansion packs should prefer
+-- self-registration above; it does not require this addon to know their
+-- names in advance.
 local optionalSoundPacks = {
     "QuestReaderAddon_TWW_EN",
     "QuestReaderAddon_TWW_FR"
@@ -43,6 +86,12 @@ local function InitializeAddonDB()
 
     QuestReaderAddonDB.IsPaused = false
     QuestReaderAddonDB.IsSoundPaused = false
+
+    -- Text captured for quests this addon found no audio for. Persisted
+    -- across sessions (unlike addon.reportedMissing, which is session-only)
+    -- so it survives until the player exports and submits it.
+    QuestReaderAddonDB.missingCaptures = QuestReaderAddonDB.missingCaptures or { quests = {} }
+    QuestReaderAddonDB.missingCaptures.quests = QuestReaderAddonDB.missingCaptures.quests or {}
 end
 
 -- Create the LDB launcher
@@ -202,8 +251,9 @@ local function LoadSoundPackIfAvailable(addonName)
     return nil
 end
 
-addon.soundSources = {}
-addon.soundSources["QuestReaderAddon"] = QuestReaderSoundLengths
+-- addon.soundSources is initialised at file scope, above, so it exists
+-- before ADDON_LOADED fires and a pack that self-registers early has
+-- somewhere to land.
 addon.activeSound = nil
 -- Quest audio the player has encountered that no installed pack provides.
 addon.reportedMissing = {}
@@ -306,6 +356,166 @@ function StopCurrentSound()
     addon.activeSound = nil
 end
 
+-- ----------------------------------------------------------------------
+-- Missing-quest capture.
+--
+-- When no installed pack has audio for a passage, that passage's text is
+-- worth as much as anything the dedicated SpeakStone Harvester addon
+-- records -- so it is captured here too, scoped to exactly the gaps this
+-- player hits while playing normally. This is deliberately a subset of
+-- what the Harvester does (quests only, not gossip or item text) and the
+-- two addons do not share code: they can each be installed alone, and
+-- mirroring the logic in both keeps that true. See
+-- tools/QuestReaderHarvester/QuestReaderHarvester.lua for the source this
+-- was ported from.
+local function IsSecretValue(val)
+    if val == nil then return false end
+    if issecretvalue and issecretvalue(val) then return true end
+    if SecretUtil and SecretUtil.IsSecretValue and SecretUtil.IsSecretValue(val) then return true end
+    return false
+end
+
+-- "Creature-0-<server>-<instance>-<zone>-<creatureID>-<spawn>"
+local function MissingCaptureCreatureID(guid)
+    if not guid or IsSecretValue(guid) or type(guid) ~= "string" then
+        return nil
+    end
+    local ok, unitType, _, _, _, creatureID = pcall(strsplit, "-", guid)
+    if ok and (unitType == "Creature" or unitType == "Vehicle") then
+        return tonumber(creatureID)
+    end
+    return nil
+end
+
+local function MissingCaptureSpeaker()
+    local guid = UnitGUID("npc")
+    local name = UnitName("npc")
+    if IsSecretValue(guid) then guid = nil end
+    if IsSecretValue(name) then name = nil end
+    return { id = MissingCaptureCreatureID(guid), name = name }
+end
+
+-- Strips the player's own name back out to "$n", the same token the server
+-- substituted it from -- see the Harvester's identical function for why:
+-- two players' captures of the same line should read as the same line, and
+-- a stranger's character name should never leave their machine.
+local missingCapturePlayerNamePattern = nil
+local function MissingCaptureDetokenize(text)
+    if not text or text == "" then
+        return text
+    end
+    if not missingCapturePlayerNamePattern then
+        local name = UnitName("player")
+        if not name or name == "" then
+            return text
+        end
+        local ok, escaped = pcall(function() return (name:gsub("(%W)", "%%%1")) end)
+        if ok and escaped then
+            missingCapturePlayerNamePattern = escaped
+        else
+            return text
+        end
+    end
+    local ok, res = pcall(function() return (text:gsub(missingCapturePlayerNamePattern, "$n")) end)
+    if ok and res then
+        return res
+    end
+    return text
+end
+
+local function RecordMissingQuestPassage(questID, passage, text)
+    if not questID or questID == 0 or not text or text == "" then
+        return
+    end
+
+    text = MissingCaptureDetokenize(text)
+
+    local quests = QuestReaderAddonDB.missingCaptures.quests
+    local entry = quests[questID]
+    if not entry then
+        entry = {}
+        quests[questID] = entry
+    end
+
+    entry.title = GetTitleText() or entry.title
+
+    local speaker = MissingCaptureSpeaker()
+    entry[passage] = {
+        text = text,
+        npcID = speaker.id,
+        npcName = speaker.name,
+    }
+end
+
+-- textType maps 1:1 to the WoW API call that reads that panel's text, and is
+-- only valid while the matching panel is what triggered playback -- true
+-- whenever this is reached, since it is called from PlayQuestAudio in the
+-- same branch that already resolved textType from either the visible panel
+-- or the quest event that just fired.
+local MISSING_QUEST_TEXT_GETTERS = {
+    description = GetQuestText,
+    progress = GetProgressText,
+    completion = GetRewardText,
+}
+
+local function CaptureMissingQuestAudio(questID, textType)
+    local getter = MISSING_QUEST_TEXT_GETTERS[textType]
+    if not getter then
+        return
+    end
+    local ok, text = pcall(getter)
+    if ok and text and text ~= "" then
+        RecordMissingQuestPassage(questID, textType, text)
+    end
+end
+
+-- Race, class and gender decide which branch of $r/$c/$g the server
+-- rendered into a line, so a capture is only interpretable alongside them.
+-- Mirrors the Harvester's identical function.
+local function MissingCapturePlayerMetadata()
+    local localizedClass, classToken = UnitClass("player")
+    local localizedRace, raceToken = UnitRace("player")
+    return {
+        playerClass = classToken,
+        playerClassName = localizedClass,
+        playerRace = raceToken,
+        playerRaceName = localizedRace,
+        playerSex = UnitSex("player"),
+        faction = UnitFactionGroup("player"),
+    }
+end
+
+-- Same minimal Lua-table serializer as the Harvester's export frame -- the
+-- website's parser only cares about the shape (top-level .quests, .locale,
+-- etc.), not which addon wrote it.
+local function MissingCaptureSerialize(tbl, indent)
+    indent = indent or ""
+    local lines = {}
+    for k, v in pairs(tbl) do
+        local keyOk, keyStr = pcall(function()
+            return type(k) == "number" and ("[" .. k .. "]") or ('["' .. tostring(k) .. '"]')
+        end)
+        if keyOk then
+            if type(v) == "table" then
+                table.insert(lines, indent .. keyStr .. " = {\n" .. MissingCaptureSerialize(v, indent .. "  ") .. indent .. "},")
+            elseif type(v) == "string" then
+                local ok, escaped = pcall(function()
+                    return v:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n")
+                end)
+                if ok then
+                    table.insert(lines, indent .. keyStr .. ' = "' .. escaped .. '",')
+                end
+            elseif type(v) == "number" or type(v) == "boolean" then
+                local ok, valStr = pcall(tostring, v)
+                if ok then
+                    table.insert(lines, indent .. keyStr .. " = " .. valStr .. ",")
+                end
+            end
+        end
+    end
+    return table.concat(lines, "\n") .. "\n"
+end
+
 function PlayQuestAudio(textType, skipDelay)
     -- Get quest ID from Quest Log if it's open, otherwise from quest giver
     local questID
@@ -371,6 +581,10 @@ function PlayQuestAudio(textType, skipDelay)
                 addon.reportedMissing[baseName] = true
                 DebugPrint("SpeakStone Narration: no audio for quest " .. questID .. " (" .. textType .. ")")
             end
+            -- Capture the text itself, not just the fact that it is missing,
+            -- so it is ready to submit whether or not this player ever runs
+            -- the separate Harvester addon.
+            CaptureMissingQuestAudio(questID, textType)
             addon.activeSound = nil
             return
         end
@@ -739,7 +953,7 @@ end
 
 -- Frame for copy-pasting missing quests
 local missingCopyFrame = CreateFrame("Frame", "QuestReaderMissingCopyFrame", UIParent, "BasicFrameTemplateWithInset")
-missingCopyFrame:SetSize(350, 400)
+missingCopyFrame:SetSize(560, 440)
 missingCopyFrame:SetPoint("CENTER")
 missingCopyFrame:SetMovable(true)
 missingCopyFrame:EnableMouse(true)
@@ -749,7 +963,7 @@ missingCopyFrame:SetScript("OnDragStop", missingCopyFrame.StopMovingOrSizing)
 missingCopyFrame:Hide()
 
 -- Set frame title
-missingCopyFrame.TitleText:SetText("Missing Quest Audio")
+missingCopyFrame.TitleText:SetText("Missing Quest Audio -- Export to Submit")
 
 -- ScrollFrame for the EditBox
 local scrollFrame = CreateFrame("ScrollFrame", nil, missingCopyFrame, "UIPanelScrollFrameTemplate")
@@ -765,30 +979,40 @@ editBox:SetFontObject("ChatFontNormal")
 editBox:SetScript("OnEscapePressed", function(self) missingCopyFrame:Hide() end)
 scrollFrame:SetScrollChild(editBox)
 
--- Slash command to list quest audio missing from the installed sound packs.
+-- Slash command to export the text captured for quests the installed sound
+-- packs have no audio for, ready to paste into the website's submit form --
+-- see the missing-quest capture block above PlayQuestAudio.
 SLASH_QUESTREADERMISSING1, SLASH_QUESTREADERMISSING2, SLASH_QUESTREADERMISSING3 = '/qrmissing', '/ssmissing', '/speakstonemissing'
 SlashCmdList["QUESTREADERMISSING"] = function()
-    local missing = {}
-    for soundFile in pairs(addon.reportedMissing) do
-        table.insert(missing, soundFile)
+    local quests = QuestReaderAddonDB.missingCaptures and QuestReaderAddonDB.missingCaptures.quests or {}
+    local questCount = 0
+    for _ in pairs(quests) do
+        questCount = questCount + 1
     end
-    table.sort(missing)
 
-    if #missing == 0 then
-        print("SpeakStone Narration: no missing quest audio recorded this session.")
+    if questCount == 0 then
+        print("SpeakStone Narration: no missing quest text captured yet -- keep questing with sound packs installed and gaps get recorded automatically.")
         return
     end
 
-    local text = ""
-    for _, soundFile in ipairs(missing) do
-        text = text .. soundFile .. "\n"
+    local exportData = {
+        locale = GetLocale(),
+        build = select(2, GetBuildInfo()),
+        addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata
+                        and C_AddOns.GetAddOnMetadata(addonName, "Version")) or "unknown",
+        quests = quests,
+    }
+    for key, value in pairs(MissingCapturePlayerMetadata()) do
+        exportData[key] = value
     end
-    
+
+    local text = "QuestReaderAddonMissingExport = {\n" .. MissingCaptureSerialize(exportData, "  ") .. "}"
+
     editBox:SetText(text)
     missingCopyFrame:Show()
     editBox:HighlightText()
-    
-    print("SpeakStone Narration: Opened window with " .. #missing .. " missing quest audio file(s).")
+
+    print("SpeakStone Narration: Opened window with " .. questCount .. " missing quest(s). Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
 end
 
 local function SaveMinimapIconPosition()

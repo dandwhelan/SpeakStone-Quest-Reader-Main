@@ -243,6 +243,26 @@ captures does not mean they are on disk yet. The file lands at:
 World of Warcraft/_retail_/WTF/Account/<ACCOUNT>/SavedVariables/QuestReaderHarvester.lua
 ```
 
+### The base addon captures gaps too, with no separate install
+
+`QuestReaderAddon.lua` (the root of this repo, not the Harvester) records
+quest text on its own now, scoped to exactly the passages it finds no audio
+for during normal play. It shares no code with the Harvester -- the two
+addons can each be installed alone -- but its capture logic and export shape
+are deliberately ported line-for-line from the Harvester's, so the website
+accepts either export without knowing which addon wrote it.
+
+```
+/qrmissing        open a window with everything captured this way, ready to
+                   Ctrl+A / Ctrl+C and paste at speakstone.beanw.co.uk
+```
+
+This is narrower than the Harvester on purpose: quests only, not gossip or
+item text, and only what has no audio yet rather than everything played.
+What it buys back is reach -- every install of the base addon is quietly
+reporting gaps, not only the sessions where someone remembered to also
+enable the Harvester.
+
 ## Fetching quest text from Wowhead instead
 
 `wowhead_quests.py` gets the same records without playing the content. Wowhead
@@ -252,10 +272,12 @@ holds quest text because players upload it, so it can be read back per quest ID.
 python3 wowhead_quests.py --ids missing.txt -o passages.json
 ```
 
-Feed it the quest IDs `/qrmissing` reports, or any list one per line. It
-extracts the description, progress and completion text plus the quest giver and
-turn-in NPC, assigning the giver to the offer and the turn-in NPC to the rest.
-Pages are cached, so reruns cost nothing and only new IDs are fetched.
+Feed it the IDs `missing_quests.py` produces (see below), or any list one per
+line -- `/qrmissing`'s export is quest text ready to submit directly, not a
+bare ID list, so it is not an input to this script. It extracts the
+description, progress and completion text plus the quest giver and turn-in
+NPC, assigning the giver to the offer and the turn-in NPC to the rest. Pages
+are cached, so reruns cost nothing and only new IDs are fetched.
 
 Which route to use:
 
@@ -390,9 +412,10 @@ pool, not an NPC, so it will not resolve against the creature tables.
 ## Generating the audio
 
 `synthesize.py` matches each passage's speaker to that NPC's reference clips
-and generates one file per passage. The default engine is Coqui XTTS-v2, which
-clones zero-shot from a few seconds of audio and outputs at 24 kHz, the rate the
-addon already ships.
+and generates one file per passage. The default engine is F5-TTS, run from its
+own `tools/.venv-f5` environment; it clones zero-shot from a few seconds of
+audio and outputs at 24 kHz, the rate the addon already ships. Coqui XTTS-v2 is
+still selectable with `--engine xtts` and wants an environment of its own.
 
 ```sh
 python3 synthesize.py passages.json --reference ./reference-audio --dry-run
@@ -402,15 +425,26 @@ python3 synthesize.py passages.json --reference ./reference-audio --dry-run
 
 Warcraft proper nouns are not English, and the model reads them as if they
 were — the first Zul'Aman anyone listened to came out wrong.
-`pronunciations.json` beside the script maps known offenders to phonetic
-respellings ("Zul'Aman" → "Zool-Ah-Mahn"), applied to the text before it
-reaches the engine. Matching is case-insensitive on whole words, and
-possessives are handled ("Zul'Aman's" respells too).
+`pronunciations.json` beside the script maps known offenders to a respelling
+applied before the text reaches the engine. Matching is case-insensitive on
+whole words, and possessives are handled ("Zul'Aman's" respells too).
 
-Grow it by listening, not by guessing: add an entry when a generated clip
-gets a name wrong, and check the respelling against the game's own
-voice-over for that word before trusting it. `--lexicon` points elsewhere;
-an empty or missing file disables the pass.
+The apostrophe is the actual problem: the model reads it as a possessive or a
+hard glottal stop. So the respelling simply drops it and lets the halves run
+together — "Zul'Aman" → "Zulaman", "Atal'Utek" → "Atalutek".
+
+Full phonetic hyphenation was tried first ("Zool-Ah-Mahn") and rejected by
+ear: every hyphen invites a micro-break, so a three-hyphen name is read as
+separate stressed pieces and the delivery turns choppy. Measured, it also
+lengthened clips ~5.8% and roughly doubled the count of small internal
+pauses. See `_why_not_phonetic` in the file itself.
+
+Note the keys are matched longest-first, and that is load-bearing: "Amani" is
+a prefix of "Amani'Zar", and the trailing guard deliberately allows an
+apostrophe so possessives match. Re-sorting the keys any other way silently
+breaks the longer names.
+
+`--lexicon` points elsewhere; an empty or missing file disables the pass.
 
 ### What happens to the audio
 
