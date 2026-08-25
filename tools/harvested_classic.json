@@ -282024,6 +282024,2895 @@
       "npcName": "Archivist Roh-Suir",
       "soundFile": "63913_completion.ogg",
       "text": "I appreciate you handling this relic carefully. It is nothing short of a miracle that it did not detonate when Korthia was invaded."
+    },
+    {
+      "questID": 63914,
+      "passage": "description",
+      "title": "Cipher of Understanding",
+      "npcID": 179922,
+      "npcName": "Cipher of Understanding",
+      "soundFile": "63914_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for the cipher in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63914,
+      "passage": "completion",
+      "title": "Cipher of Understanding",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63914_completion.ogg",
+      "text": "My stars! To comprehend any of these languages would allow one the insight to translate all of them. We must look into this further."
+    },
+    {
+      "questID": 63915,
+      "passage": "description",
+      "title": "Drum of the Death Loa",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63915_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this drum in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63915,
+      "passage": "completion",
+      "title": "Drum of the Death Loa",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63915_completion.ogg",
+      "text": "I could hear you approaching with this drum before I saw you. And strangely, I though someone else might be with you."
+    },
+    {
+      "questID": 63916,
+      "passage": "description",
+      "title": "Sack of Strange Soil",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63916_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this soil in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63916,
+      "passage": "completion",
+      "title": "Sack of Strange Soil",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63916_completion.ogg",
+      "text": "This soil can grow any type of plant, anywhere.\n\nNot the most dangerous relic missing from the archive, and yet it could be the most useful. With enough time, one could restore the verdant beauty of Korthia."
+    },
+    {
+      "questID": 63917,
+      "passage": "description",
+      "title": "Everliving Statuette",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63917_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this statuette in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63917,
+      "passage": "completion",
+      "title": "Everliving Statuette",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63917_completion.ogg",
+      "text": "I trust you did not listen to anything that this little monster told you.\n\nIt is absolutely incapable of uttering the truth."
+    },
+    {
+      "questID": 63918,
+      "passage": "description",
+      "title": "Obelisk of Dark Tidings",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63918_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this obelisk in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63918,
+      "passage": "completion",
+      "title": "Obelisk of Dark Tidings",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63918_completion.ogg",
+      "text": "We must be cautious around this obelisk.\n\nMore than one attendant was driven mad while researching the relic."
+    },
+    {
+      "questID": 63919,
+      "passage": "description",
+      "title": "Book of Binding: The Tormented Sorcerer",
+      "npcID": 179956,
+      "npcName": "Blue Book",
+      "soundFile": "63919_description.ogg",
+      "text": "<You hear a muffled voice speaking from within this book, interspersed with crackling static. Though the utterances are mostly unintelligible, you can make out the repeated request to recover azure pages.\n\nFlipping through the volume, you note that many of its pages are missing.\n\nIf the pages were retrieved, the book could be returned to the Archivist and reassembled.>"
+    },
+    {
+      "questID": 63919,
+      "passage": "progress",
+      "title": "Book of Binding: The Tormented Sorcerer",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63919_progress.ogg",
+      "text": "I find these strange speaking tomes... discomfiting."
+    },
+    {
+      "questID": 63919,
+      "passage": "completion",
+      "title": "Book of Binding: The Tormented Sorcerer",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63919_completion.ogg",
+      "text": "This appears to be a companion tome to the crimson book that was under the care of scholars in the Seeker's Quorum.\n\nKnowing that this book binding was separated from its pages intentionally, I will stitch all but one azure page back into it before returning it to the archive."
+    },
+    {
+      "questID": 63920,
+      "passage": "description",
+      "title": "Enigmatic Decrypting Device",
+      "npcID": 179968,
+      "npcName": "Enigmatic Decrypting Device",
+      "soundFile": "63920_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this device in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63920,
+      "passage": "completion",
+      "title": "Enigmatic Decrypting Device",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63920_completion.ogg",
+      "text": "Though I have only a passing understanding of its operation, this relic can strip the complexity of communication into a form that is free from subtlety, guile, or metaphor. Pure logic."
+    },
+    {
+      "questID": 63921,
+      "passage": "description",
+      "title": "Ring of Self-Reflection",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63921_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this ring in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63921,
+      "passage": "completion",
+      "title": "Ring of Self-Reflection",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63921_completion.ogg",
+      "text": "I am curious to learn how this strange ring functions."
+    },
+    {
+      "questID": 63922,
+      "passage": "description",
+      "title": "Shadow Slicing Shortsword",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63922_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this shortsword in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63922,
+      "passage": "completion",
+      "title": "Shadow Slicing Shortsword",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63922_completion.ogg",
+      "text": "Though the blade's shadow severing properties may appear to be no more than a parlor trick, I believe this is one of the most dangerous relics in our care."
+    },
+    {
+      "questID": 63923,
+      "passage": "description",
+      "title": "Lang Family Wood-Carving",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63923_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this wood-carving in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63923,
+      "passage": "completion",
+      "title": "Lang Family Wood-Carving",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63923_completion.ogg",
+      "text": "I believe this relic can teach us something about the history as well as the future."
+    },
+    {
+      "questID": 63924,
+      "passage": "description",
+      "title": "Gorak Claw Fetish",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63924_description.ogg",
+      "text": "<Your familiarity with the Archivists' Codex makes it clear that this is one of the missing relics.\n\nArchivist Roh-Suir has a spot for this fetish in the Reliquary of Remembrance.>"
+    },
+    {
+      "questID": 63924,
+      "passage": "completion",
+      "title": "Gorak Claw Fetish",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "63924_completion.ogg",
+      "text": "Some mote of Gorak Tul yet lives within this fetish. His corruption is barely contained."
+    },
+    {
+      "questID": 63936,
+      "passage": "description",
+      "title": "Devoured Anima",
+      "npcID": 178797,
+      "npcName": "Sika",
+      "soundFile": "63936_description.ogg",
+      "text": "Sika has idea!\n\nDevourers... devour. They eat anything! So they eat anima, too.\n\nIf we take anima from devourers, then that anima is ours!"
+    },
+    {
+      "questID": 63936,
+      "passage": "progress",
+      "title": "Devoured Anima",
+      "npcID": 178797,
+      "npcName": "Sika",
+      "soundFile": "63936_progress.ogg",
+      "text": "Sika wonders what anima tastes like."
+    },
+    {
+      "questID": 63936,
+      "passage": "completion",
+      "title": "Devoured Anima",
+      "npcID": 178797,
+      "npcName": "Sika",
+      "soundFile": "63936_completion.ogg",
+      "text": "Thank you! Wow... you can't tell this was inside devourer!\n\nSika will get anima to those most in need."
+    },
+    {
+      "questID": 63945,
+      "passage": "description",
+      "title": "The Soul Blade",
+      "npcID": 178690,
+      "npcName": "Bonesmith Heirmir",
+      "soundFile": "63945_description.ogg",
+      "text": "The runeblade of a Necrolord can be a potent weapon in this realm. An abundance of souls are willing to contribute their anima to end their own suffering and bring defeat to the Jailer.\n\nTake one of my runeblades and charge it with the anima of the willing souls you find here.\n\nOnce charged, use it lay waste to their forces here."
+    },
+    {
+      "questID": 63945,
+      "passage": "progress",
+      "title": "The Soul Blade",
+      "npcID": 178887,
+      "npcName": "Bonesmith Heirmir",
+      "soundFile": "63945_progress.ogg",
+      "text": "Has my blade tasted victory?"
+    },
+    {
+      "questID": 63945,
+      "passage": "completion",
+      "title": "The Soul Blade",
+      "npcID": 178887,
+      "npcName": "Bonesmith Heirmir",
+      "soundFile": "63945_completion.ogg",
+      "text": "<Bonesmith Heirmir takes her runeblade back from you and examines it carefully.>\n\nNot bad, <name>. Always room for improvement... but not bad."
+    },
+    {
+      "questID": 63949,
+      "passage": "description",
+      "title": "Shaping Fate",
+      "npcID": 177927,
+      "npcName": "Tal-Galan",
+      "soundFile": "63949_description.ogg",
+      "text": "The Jailer's power and malevolence continue to grow. So must our resilience.\n\nStand amongst your allies, <name>. Push back against the darkness that would consume us all.\n\nTogether, we will yet prevail.\n\nMay the Purpose guide your hand."
+    },
+    {
+      "questID": 63949,
+      "passage": "progress",
+      "title": "Shaping Fate",
+      "npcID": 177927,
+      "npcName": "Tal-Galan",
+      "soundFile": "63949_progress.ogg",
+      "text": "One cannot run from history, but one's actions may shape the outcome."
+    },
+    {
+      "questID": 63949,
+      "passage": "completion",
+      "title": "Shaping Fate",
+      "npcID": 177927,
+      "npcName": "Tal-Galan",
+      "soundFile": "63949_completion.ogg",
+      "text": "The threads of fate weave through you, Maw Walker.\n\nJust as the prophecies foretold."
+    },
+    {
+      "questID": 63951,
+      "passage": "description",
+      "title": "A Shady Place",
+      "npcID": 178890,
+      "npcName": "Margrave Sin'dane",
+      "soundFile": "63951_description.ogg",
+      "text": "Existence is not a simple thing, adventurer. It is layers upon layers of realities.\n\nThe Jailer's traps are pulling our troops into one such rift, hidden from normal sight.\n\nI have obtained an Unbalanced Riftstone. It will give you the ability to enter the rift and destroy the traps keeping our troops trapped inside, before they are lost forever.\n\nAfter you've destroyed the Rift-Veiled Traps, exit the rift and pull the trapped soldiers back into our reality."
+    },
+    {
+      "questID": 63951,
+      "passage": "progress",
+      "title": "A Shady Place",
+      "npcID": 178890,
+      "npcName": "Margrave Sin'dane",
+      "soundFile": "63951_progress.ogg",
+      "text": "There is much we cannot see."
+    },
+    {
+      "questID": 63951,
+      "passage": "completion",
+      "title": "A Shady Place",
+      "npcID": 178890,
+      "npcName": "Margrave Sin'dane",
+      "soundFile": "63951_completion.ogg",
+      "text": "Excellent work Maw Walker."
+    },
+    {
+      "questID": 63952,
+      "passage": "description",
+      "title": "Heavy-Handed Tactics",
+      "npcID": 178745,
+      "npcName": "Emeni",
+      "soundFile": "63952_description.ogg",
+      "text": "We need more constructs on the front lines, but we have no bodies, heads, or legs! \n\nRathan's making the best constructs possible with what we DO have... a lot of hands.\n\nDon't ask questions!\n\nThere are enemies in Calcis that we need dead. Take the hands and kill things!"
+    },
+    {
+      "questID": 63952,
+      "passage": "progress",
+      "title": "Heavy-Handed Tactics",
+      "npcID": 178891,
+      "npcName": "Margrave Sin'dane",
+      "soundFile": "63952_progress.ogg",
+      "text": "Rathan is nothing if not resourceful."
+    },
+    {
+      "questID": 63952,
+      "passage": "completion",
+      "title": "Heavy-Handed Tactics",
+      "npcID": 178891,
+      "npcName": "Margrave Sin'dane",
+      "soundFile": "63952_completion.ogg",
+      "text": "<Margrave Sin'dane looks impressed... or annoyed... or disgusted... or concerned?>\n\nHm. I suppose with enough hands, anything IS possible..."
+    },
+    {
+      "questID": 63959,
+      "passage": "description",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63959_description.ogg",
+      "text": "Greetings, Maw Walker, a moment of your time?\n\nAs you no doubt know, my cartel has quietly spread observational devices all across Korthia. But that data is no good to us if it is not retrieved. Which is where you come in.\n\nThe Sanctuary of Guidance records should be ready to collect. You won't see the devices themselves, but the data will appear to you as a bright orb.\n\nBring those data to me, and I will reward you handsomely."
+    },
+    {
+      "questID": 63959,
+      "passage": "progress",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63959_progress.ogg",
+      "text": "Have you retrieved the observational records from the Sanctuary of Guidance?"
+    },
+    {
+      "questID": 63959,
+      "passage": "completion",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63959_completion.ogg",
+      "text": "The devourers have destroyed much of what might have been useful at the Sanctuary of Guidance. But this information will still prove valuable.\n\nAnd here is your reward, as promised."
+    },
+    {
+      "questID": 63960,
+      "passage": "description",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63960_description.ogg",
+      "text": "Greetings, Maw Walker, a moment of your time?\n\nAs you no doubt know, my cartel has quietly spread observational devices all across Korthia. But that data is no good to us if it is not retrieved. Which is where you come in.\n\nThe records from the Windswept Aerie and Estuary of Awakening should be ready to collect. You won't see the devices themselves, but the data will appear to you as a bright orb.\n\nAnd don't forget to look below ground!\n\nBring those data to me, and I will reward you handsomely."
+    },
+    {
+      "questID": 63960,
+      "passage": "progress",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63960_progress.ogg",
+      "text": "Have you retrieved the observational records from the Windswept Aerie and Estuary of Awakening?"
+    },
+    {
+      "questID": 63960,
+      "passage": "completion",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "63960_completion.ogg",
+      "text": "Places like the Aerie and Estuary must have been desolate even before all the destruction. What interesting creatures congregate there.\n\nWill they all survive these changes? Will some adapt, and become even more fearsome?\n\nHere is your reward, as promised."
+    },
+    {
+      "questID": 63969,
+      "passage": "description",
+      "title": "Looming Darkness",
+      "npcID": 178828,
+      "npcName": "Lord Herne",
+      "soundFile": "63969_description.ogg",
+      "text": "The Winter Queen called for a hunt in this location due to reports of a massive, unnatural darkness swelling in its upper regions.\n\nThe Wild Hunt is brave, but not foolish. We must learn what we can about this darkness before we charge into it.\n\nSearch the bodies of our enemies nearby for clues."
+    },
+    {
+      "questID": 63969,
+      "passage": "progress",
+      "title": "Looming Darkness",
+      "npcID": 178828,
+      "npcName": "Lord Herne",
+      "soundFile": "63969_progress.ogg",
+      "text": "Have you learned anything regarding the darkness yet?"
+    },
+    {
+      "questID": 63969,
+      "passage": "completion",
+      "title": "Looming Darkness",
+      "npcID": 178828,
+      "npcName": "Lord Herne",
+      "soundFile": "63969_completion.ogg",
+      "text": "We will discover the source of this darkness, and end it."
+    },
+    {
+      "questID": 63970,
+      "passage": "description",
+      "title": "No Soul Left Behind",
+      "npcID": 178884,
+      "npcName": "Thiernax",
+      "soundFile": "63970_description.ogg",
+      "text": "Do you hear the cries of tormented souls trapped in Gorgoa?\n\nThe twisted river of souls flows before us, swelling with cruelty and the torment of undeserving victims.\n\nOur brave regiment of druid spirits led the charge into the river to seek out those lost souls, but I fear many have instead joined in their suffering.\n\nSummon your courage and take my cradle with you into the river. Load the lost souls you find onto the cradle, then order the cradle to come back to me."
+    },
+    {
+      "questID": 63970,
+      "passage": "progress",
+      "title": "No Soul Left Behind",
+      "npcID": 178884,
+      "npcName": "Thiernax",
+      "soundFile": "63970_progress.ogg",
+      "text": "I admire Thiernax's dedication to even the least among us."
+    },
+    {
+      "questID": 63970,
+      "passage": "completion",
+      "title": "No Soul Left Behind",
+      "npcID": 178884,
+      "npcName": "Thiernax",
+      "soundFile": "63970_completion.ogg",
+      "text": "Thank you, <name>. We must not forget to help one another as we stride deeper into the darkness."
+    },
+    {
+      "questID": 63971,
+      "passage": "description",
+      "title": "Snail Stomping",
+      "npcID": 178885,
+      "npcName": "Lady Moonberry",
+      "soundFile": "63971_description.ogg",
+      "text": "Careful where you step. You wouldn't want to accidentally squish a Mawsworn, would you?\n\nOf course you would! It's so fun!\n\n<Lady Moonberry giggles and points at the snails around her.>\n\nIt's so much easier to squish Mawsworn after you've transformed them into stinky little snails.\n\nHere, take my wand and try it out on whatever you like.\n\nYou may need to weaken them a bit first, but it'll work on almost anything!"
+    },
+    {
+      "questID": 63971,
+      "passage": "progress",
+      "title": "Snail Stomping",
+      "npcID": 178829,
+      "npcName": "Lord Herne",
+      "soundFile": "63971_progress.ogg",
+      "text": "Lady Moonberry never ceases to surprise me."
+    },
+    {
+      "questID": 63971,
+      "passage": "completion",
+      "title": "Snail Stomping",
+      "npcID": 178829,
+      "npcName": "Lord Herne",
+      "soundFile": "63971_completion.ogg",
+      "text": "<Lord Herne grins.> My record was squishing four in a single jump.\n\nOne of the many benefits of being a quadruped."
+    },
+    {
+      "questID": 63972,
+      "passage": "description",
+      "title": "Just Don't Ask Me to Spell It",
+      "npcID": 179066,
+      "npcName": "Choofa",
+      "soundFile": "63972_description.ogg",
+      "text": "It's getting dangerous out there for druid spirits!\n\nThankfully, we always have room for another friend in our group, and this fine tirnenn has offered to help me and the gang get around the battlefield safely.\n\n<The tirnenn behind Choofa begins speaking slowly, but Choofa just talks louder.>\n\nGood ol' Kirriprkar- I mean, Karripkraker- I mean, Krackerkrisp...\n\n<Choofa laughs.>\n\nLet's just call her \"Big K\"!\n\nHop on, everybody!"
+    },
+    {
+      "questID": 63972,
+      "passage": "progress",
+      "title": "Just Don't Ask Me to Spell It",
+      "npcID": 178828,
+      "npcName": "Lord Herne",
+      "soundFile": "63972_progress.ogg",
+      "text": "Krrprripripkraak and Choofa are teaming up? This, I must see."
+    },
+    {
+      "questID": 63972,
+      "passage": "completion",
+      "title": "Just Don't Ask Me to Spell It",
+      "npcID": 178828,
+      "npcName": "Lord Herne",
+      "soundFile": "63972_completion.ogg",
+      "text": "I have received many reports from hunters who were aided by Krrprripripkraak and her friends. Thank you for helping them."
+    },
+    {
+      "questID": 63974,
+      "passage": "description",
+      "title": "That's Going to Sting",
+      "npcID": 179065,
+      "npcName": "Niya",
+      "soundFile": "63974_description.ogg",
+      "text": "<Niya speaks loudly to be heard over the buzzing coming from the collection of needler nests behind her.>\n\nI've caught Moonberry trying to steal these nests for her pranks over ten times already!\n\nThe other faeries said I was crazy to bring the needlers out here. Too wild! Too unpredictable!\n\nBut that's exactly why we need them.\n\nLord Herne's scouts report powerful Heralds among our enemy's forces.\n\nTake one of these nests, and use it to surprise the Heralds!"
+    },
+    {
+      "questID": 63974,
+      "passage": "progress",
+      "title": "That's Going to Sting",
+      "npcID": 179065,
+      "npcName": "Niya",
+      "soundFile": "63974_progress.ogg",
+      "text": "Niya is proving to be quite the clever tactician..."
+    },
+    {
+      "questID": 63974,
+      "passage": "completion",
+      "title": "That's Going to Sting",
+      "npcID": 179065,
+      "npcName": "Niya",
+      "soundFile": "63974_completion.ogg",
+      "text": "I wish I could've been there to see it myself!\n\nA fitting end for the Heralds..."
+    },
+    {
+      "questID": 64016,
+      "passage": "description",
+      "title": "Oozing with Character",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64016_description.ogg",
+      "text": "Apprentice! I've been looking for you.\n\nKevin has been such a wonderful helper in our experiments, I'd like to train my other oozes to be able to assist as well!\n\nFor Ooz, I'd like to know if they are able to consume organic material and increase in size."
+    },
+    {
+      "questID": 64016,
+      "passage": "progress",
+      "title": "Oozing with Character",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64016_progress.ogg",
+      "text": "They're good oozes, <name>."
+    },
+    {
+      "questID": 64016,
+      "passage": "completion",
+      "title": "Oozing with Character",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64016_completion.ogg",
+      "text": "How did the tests go? OH! Ooz! You're huge! You're even more beautiful than normal!"
+    },
+    {
+      "questID": 64065,
+      "passage": "description",
+      "title": "Local Reagents",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64065_description.ogg",
+      "text": "Korthia is an odd place. The wildlife here is different, likely due to years of exposure to the Vault and everything it contains.\n\nAre you ready to try some experiments? We'll need a good stock of reagents first.\n\nNear the Seeker's Quorum, you should be able to find shardhides, gromits, and razorwings. Watch out for their needles!"
+    },
+    {
+      "questID": 64065,
+      "passage": "progress",
+      "title": "Local Reagents",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64065_progress.ogg",
+      "text": "Feel like taste testing my newest experiment? It probably won't kill you."
+    },
+    {
+      "questID": 64065,
+      "passage": "completion",
+      "title": "Local Reagents",
+      "npcID": 178806,
+      "npcName": "Plague Deviser Marileth",
+      "soundFile": "64065_completion.ogg",
+      "text": "This needle is so long and perfect! Well done apprentice. I can't wait to get started on our new tests!"
+    },
+    {
+      "questID": 64092,
+      "passage": "description",
+      "title": "Hunting Huln",
+      "npcID": 177962,
+      "npcName": "Lady Moonberry",
+      "soundFile": "64092_description.ogg",
+      "text": "Huln is somewhere in the area, but the Stonewright isn't letting anyone in to her territory because of the recent, ah, troubles with Dreadlords. The guards won't let anyone in, and they're kicking out anyone who doesn't look like they belong.\n\nLuckily for Huln, Cudgelface and I came up with a foolproof plan!\n\nWe just need to look like we belong and then we can ask around and find Huln. Easy!"
+    },
+    {
+      "questID": 64092,
+      "passage": "completion",
+      "title": "Hunting Huln",
+      "npcID": 178254,
+      "npcName": "Stoneborn Detainment Chief",
+      "soundFile": "64092_completion.ogg",
+      "text": "I'm busy with this piece of dreadlord filth. Find something useful to do before the Stonewright gets angry. You don't want to see her angry."
+    },
+    {
+      "questID": 64215,
+      "passage": "description",
+      "title": "Paw Patrol",
+      "npcID": 179566,
+      "npcName": "Zantini",
+      "soundFile": "64215_description.ogg",
+      "text": "While Speedy IV was collecting supplies, Stringfellowe was scouting the rest of the Eye of Azshara.\n\nTurns out there is a whole mess of pirates to the west. That must be where the pets are at.\n\nHead over there and rescue the pets."
+    },
+    {
+      "questID": 64215,
+      "passage": "progress",
+      "title": "Paw Patrol",
+      "npcID": 179566,
+      "npcName": "Zantini",
+      "soundFile": "64215_progress.ogg",
+      "text": "Have you found them, <name>?"
+    },
+    {
+      "questID": 64215,
+      "passage": "completion",
+      "title": "Paw Patrol",
+      "npcID": 179566,
+      "npcName": "Zantini",
+      "soundFile": "64215_completion.ogg",
+      "text": "Nice work freeing the pets, <name>. \n\nBut still no sign of Gurgl."
+    },
+    {
+      "questID": 64216,
+      "passage": "description",
+      "title": "Tower Knowledge",
+      "npcID": 164937,
+      "npcName": "Runecarver",
+      "soundFile": "64216_description.ogg",
+      "text": "The woven power of this box can only be unlocked by feeding it pride and memory. In its weave are incantations I have seen used in the other realms to siphon or condition a soul. This... abomination... has used these tools of redemption and honor to create a lock.\n\nAs you challenge the floors of Torghast, your skill, speed, and efficiency will all contribute to Tower Knowledge which this box can feed upon. \n\nFeed it to retrieve the powers within."
+    },
+    {
+      "questID": 64216,
+      "passage": "progress",
+      "title": "Tower Knowledge",
+      "npcID": 177282,
+      "npcName": "The Box of Many Things",
+      "soundFile": "64216_progress.ogg",
+      "text": "<The Box of Many Things thrums with power.>"
+    },
+    {
+      "questID": 64216,
+      "passage": "completion",
+      "title": "Tower Knowledge",
+      "npcID": 177282,
+      "npcName": "The Box of Many Things",
+      "soundFile": "64216_completion.ogg",
+      "text": "<The box hungers, reaching into your memories of Torghast for past deeds to feed upon.>"
+    },
+    {
+      "questID": 64226,
+      "passage": "description",
+      "title": "Security Measures",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64226_description.ogg",
+      "text": "It seems the hidden traps I placed around the grotto are not as effective as I would like, considering your presence in my home. \n\nHowever, they are still useful in preventing the majority of unwanted attention. \n\nSince you so kindly brought assassins to me, I cannot reset the traps myself. \n\nSo you will need to do it for me. I will stay here to guard both myself and my precious research. Use this Sensory Synchronizer I placed nearby to show you which traps need to be reset."
+    },
+    {
+      "questID": 64226,
+      "passage": "completion",
+      "title": "Security Measures",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64226_completion.ogg",
+      "text": "Good. That should shield us from notice for a while."
+    },
+    {
+      "questID": 64230,
+      "passage": "description",
+      "title": "Cyphers of the First Ones",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64230_description.ogg",
+      "text": "The way is not quite clear, but the first steps have been made.\n\nIt seems the divine construct has taken more of a liking to you than to me. \n\nNow that it has given you the beginnings of understanding, see what else it wishes to show you.\n\nThe results should be enlightening."
+    },
+    {
+      "questID": 64230,
+      "passage": "progress",
+      "title": "Cyphers of the First Ones",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64230_progress.ogg",
+      "text": "You have been blessed."
+    },
+    {
+      "questID": 64230,
+      "passage": "completion",
+      "title": "Cyphers of the First Ones",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64230_completion.ogg",
+      "text": "Can't you feel the knowledge you've gained coursing through you?!\n\nTo think it is you who will unlock the secrets of Zereth Mortis...\n\nI will be watching you very closely."
+    },
+    {
+      "questID": 64289,
+      "passage": "description",
+      "title": "Picking Up the Pieces",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64289_description.ogg",
+      "text": "Much was lost when Korthia was pulled into the Maw.\n\nPriceless relics were torn asunder. I have seen creatures carrying the remnants of these items. \n\nThey must be recovered.\n\nConfront the Jailer's forces and search what remains of Korthia for these fragments of our once glorious vault."
+    },
+    {
+      "questID": 64289,
+      "passage": "completion",
+      "title": "Picking Up the Pieces",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64289_completion.ogg",
+      "text": "These will do nicely. There is much I can do to improve them."
+    },
+    {
+      "questID": 64290,
+      "passage": "description",
+      "title": "Collecting Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64290_description.ogg",
+      "text": "You have done well to collect these fragments. They will go a long way to restoring our archives. \n\nI can use what you have found to gather more research about what was lost within Korthia. \n\nAfterwards, it will be up to you to find more fragments and relics within Korthia to boost our archives."
+    },
+    {
+      "questID": 64290,
+      "passage": "progress",
+      "title": "Collecting Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64290_progress.ogg",
+      "text": "We thank you for your aid so far, Maw Walker."
+    },
+    {
+      "questID": 64290,
+      "passage": "completion",
+      "title": "Collecting Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64290_completion.ogg",
+      "text": "This should do nicely. The reliquary will improve with more research."
+    },
+    {
+      "questID": 64438,
+      "passage": "description",
+      "title": "Empowering Equipment",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64438_description.ogg",
+      "text": "The research you find can unlock many possibilities.\n\nOne such avenue is improving some equipment that you may find within Korthia.\n\nSpeak with my assistant nearby. He can use our research to restore this equipment to its former power."
+    },
+    {
+      "questID": 64438,
+      "passage": "progress",
+      "title": "Empowering Equipment",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64438_progress.ogg",
+      "text": "I will do what I can to aid you, Maw Walker."
+    },
+    {
+      "questID": 64438,
+      "passage": "completion",
+      "title": "Empowering Equipment",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64438_completion.ogg",
+      "text": "This is the least we can do to help you in your efforts, Maw Walker."
+    },
+    {
+      "questID": 64521,
+      "passage": "description",
+      "title": "Helsworn Battle Plans",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64521_description.ogg",
+      "text": "<These battle plans detail possible movements into Korthia, and include detailed reports of the defensive capabilities of the Death's Advance in the region.\n\nDuchess Mynx in Keeper's Respite would be able to spread this information rapidly to those who need it.>"
+    },
+    {
+      "questID": 64521,
+      "passage": "completion",
+      "title": "Helsworn Battle Plans",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64521_completion.ogg",
+      "text": "<Duchess Mynx's eyes widen as she browses the documents you brought her.>\n\nI will disseminate these immediately. Thank you!"
+    },
+    {
+      "questID": 64522,
+      "passage": "description",
+      "title": "Stolen Korthian Supplies",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64522_description.ogg",
+      "text": "<These supplies are marked with the seal of the Death's Advance, stolen from the Rift without being noticed.\n\nDuchess Mynx in Keeper's Respite would be very grateful to have this returned.>"
+    },
+    {
+      "questID": 64522,
+      "passage": "completion",
+      "title": "Stolen Korthian Supplies",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64522_completion.ogg",
+      "text": "<Duchess Mynx looks at you incredulously.>\n\nYou found these WHERE?!\n\nWell, how am I supposed to stop thieves I cannot even see? Cowardly shades!"
+    },
+    {
+      "questID": 64526,
+      "passage": "description",
+      "title": "Mysterious Rifts",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64526_description.ogg",
+      "text": "Thank you so much for your aid, <name>. I have uncovered more relics from the codex that remain intact.\n\nThe key to finding these relics rests within the strange rifts within Korthia.\n\nI can now craft a way for you to enter these rifts, in order to gain access to these missing relics.\n\nAs before, take note of the echoes to understand what these relics look like. Please be sure to examine them before you depart."
+    },
+    {
+      "questID": 64526,
+      "passage": "progress",
+      "title": "Mysterious Rifts",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64526_progress.ogg",
+      "text": "Have you seen the missing relics?"
+    },
+    {
+      "questID": 64526,
+      "passage": "completion",
+      "title": "Mysterious Rifts",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64526_completion.ogg",
+      "text": "Thank you for your continued aid. The reliquary will be restored, thanks to your diligent work."
+    },
+    {
+      "questID": 64527,
+      "passage": "description",
+      "title": "Observing the Chase",
+      "npcID": 174922,
+      "npcName": "Strategist Zo'rak",
+      "soundFile": "64527_description.ogg",
+      "text": "In our observations of your kind's conflict, we have noticed a high rate of escape among the prey.\n\nThis is unadvantageous to our observation efforts.\n\nThe Observer has acquired a tool we believe will improve your ability to force conflict.\n\nBefore I give it to you, we ask that you prove your willingness to participate in such conflicts, so that we know we will receive a worthy return on this investment."
+    },
+    {
+      "questID": 64527,
+      "passage": "progress",
+      "title": "Observing the Chase",
+      "npcID": 174922,
+      "npcName": "Strategist Zo'rak",
+      "soundFile": "64527_progress.ogg",
+      "text": "Your hesitation to set out and hunt your prey is not promising, <name>..."
+    },
+    {
+      "questID": 64527,
+      "passage": "completion",
+      "title": "Observing the Chase",
+      "npcID": 174922,
+      "npcName": "Strategist Zo'rak",
+      "soundFile": "64527_completion.ogg",
+      "text": "Excellent. We will be watching your future endeavors with great interest."
+    },
+    {
+      "questID": 64532,
+      "passage": "description",
+      "title": "The Final Relics",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64532_description.ogg",
+      "text": "I have excellent news, <name>. I have uncovered the last set of our missing relics! \n\nIt may be difficult for you to locate them, but I have developed the proper research to aid you.\n\nPlease, review the last of our missing relics. We are so close to finding them all!"
+    },
+    {
+      "questID": 64532,
+      "passage": "progress",
+      "title": "The Final Relics",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64532_progress.ogg",
+      "text": "Have you seen the missing relics?"
+    },
+    {
+      "questID": 64532,
+      "passage": "completion",
+      "title": "The Final Relics",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "64532_completion.ogg",
+      "text": "Thank you for your continued aid. The reliquary will be restored, thanks to your diligent work."
+    },
+    {
+      "questID": 64551,
+      "passage": "description",
+      "title": "Legend of the Animaswell",
+      "npcID": 165321,
+      "npcName": "Merick Feldscar",
+      "soundFile": "64551_description.ogg",
+      "text": "<This appears to be an incomplete set of notes detailing one archivist's search for a mythical font of anima hidden somewhere deep in Korthia.\n\nMerick Feldscar in the Seat of the Primus would be able to help you put together a team to search for it.>"
+    },
+    {
+      "questID": 64551,
+      "passage": "completion",
+      "title": "Legend of the Animaswell",
+      "npcID": 165321,
+      "npcName": "Merick Feldscar",
+      "soundFile": "64551_completion.ogg",
+      "text": "<Merick Feldscar carefully studies the documents you brought him.>\n\nThe documentation is incomplete. It is unclear if the archivist even survived...\n\nBut the tales of the anima are impressive, and there are enough details here to launch an expedition.\n\nIt will not be easy. The archivist warns of many dangers protecting the anima source..."
+    },
+    {
+      "questID": 64553,
+      "passage": "description",
+      "title": "Legend of the Animaswell",
+      "npcID": 164741,
+      "npcName": "Tactician Sakaa",
+      "soundFile": "64553_description.ogg",
+      "text": "<This appears to be an incomplete set of notes detailing one archivist's search for a mythical font of anima hidden somewhere deep in Korthia.\n\nTactician Sakaa in Sinfall would be able to help you put together a team to search for it.>"
+    },
+    {
+      "questID": 64553,
+      "passage": "completion",
+      "title": "Legend of the Animaswell",
+      "npcID": 164741,
+      "npcName": "Tactician Sakaa",
+      "soundFile": "64553_completion.ogg",
+      "text": "<Tactician Sakaa carefully studies the documents you brought her.>\n\nThe documentation is incomplete. It is unclear if the archivist even survived...\n\nBut the tales of the anima are incredible, and there are enough details here to launch an expedition.\n\nIt will not be easy. The archivist warns of many dangers protecting the anima source..."
+    },
+    {
+      "questID": 64554,
+      "passage": "description",
+      "title": "Venthyr Assault",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "64554_description.ogg",
+      "text": "The Jailer's forces have been caught off guard by our attack. We shall overrun Perdition Hold and defeat his champions at the Altar of Domination!\n\nYour help is needed Maw Walker. Assist our forces on the battlefield!"
+    },
+    {
+      "questID": 64556,
+      "passage": "description",
+      "title": "In Need of Assistance",
+      "npcID": 177228,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64556_description.ogg",
+      "text": "The inhabitants of Korthia have been through much. Were it not for our arrival, the Jailer's forces would have rampaged through the remainder of the City of Secrets, leaving destruction in their wake.\n\nTo continue our efforts, we must assist those in need.\n\nHeed the call of our allies, Maw Walker. See to it no stone is left unturned and no ally of the Jailer left alive."
+    },
+    {
+      "questID": 64556,
+      "passage": "completion",
+      "title": "In Need of Assistance",
+      "npcID": 177228,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64556_completion.ogg",
+      "text": "This work brings us one step closer to ending Zovaal's reign over this forsaken land."
+    },
+    {
+      "questID": 64560,
+      "passage": "description",
+      "title": "Anima Reclamation",
+      "npcID": 178793,
+      "npcName": "Kael'thas Sunstrider",
+      "soundFile": "64560_description.ogg",
+      "text": "Our efforts here need a constant supply of troops, supplies, and anima. The last one is the hardest, for obvious reasons. But I've learned to be resourceful. \n\nNearby there is a plentiful source of anima: the devourers that currently swarm the Sanctuary of Guidance. It's not as easy as beating it out of a soul, but it's just as effective, if you're strong enough. Are you?"
+    },
+    {
+      "questID": 64560,
+      "passage": "progress",
+      "title": "Anima Reclamation",
+      "npcID": 178793,
+      "npcName": "Kael'thas Sunstrider",
+      "soundFile": "64560_progress.ogg",
+      "text": "Every drop of anima we reclaim is a potential weapon against the Jailer."
+    },
+    {
+      "questID": 64560,
+      "passage": "completion",
+      "title": "Anima Reclamation",
+      "npcID": 178793,
+      "npcName": "Kael'thas Sunstrider",
+      "soundFile": "64560_completion.ogg",
+      "text": "You can trust me with this anima. I will see it is turned against the Jailer and his forces."
+    },
+    {
+      "questID": 64561,
+      "passage": "description",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "64561_description.ogg",
+      "text": "Greetings, Maw Walker, a moment of your time?\n\nAs you no doubt know, my cartel has quietly spread observational devices all across Korthia. But that data is no good to us if it is not retrieved. Which is where you come in.\n\nThe records from the Windswept Aerie and Estuary of Awakening should be ready to collect. You won't see the devices themselves, but the data will appear to you as a bright orb.\n\nAnd don't forget to look below ground!\n\nBring those data to me, and I will reward you handsomely."
+    },
+    {
+      "questID": 64561,
+      "passage": "progress",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "64561_progress.ogg",
+      "text": "Have you retrieved the observational records from the Windswept Aerie and Estuary of Awakening?"
+    },
+    {
+      "questID": 64561,
+      "passage": "completion",
+      "title": "Observational Records",
+      "npcID": 178844,
+      "npcName": "Ta'nasi",
+      "soundFile": "64561_completion.ogg",
+      "text": "Places like the Aerie and Estuary must have been desolate, even before all the destruction. What interesting creatures congregate there.\n\nWill they all survive these changes, or will some adapt, and become even more fearsome?\n\nAnd here is your reward, as promised."
+    },
+    {
+      "questID": 64579,
+      "passage": "description",
+      "title": "Hollow Efforts",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64579_description.ogg",
+      "text": "The large metal spheres that litter the landscape of Zereth Mortis are spent forges, discarded during the creation process. \n\nThese empty metal husks still contain residual materials of creation that may be useful to us.\n\nUse my Forge-Tap near these metal spheres to harvest any Remnant Neomotes. You may also find other useful proto-materials!"
+    },
+    {
+      "questID": 64579,
+      "passage": "progress",
+      "title": "Hollow Efforts",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64579_progress.ogg",
+      "text": "Have you gathered the materials already?"
+    },
+    {
+      "questID": 64579,
+      "passage": "completion",
+      "title": "Hollow Efforts",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64579_completion.ogg",
+      "text": "Excellent work, <name>. These resources will bolster our efforts here."
+    },
+    {
+      "questID": 64592,
+      "passage": "description",
+      "title": "Historic Protection",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "64592_description.ogg",
+      "text": "The outsiders have disrupted the sands. We cannot reach the terraforming records we need in order to collect necessary historical information.\n\nWill you assist us?\n\nHelp Mai Obet collect historical records in the Endless Sands."
+    },
+    {
+      "questID": 64592,
+      "passage": "completion",
+      "title": "Historic Protection",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "64592_completion.ogg",
+      "text": "We have archived the necessary records. Thank you for your assistance."
+    },
+    {
+      "questID": 64597,
+      "passage": "description",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64597_description.ogg",
+      "text": "I feel Kel'Thuzad's presence in these halls. Claim shards from his phylactery and I'll be able to open a new pathway into his chambers.\n\nFour shards should be enough. We wouldn't want him coming back again would we?"
+    },
+    {
+      "questID": 64597,
+      "passage": "progress",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64597_progress.ogg",
+      "text": "Four shards should allow us to access his chamber."
+    },
+    {
+      "questID": 64597,
+      "passage": "completion",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64597_completion.ogg",
+      "text": "This should help us gain access to his chamber more readily."
+    },
+    {
+      "questID": 64598,
+      "passage": "description",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64598_description.ogg",
+      "text": "I feel Kel'Thuzad's presence in these halls. Claim shards from his phylactery and I'll be able to open a new pathway into his chambers.\n\nFour shards should be enough. We wouldn't want him coming back again would we?"
+    },
+    {
+      "questID": 64598,
+      "passage": "progress",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64598_progress.ogg",
+      "text": "Four shards should allow us to access his chamber."
+    },
+    {
+      "questID": 64598,
+      "passage": "completion",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64598_completion.ogg",
+      "text": "This should help us gain access to his chamber more readily."
+    },
+    {
+      "questID": 64599,
+      "passage": "description",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64599_description.ogg",
+      "text": "I feel Kel'Thuzad's presence in these halls. Claim shards from his phylactery and I'll be able to open a new pathway into his chambers.\n\nFour shards should be enough. We wouldn't want him coming back again would we?"
+    },
+    {
+      "questID": 64599,
+      "passage": "progress",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64599_progress.ogg",
+      "text": "Four shards should allow us to access his chamber."
+    },
+    {
+      "questID": 64599,
+      "passage": "completion",
+      "title": "Sanctum of Domination - Damned If You Don't",
+      "npcID": 178592,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64599_completion.ogg",
+      "text": "This should help us gain access to his chamber more readily."
+    },
+    {
+      "questID": 64607,
+      "passage": "description",
+      "title": "Tazavesh: A Hard Bargain",
+      "npcID": 180750,
+      "npcName": "Au'manal",
+      "soundFile": "64607_description.ogg",
+      "text": "Ah, my work looks marvelous on you. You are the very image of legitimacy!\n\nAnd now that I've provided you with my talents, you shall provide me with yours. Seek out my business associate, Fe'tajid, at the Gilded Landing and offer him your assistance.\n\nI look forward to hearing of your success."
+    },
+    {
+      "questID": 64607,
+      "passage": "progress",
+      "title": "Tazavesh: A Hard Bargain",
+      "npcID": 180750,
+      "npcName": "Au'manal",
+      "soundFile": "64607_progress.ogg",
+      "text": "Have you spoken with my associate?"
+    },
+    {
+      "questID": 64607,
+      "passage": "completion",
+      "title": "Tazavesh: A Hard Bargain",
+      "npcID": 180750,
+      "npcName": "Au'manal",
+      "soundFile": "64607_completion.ogg",
+      "text": "It seems our efforts to deceive the Zo were unsuccessful. But their efforts to kill you failed as well, so no harm done, yes?\n\nPerhaps a more generous reward is in order. Please accept this, along with my sincerest gratitude."
+    },
+    {
+      "questID": 64648,
+      "passage": "description",
+      "title": "Reap What We Have Sown",
+      "npcID": 180800,
+      "npcName": "Koh Shira",
+      "soundFile": "64648_description.ogg",
+      "text": "We told the constructor that we will use the Foundry to reset this land.\n\nWe must stop it and protect the new automa."
+    },
+    {
+      "questID": 64648,
+      "passage": "completion",
+      "title": "Reap What We Have Sown",
+      "npcID": 180799,
+      "npcName": "Glimmercane",
+      "soundFile": "64648_completion.ogg",
+      "text": "Learning about new creatures that are infused with living growth--well, that sounds right up my alley! \n\nI think I'll stay with them and see how I can help... and maybe pick up their language as well. \n\nThanks for coming on this adventure with me, friend!"
+    },
+    {
+      "questID": 64710,
+      "passage": "description",
+      "title": "Whispering Felflame Crystal",
+      "npcID": 180899,
+      "npcName": "Aridormi",
+      "soundFile": "64710_description.ogg",
+      "text": "The crystal pulses with an eerie, felfire green glow. Holding it, you hear faint echoes of guttural demonic voices. Although the words are jumbled, one is both decipherable and repeated often: Dalaran. \n\nPerhaps someone in the city floating over the Broken Isles can tell you more about this crystal and its purpose."
+    },
+    {
+      "questID": 64710,
+      "passage": "completion",
+      "title": "Whispering Felflame Crystal",
+      "npcID": 180899,
+      "npcName": "Aridormi",
+      "soundFile": "64710_completion.ogg",
+      "text": "I will just put this back when it belongs. Thank you for bringing it to me, <name>."
+    },
+    {
+      "questID": 64717,
+      "passage": "description",
+      "title": "Materials of Creation",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64717_description.ogg",
+      "text": "The large metal spheres that litter the landscape of Zereth Mortis are spent forges, discarded during the creation process.\n\nThe spheres near the Forge of Afterlives contain trace amounts of materials unique to that location.\n\nI have modified my Forge-Tap to harvest those materials. Use it near the forges I have identified. The rare Eidolic Fragments have the greatest chance to be found on the largest of Progenitor Forges."
+    },
+    {
+      "questID": 64717,
+      "passage": "progress",
+      "title": "Materials of Creation",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64717_progress.ogg",
+      "text": "Have you collected what we need?"
+    },
+    {
+      "questID": 64717,
+      "passage": "completion",
+      "title": "Materials of Creation",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64717_completion.ogg",
+      "text": "I shall make use of these immediately. These will help Saezurah and the automa resist the effects of the domination magic."
+    },
+    {
+      "questID": 64722,
+      "passage": "description",
+      "title": "Knocking On Death's Door",
+      "npcID": 180903,
+      "npcName": "Firim",
+      "soundFile": "64722_description.ogg",
+      "text": "This is it, mortal. The forces you have assembled should be enough to break through the Mawsworn and reach the Crypts. Getting inside, however, will require more effort. The Mawsworn have barricaded the entrance.\n\nKbato will carry you into battle. Eliminate the Mawsworn, and destroy the devices that power the barrier."
+    },
+    {
+      "questID": 64722,
+      "passage": "completion",
+      "title": "Knocking On Death's Door",
+      "npcID": 180965,
+      "npcName": "Firim",
+      "soundFile": "64722_completion.ogg",
+      "text": "By the First Ones... I never dreamed I would see this place with my own eyes."
+    },
+    {
+      "questID": 64733,
+      "passage": "description",
+      "title": "Help From Beyond",
+      "npcID": 181545,
+      "npcName": "Kleia",
+      "soundFile": "64733_description.ogg",
+      "text": "If we stand any chance of breaking through the Mawsworn forces, we will need the help of all of the covenants.\n\nI will speak with the Kyrian. You and Pelagos can speak with the others. But before you go, ask Firim if there is any way we can gain the support of the Enlightened as well."
+    },
+    {
+      "questID": 64733,
+      "passage": "completion",
+      "title": "Help From Beyond",
+      "npcID": 180914,
+      "npcName": "Pelagos",
+      "soundFile": "64733_completion.ogg",
+      "text": "Between the strength of the covenant forces and the help of the automa, we should be able to reach the Crypts!"
+    },
+    {
+      "questID": 64745,
+      "passage": "description",
+      "title": "Selfless Preservation",
+      "npcID": 181273,
+      "npcName": "Tahli",
+      "soundFile": "64745_description.ogg",
+      "text": "The automa were once abundant here, singing, constructing various things, carrying out the purpose of the First Ones. Then, invaders from the Maw slaughtered them all.\n\nThe last automa to fall were protecting something important in a nearby structure. \n\nI witnessed one of the cursed Mawsworn steal a device by the door. The Elders say we should not meddle with artifacts, but would it be a transgression to recover what was stolen?"
+    },
+    {
+      "questID": 64745,
+      "passage": "completion",
+      "title": "Selfless Preservation",
+      "npcID": 181273,
+      "npcName": "Tahli",
+      "soundFile": "64745_completion.ogg",
+      "text": "This automa still lives! But it is so weak."
+    },
+    {
+      "questID": 64761,
+      "passage": "description",
+      "title": "Core Competency",
+      "npcID": 181273,
+      "npcName": "Tahli",
+      "soundFile": "64761_description.ogg",
+      "text": "The poor thing.\n\nThe sacred should not be disturbed, but... will the elders judge us if we help it survive? This is preservation, not interference.\n\n...I hope. \n\nWe can power it back up. Use this depleted core as a conduit. Perhaps the larger wild animates in the nearby sands have enough energy to charge it."
+    },
+    {
+      "questID": 64761,
+      "passage": "completion",
+      "title": "Core Competency",
+      "npcID": 181273,
+      "npcName": "Tahli",
+      "soundFile": "64761_completion.ogg",
+      "text": "This lonely one will be strong again."
+    },
+    {
+      "questID": 64766,
+      "passage": "description",
+      "title": "Access Request",
+      "npcID": 180610,
+      "npcName": "Kodah",
+      "soundFile": "64766_description.ogg",
+      "text": "The architect alone possesses the Restoration Matrix required for the restoration. The architect will restore the Protoform Repository.\n\nThe mortal will gain access to the Chamber of Shaping and inform the architect of recent progress. The architect will restore the repository.\n\nFulfillment of the task is imminent."
+    },
+    {
+      "questID": 64766,
+      "passage": "progress",
+      "title": "Access Request",
+      "npcID": 180610,
+      "npcName": "Kodah",
+      "soundFile": "64766_progress.ogg",
+      "text": "The architect will assist us."
+    },
+    {
+      "questID": 64766,
+      "passage": "completion",
+      "title": "Access Request",
+      "npcID": 180610,
+      "npcName": "Kodah",
+      "soundFile": "64766_completion.ogg",
+      "text": "The Restoration Matrix is acquired. The architect is not present. The architect is therefore lost. \n\nRestoration of the repository is mandatory, even so."
+    },
+    {
+      "questID": 64785,
+      "passage": "description",
+      "title": "Overgrown Story",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64785_description.ogg",
+      "text": "Since our arrival here the Untamed Verdure has been a mystery waiting to be solved. The lush foliage of the area grows on everything as the creatures run amok without purpose.\n\nThere could be valuable research data to be obtained from these creatures.\n\nUse a Containment Trap to subdue the elemental creatures. Once subdued, examine them for research data."
+    },
+    {
+      "questID": 64785,
+      "passage": "progress",
+      "title": "Overgrown Story",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64785_progress.ogg",
+      "text": "Have you completed the research?"
+    },
+    {
+      "questID": 64785,
+      "passage": "completion",
+      "title": "Overgrown Story",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64785_completion.ogg",
+      "text": "This information will help, but I'm afraid those ruins still remain a mystery!"
+    },
+    {
+      "questID": 64798,
+      "passage": "description",
+      "title": "What We Overcome",
+      "npcID": 181284,
+      "npcName": "Anduin Wrynn",
+      "soundFile": "64798_description.ogg",
+      "text": "I understand now. All of us that were touched by Domination were able to tap into something. Whether nobility or vengeance, it gave the strength to resist.\n\nWith all that I have faced, I have to remember that I am still here.\n\nAnd if there are those willing to stand with Sylvanas, I have to believe they will stand with me as well.\n\nI'm ready to try again. This time, I will overcome whatever I face."
+    },
+    {
+      "questID": 64798,
+      "passage": "progress",
+      "title": "What We Overcome",
+      "npcID": 181280,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64798_progress.ogg",
+      "text": "We will not fail. There is no other choice but oblivion."
+    },
+    {
+      "questID": 64798,
+      "passage": "completion",
+      "title": "What We Overcome",
+      "npcID": 181280,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64798_completion.ogg",
+      "text": "All the shards are now infused with the resistance we gained from our experiences with Domination.\n\nIt was not easy, for any of us. But I am proud of what we were able to accomplish, together.\n\nAs for the rest, our future is in the hands of the Primus."
+    },
+    {
+      "questID": 64805,
+      "passage": "description",
+      "title": "The Not-Scientific Method",
+      "npcID": 184182,
+      "npcName": "Elder Eru",
+      "soundFile": "64805_description.ogg",
+      "text": "The language of the First Ones is not static like most others. It evolves.\n\nCreatures like the sentries are more advanced than your average poultrid, obviously. Their more complex thought processes give them an innate resistance to the invaders' overriding magic. \n\nBut you should not take my word for it. We can actually test this! \n\nIn the grotto there is a librarian. Take those phrases you memorized and infuse them into it. Then try out your helm."
+    },
+    {
+      "questID": 64805,
+      "passage": "completion",
+      "title": "The Not-Scientific Method",
+      "npcID": 184182,
+      "npcName": "Elder Eru",
+      "soundFile": "64805_completion.ogg",
+      "text": "You see! It took far longer for Domination to overtake the librarian's native purposing.\n\nOf course it did fail in the end, but I would call that a success for your particular interest.\n\nDo not worry, another automa will take that one's place. There must always be a librarian."
+    },
+    {
+      "questID": 64811,
+      "passage": "description",
+      "title": "Aggressive Excavation",
+      "npcID": 181372,
+      "npcName": "Taelia Fordragon",
+      "soundFile": "64811_description.ogg",
+      "text": "Elder Eru said that we could find the most complex examples of the First Ones' language out here. \n\nWe'll need to fight our way to the vaults, and then infuse the helm once we find those phrases.\n\nOn a personal note, I never thought I'd have the chance to fight alongside my father. Though with the stakes this high, it somehow feels like exactly the place I'm supposed to be.\n\nI am ready when you are."
+    },
+    {
+      "questID": 64811,
+      "passage": "completion",
+      "title": "Aggressive Excavation",
+      "npcID": 181367,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64811_completion.ogg",
+      "text": "We've done it. The broken half of the helm is infused with the most advanced pieces of the First Ones' power that we could readily find.\n\nWe are so close to success."
+    },
+    {
+      "questID": 64825,
+      "passage": "description",
+      "title": "Seeking Haven",
+      "npcID": 183717,
+      "npcName": "Lady Jaina Proudmoore",
+      "soundFile": "64825_description.ogg",
+      "text": "I am at a loss.\n\nWe have no way to follow Zovaal and Anduin. I'll open a portal back to Haven. We will discuss our next steps there."
+    },
+    {
+      "questID": 64825,
+      "passage": "completion",
+      "title": "Seeking Haven",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64825_completion.ogg",
+      "text": "We will look into how to follow them into the Sepulcher. Until then, you should focus your efforts on more immediate issues."
+    },
+    {
+      "questID": 64832,
+      "passage": "description",
+      "title": "Reclaiming Provis Esper",
+      "npcID": 183139,
+      "npcName": "Elder Ara",
+      "soundFile": "64832_description.ogg",
+      "text": "Provis Esper is overrun with devourers, buzzing around like hungry vespoids.\n\nThey are destroying the local automa, which is not at all what the First Ones intended. A cleansing is in order.\n\nFor our safety and to restore the natural order, clear some of them out."
+    },
+    {
+      "questID": 64832,
+      "passage": "progress",
+      "title": "Reclaiming Provis Esper",
+      "npcID": 183168,
+      "npcName": "Elder Ara",
+      "soundFile": "64832_progress.ogg",
+      "text": "Have you cleansed Provis Esper?"
+    },
+    {
+      "questID": 64832,
+      "passage": "completion",
+      "title": "Reclaiming Provis Esper",
+      "npcID": 183168,
+      "npcName": "Elder Ara",
+      "soundFile": "64832_completion.ogg",
+      "text": "More devourers will come, but you have lessened their impact for now."
+    },
+    {
+      "questID": 64842,
+      "passage": "description",
+      "title": "Flora Frenzy",
+      "npcID": 184442,
+      "npcName": "Feroz",
+      "soundFile": "64842_description.ogg",
+      "text": "Those guardian automa will shoot down anything that attempts to reach the Creation Catalyst.\n\nMay I suggest fighting fire with fire? Or rather, fighting the creations of the First Ones with the creation energy of the First Ones?\n\nI have had little time to adequately test my theory, but this potion should provide the boost you need to destroy them... ideally without dying from exposure to the creation energy in the process."
+    },
+    {
+      "questID": 64842,
+      "passage": "progress",
+      "title": "Flora Frenzy",
+      "npcID": 184442,
+      "npcName": "Feroz",
+      "soundFile": "64842_progress.ogg",
+      "text": "Your safety is probable, but not guaranteed."
+    },
+    {
+      "questID": 64842,
+      "passage": "completion",
+      "title": "Flora Frenzy",
+      "npcID": 184442,
+      "npcName": "Feroz",
+      "soundFile": "64842_completion.ogg",
+      "text": "It was quite poetic, I think, using their own growth energy against them."
+    },
+    {
+      "questID": 64849,
+      "passage": "description",
+      "title": "Tower of the Damned",
+      "npcID": 159478,
+      "npcName": "Tal-Inara",
+      "soundFile": "64849_description.ogg",
+      "text": "We know little of Torghast. However, Fatescribe Roh-Tahl claims there is work that must be done there.\n\nHe believes there is a path for you to reach this place... and that someone there requires your aid.\n\nDo what you must to reach Torghast and aid anyone who is within."
+    },
+    {
+      "questID": 64849,
+      "passage": "completion",
+      "title": "Tower of the Damned",
+      "npcID": 181328,
+      "npcName": "Ve'nish",
+      "soundFile": "64849_completion.ogg",
+      "text": "Stay back! \n\nWait... you're not one of the Jailer's forces.\n\nBox! We have a visitor, play the nice music would you?"
+    },
+    {
+      "questID": 64850,
+      "passage": "description",
+      "title": "Traversing Torghast",
+      "npcID": 181328,
+      "npcName": "Ve'nish",
+      "soundFile": "64850_description.ogg",
+      "text": "I've heard of you, the Maw Walker! You must know of me, the legendary Ve'nish.\n\nI am here to find great treasures within Torghast with the aid of my box. I can see you admiring it.\n\nPerhaps we can work together. Why don't you go into Torghast ahead of me to scout ahead?\n\nI shall even reward you for anything you discover within."
+    },
+    {
+      "questID": 64850,
+      "passage": "progress",
+      "title": "Traversing Torghast",
+      "npcID": 181328,
+      "npcName": "Ve'nish",
+      "soundFile": "64850_progress.ogg",
+      "text": "How goes exploring the darkness of Torghast?"
+    },
+    {
+      "questID": 64850,
+      "passage": "completion",
+      "title": "Traversing Torghast",
+      "npcID": 181328,
+      "npcName": "Ve'nish",
+      "soundFile": "64850_completion.ogg",
+      "text": "Ah, the place is filled to the brink with all sorts of terrible creatures... and also plenty of powers!\n\nPerfect! Did you hear that, box? We'll find plenty in this place... perhaps even more than that coward Ve'nari out in the Maw.\n\nAhem, thank you, Maw Walker. You've done your part well. I shall have more questions later."
+    },
+    {
+      "questID": 64854,
+      "passage": "description",
+      "title": "Trappings of Success",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64854_description.ogg",
+      "text": "The wildlife of Zereth Mortis are attracted to the frenetic creation energy that flows throughout the land. When the wildlife finds something charged with that energy... they eat it!\n\nThe Mawsworn Cryptoseers have become aware of this and are attempting to find such wildlife to extract any remnants of that energy.\n\nEliminate the Cryptoseers, and use the Containment Trap to subdue and examine the wildlife for our research."
+    },
+    {
+      "questID": 64854,
+      "passage": "progress",
+      "title": "Trappings of Success",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64854_progress.ogg",
+      "text": "You have collected data before the Cryptoseers?"
+    },
+    {
+      "questID": 64854,
+      "passage": "completion",
+      "title": "Trappings of Success",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64854_completion.ogg",
+      "text": "This information will help us continue to unravel the mysteries of Zereth Mortis."
+    },
+    {
+      "questID": 64888,
+      "passage": "description",
+      "title": "Borrowed Power",
+      "npcID": 181706,
+      "npcName": "Pocopoc",
+      "soundFile": "64888_description.ogg",
+      "text": "The land provides. The land thirsts. Invaders devour what we require.\n\nReclaim what has been consumed. Absorb what remains abundant.\n\nWings need wind to fly. We need power to ascend."
+    },
+    {
+      "questID": 64888,
+      "passage": "progress",
+      "title": "Borrowed Power",
+      "npcID": 183701,
+      "npcName": "Pocopoc",
+      "soundFile": "64888_progress.ogg",
+      "text": "More power to Pocopoc."
+    },
+    {
+      "questID": 64888,
+      "passage": "completion",
+      "title": "Borrowed Power",
+      "npcID": 183701,
+      "npcName": "Pocopoc",
+      "soundFile": "64888_completion.ogg",
+      "text": "Power thrums. A renewal of hope."
+    },
+    {
+      "questID": 64889,
+      "passage": "description",
+      "title": "Match Made in Zereth Mortis",
+      "npcID": 183701,
+      "npcName": "Pocopoc",
+      "soundFile": "64889_description.ogg",
+      "text": "The cyphers are the key. Each one, a step along the path. You must find them all.\n\nEnter the inner chamber. The Prime Locus Arrangement awaits.\n\nThe first step toward ascension. Toward the vessel."
+    },
+    {
+      "questID": 64889,
+      "passage": "progress",
+      "title": "Match Made in Zereth Mortis",
+      "npcID": 183701,
+      "npcName": "Pocopoc",
+      "soundFile": "64889_progress.ogg",
+      "text": "Need to gather the cyphers to reach the door where the vessel waits."
+    },
+    {
+      "questID": 64889,
+      "passage": "completion",
+      "title": "Match Made in Zereth Mortis",
+      "npcID": 183701,
+      "npcName": "Pocopoc",
+      "soundFile": "64889_completion.ogg",
+      "text": "The last leg of the journey begins."
+    },
+    {
+      "questID": 64958,
+      "passage": "description",
+      "title": "The Forces Gather",
+      "npcID": 184698,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "64958_description.ogg",
+      "text": "I am relieved that you survived the passage to Zereth Mortis. From what I've overheard of Pelagos's conversation with Kleia, it sounds like you had an incredible journey.\n\nThese Enlightened brokers could make valuable allies. Their knowledge of the automa and the land itself should help us against the Jailer.\n\nOur forces are gathered and ready to follow you to Zereth Mortis.\n\nThe final battle lies before us, adventurer."
+    },
+    {
+      "questID": 64958,
+      "passage": "completion",
+      "title": "The Forces Gather",
+      "npcID": 177486,
+      "npcName": "Elder Kreth",
+      "soundFile": "64958_completion.ogg",
+      "text": "You defended Haven, and now you bring allies to preserve this sacred land.\n\nBlessings of the First Ones be upon you, mortal."
+    },
+    {
+      "questID": 64963,
+      "passage": "description",
+      "title": "A Defector's Request",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64963_description.ogg",
+      "text": "<Unrolling the scroll, you can make out that it's a coded arms requisition from the Maldraxxi of Death's End to their venthyr allies... all servants of the Jailer.\n\nSurely someone among the Death's Advance in Korthia will be able to help you fully break the code and learn exactly what they were planning.>"
+    },
+    {
+      "questID": 64963,
+      "passage": "completion",
+      "title": "A Defector's Request",
+      "npcID": 179321,
+      "npcName": "Duchess Mynx",
+      "soundFile": "64963_completion.ogg",
+      "text": "<A smile creeps across Duchess Mynx's face as she looks over the scroll you provided. A moment later, an echoing laugh bursts from her.>\n\nThe forces of the Jailer use such pathetic codes! This scroll of yours doesn't say where, but it seems there's a weapons cache ready to be claimed. A team of your allies should be able to investigate and retrieve it without too much trouble."
+    },
+    {
+      "questID": 64964,
+      "passage": "description",
+      "title": "Choose Your Fighter",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "64964_description.ogg",
+      "text": "The presence of the Jailer's forces at Provis Strata have been causing untold damage to the region. If left unchecked, we will lose all knowledge in the area.\n\nOne of our kin has prepared some automa to deal with the Mawsworn. Meet with them, and fight back against those who would disrespect Zereth Mortis in this manner."
+    },
+    {
+      "questID": 64964,
+      "passage": "progress",
+      "title": "Choose Your Fighter",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "64964_progress.ogg",
+      "text": "Is the task complete?"
+    },
+    {
+      "questID": 64964,
+      "passage": "completion",
+      "title": "Choose Your Fighter",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "64964_completion.ogg",
+      "text": "Good work."
+    },
+    {
+      "questID": 64977,
+      "passage": "description",
+      "title": "Step Into the Ring",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64977_description.ogg",
+      "text": "One of the remarkable things we have found about these lands is that they seem to be adaptive and changing, even as ancient as they are. Things are not stationary.\n\nIn the depths of the Nexus of Actualization there is a forge that appears made to test these various designs, and to learn. These creatures may one day be used to defend Zereth Mortis from threats, so you should test their effectiveness where possible.\n\nGo there, challenge what the forge creates and report back to me."
+    },
+    {
+      "questID": 64977,
+      "passage": "completion",
+      "title": "Step Into the Ring",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "64977_completion.ogg",
+      "text": "What a remarkable device. Of course there is clearly some improvement to be made in what it creates. But perhaps it will learn from the lessons you have provided."
+    },
+    {
+      "questID": 65072,
+      "passage": "description",
+      "title": "Not Safe for Work",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65072_description.ogg",
+      "text": "Rana's discovery of Progenitor relics at the Ageless Shards has created quite a stir among the Enlightened. These relics predate our earlier discoveries, and through them we may gain a deeper understanding of the workings of Zereth Mortis.\n\nRana is collecting the relics, but I fear she is in danger. Agents of Cartel Xy have been spotted in the area, and will likely attempt to steal the relics.\n\nPlease travel to the Ageless Shards, and help Rana collect the relics."
+    },
+    {
+      "questID": 65072,
+      "passage": "progress",
+      "title": "Not Safe for Work",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65072_progress.ogg",
+      "text": "Have you collected the Progenitor Relics?"
+    },
+    {
+      "questID": 65072,
+      "passage": "completion",
+      "title": "Not Safe for Work",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65072_completion.ogg",
+      "text": "Your help is always appreciated, <name>."
+    },
+    {
+      "questID": 65096,
+      "passage": "description",
+      "title": "Your Death Or Mine",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65096_description.ogg",
+      "text": "We have obtained a wealth of information from relics discovered at the Ageless Shards. \n\nThe Mawsworn are aware of our discoveries, and are trying to stop us. They have placed traps around the area to block access to the relics. \n\nWe cannot allow the Jailer to cut off our access to those relics.\n\nPlease eliminate this Mawsworn threat, and recover as many relics as possible."
+    },
+    {
+      "questID": 65096,
+      "passage": "progress",
+      "title": "Your Death Or Mine",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65096_progress.ogg",
+      "text": "Have you secured the relics at the Ageless Shards?"
+    },
+    {
+      "questID": 65096,
+      "passage": "completion",
+      "title": "Your Death Or Mine",
+      "npcID": 180630,
+      "npcName": "Elder Amir",
+      "soundFile": "65096_completion.ogg",
+      "text": "Blessed be your effort!"
+    },
+    {
+      "questID": 65118,
+      "passage": "description",
+      "title": "How to Glide with Your Dragon",
+      "npcID": 193287,
+      "npcName": "Lord Andestrasz",
+      "soundFile": "65118_description.ogg",
+      "text": "Let us start with the basics.\n\nIf you fly straight you will wear yourself out right now. Use gravity as an aid and aim slightly down to fly a long distance. The rings will give you the general angle that you should use for basic gliding.\n\nFirst, call upon your drake, or our Red Drake friend here can give you a lift.\n\nThen, fly through the rings and land at the target location.\n\nIf you find yourself stuck, use the Bronze Timepiece and Celormu will reset you."
+    },
+    {
+      "questID": 65118,
+      "passage": "progress",
+      "title": "How to Glide with Your Dragon",
+      "npcID": 183141,
+      "npcName": "Celormu",
+      "soundFile": "65118_progress.ogg",
+      "text": "Well done, 0xcp."
+    },
+    {
+      "questID": 65118,
+      "passage": "completion",
+      "title": "How to Glide with Your Dragon",
+      "npcID": 183141,
+      "npcName": "Celormu",
+      "soundFile": "65118_completion.ogg",
+      "text": "Excellent work!"
+    },
+    {
+      "questID": 65120,
+      "passage": "description",
+      "title": "How to Dive with Your Dragon",
+      "npcID": 193287,
+      "npcName": "Lord Andestrasz",
+      "soundFile": "65120_description.ogg",
+      "text": "Gliding will get you to where you want to go. But what if you want to get there faster?\n\nDiving after jumping from somewhere high will give you a speed boost.\n\nFly through the rings to the target location.\n\nIf you find yourself stuck, use the Bronze Timepiece and Celormu will reset you."
+    },
+    {
+      "questID": 65120,
+      "passage": "progress",
+      "title": "How to Dive with Your Dragon",
+      "npcID": 183141,
+      "npcName": "Celormu",
+      "soundFile": "65120_progress.ogg",
+      "text": "Well done, <name>."
+    },
+    {
+      "questID": 65120,
+      "passage": "completion",
+      "title": "How to Dive with Your Dragon",
+      "npcID": 183141,
+      "npcName": "Celormu",
+      "soundFile": "65120_completion.ogg",
+      "text": "See? That was much better.\n\nIf you start your flights with a dive you will get to where you want to go so much faster."
+    },
+    {
+      "questID": 65142,
+      "passage": "description",
+      "title": "Portal Play",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65142_description.ogg",
+      "text": "To aid in my studies, I have used a network of travel portals to install monitoring devices all over Zereth Mortis.\n\nMy devices have been quite successful at collecting large amounts of research data. It's time now to collect the data they have obtained.\n\nUse my portal network to locate my Prying Eyes and collect any data they have gathered. I'll give you a portal initiator as well, allowing you to re-enter the portal network, incase you find yourself lost!"
+    },
+    {
+      "questID": 65142,
+      "passage": "progress",
+      "title": "Portal Play",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65142_progress.ogg",
+      "text": "Have you collected all the data?"
+    },
+    {
+      "questID": 65142,
+      "passage": "completion",
+      "title": "Portal Play",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65142_completion.ogg",
+      "text": "This will do fine, but there is still so much more to understand. With my Prying Eyes still out there, we shall be able to collect some more data very soon."
+    },
+    {
+      "questID": 65177,
+      "passage": "description",
+      "title": "Fruit of the Bloom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65177_description.ogg",
+      "text": "We never know when something new may emerge from the confluence of creation and energy.\n\nThe Catalyst Gardens have blossomed with a new crop of fruit. Their seeds may have special properties, and we wish to understand them.\n\nPlease gather what you can find, and make the gardens safer for the future."
+    },
+    {
+      "questID": 65177,
+      "passage": "progress",
+      "title": "Fruit of the Bloom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65177_progress.ogg",
+      "text": "How can one understand what cannot be defined?"
+    },
+    {
+      "questID": 65177,
+      "passage": "completion",
+      "title": "Fruit of the Bloom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65177_completion.ogg",
+      "text": "There is so much to learn from just these little seeds. What will they grow into? Will the vombata eat them?\n\nThank you for helping me to understand this place further."
+    },
+    {
+      "questID": 65226,
+      "passage": "description",
+      "title": "Fleet-Footed and Fastidious",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65226_description.ogg",
+      "text": "When the Mawsworn came to Zereth Mortis, they brought mawrats with them! \n\nA swarm of their mawrats overran my cave, making off with many of our research items!\n\nRana is assembling a team to help recover the items. Meet up with her and aid in the effort."
+    },
+    {
+      "questID": 65226,
+      "passage": "progress",
+      "title": "Fleet-Footed and Fastidious",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65226_progress.ogg",
+      "text": "Have you dealt with those mawrats?"
+    },
+    {
+      "questID": 65226,
+      "passage": "completion",
+      "title": "Fleet-Footed and Fastidious",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65226_completion.ogg",
+      "text": "A most excellent effort! I had feared these items lost for good."
+    },
+    {
+      "questID": 65238,
+      "passage": "description",
+      "title": "Souls Entwined",
+      "npcID": 181545,
+      "npcName": "Kleia",
+      "soundFile": "65238_description.ogg",
+      "text": "I must confess, at first I thought Pelagos was making a horrible sacrifice. But now I see--he was giving the Shadowlands all the hope and compassion he holds in his heart. We should go and see him.\n\nSpeak with Tal-Inara when you reach Oribos.\n\nI will meet you there, my friend."
+    },
+    {
+      "questID": 65238,
+      "passage": "completion",
+      "title": "Souls Entwined",
+      "npcID": 184584,
+      "npcName": "Kleia",
+      "soundFile": "65238_completion.ogg",
+      "text": "Pelagos is right. But if anyone can accomplish what is needed... I believe it is you, my friend."
+    },
+    {
+      "questID": 65255,
+      "passage": "description",
+      "title": "Forcing the Cycle",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65255_description.ogg",
+      "text": "The forces of Zovaal have been spreading their malign influence into the natural life within Provis Fauna. With the rate of their corruption, attempting to cleanse them one by one would be ill advised.\n\nInstead, we can just return their energies into the systems of Zereth Mortis to be used to create new fauna. Use this orb, let it absorb their energy as they die, and then cleanse it once it has been charged."
+    },
+    {
+      "questID": 65255,
+      "passage": "progress",
+      "title": "Forcing the Cycle",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65255_progress.ogg",
+      "text": "Have you finished?"
+    },
+    {
+      "questID": 65255,
+      "passage": "completion",
+      "title": "Forcing the Cycle",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65255_completion.ogg",
+      "text": "Their energy will serve the cycle."
+    },
+    {
+      "questID": 65256,
+      "passage": "description",
+      "title": "Cluck, Cluck, Boom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65256_description.ogg",
+      "text": "The endemic poultrids of Zereth Mortis have been influenced in an unseemly way by all these invaders.\n\nUse this device on the ones that have malfunctioned. Otherwise, they will do too much damage to the land."
+    },
+    {
+      "questID": 65256,
+      "passage": "progress",
+      "title": "Cluck, Cluck, Boom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65256_progress.ogg",
+      "text": "These mysterious ways must be understood."
+    },
+    {
+      "questID": 65256,
+      "passage": "completion",
+      "title": "Cluck, Cluck, Boom",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65256_completion.ogg",
+      "text": "Those poultrid do make quite a mess. Thank you for your assistance."
+    },
+    {
+      "questID": 65259,
+      "passage": "description",
+      "title": "Heart of the Sepulcher",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65259_description.ogg",
+      "text": "Soon after we stepped forth into the realms of Death, a message left behind by the Primus gave warning that the Jailer must not be allowed to reach the Sepulcher.\n\nDespite all our efforts, he has done so.\n\nWithin the heart of that ancient place lie secrets the Jailer could use to dominate the entire cosmos. If he succeeds, everything we hold dear will be lost.\n\nGather your allies, <name>. Claim victory for the Shadowlands... and for Azeroth."
+    },
+    {
+      "questID": 65259,
+      "passage": "completion",
+      "title": "Heart of the Sepulcher",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65259_completion.ogg",
+      "text": "At long last, our campaign is at an end. Thanks to you, the Jailer has been defeated.\n\nYour efforts have saved us all, <name>."
+    },
+    {
+      "questID": 65260,
+      "passage": "description",
+      "title": "A Long Walk",
+      "npcID": 183822,
+      "npcName": "Uther",
+      "soundFile": "65260_description.ogg",
+      "text": "The Arbiter awaits us. Though few are allowed within the Crucible, several who hail from Azeroth have been granted permission to bear witness as he passes judgment on Sylvanas.\n\nYet we are far from the only ones affected by all the carnage Sylvanas has wrought. Her actions have brought pain and suffering to a great many.\n\nScreaming back at the Banshee as she passes might be their only chance to speak their mind. Let them be heard."
+    },
+    {
+      "questID": 65260,
+      "passage": "completion",
+      "title": "A Long Walk",
+      "npcID": 183830,
+      "npcName": "Arbiter Pelagos",
+      "soundFile": "65260_completion.ogg",
+      "text": "Thank you for joining us, my friend. \n\nI felt it important that you be here to witness this moment."
+    },
+    {
+      "questID": 65264,
+      "passage": "description",
+      "title": "Operation: Relocation",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65264_description.ogg",
+      "text": "Devourers have disrupted the avians nesting at Provis Esper.\n\nThis may be our last chance to examine them before they become tainted, like the others.\n\nCapture several of the avians at Provis Esper and return them to Pilgrim Arizh for relocation and study. Deal with any problems that get in your way."
+    },
+    {
+      "questID": 65264,
+      "passage": "completion",
+      "title": "Operation: Relocation",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65264_completion.ogg",
+      "text": "Well done, <name>. The avians will be moved to a safer location where we can observe them."
+    },
+    {
+      "questID": 65265,
+      "passage": "description",
+      "title": "Buried Remnants",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65265_description.ogg",
+      "text": "Much has been lost to the invading forces, those that came with destruction in their hearts.\n\nWe cannot preserve this land as the First Ones intended if the Mawsworn are allowed to pulverize all remnants of their knowledge.\n\nSee what you can recover from the sands of Provis Strata."
+    },
+    {
+      "questID": 65265,
+      "passage": "progress",
+      "title": "Buried Remnants",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65265_progress.ogg",
+      "text": "What was before, will be again."
+    },
+    {
+      "questID": 65265,
+      "passage": "completion",
+      "title": "Buried Remnants",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65265_completion.ogg",
+      "text": "Without the context in which these were first made, they may remain mysteries. But at least they are not trampled underfoot anymore."
+    },
+    {
+      "questID": 65266,
+      "passage": "description",
+      "title": "Lost Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "65266_description.ogg",
+      "text": "We have uncovered a promising source of Korthian research. Previous Archivists hid knowledge within repositories that were then placed within the rift.\n\nI fear that the repositories are no longer safe and that shades of that realm will consume them. It is imperative that we secure this research before it is lost forever.\n\nUse a Repaired Riftkey to enter the Korthia Rift. Recover the Korthian Repositories."
+    },
+    {
+      "questID": 65266,
+      "passage": "progress",
+      "title": "Lost Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "65266_progress.ogg",
+      "text": "The archive would be lost without you, Maw Walker."
+    },
+    {
+      "questID": 65266,
+      "passage": "completion",
+      "title": "Lost Research",
+      "npcID": 178257,
+      "npcName": "Archivist Roh-Suir",
+      "soundFile": "65266_completion.ogg",
+      "text": "The research within these repositories is invaluable. I may ask you to return to the rift again in the future."
+    },
+    {
+      "questID": 65267,
+      "passage": "description",
+      "title": "Smash 'Em to Feathereens",
+      "npcID": 184591,
+      "npcName": "Segallia",
+      "soundFile": "65267_description.ogg",
+      "text": "I was curious about these strange, winged creatures and attempted to introduce myself. I would have been eaten if not for Professor Chirpsnide and her large mechanical fowl!\n\nCould you help us deal with these \"Screechflight\"? The native bluefeather rocs are having a difficult time defending their nests from them.\n\nAlso, I'd hate for any more introductions to go the way mine did with them..."
+    },
+    {
+      "questID": 65267,
+      "passage": "progress",
+      "title": "Smash 'Em to Feathereens",
+      "npcID": 184591,
+      "npcName": "Segallia",
+      "soundFile": "65267_progress.ogg",
+      "text": "The only thing I can thank these harpies for is giving me the chance to meet the professor!"
+    },
+    {
+      "questID": 65267,
+      "passage": "completion",
+      "title": "Smash 'Em to Feathereens",
+      "npcID": 184591,
+      "npcName": "Segallia",
+      "soundFile": "65267_completion.ogg",
+      "text": "Thank you, <name>!\n\nI've been assisting the good Professor while you've been gone. I'm afraid to say I've made things worse for her..."
+    },
+    {
+      "questID": 65268,
+      "passage": "description",
+      "title": "Bzzzzt!",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65268_description.ogg",
+      "text": "The vespoids of the region use debris in the area to form the core of their nests. While this is normally something we'd allow them to naturally do, they've started taking some of the relics we were studying.\n\nI have a device that should hopefully allow for the removal of such relics from their hives without damaging the core structure. Use it to retrieve these relics."
+    },
+    {
+      "questID": 65268,
+      "passage": "completion",
+      "title": "Bzzzzt!",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65268_completion.ogg",
+      "text": "That is enough for now, thank you."
+    },
+    {
+      "questID": 65269,
+      "passage": "description",
+      "title": "Obvious Plant",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65269_description.ogg",
+      "text": "The situation in the Catalyst Gardens is troubling.\n\nBut most troubling of all is that we do not know more. If we had an understanding of the changing levels of energy emitted by the Creation Catalyst, we could make better decisions as to how to proceed.\n\nTake these sensors. Place them below the catalyst at the locations marked upon your map."
+    },
+    {
+      "questID": 65269,
+      "passage": "progress",
+      "title": "Obvious Plant",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65269_progress.ogg",
+      "text": "Were you able to place the sensors?"
+    },
+    {
+      "questID": 65269,
+      "passage": "completion",
+      "title": "Obvious Plant",
+      "npcID": 181179,
+      "npcName": "Elder Nirav",
+      "soundFile": "65269_completion.ogg",
+      "text": "Our brightest scholars will track the sensor data. First Ones willing, they will show us the way."
+    },
+    {
+      "questID": 65305,
+      "passage": "description",
+      "title": "The Way Forward",
+      "npcID": 179611,
+      "npcName": "Pelagos",
+      "soundFile": "65305_description.ogg",
+      "text": "I see you have a new friend, Maw Walker!\n\nWith Pocopoc at your side, I wonder what else you will discover about Zereth Mortis? The secrets we uncover here will be of great help against the Jailer. Perhaps they can teach us how to awaken this oracle.\n\nHighlord Bolvar will surely want to hear of them.\n\nPlease go to Haven and inform him. There is a transporter just outside the cave you may want to use. \n\nI will remain here and keep watch over the oracle."
+    },
+    {
+      "questID": 65305,
+      "passage": "completion",
+      "title": "The Way Forward",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65305_completion.ogg",
+      "text": "You have returned, Maw Walker. What news do you have for me?"
+    },
+    {
+      "questID": 65307,
+      "passage": "description",
+      "title": "Mercy First",
+      "npcID": 184163,
+      "npcName": "Scalecommander Viridia",
+      "soundFile": "65307_description.ogg",
+      "text": "The toxicity in the creche nearly claimed us all. While the antidote is being prepared, I need you to seek out the wounded and heal them. \n\nYes, even the blue drakonid. The Healing Wings do not stand idly by while others suffer."
+    },
+    {
+      "questID": 65307,
+      "passage": "progress",
+      "title": "Mercy First",
+      "npcID": 184163,
+      "npcName": "Scalecommander Viridia",
+      "soundFile": "65307_progress.ogg",
+      "text": "The toxins flooding the creche could not penetrate the stasis magic, but it engulfed us when we awakened."
+    },
+    {
+      "questID": 65307,
+      "passage": "completion",
+      "title": "Mercy First",
+      "npcID": 184163,
+      "npcName": "Scalecommander Viridia",
+      "soundFile": "65307_completion.ogg",
+      "text": "Violence is not the only avenue to victory."
+    },
+    {
+      "questID": 65324,
+      "passage": "description",
+      "title": "Patterns Within Patterns",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65324_description.ogg",
+      "text": "We stand at the origin of the Shadowlands. We must not allow this place to become its undoing.\n\nWork with our new allies, <name>. Their assistance will be the difference between our success and the unmaking of all things."
+    },
+    {
+      "questID": 65324,
+      "passage": "progress",
+      "title": "Patterns Within Patterns",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65324_progress.ogg",
+      "text": "In this place, all fates are intertwined."
+    },
+    {
+      "questID": 65324,
+      "passage": "completion",
+      "title": "Patterns Within Patterns",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65324_completion.ogg",
+      "text": "We move closer to our goal. Ever onward."
+    },
+    {
+      "questID": 65325,
+      "passage": "description",
+      "title": "Motes of Knowledge",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65325_description.ogg",
+      "text": "The creatures of Untamed Verdure are ingesting everything in sight. They have consumed our Compilation Nodule, and the Composition Motes needed for compilation. We Jiro require these resources.\n\nThis area is too hazardous for unprotected Jiro operation.\n\nPlease help us reclaim our resources. Mai Obet will assist you."
+    },
+    {
+      "questID": 65325,
+      "passage": "progress",
+      "title": "Motes of Knowledge",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65325_progress.ogg",
+      "text": "Have you recovered our resources?"
+    },
+    {
+      "questID": 65325,
+      "passage": "completion",
+      "title": "Motes of Knowledge",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65325_completion.ogg",
+      "text": "You have recovered our resources. Your assistance is appreciated."
+    },
+    {
+      "questID": 65326,
+      "passage": "description",
+      "title": "Circle of Strife",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65326_description.ogg",
+      "text": "Automa need assistance to operate properly. We fulfill this purpose, but outsiders have caused too many interruptions. We cannot properly address them all. \n\nPlease assist Mai Obet in inspecting and reviewing the performance of the automa."
+    },
+    {
+      "questID": 65326,
+      "passage": "progress",
+      "title": "Circle of Strife",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65326_progress.ogg",
+      "text": "Do the automa meet expectations?"
+    },
+    {
+      "questID": 65326,
+      "passage": "completion",
+      "title": "Circle of Strife",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65326_completion.ogg",
+      "text": "The automa are functioning properly. Thank you for your assistance."
+    },
+    {
+      "questID": 65328,
+      "passage": "description",
+      "title": "Arbiter in the Making",
+      "npcID": 181090,
+      "npcName": "Pelagos",
+      "soundFile": "65328_description.ogg",
+      "text": "Maw Walker, I ... I do not know what to say. I did not expect this.\n\nShe speaks of preparations and a new Arbiter. We must tell our friends in Haven."
+    },
+    {
+      "questID": 65328,
+      "passage": "progress",
+      "title": "Arbiter in the Making",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65328_progress.ogg",
+      "text": "Everyone will want to know that we are going to make a new Arbiter."
+    },
+    {
+      "questID": 65328,
+      "passage": "completion",
+      "title": "Arbiter in the Making",
+      "npcID": 181183,
+      "npcName": "Highlord Bolvar Fordragon",
+      "soundFile": "65328_completion.ogg",
+      "text": "An Arbiter? I had not imagined we could set that to rights."
+    },
+    {
+      "questID": 65362,
+      "passage": "description",
+      "title": "Not of the Body",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65362_description.ogg",
+      "text": "Enemies of Zereth Mortis wear the guise of productive automa. They do not complete any desired tasks.\n\nScan the automa to reveal enemy threats, then eliminate them.\n\nMai Obet shall assist."
+    },
+    {
+      "questID": 65362,
+      "passage": "completion",
+      "title": "Not of the Body",
+      "npcID": 180289,
+      "npcName": "Mai Soh",
+      "soundFile": "65362_completion.ogg",
+      "text": "You have exceeded expectations. Thank you for your assistance."
+    },
+    {
+      "questID": 65363,
+      "passage": "description",
+      "title": "Dangerous State",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65363_description.ogg",
+      "text": "Enemies have attacked the jiro and severed them from the circle. The jiro are no longer stable. They are a danger to the order of things.\n\nThey must be removed."
+    },
+    {
+      "questID": 65363,
+      "passage": "progress",
+      "title": "Dangerous State",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65363_progress.ogg",
+      "text": "Have you removed the threat?"
+    },
+    {
+      "questID": 65363,
+      "passage": "completion",
+      "title": "Dangerous State",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65363_completion.ogg",
+      "text": "Order has been restored. Thank you for your assistance."
+    },
+    {
+      "questID": 65364,
+      "passage": "description",
+      "title": "Super Jiro",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65364_description.ogg",
+      "text": "The outsiders have disrupted the tasks and purpose of the jiro. We cannot allow this to continue.\n\nWe will empower a larger jiro to help combat these threats. Jiro Prime will destroy the enemies that threaten Zereth Mortis.\n\nHelp direct Jiro Prime to resolve our crisis."
+    },
+    {
+      "questID": 65364,
+      "passage": "progress",
+      "title": "Super Jiro",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65364_progress.ogg",
+      "text": "Have the threats been eliminated?"
+    },
+    {
+      "questID": 65364,
+      "passage": "completion",
+      "title": "Super Jiro",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65364_completion.ogg",
+      "text": "Order has been restored. We thank you for your assistance."
+    },
+    {
+      "questID": 65370,
+      "passage": "description",
+      "title": "Gut Check",
+      "npcID": 181102,
+      "npcName": "Olea Manu",
+      "soundFile": "65370_description.ogg",
+      "text": "The crescendal is a powerful tool created by automa. They are given to jiro when work is hard or important. When the devourers attacked, crescendals were likely... eaten.\n\ncrescendals are strong. They do not easily damage. Check the stomachs of bigger devourers. Perhaps find one intact?"
+    },
+    {
+      "questID": 65370,
+      "passage": "progress",
+      "title": "Gut Check",
+      "npcID": 181102,
+      "npcName": "Olea Manu",
+      "soundFile": "65370_progress.ogg",
+      "text": "We have very few crescendals. It is important to recover one."
+    },
+    {
+      "questID": 65370,
+      "passage": "completion",
+      "title": "Gut Check",
+      "npcID": 181102,
+      "npcName": "Olea Manu",
+      "soundFile": "65370_completion.ogg",
+      "text": "<The jiro looks over the guts-spattered device.>\n\nNot ideal. But mostly intact... it will need cleaning."
+    },
+    {
+      "questID": 65371,
+      "passage": "description",
+      "title": "A Nest of Our Own",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65371_description.ogg",
+      "text": "The scroll you found is a command that all bluefeather eggs are to be brought to the harpy chef, Fry-Aerie. Apparently, the Screechflight's matriarch won't eat anything that hasn't been properly prepared and seasoned.\n\nSo we'll bring her a special egg of our own. One that's EXPLOSIVELY delicious... and will explode when she eats it. Of course.\n\nHow will you deliver it? In disguise!\n\nSlay the creatures on the lower cliffs, collect up this list of parts, and I'll whip you up a full-feathered outfit."
+    },
+    {
+      "questID": 65371,
+      "passage": "progress",
+      "title": "A Nest of Our Own",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65371_progress.ogg",
+      "text": "Got everything I asked for yet?"
+    },
+    {
+      "questID": 65371,
+      "passage": "completion",
+      "title": "A Nest of Our Own",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65371_completion.ogg",
+      "text": "Perfect! And a little gross. Just as I planned.\n\nTime to craft a disguise and take this matriarch out to roost!"
+    },
+    {
+      "questID": 65421,
+      "passage": "description",
+      "title": "Climb Every Mountain",
+      "npcID": 181039,
+      "npcName": "Rocky Dustbeard",
+      "soundFile": "65421_description.ogg",
+      "text": "Hope ye are a quick study, <class>. 'Cause I got no time for a lesson! \n\nGrab a pack and find a path tae the top o' that peak.\n\nOnce yer up there, toss this parachute to our pal Yips. Poor kid got stuck on some vines when these air elementals crashed our plane!\n\nQuickly now, so we can get outta here!"
+    },
+    {
+      "questID": 65421,
+      "passage": "progress",
+      "title": "Climb Every Mountain",
+      "npcID": 181039,
+      "npcName": "Rocky Dustbeard",
+      "soundFile": "65421_progress.ogg",
+      "text": "Hurry on, now! Yips can't hold fer long!"
+    },
+    {
+      "questID": 65421,
+      "passage": "completion",
+      "title": "Climb Every Mountain",
+      "npcID": 181039,
+      "npcName": "Rocky Dustbeard",
+      "soundFile": "65421_completion.ogg",
+      "text": "Nice climbing! Yips owes ye a drink or two!\n\nOh, the elementals? Nah, don't worry 'bout 'em. This is OUR adventure!\n\n<Rocky resumes gleefully shooting bullets through the air elementals.>"
+    },
+    {
+      "questID": 65422,
+      "passage": "description",
+      "title": "Treasure Hunting Ain't Easy",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "65422_description.ogg",
+      "text": "I can see it yer eyes: Ye got the urge to climb to the top of this here mountain and find out what's on the top!\n\nUs climbers always recognize each other. We won't let any mountain make us feel small, right?\n\nWell, good fer ye I brought plenty of climbing gear. Grab a pack and find a path to the top! \n See if you've already completed this by typing:\n\n /run print(C_QuestLog.IsQuestFlaggedCompleted(65422))\n WH.clickToCopy(document.currentScript.parentNode, \"\\/run print(C_QuestLog.IsQuestFlaggedCompleted(65422))\");\n \n \n \n \n \n const cta = WH.Tools.createWowheadClientCta();\n if (cta) {\n $('.db-page-collection-tracker-cta').append(cta);\n }"
+    },
+    {
+      "questID": 65427,
+      "passage": "description",
+      "title": "A New Architect",
+      "npcID": 181135,
+      "npcName": "Servitor Interface",
+      "soundFile": "65427_description.ogg",
+      "text": "The architects prototype designs to fulfill the purposes of the First Ones. \n\nThis archive contained many such designs.\n\nA number of design entries are lost or corrupted due to the Maw invasion. \n\nAn untouched design lattice and tools are detected nearby. The mortal will retrieve them to begin the synthesis process."
+    },
+    {
+      "questID": 65427,
+      "passage": "progress",
+      "title": "A New Architect",
+      "npcID": 181135,
+      "npcName": "Servitor Interface",
+      "soundFile": "65427_progress.ogg",
+      "text": "Have the necessary materials been located?"
+    },
+    {
+      "questID": 65427,
+      "passage": "completion",
+      "title": "A New Architect",
+      "npcID": 181135,
+      "npcName": "Servitor Interface",
+      "soundFile": "65427_completion.ogg",
+      "text": "Success. \n\nThe Protoform Repository is now restored."
+    },
+    {
+      "questID": 65443,
+      "passage": "description",
+      "title": "Expeditionary Coordination",
+      "npcID": 184793,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65443_description.ogg",
+      "text": "Pleasure to meet you, I am Naleidea Rivergleam.\n\nThe invitation to visit the Dragon Isles is quite an exciting prospect. Don't you agree?\n\nThe Reliquary has combined forces with our expeditionary counterparts to help coordinate our efforts. As a member of the Dragonscale Expedition, it is my honor to welcome you.\n\nThough first we must gather a few more members for our journey. Shall we begin?"
+    },
+    {
+      "questID": 65443,
+      "passage": "progress",
+      "title": "Expeditionary Coordination",
+      "npcID": 197279,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65443_progress.ogg",
+      "text": "Have you spoken with the others yet?"
+    },
+    {
+      "questID": 65443,
+      "passage": "completion",
+      "title": "Expeditionary Coordination",
+      "npcID": 197279,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65443_completion.ogg",
+      "text": "I believe this expedition shall be a great success."
+    },
+    {
+      "questID": 65444,
+      "passage": "description",
+      "title": "To the Dragon Isles!",
+      "npcID": 197279,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65444_description.ogg",
+      "text": "Our preliminary expedition has made landfall in the Dragon Isles.\n\nThanks to the efforts of those brave Dragonscale Expedition members, we've established a protected landing site in the Dragon Isles and made contact with the dragonflight's embassy.\n\nAre you prepared to accompany us on our next voyage to the Dragon Isles?"
+    },
+    {
+      "questID": 65444,
+      "passage": "completion",
+      "title": "To the Dragon Isles!",
+      "npcID": 184841,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65444_completion.ogg",
+      "text": "Welcome to the Dragon Isles!"
+    },
+    {
+      "questID": 65445,
+      "passage": "description",
+      "title": "Necessary Resourcing",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65445_description.ogg",
+      "text": "Devourers are consuming neomotes.\n\nWe need neomotes for necessary creation work. Without them, we are unable to complete our work.\n\nEliminate the devourers and retrieve the neomotes."
+    },
+    {
+      "questID": 65445,
+      "passage": "progress",
+      "title": "Necessary Resourcing",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65445_progress.ogg",
+      "text": "Have you collected the neomotes?"
+    },
+    {
+      "questID": 65445,
+      "passage": "completion",
+      "title": "Necessary Resourcing",
+      "npcID": 184434,
+      "npcName": "Mai Ber",
+      "soundFile": "65445_completion.ogg",
+      "text": "You have completed the task. Thank you for your assistance."
+    },
+    {
+      "questID": 65452,
+      "passage": "description",
+      "title": "Explorers in Peril",
+      "npcID": 184841,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65452_description.ogg",
+      "text": "Don't mistake the expedition's scholarly pursuits as timidness, adventurer.\n\nWe are not recluses studying books in far-off towers.\n\nWe are adventurers, hunting down knowledge first-hand in every corner of Azeroth!\n\nThat passion for adventure often leads us onto the path of perils and hazards, and a few expedition members have bitten off a little more than they could chew..."
+    },
+    {
+      "questID": 65452,
+      "passage": "progress",
+      "title": "Explorers in Peril",
+      "npcID": 184841,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65452_progress.ogg",
+      "text": "Are the expedition members safe?"
+    },
+    {
+      "questID": 65452,
+      "passage": "completion",
+      "title": "Explorers in Peril",
+      "npcID": 184841,
+      "npcName": "Naleidea Rivergleam",
+      "soundFile": "65452_completion.ogg",
+      "text": "The dragons are not here to meet us as Ebyssian said they would be..."
+    },
+    {
+      "questID": 65475,
+      "passage": "description",
+      "title": "Rolling in the Screech",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65475_description.ogg",
+      "text": "<You pull a scrap of parchment from the gooey, blood-soaked satchel of the Roc-Muncher. All you can make out is imagery of harpies devouring large eggs.\n\nYou're positive the thick, unintelligible scratch marks will make plenty of sense to your favorite senior ornithologist, Harleen Chirpsnide.>"
+    },
+    {
+      "questID": 65475,
+      "passage": "progress",
+      "title": "Rolling in the Screech",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65475_progress.ogg",
+      "text": "Back from the caves already?"
+    },
+    {
+      "questID": 65475,
+      "passage": "completion",
+      "title": "Rolling in the Screech",
+      "npcID": 183912,
+      "npcName": "Harleen Chirpsnide",
+      "soundFile": "65475_completion.ogg",
+      "text": "Ho, now! That's certainly no dinner menu you're holding!\n\nOr maybe it is..."
+    },
+    {
+      "questID": 65649,
+      "passage": "description",
+      "title": "A New Deal",
+      "npcID": 168011,
+      "npcName": "Zo'sorg",
+      "soundFile": "65649_description.ogg",
+      "text": "Ah, Maw Walker! Opportunities abound now that you have found a way into Zereth Mortis. \n\nLet us discuss further business, yes?\n\nWe have an interest in observing the potential this new pathway has provided. I trust you will procure what we require. Do not let anyone get in your way.\n\nIf this is not agreeable, I am certain I can find someone else to solve both of our problems."
+    },
+    {
+      "questID": 65649,
+      "passage": "progress",
+      "title": "A New Deal",
+      "npcID": 168011,
+      "npcName": "Zo'sorg",
+      "soundFile": "65649_progress.ogg",
+      "text": "I trust you are not returning empty-handed, yes?"
+    },
+    {
+      "questID": 65649,
+      "passage": "completion",
+      "title": "A New Deal",
+      "npcID": 168011,
+      "npcName": "Zo'sorg",
+      "soundFile": "65649_completion.ogg",
+      "text": "Good! You have done well.\n\nHere, a token of our appreciation. Your contributions were well observed."
+    },
+    {
+      "questID": 65657,
+      "passage": "description",
+      "title": "Assemble the Forsaken",
+      "npcID": 185512,
+      "npcName": "Calia Menethil",
+      "soundFile": "65657_description.ogg",
+      "text": "It's heartening to see progress has been made in rebuilding Brill, but this is only a first step. The ruins of the capital remain inaccessible because of the blight.\n\nAnd here is where I hope you will aid the cause.\n\nRestoring as much of the land as possible will require a gathering of minds all working toward a singular purpose.\n\nA number of influential figures have risen to prominence among the Forsaken. Please help bring them together so we can meet and discuss the path forward."
+    },
+    {
+      "questID": 65657,
+      "passage": "progress",
+      "title": "Assemble the Forsaken",
+      "npcID": 185513,
+      "npcName": "Lilian Voss",
+      "soundFile": "65657_progress.ogg",
+      "text": "Everyone is working hard to get back on their feet. Might not be the feet they started out with, but they work."
+    },
+    {
+      "questID": 65657,
+      "passage": "completion",
+      "title": "Assemble the Forsaken",
+      "npcID": 185513,
+      "npcName": "Lilian Voss",
+      "soundFile": "65657_completion.ogg",
+      "text": "Looks like we're ready to get started.\n\nI don't think there have been this many Forsaken in one place since... well, Darkshore.\n\nBut we are in our own lands now, and it's time we take care of our own."
+    },
+    {
+      "questID": 65660,
+      "passage": "description",
+      "title": "Walk of Faith",
+      "npcID": 185797,
+      "npcName": "Calia Menethil",
+      "soundFile": "65660_description.ogg",
+      "text": "I promised that I would help, and I shall. We need that pure sample of the plague afflicting Lordaeron, but we cannot put anyone else at risk.\n\nCome with me. I will call forth a shield of Holy Light to safeguard us deep into the blighted area so that we can collect that sample.\n\nThis spell will require my full focus. I'll trust you to protect us from anything that might try to stop us.\n\nAre you with me?"
+    },
+    {
+      "questID": 65660,
+      "passage": "progress",
+      "title": "Walk of Faith",
+      "npcID": 185513,
+      "npcName": "Lilian Voss",
+      "soundFile": "65660_progress.ogg",
+      "text": "I guess I should have faith."
+    },
+    {
+      "questID": 65660,
+      "passage": "completion",
+      "title": "Walk of Faith",
+      "npcID": 185513,
+      "npcName": "Lilian Voss",
+      "soundFile": "65660_completion.ogg",
+      "text": "That's something you don't see every day."
+    },
+    {
+      "questID": 65666,
+      "passage": "description",
+      "title": "Return to Brill",
+      "npcID": 185829,
+      "npcName": "Lilian Voss",
+      "soundFile": "65666_description.ogg",
+      "text": "We've strengthened our plague eater, and now it looks ready to take on a much, much bigger meal.\n\nLet's get it back to Faranell. He said he can replicate its properties and disperse plague eaters all across the ruins.\n\nThen maybe, just maybe, we can set foot in our home again.\n\nHere, take my hearthstone. It'll bring you back to Brill."
+    },
+    {
+      "questID": 65666,
+      "passage": "progress",
+      "title": "Return to Brill",
+      "npcID": 185831,
+      "npcName": "Master Apothecary Faranell",
+      "soundFile": "65666_progress.ogg",
+      "text": "What have you brought me?"
+    },
+    {
+      "questID": 65666,
+      "passage": "completion",
+      "title": "Return to Brill",
+      "npcID": 185831,
+      "npcName": "Master Apothecary Faranell",
+      "soundFile": "65666_completion.ogg",
+      "text": "Wonderful! Not only did you manage not to lose my plague eater, you brought it back stronger than ever!\n\nNow, witness the genius and rapidity of my machines. There will be more than enough plague eaters to spread across the surface of the Undercity."
+    },
+    {
+      "questID": 65667,
+      "passage": "description",
+      "title": "The Remedy of Lordaeron",
+      "npcID": 185839,
+      "npcName": "Calia Menethil",
+      "soundFile": "65667_description.ogg",
+      "text": "The time has come. By the Light, I pray our plan works.\n\nMaster Apothecary Faranell's wagons have reproduced the plague eater many times over, and the bats are ready to deploy them.\n\nIf you see a place where our forces could spread even more of the remedy, you can signal them with a flare.\n\nTake to the skies, and let's put an end to this blight. For Lordaeron, and for the Forsaken."
+    },
+    {
+      "questID": 65667,
+      "passage": "completion",
+      "title": "The Remedy of Lordaeron",
+      "npcID": 185852,
+      "npcName": "Lilian Voss",
+      "soundFile": "65667_completion.ogg",
+      "text": "We did it. By working together, we've cleared the surface level of the deadly plague cloud.\n\nIt will take more time to clean up the lower reaches of the Undercity, but it's a fine start."
+    },
+    {
+      "questID": 65702,
+      "passage": "description",
+      "title": "Driven Mad",
+      "npcID": 185622,
+      "npcName": "Kalecgos",
+      "soundFile": "65702_description.ogg",
+      "text": "The Azure Archives was once a place where the blue dragons would gather to discuss magic.\n\nNow I am the only one of my kind here.\n\nThis place controls the ley lines beneath the Azure Span, but it and its servants have gone out of control.\n\nI believe if we bring order to this place that I can then reclaim the Azure Oathstone.\n\nThe various constructs and elements are brimming with unstable arcane energy that needs to be redirected.\n\nDestroy them and collect what you can."
+    },
+    {
+      "questID": 65702,
+      "passage": "progress",
+      "title": "Driven Mad",
+      "npcID": 185622,
+      "npcName": "Kalecgos",
+      "soundFile": "65702_progress.ogg",
+      "text": "The archives are in a perpetual state of recreation for most of its guardians. We need to fix its flow."
+    },
+    {
+      "questID": 65702,
+      "passage": "completion",
+      "title": "Driven Mad",
+      "npcID": 185622,
+      "npcName": "Kalecgos",
+      "soundFile": "65702_completion.ogg",
+      "text": "Excellent work. The creations here are already being soothed with just this amount of unstable arcana removed."
+    },
+    {
+      "questID": 65709,
+      "passage": "description",
+      "title": "Arcane Pruning",
+      "npcID": 185623,
+      "npcName": "Kalecgos",
+      "soundFile": "65709_description.ogg",
+      "text": "We cannot activate the oathstone in the Azure Archives until we fix the issue with the out of control ley energy here.\n\nTwo out of the three draconic runes that are meant to control it are being choked by unstable arcana.\n\nI apologize that this falls to you, given Khadgar's responsibilities and the lack of my brethren appearing.\n\nThere should be a ley scepter within that bag of helpful goods you have.\n\nUse it to help repair the runes nearby."
+    },
+    {
+      "questID": 65709,
+      "passage": "progress",
+      "title": "Arcane Pruning",
+      "npcID": 185623,
+      "npcName": "Kalecgos",
+      "soundFile": "65709_progress.ogg",
+      "text": "The ley scepter should allow you to properly align and configure the runes nearby."
+    },
+    {
+      "questID": 65709,
+      "passage": "completion",
+      "title": "Arcane Pruning",
+      "npcID": 185623,
+      "npcName": "Kalecgos",
+      "soundFile": "65709_completion.ogg",
+      "text": "Excellent work. It seems these runes are able to transport us to the top of the archives.\n\nI believe that may be where our last problem resides..."
+    },
+    {
+      "questID": 65711,
+      "passage": "description",
+      "title": "Stealing Its Thunder",
+      "npcID": 190014,
+      "npcName": "Initiate Radiya",
+      "soundFile": "65711_description.ogg",
+      "text": "It's you! Thank Ohn'ahra. I was pretending to be hurt to fool the next brute who dared come in here. Ugh--the hoof lickers put some binding spell on me. I'll figure it out.\n\nThey've got Lizi in the cave. Please save her. I'll figure out how to free myself.\n\nDo what you have to do."
+    },
+    {
+      "questID": 65711,
+      "passage": "progress",
+      "title": "Stealing Its Thunder",
+      "npcID": 190014,
+      "npcName": "Initiate Radiya",
+      "soundFile": "65711_progress.ogg",
+      "text": "Anyone whose laid a hoof on Lizi will pay!"
+    },
+    {
+      "questID": 65711,
+      "passage": "completion",
+      "title": "Stealing Its Thunder",
+      "npcID": 190014,
+      "npcName": "Initiate Radiya",
+      "soundFile": "65711_completion.ogg",
+      "text": "<Radiya is unusually quiet and trembling slightly as she looks upon the tortured beast.>"
+    },
+    {
+      "questID": 65717,
+      "passage": "description",
+      "title": "Leading Motives",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65717_description.ogg",
+      "text": "<A small object catches your eye. It glitters with Progenitor magic--ancient, yet... strangely more refined.>\n\n<Soft vibrations and tones are woven into the device in a repeating refrain that almost seems to be trying to... speak?>\n\n<Firim would be very interested in this.>"
+    },
+    {
+      "questID": 65717,
+      "passage": "completion",
+      "title": "Leading Motives",
+      "npcID": 177958,
+      "npcName": "Firim",
+      "soundFile": "65717_completion.ogg",
+      "text": "By the First Ones... once again, you bring me the extraordinary. You say you found this when you defeated the Jailer? How curious.\n\nIt almost seems as if it's trying to... to communicate somehow. The implications alone are--ah! Forgive me for getting carried away. This will require more than simple research, I'm afraid. \n\nPlease, take this in return. It was one of my first discoveries--I suspect you have more to gain from its mobility than I do. \n\nThank you, my friend."
+    },
+    {
+      "questID": 65725,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65725_completion.ogg",
+      "text": "Thank you, <name>. Let us see if this does the trick."
+    },
+    {
+      "questID": 65726,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65726_completion.ogg",
+      "text": "Thank you, <name>. Let us try this for Bud's sake, if not our own curiosity."
+    },
+    {
+      "questID": 65728,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65728_completion.ogg",
+      "text": "Thank you, <name>. Let us hope this works."
+    },
+    {
+      "questID": 65729,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65729_completion.ogg",
+      "text": "Thank you, <name>. Let us see if this produces results."
+    },
+    {
+      "questID": 65730,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65730_completion.ogg",
+      "text": "Thank you, <name>. Maybe our bufonid friend just has more refined taste."
+    },
+    {
+      "questID": 65731,
+      "passage": "completion",
+      "title": "The Burrowed Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65731_completion.ogg",
+      "text": "Thank you, <name>. This is a piece of a past long lost and forgotten...\n\nBut it is not for me. Let us see if this at last will attract our hidden bufonid friend."
+    },
+    {
+      "questID": 65732,
+      "passage": "description",
+      "title": "The Patient Bufonid",
+      "npcID": 180950,
+      "npcName": "Avna",
+      "soundFile": "65732_description.ogg",
+      "text": "Look, another magnificent creature of Zereth Mortis! By the glint in its eye, I would say it was playing along the whole time.\n\nPatience delights. Bud is pleased. \n\nExcellent work, Maw Walker."
     }
   ]
 }

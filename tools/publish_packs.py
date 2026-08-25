@@ -81,9 +81,30 @@ def refresh_main_repo(github_user, repo_name, dry_run):
     # Anything that is audio, build output, a local cache, or a virtualenv.
     # tools/.cache and .venv-f5 are large and machine-local; Sounds/ and
     # packs_build/ are the pack builder's input and output respectively.
-    skip = {"Sounds", "packs_build", "packs", ".git", ".venv-f5",
+    skip = {"Sounds", "packs_build", "packs_build_new", "packs", ".git",
+            ".venv", ".venv-f5", ".venv-chatterbox",
             "SoundLengths.lua", "generated", "generated_new", "generated_new2",
-            "generated_classic", "regen", "capped_output", "scratch"}
+            "generated_classic", "regen", "capped_output", "scratch",
+            "luac.out", "missing.txt", "npcs.txt", "passages.json",
+            "voicebank.json", "blocked_classic_named.tsv"}
+
+    # Timestamped backups (SoundLengths.lua.backup-20260823-102709,
+    # packs.backup-20260825-081900/, ...) are working-tree safety copies. A
+    # name-set cannot catch them because the timestamp changes every run, so
+    # they went out to the published repo -- four copies of the index, 29k
+    # lines, plus a whole backed-up pack directory.
+    # Dotfiles are skipped wholesale, which is right for .git and the
+    # virtualenvs but wrong for these two: the clone is emptied before the copy,
+    # so anything not copied is deleted from the published repo. That is how
+    # .gitignore disappeared from it.
+    keep_dotfiles = {".gitignore", ".github"}
+
+    def is_publishable(name):
+        if name in keep_dotfiles:
+            return True
+        if name in skip or name.startswith("."):
+            return False
+        return ".backup-" not in name
 
     if dry_run:
         print(f"  would sync base addon (no Sounds/) to {repo_url}")
@@ -104,7 +125,7 @@ def refresh_main_repo(github_user, repo_name, dry_run):
             shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
 
         for name in os.listdir(REPO_ROOT):
-            if name in skip or name.startswith("."):
+            if not is_publishable(name):
                 continue
             s = os.path.join(REPO_ROOT, name)
             d = os.path.join(clone_dir, name)
@@ -114,6 +135,17 @@ def refresh_main_repo(github_user, repo_name, dry_run):
                     "generated*", "regen*", "capped_output"))
             else:
                 shutil.copy2(s, d)
+
+        # SoundLengths.lua is skipped above because the real index is the
+        # build workspace's, not something to publish -- but the .toc loads it
+        # by name, so it has to exist. Write the empty index the base addon is
+        # supposed to ship with: audio lives in the packs, and the base having
+        # entries for clips it does not carry is how a quest goes silent with
+        # no visible error. Deleting it outright, which is what this used to
+        # do, left the .toc pointing at a missing file.
+        empty_index = os.path.join(clone_dir, "SoundLengths.lua")
+        with open(empty_index, "w", encoding="utf-8") as handle:
+            handle.write("QuestReaderSoundLengths = {" + chr(10) + "}" + chr(10))
 
         run(["git", "add", "-A"], cwd=clone_dir)
         status = run(["git", "status", "--porcelain"], cwd=clone_dir)
