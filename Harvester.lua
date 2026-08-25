@@ -416,8 +416,11 @@ end
 -- nothing a player already collected is stranded.
 -- --------------------------------------------------------------------------
 -- Bumped when captured data has to be repaired rather than just carried
--- forward. 2: speaker attribution was unreliable -- see CurrentSpeaker.
-local HARVEST_SCHEMA = 2
+-- forward.
+--   2: speaker attribution was unreliable -- see CurrentSpeaker.
+--   3: the pass for 2 kept quest npcIDs. Every one of them was a zoneUID, so
+--      they all had to go, not just the ones that were obviously wrong.
+local HARVEST_SCHEMA = 3
 
 -- Throw away what the speaker bug produced.
 --
@@ -428,31 +431,40 @@ local HARVEST_SCHEMA = 2
 -- having none.
 --
 -- Quest text is kept -- the text itself is correct and is keyed by quest ID,
--- not by speaker -- but any speaker field that is provably wrong is cleared,
--- so the passage is submitted as "speaker unknown" instead of confidently
--- wrong. Only the player's own name is detectable as wrong here.
+-- not by speaker. Every npcID recorded before the fix is a zoneUID rather
+-- than a creature ID, though, so all of them go: a plausible-looking but
+-- wrong ID is more dangerous than none, because nothing downstream can tell
+-- it is wrong. npcName was always read correctly and is kept, except where it
+-- is the player's own name, which is the one case that was visibly broken.
 local function RepairSpeakerData(h)
     local dropped = 0
     for _ in pairs(h.gossip) do dropped = dropped + 1 end
     h.gossip = {}
 
     local playerName = UnitName("player")
-    local scrubbed = 0
+    local ids, names = 0, 0
     for _, entry in pairs(h.quests) do
         for _, passage in ipairs(QUEST_PASSAGES) do
             local captured = entry[passage]
-            if captured and captured.npcName and captured.npcName == playerName then
-                captured.npcName, captured.npcID = nil, nil
-                scrubbed = scrubbed + 1
+            if captured then
+                if captured.npcID then
+                    captured.npcID = nil
+                    ids = ids + 1
+                end
+                if captured.npcName and captured.npcName == playerName then
+                    captured.npcName = nil
+                    names = names + 1
+                end
             end
         end
     end
 
-    if dropped > 0 or scrubbed > 0 then
-        print("SpeakStone Narration: cleared " .. dropped
-            .. " gossip capture(s) recorded with unreliable speaker information"
-            .. (scrubbed > 0 and (", and " .. scrubbed .. " quest passage(s) attributed to your own character") or "")
-            .. ". Quest text itself was kept. This was a bug, now fixed -- re-capture gossip by talking to NPCs again.")
+    if dropped > 0 or ids > 0 or names > 0 then
+        print("SpeakStone Narration: repaired captured data after a speaker-ID bug -- dropped "
+            .. dropped .. " gossip capture(s), cleared " .. ids
+            .. " wrong NPC ID(s) and " .. names
+            .. " passage(s) attributed to your own character. All quest text was kept."
+            .. " Talk to NPCs again to re-capture gossip with correct IDs.")
     end
 end
 
