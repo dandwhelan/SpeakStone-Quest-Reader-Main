@@ -106,8 +106,13 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
         if button == "LeftButton" then
             addon:OpenSettings()
         elseif button == "RightButton" then
+            -- Same order of preference as the settings panel's export button:
+            -- the Harvester's fuller capture if it is installed, otherwise
+            -- this addon's own record of quests it had no audio for.
             if SlashCmdList["QUESTREADERHARVEST"] then
                 SlashCmdList["QUESTREADERHARVEST"]("export")
+            elseif SlashCmdList["QUESTREADERMISSING"] then
+                SlashCmdList["QUESTREADERMISSING"]()
             else
                 addon:OpenSettings()
             end
@@ -122,6 +127,9 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
         tooltip:AddLine("|cffffffffMiddle-Click:|r Toggle Debug Messages (" .. ((QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages) and "|cff00ff00On|r" or "|cffff0000Off|r") .. ")", 1, 1, 1)
         if SlashCmdList["QUESTREADERHARVEST"] or QuestReaderHarvesterDB then
             tooltip:AddLine("|cff00ff00Right-Click:|r Export Harvested Data", 0.2, 1, 0.2)
+        elseif QuestReaderAddonDB and QuestReaderAddonDB.missingCaptures
+            and next(QuestReaderAddonDB.missingCaptures.quests or {}) ~= nil then
+            tooltip:AddLine("|cff00ff00Right-Click:|r Export Captured Quest Text", 0.2, 1, 0.2)
         end
     end,
 })
