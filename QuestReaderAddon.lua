@@ -499,7 +499,7 @@ local function CreatureIDFromGUID(guid)
     if not guid or IsSecret(guid) or type(guid) ~= "string" then
         return nil
     end
-    local ok, unitType, _, _, _, creatureID = pcall(strsplit, "-", guid)
+    local ok, unitType, _, _, _, _, creatureID = pcall(strsplit, "-", guid)
     if ok and (unitType == "Creature" or unitType == "Vehicle") then
         return tonumber(creatureID)
     end

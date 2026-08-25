@@ -68,18 +68,45 @@ local function CreatureIDFromGUID(guid)
     if not guid or IsSecret(guid) or type(guid) ~= "string" then
         return nil
     end
-    local ok, unitType, _, _, _, creatureID = pcall(strsplit, "-", guid)
+    local ok, unitType, _, _, _, _, creatureID = pcall(strsplit, "-", guid)
     if ok and (unitType == "Creature" or unitType == "Vehicle") then
         return tonumber(creatureID)
     end
     return nil
 end
 
+-- Resolve who is actually speaking, or admit that it cannot.
+--
+-- The "npc" unit token is only meaningful while an interaction is genuinely
+-- open, and it is not safe to assume it is. Observed in the wild: with a
+-- replacement dialogue addon (DialogueUI and similar) the event can arrive
+-- when the unit has already gone, and UnitName("npc") then returned the
+-- *player's own* name -- which got recorded as the quest giver. Worse, a
+-- stale GUID persisted across several different NPCs, so every gossip line
+-- captured in a session collapsed into one creature ID.
+--
+-- Attributing a line to the wrong NPC is worse than not attributing it: it
+-- gets voiced in a stranger's voice and nothing downstream can tell. So each
+-- of these checks fails closed, to "unknown speaker", rather than guessing.
 local function CurrentSpeaker()
+    if not UnitExists("npc") then
+        return {}
+    end
+    -- The decisive one. If "npc" has fallen back to the player, everything
+    -- read from it is the player, not the speaker.
+    local okUnit, isPlayer = pcall(UnitIsUnit, "npc", "player")
+    if not okUnit or isPlayer then
+        return {}
+    end
+
     local guid = UnitGUID("npc")
     local name = UnitName("npc")
     if IsSecret(guid) then guid = nil end
     if IsSecret(name) then name = nil end
+    if name == UnitName("player") then
+        return {}
+    end
+
     return { id = CreatureIDFromGUID(guid), name = name }
 end
 
@@ -168,7 +195,10 @@ addon.HarvestRecordPassage = RecordPassage
 -- distinct texts are kept as a list, deduplicated by exact match so revisiting
 -- does not grow it without bound.
 local function RecordGossip(npcID, npcName, text)
-    if not npcID or not text or text == "" then return end
+    if not text or text == "" then return end
+    -- With no way to say who spoke, the line cannot be voiced by anyone in
+    -- particular, so there is nothing worth storing.
+    if not npcID and not npcName then return end
 
     -- Before the duplicate check, not after: two greetings differing only by
     -- the player's name are the same greeting, and comparing raw strings
@@ -176,12 +206,34 @@ local function RecordGossip(npcID, npcName, text)
     text = Detokenize(text)
 
     local gossip = Store().gossip
-    local entry = gossip[npcID]
+    local key = npcID
+
+    -- A creature ID maps to exactly one name, so an existing bucket under
+    -- this ID carrying a different name means the ID is stale -- the symptom
+    -- that previously merged many NPCs into one entry. Fall back to keying by
+    -- name so the two stay separate, and drop the untrustworthy ID rather
+    -- than record it against the wrong speaker.
+    if key and npcName then
+        local existing = gossip[key]
+        if existing and existing.npcName and existing.npcName ~= npcName then
+            DebugPrint("SpeakStone Narration: creature " .. tostring(key)
+                .. " already recorded as '" .. existing.npcName
+                .. "', now reporting '" .. npcName .. "' -- keying by name.")
+            key = nil
+        end
+    end
+    if not key then
+        key = "name:" .. (npcName or "unknown")
+        npcID = nil
+    end
+
+    local entry = gossip[key]
     if not entry then
-        entry = { npcName = npcName, texts = {} }
-        gossip[npcID] = entry
+        entry = { npcName = npcName, npcID = npcID, texts = {} }
+        gossip[key] = entry
     end
     entry.npcName = npcName or entry.npcName
+    entry.npcID = npcID or entry.npcID
     for _, existing in ipairs(entry.texts) do
         if existing == text then return end
     end
@@ -363,9 +415,55 @@ end
 -- was folded in. Both are drained on first load and then left alone, so
 -- nothing a player already collected is stranded.
 -- --------------------------------------------------------------------------
+-- Bumped when captured data has to be repaired rather than just carried
+-- forward. 2: speaker attribution was unreliable -- see CurrentSpeaker.
+local HARVEST_SCHEMA = 2
+
+-- Throw away what the speaker bug produced.
+--
+-- Gossip goes entirely: it is keyed on the speaker, and a stale creature ID
+-- merged many different NPCs into one bucket, so there is no way after the
+-- fact to tell which line belonged to whom. Keeping it would mean submitting
+-- lines to be voiced by an NPC who never said them, which is worse than
+-- having none.
+--
+-- Quest text is kept -- the text itself is correct and is keyed by quest ID,
+-- not by speaker -- but any speaker field that is provably wrong is cleared,
+-- so the passage is submitted as "speaker unknown" instead of confidently
+-- wrong. Only the player's own name is detectable as wrong here.
+local function RepairSpeakerData(h)
+    local dropped = 0
+    for _ in pairs(h.gossip) do dropped = dropped + 1 end
+    h.gossip = {}
+
+    local playerName = UnitName("player")
+    local scrubbed = 0
+    for _, entry in pairs(h.quests) do
+        for _, passage in ipairs(QUEST_PASSAGES) do
+            local captured = entry[passage]
+            if captured and captured.npcName and captured.npcName == playerName then
+                captured.npcName, captured.npcID = nil, nil
+                scrubbed = scrubbed + 1
+            end
+        end
+    end
+
+    if dropped > 0 or scrubbed > 0 then
+        print("SpeakStone Narration: cleared " .. dropped
+            .. " gossip capture(s) recorded with unreliable speaker information"
+            .. (scrubbed > 0 and (", and " .. scrubbed .. " quest passage(s) attributed to your own character") or "")
+            .. ". Quest text itself was kept. This was a bug, now fixed -- re-capture gossip by talking to NPCs again.")
+    end
+end
+
 function addon.HarvestMigrate()
     local h = Store()
     local moved = 0
+
+    if (h.schema or 1) < HARVEST_SCHEMA then
+        RepairSpeakerData(h)
+        h.schema = HARVEST_SCHEMA
+    end
 
     local old = QuestReaderAddonDB.missingCaptures
     if old and old.quests then
