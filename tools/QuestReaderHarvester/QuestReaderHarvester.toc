@@ -1,8 +1,0 @@
-## Interface: 110207, 120000, 120001, 120100
-## Title: SpeakStone Harvester
-## Notes: Records quest, gossip, and book text for voiceover generation.
-## Author: clhammer
-## Version: 0.1
-## SavedVariables: QuestReaderHarvesterDB
-
-QuestReaderHarvester.lua
