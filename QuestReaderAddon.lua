@@ -872,8 +872,13 @@ function addon.ShowHarvestExport(missingOnly)
     if count == 0 then
         if missingOnly then
             print("SpeakStone Narration: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
+        elseif not (addon.HarvestEnabled and addon.HarvestEnabled()) then
+            -- Only say this when it is actually true. Blaming the setting
+            -- while capture was running sent people to toggle a switch that
+            -- was already on.
+            print("SpeakStone Narration: text capture is switched off -- turn it back on in settings, or with '/ssharvest on'.")
         else
-            print("SpeakStone Narration: nothing captured yet. Text capture may be switched off in settings.")
+            print("SpeakStone Narration: nothing captured yet. Talk to an NPC or pick up a quest and it records automatically.")
         end
         return
     end

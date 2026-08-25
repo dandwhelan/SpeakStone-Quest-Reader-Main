@@ -442,8 +442,18 @@ function addon.HarvestExportText(missingOnly)
         data[key] = value
     end
 
+    -- Count everything the payload actually carries, not just quests. Counting
+    -- quests alone made a full export refuse to open whenever a session had
+    -- captured gossip but no new quest text -- which is the normal shape of a
+    -- session spent talking to NPCs -- and the "nothing captured yet" message
+    -- then wrongly blamed the capture setting for data that was sitting right
+    -- there in the payload.
     local count = 0
     for _ in pairs(quests) do count = count + 1 end
+    if not missingOnly then
+        for _ in pairs(h.gossip) do count = count + 1 end
+        for _ in pairs(h.itemText) do count = count + 1 end
+    end
     return "QuestReaderAddonExport = {\n" .. Serialize(data, "  ") .. "}", count
 end
 

@@ -82,7 +82,12 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
     button1 = YES,
     button2 = NO,
     OnAccept = function()
-        if SlashCmdList["QUESTREADERHARVEST"] then
+        -- Only when the *standalone* addon owns that command. This addon now
+        -- registers /qrharvest itself, so an unqualified check ran the
+        -- built-in wipe here and again below, printing "cleared" twice.
+        local standalone = C_AddOns and C_AddOns.IsAddOnLoaded
+            and C_AddOns.IsAddOnLoaded("QuestReaderHarvester")
+        if standalone and SlashCmdList["QUESTREADERHARVEST"] then
             SlashCmdList["QUESTREADERHARVEST"]("wipe")
         elseif QuestReaderHarvesterDB then
             QuestReaderHarvesterDB.quests = {}
