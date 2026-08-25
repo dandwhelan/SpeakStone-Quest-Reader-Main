@@ -1,107 +1,100 @@
-# WoW - Quest Reader (SpeakStone Narration)
+<p align="center">
+  <img src="media/icon.png" alt="SpeakStone Narration" width="160">
+</p>
 
-World of Warcraft addon that reads quest text aloud using AI voices cloned from
-each NPC's own in-game dialogue. Every quest description, progress and
-completion line has a generated audio file, synthesized from a clone of the
-voice that quest giver actually uses in the game. Books, item text and gossip
-get the same treatment where audio exists.
+<h1 align="center">SpeakStone Narration</h1>
 
-Currently voices **The War Within** and **Midnight** (12.0–12.1) content most
-heavily. Coverage of other expansions is real but partial and growing — see
-"Per-expansion companion packs" below for the actual numbers, which are far
-from complete for anything before Dragonflight.
+**A World of Warcraft addon that reads quest text out loud — in the voice of
+the NPC who's actually speaking.**
 
-This is a working hobby tool with real rough edges: most of the library is
-still unmapped to an expansion, gossip audio is thin because it can't be
-scraped, and generation for the whole game would take on the order of months
-of GPU time. It's actively being built out, not a finished product.
+Every quest description, progress and completion line is voiced using an AI
+voice cloned from that quest giver's own in-game dialogue. Books, letters and
+NPC greetings get the same treatment where audio exists.
 
-## Installation
+Quest text appears, the right character reads it to you. That's it.
 
-If downloading directly, grab the latest release from
-[the Releases page](https://github.com/clhammer89/wow-questreader/releases)
-and unzip the whole folder into your WoW AddOns directory, generally
-`C:\Program Files (x86)\World of Warcraft\_retail_\Interface\AddOns`. If you
-want expansion coverage beyond the base addon's bundled library, also install
-the matching `QuestReaderAddon_Pack_<Expansion>` companion addon(s) — see
-below for why those are separate.
+## Install
 
-This adds a "Read Quest" button to the bottom of the quest frame, and reads
-quest text automatically as you progress through it. Addon options let you
-toggle the minimap button and auto-read.
+You need **two** addons: the main one, and a voice pack for the expansion you
+want to hear.
 
-If you use a quest UI addon like Immersion, make sure auto-play is turned on
-in Quest Reader's own settings — Immersion's custom frame doesn't trigger the
-addon's normal hooks otherwise.
+1. Download **SpeakStone Narration** (the main addon) and
+   **SpeakStone Narration - Midnight Voices** (the audio).
+2. Unzip both into your AddOns folder, usually:
+   `C:\Program Files (x86)\World of Warcraft\_retail_\Interface\AddOns`
+3. Start WoW and make sure both are ticked in the AddOns list.
 
-## Why the addon is split into a base addon plus per-expansion packs
+The main addon contains no audio on its own — it's the player, and the packs
+are the records. Install as many packs as you like; they stack.
 
-The base addon ships with its own bundled `Sounds/` library and
-`SoundLengths.lua` index. As coverage grows toward the whole game, that
-library would eventually blow past two hard ceilings: CurseForge rejects any
-single project file over 500 MB, and a git repository carrying gigabytes of
-binary audio in its history becomes unworkable to clone, fork or host (this
-project's own repo history briefly reached several GB before being rewritten
-to control it).
+Pick up a quest and it just starts talking. A **Read Quest** button also
+appears at the bottom of the quest window if you'd rather trigger it yourself.
 
-The fix is to split newer/less-common audio into separate companion addons —
-`QuestReaderAddon_Pack_<Expansion>` — each with its own small `Sounds/`
-folder, its own `SoundLengths.lua` (under its own global variable name, e.g.
-`QuestReaderSoundLengths_Pack_Cataclysm`), and a `Register.lua` that hands its
-index to the base addon at load time via
-`QuestReaderAddon_RegisterSoundPack(packName, soundLengths)`. The base addon
-merges every registered pack's index into one lookup table
-(`addon.soundSources`) and, when it's time to play a clip, checks every
-registered source for a match (preferring `.ogg` over `.wav`) — the player
-never sees a seam between "bundled" and "pack" audio, they just get a missing
-line or a spoken one.
-
-Quest audio that hasn't yet been mapped to a specific expansion lands in an
-`Unsorted` pack rather than being dropped or guessed at — mapping quest IDs to
-expansions turns out to be a real, still-partial research problem (see the
-walkthrough for why). As of the last pack build, the large majority of
-already-generated audio is still sitting in `Unsorted`.
+> Using a quest UI addon like **Immersion** or **DialogueUI**? Turn auto-play
+> on in SpeakStone's own settings — those addons use their own window, which
+> otherwise bypasses the trigger.
 
 ## Commands
 
-| Command | Does |
+| Command | What it does |
 | --- | --- |
-| `/qrtoggle` | Toggle the minimap button |
-| `/qrauto` | Toggle auto-read on/off |
-| `/qrmissing` | Export the text of quests you've hit with no audio, ready to submit |
+| `/speakstone` | Open settings |
+| `/qrauto` | Turn auto-read on or off |
+| `/qrtoggle` | Show or hide the minimap button |
+| `/qrlibrary` | Browse and replay any voiced quest |
+| `/qrmissing` | Export quests that had no audio, so they can be voiced |
 
-## Status
+Short forms work too: `/ss`, `/ssauto`, `/ssmissing`.
 
-- English only for now. Other languages are a future goal, not started.
-- Gossip (the greeting text from NPCs who give no quest) is **partially
-  supported**: the addon can play it back, but almost none has been generated
-  yet, because — unlike quest text — it isn't recoverable from any external
-  source. See the technical section below for why, and how to help capture it.
-- Audio ships as Ogg Vorbis where available, which the game's own dialogue
-  also uses, falling back to the original WAV library where a quest hasn't
-  been regenerated yet.
-- Missing quests happen. If you see "no audio for quest `<ID>`" in chat,
-  that quest hasn't been voiced yet — the addon has already captured its
-  text, and `/qrmissing` exports everything caught this way, ready to paste
-  at speakstone.beanw.co.uk. Feel free to open an issue with the ID too.
+## Heard "no audio for quest"?
 
-## Bugs
+That quest hasn't been voiced yet — nothing is broken.
 
-If you receive "Quest sound file not found" or "Failed to play audio", the
-quest is missing its audio, not broken — see Status above.
+The addon quietly saves that quest's text when it happens. Type `/qrmissing`,
+copy what appears, and paste it at
+**[speakstone.beanw.co.uk](https://speakstone.beanw.co.uk)** to put it in the
+queue to be voiced. That's the single most useful thing you can do to help,
+and it takes about ten seconds.
 
-## Shout-outs and thanks
+Your character's name is stripped out before anything is saved.
 
-- Curseforge user Paratusjv for the stop functionality and quest-UI-addon
-  support that shipped in an earlier version.
-- Everyone who has provided feedback and support — thank you HAQ!
+## Good to know
+
+- **English only** at the moment.
+- **Coverage is partial and growing.** The War Within and Midnight are the
+  best covered; older expansions are patchy. You'll hit unvoiced quests.
+- **NPC greetings are thin.** Playback works, but very little has been
+  recorded yet — that text can't be gathered automatically, so it depends on
+  players submitting it.
+- These are AI voices. They're good, not perfect.
+
+## Thanks
+
+- **[clhammer89](https://github.com/clhammer89)**, author of the original
+  [wow-questreader](https://github.com/clhammer89/wow-questreader) — this
+  project is a fork of that addon, and the whole idea, the original playback
+  engine and the first voice library are theirs. None of this exists without
+  that groundwork.
+- **Paratusjv** (CurseForge) for the stop functionality and quest-UI-addon
+  support added in an earlier version.
+- Everyone who has sent feedback, bug reports and captured quest text —
+  thank you, HAQ!
+
+## Support the project
+
+Generating voices takes a lot of GPU time, and the site that collects quest
+text costs money to keep running. If you'd like to chip in:
+
+**[buymeacoffee.com/dandwhelane](https://buymeacoffee.com/dandwhelane)**
+
+Never required, always appreciated. Submitting missing quests with
+`/qrmissing` helps just as much.
 
 ## Links
 
-- Project on Curse: https://curseforge.com/wow/addons/wow-questreader
-- Project on Wago: https://addons.wago.io/addons/wow-questreader
-- Project on Github: https://github.com/clhammer89/wow-questreader
-- Donate: https://www.paypal.com/donate/?hosted_button_id=54FT9M5AAV9KG
+- Website: https://speakstone.beanw.co.uk
+- This project: https://github.com/dandwhelan/SpeakStone-Quest-Reader-Main
+- Original addon this was forked from: https://github.com/clhammer89/wow-questreader
 
 ---
 

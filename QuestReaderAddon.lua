@@ -97,7 +97,11 @@ end
 -- Create the LDB launcher
 local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
     type = "launcher",
-    icon = "Interface\\AddOns\\" .. addonName .. "\\cs_icon",  -- Adjusted icon path
+    -- Named with the extension on purpose. An extensionless texture path
+    -- resolves to .blp first, and the old cs_icon.blp has been removed in
+    -- favour of a TGA, which is the other format WoW loads and the only one
+    -- of the two this project can author.
+    icon = "Interface\\AddOns\\" .. addonName .. "\\cs_icon.tga",
     OnClick = function(_, button)
         if button == "LeftButton" then
             addon:OpenSettings()

@@ -3,7 +3,7 @@
 ## Title: SpeakStone Narration
 ## Notes: Plays AI-generated voiceovers for quests, books, and gossip.
 ## Author: clhammer weirdautomation@gmail.com, Paratus
-## Version: 1.2
+## Version: 1.3
 ## SavedVariables: QuestReaderAddonDB
 
 ## OptionalDeps: QuestReaderAddon_TWW_EN, QuestReaderAddon_TWW_FR

@@ -1,11 +1,35 @@
 package-as: QuestReaderAddon
 enable-nolib-creation: no
 
+# The base addon ships code only. Audio lives in the per-expansion pack
+# addons (QuestReaderAddon_Pack_*), each published as its own project --
+# a single CurseForge file is capped at 500 MB and the full library is far
+# past that. Everything below is either build-side tooling, the pack
+# builder's raw input, or repo furniture, and none of it belongs in the zip
+# a player downloads.
 ignore:
   - README.md
+  - CLAUDE.md
+  - GEMINI.md
+  - CODEX.md
   - .github
   - .git
   - .gitignore
+  - Sounds
+  - packs
+  - packs_build
+  - packs_build_new
+  - tools
+  - docs
+  - scratch
+  - generated
+  - passages.json
+  - voicebank.json
+  - missing.txt
+  - npcs.txt
+  - "*.backup-*"
+  - "*.tsv"
+  - luac.out
 
 manual-changelog:
   filename: CHANGELOG.md
