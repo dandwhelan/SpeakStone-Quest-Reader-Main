@@ -17,5 +17,6 @@ Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 # Addon files
 SoundLengths.lua
 QuestReaderAddon.lua
+Harvester.lua
 QuestReaderAddon_Settings.lua
 QuestAudioLibraryUI.lua

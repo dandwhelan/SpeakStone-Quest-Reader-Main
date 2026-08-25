@@ -57,6 +57,7 @@ function QuestReader:CreateSettings()
         { option = "showDebugMessages", detail = "Show debug messages in chat" },
         { option = "muteGossip", detail = "Mute greetings (instant autoplay)" },
         { option = "stopDialogueOnClose", detail = "Stop Dialogue when closing Quest window" },
+        { option = "harvestEnabled", detail = "Capture quest text to help voice missing quests" },
     }
 
     for _, keyInfo in ipairs(settingsInfo) do
@@ -89,12 +90,12 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
             QuestReaderHarvesterDB.itemText = {}
             print("SpeakStone Harvester: cleared.")
         end
-        -- Clear this addon's own missing-quest captures too. They are a
-        -- separate store from the Harvester's, so wiping only one would leave
-        -- the player looking at data they thought they had just cleared.
-        if QuestReaderAddonDB and QuestReaderAddonDB.missingCaptures then
-            QuestReaderAddonDB.missingCaptures.quests = {}
-            print("SpeakStone Narration: captured quest text cleared.")
+        -- Clear this addon's own store too. It is separate from the
+        -- standalone Harvester's, so wiping only one would leave the player
+        -- looking at data they thought they had just cleared.
+        if addon.HarvestWipe then
+            addon.HarvestWipe()
+            print("SpeakStone Narration: captured text cleared.")
         end
     end,
     timeout = 0,
@@ -120,18 +121,15 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
     exportHarvestButton:SetSize(160, 25)
     exportHarvestButton:SetPoint("LEFT", harvestButtonGroup, "LEFT", 0, 0)
     exportHarvestButton:SetScript("OnClick", function()
-        -- The Harvester is the fuller capture (quests, gossip and book text,
-        -- everything played rather than only the gaps), so it wins when it is
-        -- installed. Without it this addon is not empty-handed any more: it
-        -- captures the text of quests it found no audio for, and that is worth
-        -- exporting on its own. Refusing outright, which is what this used to
-        -- do, hid data the player had already collected.
-        if SlashCmdList["QUESTREADERHARVEST"] then
+        -- Capture is part of this addon now. The standalone Harvester still
+        -- wins where it is installed, because in that case it holds the
+        -- recordings rather than this addon.
+        if C_AddOns and C_AddOns.IsAddOnLoaded
+            and C_AddOns.IsAddOnLoaded("QuestReaderHarvester")
+            and SlashCmdList["QUESTREADERHARVEST"] then
             SlashCmdList["QUESTREADERHARVEST"]("export")
-        elseif SlashCmdList["QUESTREADERMISSING"] then
-            SlashCmdList["QUESTREADERMISSING"]()
         else
-            print("SpeakStone Narration: nothing captured yet.")
+            addon.ShowHarvestExport(false)
         end
     end)
 
@@ -140,13 +138,7 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
     clearHarvestButton:SetSize(160, 25)
     clearHarvestButton:SetPoint("LEFT", exportHarvestButton, "RIGHT", 10, 0)
     clearHarvestButton:SetScript("OnClick", function()
-        local haveOwnCaptures = QuestReaderAddonDB and QuestReaderAddonDB.missingCaptures
-            and next(QuestReaderAddonDB.missingCaptures.quests or {}) ~= nil
-        if SlashCmdList["QUESTREADERHARVEST"] or QuestReaderHarvesterDB or haveOwnCaptures then
-            StaticPopup_Show("QUESTREADER_CONFIRM_CLEAR_HARVEST")
-        else
-            print("SpeakStone Narration: nothing captured yet.")
-        end
+        StaticPopup_Show("QUESTREADER_CONFIRM_CLEAR_HARVEST")
     end)
 
     optionsFrame:Layout()

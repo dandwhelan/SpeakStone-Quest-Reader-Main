@@ -64,6 +64,12 @@ local defaultSettings = {
     muteGossip = true,
     stopDialogueOnClose = true,
     showDebugMessages = false,
+    -- Capture quest/gossip/book text as it is encountered, so gaps in the
+    -- voiced library can be filled. On by default: this is the one thing the
+    -- project needs from players that nothing else can supply, it costs
+    -- nothing to run, and the player's own character name is scrubbed before
+    -- anything is stored. Switched off in the settings panel.
+    harvestEnabled = true,
 }
 
 local function DebugPrint(...)
@@ -87,11 +93,12 @@ local function InitializeAddonDB()
     QuestReaderAddonDB.IsPaused = false
     QuestReaderAddonDB.IsSoundPaused = false
 
-    -- Text captured for quests this addon found no audio for. Persisted
-    -- across sessions (unlike addon.reportedMissing, which is session-only)
-    -- so it survives until the player exports and submits it.
-    QuestReaderAddonDB.missingCaptures = QuestReaderAddonDB.missingCaptures or { quests = {} }
-    QuestReaderAddonDB.missingCaptures.quests = QuestReaderAddonDB.missingCaptures.quests or {}
+    -- Fold in anything from the older stores (the standalone Harvester addon,
+    -- and the missingCaptures table this addon used before capture was built
+    -- in). Runs after the defaults above so the store it writes into exists.
+    if addon.HarvestMigrate then
+        addon.HarvestMigrate()
+    end
 end
 
 -- Create the LDB launcher
@@ -106,15 +113,13 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
         if button == "LeftButton" then
             addon:OpenSettings()
         elseif button == "RightButton" then
-            -- Same order of preference as the settings panel's export button:
-            -- the Harvester's fuller capture if it is installed, otherwise
-            -- this addon's own record of quests it had no audio for.
+            -- Capture is built in now, so this always has somewhere to go.
+            -- The standalone Harvester addon still wins if it is installed,
+            -- since in that case it, not this addon, holds the recordings.
             if SlashCmdList["QUESTREADERHARVEST"] then
                 SlashCmdList["QUESTREADERHARVEST"]("export")
-            elseif SlashCmdList["QUESTREADERMISSING"] then
-                SlashCmdList["QUESTREADERMISSING"]()
             else
-                addon:OpenSettings()
+                addon.ShowHarvestExport(false)
             end
         elseif button == "MiddleButton" then
             QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
@@ -125,12 +130,7 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
         tooltip:AddLine("SpeakStone Narration")
         tooltip:AddLine("|cffffffffLeft-Click:|r Open Settings", 1, 1, 1)
         tooltip:AddLine("|cffffffffMiddle-Click:|r Toggle Debug Messages (" .. ((QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages) and "|cff00ff00On|r" or "|cffff0000Off|r") .. ")", 1, 1, 1)
-        if SlashCmdList["QUESTREADERHARVEST"] or QuestReaderHarvesterDB then
-            tooltip:AddLine("|cff00ff00Right-Click:|r Export Harvested Data", 0.2, 1, 0.2)
-        elseif QuestReaderAddonDB and QuestReaderAddonDB.missingCaptures
-            and next(QuestReaderAddonDB.missingCaptures.quests or {}) ~= nil then
-            tooltip:AddLine("|cff00ff00Right-Click:|r Export Captured Quest Text", 0.2, 1, 0.2)
-        end
+        tooltip:AddLine("|cff00ff00Right-Click:|r Export Captured Text", 0.2, 1, 0.2)
     end,
 })
 
@@ -368,102 +368,10 @@ function StopCurrentSound()
     addon.activeSound = nil
 end
 
--- ----------------------------------------------------------------------
--- Missing-quest capture.
---
--- When no installed pack has audio for a passage, that passage's text is
--- worth as much as anything the dedicated SpeakStone Harvester addon
--- records -- so it is captured here too, scoped to exactly the gaps this
--- player hits while playing normally. This is deliberately a subset of
--- what the Harvester does (quests only, not gossip or item text) and the
--- two addons do not share code: they can each be installed alone, and
--- mirroring the logic in both keeps that true. See
--- tools/QuestReaderHarvester/QuestReaderHarvester.lua for the source this
--- was ported from.
-local function IsSecretValue(val)
-    if val == nil then return false end
-    if issecretvalue and issecretvalue(val) then return true end
-    if SecretUtil and SecretUtil.IsSecretValue and SecretUtil.IsSecretValue(val) then return true end
-    return false
-end
-
--- "Creature-0-<server>-<instance>-<zone>-<creatureID>-<spawn>"
-local function MissingCaptureCreatureID(guid)
-    if not guid or IsSecretValue(guid) or type(guid) ~= "string" then
-        return nil
-    end
-    local ok, unitType, _, _, _, creatureID = pcall(strsplit, "-", guid)
-    if ok and (unitType == "Creature" or unitType == "Vehicle") then
-        return tonumber(creatureID)
-    end
-    return nil
-end
-
-local function MissingCaptureSpeaker()
-    local guid = UnitGUID("npc")
-    local name = UnitName("npc")
-    if IsSecretValue(guid) then guid = nil end
-    if IsSecretValue(name) then name = nil end
-    return { id = MissingCaptureCreatureID(guid), name = name }
-end
-
--- Strips the player's own name back out to "$n", the same token the server
--- substituted it from -- see the Harvester's identical function for why:
--- two players' captures of the same line should read as the same line, and
--- a stranger's character name should never leave their machine.
-local missingCapturePlayerNamePattern = nil
-local function MissingCaptureDetokenize(text)
-    if not text or text == "" then
-        return text
-    end
-    if not missingCapturePlayerNamePattern then
-        local name = UnitName("player")
-        if not name or name == "" then
-            return text
-        end
-        local ok, escaped = pcall(function() return (name:gsub("(%W)", "%%%1")) end)
-        if ok and escaped then
-            missingCapturePlayerNamePattern = escaped
-        else
-            return text
-        end
-    end
-    local ok, res = pcall(function() return (text:gsub(missingCapturePlayerNamePattern, "$n")) end)
-    if ok and res then
-        return res
-    end
-    return text
-end
-
-local function RecordMissingQuestPassage(questID, passage, text)
-    if not questID or questID == 0 or not text or text == "" then
-        return
-    end
-
-    text = MissingCaptureDetokenize(text)
-
-    local quests = QuestReaderAddonDB.missingCaptures.quests
-    local entry = quests[questID]
-    if not entry then
-        entry = {}
-        quests[questID] = entry
-    end
-
-    entry.title = GetTitleText() or entry.title
-
-    local speaker = MissingCaptureSpeaker()
-    entry[passage] = {
-        text = text,
-        npcID = speaker.id,
-        npcName = speaker.name,
-    }
-end
-
--- textType maps 1:1 to the WoW API call that reads that panel's text, and is
--- only valid while the matching panel is what triggered playback -- true
--- whenever this is reached, since it is called from PlayQuestAudio in the
--- same branch that already resolved textType from either the visible panel
--- or the quest event that just fired.
+-- Capture for a passage that had no audio. The recording itself lives in
+-- Harvester.lua, which captures every quest encountered; this only marks
+-- the ones that were gaps, so /qrmissing can export just those without
+-- keeping a second copy of the same text.
 local MISSING_QUEST_TEXT_GETTERS = {
     description = GetQuestText,
     progress = GetProgressText,
@@ -472,60 +380,18 @@ local MISSING_QUEST_TEXT_GETTERS = {
 
 local function CaptureMissingQuestAudio(questID, textType)
     local getter = MISSING_QUEST_TEXT_GETTERS[textType]
-    if not getter then
+    if not getter or not addon.HarvestRecordPassage then
+        return
+    end
+    -- Respects the capture toggle: a player who turned harvesting off
+    -- should not have text quietly recorded by this path either.
+    if not (addon.HarvestEnabled and addon.HarvestEnabled()) then
         return
     end
     local ok, text = pcall(getter)
     if ok and text and text ~= "" then
-        RecordMissingQuestPassage(questID, textType, text)
+        addon.HarvestRecordPassage(questID, textType, text, true)
     end
-end
-
--- Race, class and gender decide which branch of $r/$c/$g the server
--- rendered into a line, so a capture is only interpretable alongside them.
--- Mirrors the Harvester's identical function.
-local function MissingCapturePlayerMetadata()
-    local localizedClass, classToken = UnitClass("player")
-    local localizedRace, raceToken = UnitRace("player")
-    return {
-        playerClass = classToken,
-        playerClassName = localizedClass,
-        playerRace = raceToken,
-        playerRaceName = localizedRace,
-        playerSex = UnitSex("player"),
-        faction = UnitFactionGroup("player"),
-    }
-end
-
--- Same minimal Lua-table serializer as the Harvester's export frame -- the
--- website's parser only cares about the shape (top-level .quests, .locale,
--- etc.), not which addon wrote it.
-local function MissingCaptureSerialize(tbl, indent)
-    indent = indent or ""
-    local lines = {}
-    for k, v in pairs(tbl) do
-        local keyOk, keyStr = pcall(function()
-            return type(k) == "number" and ("[" .. k .. "]") or ('["' .. tostring(k) .. '"]')
-        end)
-        if keyOk then
-            if type(v) == "table" then
-                table.insert(lines, indent .. keyStr .. " = {\n" .. MissingCaptureSerialize(v, indent .. "  ") .. indent .. "},")
-            elseif type(v) == "string" then
-                local ok, escaped = pcall(function()
-                    return v:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n")
-                end)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. ' = "' .. escaped .. '",')
-                end
-            elseif type(v) == "number" or type(v) == "boolean" then
-                local ok, valStr = pcall(tostring, v)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. " = " .. valStr .. ",")
-                end
-            end
-        end
-    end
-    return table.concat(lines, "\n") .. "\n"
 end
 
 function PlayQuestAudio(textType, skipDelay)
@@ -994,37 +860,67 @@ scrollFrame:SetScrollChild(editBox)
 -- Slash command to export the text captured for quests the installed sound
 -- packs have no audio for, ready to paste into the website's submit form --
 -- see the missing-quest capture block above PlayQuestAudio.
-SLASH_QUESTREADERMISSING1, SLASH_QUESTREADERMISSING2, SLASH_QUESTREADERMISSING3 = '/qrmissing', '/ssmissing', '/speakstonemissing'
-SlashCmdList["QUESTREADERMISSING"] = function()
-    local quests = QuestReaderAddonDB.missingCaptures and QuestReaderAddonDB.missingCaptures.quests or {}
-    local questCount = 0
-    for _ in pairs(quests) do
-        questCount = questCount + 1
-    end
-
-    if questCount == 0 then
-        print("SpeakStone Narration: no missing quest text captured yet -- keep questing with sound packs installed and gaps get recorded automatically.")
+-- Shared window for both export commands. addon.ShowHarvestExport is what
+-- the launcher's right-click and the settings panel call, so all three routes
+-- put up the same frame rather than each building their own.
+function addon.ShowHarvestExport(missingOnly)
+    if not addon.HarvestExportText then
+        print("SpeakStone Narration: capture module not loaded.")
         return
     end
-
-    local exportData = {
-        locale = GetLocale(),
-        build = select(2, GetBuildInfo()),
-        addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata
-                        and C_AddOns.GetAddOnMetadata(addonName, "Version")) or "unknown",
-        quests = quests,
-    }
-    for key, value in pairs(MissingCapturePlayerMetadata()) do
-        exportData[key] = value
+    local text, count = addon.HarvestExportText(missingOnly)
+    if count == 0 then
+        if missingOnly then
+            print("SpeakStone Narration: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
+        else
+            print("SpeakStone Narration: nothing captured yet. Text capture may be switched off in settings.")
+        end
+        return
     end
-
-    local text = "QuestReaderAddonMissingExport = {\n" .. MissingCaptureSerialize(exportData, "  ") .. "}"
 
     editBox:SetText(text)
     missingCopyFrame:Show()
     editBox:HighlightText()
+    print("SpeakStone Narration: " .. count .. " quest(s) ready. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+end
 
-    print("SpeakStone Narration: Opened window with " .. questCount .. " missing quest(s). Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+-- Only the quests that had no audio installed.
+SLASH_QUESTREADERMISSING1, SLASH_QUESTREADERMISSING2, SLASH_QUESTREADERMISSING3 = '/qrmissing', '/ssmissing', '/speakstonemissing'
+SlashCmdList["QUESTREADERMISSING"] = function()
+    addon.ShowHarvestExport(true)
+end
+
+-- Everything captured: quests, gossip and book text, voiced or not. Not
+-- registered if the standalone Harvester addon is loaded -- it claims these
+-- same command names, and whichever loaded second would silently win.
+if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestReaderHarvester")) then
+    SLASH_QUESTREADERHARVEST1, SLASH_QUESTREADERHARVEST2, SLASH_QUESTREADERHARVEST3 = '/qrharvest', '/ssharvest', '/speakstoneharvest'
+    SlashCmdList["QUESTREADERHARVEST"] = function(msg)
+        if msg == "export" or msg == "copy" then
+            addon.ShowHarvestExport(false)
+            return
+        elseif msg == "wipe" or msg == "clear" then
+            addon.HarvestWipe()
+            print("SpeakStone Narration: captured text cleared.")
+            return
+        elseif msg == "on" or msg == "off" then
+            QuestReaderAddonDB.harvestEnabled = (msg == "on")
+            print("SpeakStone Narration: text capture " .. (msg == "on" and "enabled" or "disabled") .. ".")
+            return
+        end
+
+        local quests, passages, unvoiced, npcs, lines, items, pages, missing = addon.HarvestCounts()
+        print("SpeakStone Narration capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
+        print("  " .. quests .. " quest(s), " .. passages .. " passage(s); " .. missing .. " with no audio installed.")
+        if unvoiced > 0 then
+            -- A passage with no creature ID cannot be matched to a voice later.
+            print("  " .. unvoiced .. " passage(s) have no NPC recorded (offered by an object or auto-accepted).")
+        end
+        print("  " .. npcs .. " NPC(s), " .. lines .. " gossip line(s).")
+        print("  " .. items .. " item(s)/plaque(s), " .. pages .. " page(s).")
+        print("  '/ssharvest export' to copy it out, '/ssmissing' for unvoiced quests only.")
+        print("  Paste at speakstone.beanw.co.uk to have it voiced.")
+    end
 end
 
 local function SaveMinimapIconPosition()

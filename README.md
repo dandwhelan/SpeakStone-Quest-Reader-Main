@@ -43,6 +43,7 @@ appears at the bottom of the quest window if you'd rather trigger it yourself.
 | `/qrtoggle` | Show or hide the minimap button |
 | `/qrlibrary` | Browse and replay any voiced quest |
 | `/qrmissing` | Export quests that had no audio, so they can be voiced |
+| `/ssharvest` | Show and export everything the addon has captured |
 
 Short forms work too: `/ss`, `/ssauto`, `/ssmissing`.
 
@@ -56,7 +57,13 @@ copy what appears, and paste it at
 queue to be voiced. That's the single most useful thing you can do to help,
 and it takes about ten seconds.
 
-Your character's name is stripped out before anything is saved.
+This capture is **on by default** and also picks up NPC greetings and book
+text as you go — that content can't be gathered any other way, so playing
+normally with it on genuinely helps. Untick *Capture quest text* in the
+settings, or type `/ssharvest off`, to stop it.
+
+**Your character's name is never stored.** It's replaced with `$n` — the same
+placeholder the server filled in — before anything is written to disk.
 
 ## Good to know
 
