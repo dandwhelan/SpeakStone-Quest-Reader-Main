@@ -75,7 +75,7 @@ PY
 | --- | --- |
 | `Sounds/` working tree | 1.6 GB, 7,565 files |
 | `.git` | **4.3 GB** |
-| Remote | `github.com/dandwhelan/SpeakStone-Quest-Reader-Main` |
+| Remote | `github.com/dandwhelan/QuestReaderAddon` |
 
 GitHub recommends repositories stay under 1 GB and strongly recommends under
 5 GB. This one is at 4.3 GB of history and the entire premise of automation is

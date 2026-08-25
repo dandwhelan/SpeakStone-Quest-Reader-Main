@@ -1,0 +1,3641 @@
+{
+ "source": "harvested-new-unvoiced",
+ "passages": [
+  {
+   "questID": 50690,
+   "passage": "description",
+   "title": "A Flickering of Hope",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "50690_description.ogg",
+   "text": "This pervasive darkness continues to cast shadows over our fields, hindering our harvests.\n\nCheck with Keyrra Flamestonge and see if you can help restore some order."
+  },
+  {
+   "questID": 50690,
+   "passage": "completion",
+   "title": "A Flickering of Hope",
+   "npcID": 215527,
+   "npcName": "Keyrra Flamestonge",
+   "soundFile": "50690_completion.ogg",
+   "text": "There is always work to be done, <name>. Your assistance in illuminating additional keyflames would instill hope and allow many here to return to work."
+  },
+  {
+   "questID": 66858,
+   "passage": "description",
+   "title": "Tour the Trading Post",
+   "npcID": 185468,
+   "npcName": "Tawny Seabraid",
+   "soundFile": "66858_description.ogg",
+   "text": "<A flyer, carried by the wind, flaps into your hands.>\n\nFancy yourself a collector, trader, or adventurer? \n\nWe've travelled all over Azeroth collecting goods of the finest quality for someone exactly like you!\n\nVisit one of our outposts in Stormwind or Dornogal and browse all the latest goods!\n\n--T&W Trading Post\n\n<You squint to read the fine print.>\n\nBe sure to present this flyer for some extra Trader's Tender!"
+  },
+  {
+   "questID": 66959,
+   "passage": "description",
+   "title": "Tour the Trading Post",
+   "npcID": 185472,
+   "npcName": "Shiri",
+   "soundFile": "66959_description.ogg",
+   "text": "<A flyer, carried by the wind, flaps into your hands.>\n\nRare antiquities from every corner of Azeroth! Fine goods fit for any taste!\n\nYou will not find these unique treasures anywhere else, friend.\n\nCome see us at one of our outposts in Orgrimmar or Dornogal and gaze in wonder upon the mysteries in store for you!\n\n--Zen'shiri Trading Post\n\n<You squint to read the fine print.>\n\nBe sure to present this flyer for some extra Trader's Tender!"
+  },
+  {
+   "questID": 72681,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "72681_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 75833,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "75833_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76103,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76103_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76103,
+   "passage": "progress",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76103_progress.ogg",
+   "text": "Did you collect this month's tender?"
+  },
+  {
+   "questID": 76104,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76104_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76105,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76105_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76106,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76106_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76107,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76107_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76107,
+   "passage": "progress",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76107_progress.ogg",
+   "text": "Did you collect this month's tender?"
+  },
+  {
+   "questID": 76108,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76108_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76112,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76112_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76113,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76113_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76114,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76114_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76159,
+   "passage": "description",
+   "title": "Report to the Trading Post",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76159_description.ogg",
+   "text": "<The glint of a distant object catches your eye. You suddenly remember that you have tender to collect for use at T&W Trading Post.>"
+  },
+  {
+   "questID": 76308,
+   "passage": "progress",
+   "title": "The Trial of Style",
+   "npcID": "",
+   "npcName": "",
+   "soundFile": "76308_progress.ogg",
+   "text": "Ugh, I'm so bored.\n\nDid you complete the Trial of Style yet?"
+  },
+  {
+   "questID": 76426,
+   "passage": "description",
+   "title": "The Kalimdor Cup Circuit",
+   "npcID": 206737,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "76426_description.ogg",
+   "text": "The Riders of Azeroth have learned much from us, and now we test their mettle, as well as yours, skyrider!\n\nMy bronze colleagues have traveled to Kalimdor to create new challenges. They await you with many races across the continent.\n\nAre you up to the task?"
+  },
+  {
+   "questID": 76426,
+   "passage": "completion",
+   "title": "The Kalimdor Cup Circuit",
+   "npcID": 206737,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "76426_completion.ogg",
+   "text": "You lead the way among your fellow dragonriders! As the Kalimdor Cup continues, find other races there and prove you are a cut above the rest."
+  },
+  {
+   "questID": 76588,
+   "passage": "description",
+   "title": "Defender of the Flame",
+   "npcID": 215527,
+   "npcName": "Keyrra Flamestonge",
+   "soundFile": "76588_description.ogg",
+   "text": "The Expedition forces face formidable adversaries.\n\nDrawn like moths to our keyflames, creatures of all types are intent on snuffing out the light and thwarting our rebuilding efforts.\n\nPlease help us defeat two of the most menacing denizens that threaten our keyflames. Together, we can drive back this darkness."
+  },
+  {
+   "questID": 76600,
+   "passage": "completion",
+   "title": "Right Between the Gyro-Optics",
+   "npcID": 212398,
+   "npcName": "Auebry Irongear",
+   "soundFile": "76600_completion.ogg",
+   "text": "Ezgi is going to be upset, but you and I did what needed to be done."
+  },
+  {
+   "questID": 78040,
+   "passage": "completion",
+   "title": "The Outland Cup Begins",
+   "npcID": 206737,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "78040_completion.ogg",
+   "text": "Thank you for visiting, dragonrider!"
+  },
+  {
+   "questID": 78234,
+   "passage": "description",
+   "title": "Force Your Way",
+   "npcID": 211444,
+   "npcName": "Flynn Fairwind",
+   "soundFile": "78234_description.ogg",
+   "text": "Even with the general gone, it's not going to be easy getting out of here. This place is infested.\n\nI know I'm hiding it well, but I'm not exactly feeling my best. I'm not sure I'll be much help in this state.\n\nYou're going to have to clear a path for us."
+  },
+  {
+   "questID": 78234,
+   "passage": "completion",
+   "title": "Force Your Way",
+   "npcID": 211444,
+   "npcName": "Flynn Fairwind",
+   "soundFile": "78234_completion.ogg",
+   "text": "In my defense, they disarmed me. And envenomed me. Also, does this look infected to you?\n\nAnyway, if not for all that, I would have helped. You have my word."
+  },
+  {
+   "questID": 78236,
+   "passage": "description",
+   "title": "Scrappy Straggler",
+   "npcID": 211409,
+   "npcName": "Faerin Lothar",
+   "soundFile": "78236_description.ogg",
+   "text": "If someone got left behind, we need to do something about that.\n\nI hate to say it, but these people need someone to protect them here. I have to stay.\n\nFind this straggler. And while you're at it, take a peek behind enemy lines. See if you can find anything useful."
+  },
+  {
+   "questID": 78236,
+   "passage": "completion",
+   "title": "Scrappy Straggler",
+   "npcID": 220051,
+   "npcName": "Flynn Fairwind",
+   "soundFile": "78236_completion.ogg",
+   "text": "I definitely had everything under control.\n\n<Flynn winces.>\n\nBut... I'll admit, this venom is dulling my otherwise lightning-quick reflexes, <name>."
+  },
+  {
+   "questID": 78251,
+   "passage": "description",
+   "title": "Dalaran's Most Distressed",
+   "npcID": 211399,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "78251_description.ogg",
+   "text": "I don't trust this big bug at all. He let me lay there ages without saying anything!\n\nBut if he wants to give us access to Siegehold, let's use it. I saw some other people dragged away into other parts of the base. I don't think they're eating them. It looks more like they're transporting them somewhere.\n\nLet's gather them up, make a prisoner convoy, and roll on out. Find me outside!"
+  },
+  {
+   "questID": 78251,
+   "passage": "completion",
+   "title": "Dalaran's Most Distressed",
+   "npcID": 215413,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "78251_completion.ogg",
+   "text": "Wow... this is a LOT of people.\n\nBut they're all miserable. Fortunately, that's just the flavor we need to sell my idea.\n\nThis could work."
+  },
+  {
+   "questID": 78255,
+   "passage": "description",
+   "title": "Just Act Casual",
+   "npcID": 215413,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "78255_description.ogg",
+   "text": "It's time to get outta here with the prisoners and those pheromones. I've found some convincing chains, since we have such a big group. Long as everybody stays in character, our chances look good. \n\nWe've only got General Anub'azal's marker scent goop for you and I, so we'll be the drones with permission. You do all the talkin', while I mind the cart. I hope this works.\n\nLead us through the gate, <name>!"
+  },
+  {
+   "questID": 78255,
+   "passage": "completion",
+   "title": "Just Act Casual",
+   "npcID": 215845,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "78255_completion.ogg",
+   "text": "Let's take a quick breath. We didn't lose anyone, did we?"
+  },
+  {
+   "questID": 78289,
+   "passage": "description",
+   "title": "To Rambleshire",
+   "npcID": 214352,
+   "npcName": "Rooktender Otwin",
+   "soundFile": "78289_description.ogg",
+   "text": "There's word of troubles in the village of Rambleshire, at the base of Thunderhead Peak. \n\nCan't abide the place myself. Always wet and rumbling.\n\nBut Rooktender Lufsela thought it worth a look, however, seeing as how the birds fancy the moss that the village produces. She's still green though, and might just need a hand."
+  },
+  {
+   "questID": 78289,
+   "passage": "completion",
+   "title": "To Rambleshire",
+   "npcID": 211740,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "78289_completion.ogg",
+   "text": "Otwin sent you? Probably misses my help brushing out the rooks. But there's something amiss here in Rambleshire.\n\nThere should be a storm overhead. Been visible from Dornogal for as long as I can remember. Without that storm, I fear the local mosswool operation is in trouble."
+  },
+  {
+   "questID": 78291,
+   "passage": "description",
+   "title": "Power Predators",
+   "npcID": 211740,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "78291_description.ogg",
+   "text": "Thunderhead Peak normally boasts a perpetual storm from which the local mosswools draw energy. Without it, the poor dears look to be listless and near dead on their feet. That makes them easy pickings for predators.\n\nTo get moss production back on track, we'll need to get to the bottom of the missing storm. But first we need to beat back these predators before they turn the mosswools to gravel."
+  },
+  {
+   "questID": 78291,
+   "passage": "completion",
+   "title": "Power Predators",
+   "npcID": 211740,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "78291_completion.ogg",
+   "text": "That should buy the ranchers and their flocks some time while we figure out what's going on with the missing storm. No storm means no moss, which means grumpy storm rooks.\n\nAccording to the locals, the storm is born of two legendary rams butting heads atop Thunderhead Peak. They think one of them went missing, if you can believe that."
+  },
+  {
+   "questID": 78348,
+   "passage": "completion",
+   "title": "Friends in Low Places",
+   "npcID": 215944,
+   "npcName": "Orweyna",
+   "soundFile": "78348_completion.ogg",
+   "text": "Ah! You survived. Excellent. You have much to do."
+  },
+  {
+   "questID": 78350,
+   "passage": "progress",
+   "title": "Heroes Never Die",
+   "npcID": 211699,
+   "npcName": "Faerin",
+   "soundFile": "78350_progress.ogg",
+   "text": "Make haste, <class>. Time is of the essence."
+  },
+  {
+   "questID": 78352,
+   "passage": "description",
+   "title": "For Naught, So Vial",
+   "npcID": 215944,
+   "npcName": "Orweyna",
+   "soundFile": "78352_description.ogg",
+   "text": "Truthfully, I don't care what the nerubians are plotting. They are not the first upstart people seeking power, and they certainly won't be the last. The problem is how they're going about it. I fear that tampering with this Black Blood will threaten far more than the delicate ecosystems of Khaz Algar.\n\nWe must make sure that they never return to this pit again. Their equipment is still strewn throughout the pit. Destroy as much of it as you can manage."
+  },
+  {
+   "questID": 78352,
+   "passage": "completion",
+   "title": "For Naught, So Vial",
+   "npcID": 215113,
+   "npcName": "Orweyna",
+   "soundFile": "78352_completion.ogg",
+   "text": "<Orweyna scowls.>\n\nThe nerubians are a bold people, but this seems extreme, even for them."
+  },
+  {
+   "questID": 78353,
+   "passage": "description",
+   "title": "Fear the Old Blood",
+   "npcID": 215944,
+   "npcName": "Orweyna",
+   "soundFile": "78353_description.ogg",
+   "text": "This is not exactly the place for a long talk, so I will be brief.\n\nThese roots you see are part of something much greater than you know, and it is my job to protect them. \n\nIf it isn't obvious to you already, this place is teeming with writhing Black Blood. If we do not act, it will spread deeper and further still.\n\nYou want allies? Fine. Help me cleanse this place and protect these roots, and I will at least hear you out."
+  },
+  {
+   "questID": 78353,
+   "passage": "completion",
+   "title": "Fear the Old Blood",
+   "npcID": 215113,
+   "npcName": "Orweyna",
+   "soundFile": "78353_completion.ogg",
+   "text": "Between your sweat and my spellwork, we've managed to at least contain the problem to this blighted cavern.\n\nStill, what a disaster. If this is what one cave of the stuff can do, I shudder to think what the nerubians might do with more of it."
+  },
+  {
+   "questID": 78544,
+   "passage": "description",
+   "title": "Bring the Thunder",
+   "npcID": 212756,
+   "npcName": "Baelgrim",
+   "soundFile": "78544_description.ogg",
+   "text": "The nerubians will strike out in anger and pride--which is exactly what we want.\n\nThey will swarm the meadery soon, seeking to punish us for attacking their burrow. We will hold them here on the ground while you take to the skies. When Zirix appears to command his army, we will light the fuses.\n\nWenbrandt scrounged together some supplies we can use to corral the nerubians. Set them up quickly, and then we will get you on a stormrook. Go!"
+  },
+  {
+   "questID": 78544,
+   "passage": "completion",
+   "title": "Bring the Thunder",
+   "npcID": 217849,
+   "npcName": "Adelgonn",
+   "soundFile": "78544_completion.ogg",
+   "text": "Zirix is dead. We did it. It is over. Baelgrim did it.\n\n<She repeats the last phrase to herself over and over more quietly each time as if unable to process the event.>"
+  },
+  {
+   "questID": 78545,
+   "passage": "description",
+   "title": "Return to the Coreway",
+   "npcID": 217849,
+   "npcName": "Adelgonn",
+   "soundFile": "78545_description.ogg",
+   "text": "We dealt a heavy blow to the nerubians. But Baelgrim...\n\n<Adelgonn pauses to compose herself.>\n\nHe was infuriatingly rigid and we argued ceaselessly, but in the end... he was a defender of our people--all of them.\n\nBaelgrim sacrificed himself to vouchsafe the Isle of Dorn from the nerubians. Everyone needs to know that--and we can't let the nerubians force our hand like that again.\n\nGo back to Merrix in Dornogal. Tell him we will come soon. We just... need a moment here."
+  },
+  {
+   "questID": 78545,
+   "passage": "completion",
+   "title": "Return to the Coreway",
+   "npcID": 217880,
+   "npcName": "Merrix",
+   "soundFile": "78545_completion.ogg",
+   "text": "You are alive! But what of the others?"
+  },
+  {
+   "questID": 78564,
+   "passage": "description",
+   "title": "Reforged Purpose",
+   "npcID": 212695,
+   "npcName": "Machinist Kittrin",
+   "soundFile": "78564_description.ogg",
+   "text": "That's all of them! Now, it's time to do my duty and recast these tools. Reforge them, and myself, into what I was meant to be: a proud machinist of the Ringing Deeps."
+  },
+  {
+   "questID": 78564,
+   "passage": "completion",
+   "title": "Reforged Purpose",
+   "npcID": 212695,
+   "npcName": "Machinist Kittrin",
+   "soundFile": "78564_completion.ogg",
+   "text": "I can't thank you enough for all of your help. I lost my faith, but now, I have both my faith and my tools back.\n\nI'm forever grateful to you."
+  },
+  {
+   "questID": 78570,
+   "passage": "description",
+   "title": "Frayed Legacy",
+   "npcID": 212708,
+   "npcName": "Freysworn Cruton",
+   "soundFile": "78570_description.ogg",
+   "text": "Keep true, <race>t.\n\nWe of the Woldguard uphold an ancient promise to Freya to tend to these lands. Our edict is older than those wielded by the demagogues in Dornogal. Older than Dornogal itself.\n\nHowever, not all lands have been tended equally. The leader of our order was to care for the basin nearby but we've not heard from them in many cycles.\n\nI have sent a novice to investigate. Aid them and my order will be in your favor."
+  },
+  {
+   "questID": 78570,
+   "passage": "completion",
+   "title": "Frayed Legacy",
+   "npcID": 212700,
+   "npcName": "Woldtender Igris",
+   "soundFile": "78570_completion.ogg",
+   "text": "This is not as this basin should be. We have much work to do."
+  },
+  {
+   "questID": 78589,
+   "passage": "description",
+   "title": "Invasive Cuisine",
+   "npcID": 206533,
+   "npcName": "Chef Dinaire",
+   "soundFile": "78589_description.ogg",
+   "text": "<This rarely seen plant may be of use to Chef Dinaire.>"
+  },
+  {
+   "questID": 78624,
+   "passage": "description",
+   "title": "A Candle in the Dark",
+   "npcID": 213108,
+   "npcName": "General Steelstrike",
+   "soundFile": "78624_description.ogg",
+   "text": "Beledar has turned to Shadow, we must retreat back to Mereldar!\n\n<Vaelisia looks towards Aelric Leid.>\n\nI-- No. We need to destroy Aelric first.\n\nTake him down, then we retreat."
+  },
+  {
+   "questID": 78624,
+   "passage": "completion",
+   "title": "A Candle in the Dark",
+   "npcID": 225188,
+   "npcName": "General Steelstrike",
+   "soundFile": "78624_completion.ogg",
+   "text": "May the Light bless Faerin. \n\nI thought the Eternal Flame lost. \n\nI thought this was the end of hope, and the death of our people."
+  },
+  {
+   "questID": 78627,
+   "passage": "description",
+   "title": "The Final Front",
+   "npcID": 225188,
+   "npcName": "General Steelstrike",
+   "soundFile": "78627_description.ogg",
+   "text": "Just before the kobyss attacked, we received word of a disturbance near Livia's Patience. Now we know the cause.\n\nWe... Light... We can't survive fighting on two fronts, <name>. We have to stop this, now."
+  },
+  {
+   "questID": 78627,
+   "passage": "completion",
+   "title": "The Final Front",
+   "npcID": 213108,
+   "npcName": "General Steelstrike",
+   "soundFile": "78627_completion.ogg",
+   "text": "Flames, they tunnelled up through the lake bed.\n\nLivia's Patience has already fallen."
+  },
+  {
+   "questID": 78630,
+   "passage": "description",
+   "title": "The Rise of the Reckoning",
+   "npcID": 213107,
+   "npcName": "Faerin Lothar",
+   "soundFile": "78630_description.ogg",
+   "text": "The Reckoning is ready!\n\nLet's make these spiders pay. Blood for blood."
+  },
+  {
+   "questID": 78630,
+   "passage": "progress",
+   "title": "The Rise of the Reckoning",
+   "npcID": 211699,
+   "npcName": "Faerin",
+   "soundFile": "78630_progress.ogg",
+   "text": "We will make the nerubians regret ever thinking they could push into our home!"
+  },
+  {
+   "questID": 78659,
+   "passage": "description",
+   "title": "Where the Light Touches",
+   "npcID": 213116,
+   "npcName": "Faerin Lothar",
+   "soundFile": "78659_description.ogg",
+   "text": "Many in Hallowfall will call you \"outsider\". I would call you friend. I would also ask for your help, if you are no stranger to combat. Desperate times forge strong friendships.\n\nGeneral Steelstrike ordered the army to fall back from the nerubian onslaught. In doing so, she abandoned a Lamplighter and many troops to the darkness. I may not be able to save them on my own, but with your help I may succeed.\n\nIf you're willing, ride with me or meet me there."
+  },
+  {
+   "questID": 78669,
+   "passage": "progress",
+   "title": "For Their Eyes Only",
+   "npcID": 213120,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "78669_progress.ogg",
+   "text": "Have you found any of those shadecasters yet, <name>?"
+  },
+  {
+   "questID": 78669,
+   "passage": "completion",
+   "title": "For Their Eyes Only",
+   "npcID": 213120,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "78669_completion.ogg",
+   "text": "Final war? Ascension? Not as many answers as questions, <name>. But we at least have some pieces of the puzzle."
+  },
+  {
+   "questID": 78672,
+   "passage": "description",
+   "title": "A Lamplighter's Duty",
+   "npcID": 213116,
+   "npcName": "Faerin Lothar",
+   "soundFile": "78672_description.ogg",
+   "text": "Darkness has fallen. We can't rest yet. \n\n<Faerin gives you a weary smile, but there is a light in her eyes.>\n\nThe light from the tower will hold the worst dangers in the darkness at bay. It's my duty, as a Lamplighter, to keep all the towers blazing. \n\nMy patrol takes me to Lorel's Crossing by air next. I would welcome you and Anduin at my side, for all our sakes."
+  },
+  {
+   "questID": 78685,
+   "passage": "description",
+   "title": "The Tunnel's End",
+   "npcID": 218715,
+   "npcName": "Speaker Brinthe",
+   "soundFile": "78685_description.ogg",
+   "text": "So we're hearing more rumors about Taelloch. \n\nThe town and its mine are responsible for ore production. Apparently, we haven't received shipments in weeks, and the town's foreman has disappeared. Now the High Speaker is discouraging anyone from traveling there.\n\nThat tells me we should investigate. And of course, if people are hurting, then we should help them."
+  },
+  {
+   "questID": 78685,
+   "passage": "progress",
+   "title": "The Tunnel's End",
+   "npcID": 213612,
+   "npcName": "Magni Bronzebeard",
+   "soundFile": "78685_progress.ogg",
+   "text": "We have to find out what happened here."
+  },
+  {
+   "questID": 78688,
+   "passage": "description",
+   "title": "Cage, Match",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78688_description.ogg",
+   "text": "When we were scouting before you arrived, we saw a lot of cages set up around Velhan's Claim. Typically, the kobyss use these to hold their victims until they're needed for a ritual sacrifice.\n\nThose sacrifices lead to... lots of other dark activities. Not the least of which is eating the victims.\n\nLet's get ahead of all that. Take my torch, and destroy the cages, so we don't have to see that happen to anyone from Velhan's Claim."
+  },
+  {
+   "questID": 78688,
+   "passage": "completion",
+   "title": "Cage, Match",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78688_completion.ogg",
+   "text": "Good work, <name>. Without their cages, the kobyss won't be able to take prisoners.\n\nNo prisoners means no foul rituals, and preventing those gives us a much better chance of saving the people at Velhan's Claim."
+  },
+  {
+   "questID": 78689,
+   "passage": "progress",
+   "title": "If It Leads, It Bleeds",
+   "npcID": 213614,
+   "npcName": "Taenar Strongoth",
+   "soundFile": "78689_progress.ogg",
+   "text": "Did you find their leaders? They look strong, but I'm sure you're up to the task."
+  },
+  {
+   "questID": 78690,
+   "passage": "description",
+   "title": "Situational Awareness",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78690_description.ogg",
+   "text": "Regardless of what history Taenar and Velhan have between them, we need to take care of the people here at Velhan's Claim.\n\nadventurer, will you please check in with the families here? Let them know we're here to help.\n\nSee if they're worried or need anything. And reassure them that the Lamplighters will drive back the kobyss."
+  },
+  {
+   "questID": 78690,
+   "passage": "completion",
+   "title": "Situational Awareness",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78690_completion.ogg",
+   "text": "We're here to help. But I've learned in the past, that there are times hope and reassurance can be the most urgent need.\n\nWhile you were talking with the residents, Taenar and I have determined what our next steps are going to be. \n\nWe need to give the people room to breathe, but we also need to prepare them to fight."
+  },
+  {
+   "questID": 78692,
+   "passage": "description",
+   "title": "Teach a Man to Fish",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78692_description.ogg",
+   "text": "adventurer, the people of Velhan's Claim have been locked up inside, afraid of the dark, for too long. \n\nAnd there's plenty to fear out there, but these are capable, strong people. They should be driving the kobyss away, not hiding behind their walls. \n\nGet these spears to the people of Velhan's Claim. They've learned to hide from their problems, but we'll give them the means to take their lives back!"
+  },
+  {
+   "questID": 78692,
+   "passage": "completion",
+   "title": "Teach a Man to Fish",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "78692_completion.ogg",
+   "text": "I think now we'll see them acting very differently, now that they're armed, <name>.\n\nThere's something about knowing you can take care of yourself, that you can handle your own problems, and you don't need anyone to rescue you.\n\nOf course, we Lamplighters will always be there to help, but it's very likely that we won't be needed next time."
+  },
+  {
+   "questID": 78694,
+   "passage": "progress",
+   "title": "Reclaiming Velhan's Claim",
+   "npcID": 213614,
+   "npcName": "Taenar Strongoth",
+   "soundFile": "78694_progress.ogg",
+   "text": "How's it going out there, <name>? You sending those creatures of darkness back to the deeps?"
+  },
+  {
+   "questID": 78696,
+   "passage": "completion",
+   "title": "We Don't Go to Taelloch",
+   "npcID": 213634,
+   "npcName": "Dagran Thaurissan II",
+   "soundFile": "78696_completion.ogg",
+   "text": "There's not much to see in the foreman's office. If we want answers, we'll need to search the town."
+  },
+  {
+   "questID": 78697,
+   "passage": "description",
+   "title": "Ghost of a Company Town",
+   "npcID": 213634,
+   "npcName": "Dagran Thaurissan II",
+   "soundFile": "78697_description.ogg",
+   "text": "The foreman isn't here. Obviously. But the evidence points to her being here recently. So perhaps she's still nearby!\n\nWe should go further into town and see if anyone has any idea where she might be.\n\nOr maybe someone else can give us the answers we need. Maybe we'll find out on our own! Maybe it was some sort of attack or some kind of... sorry. I'm getting ahead of myself. Let's go investigate!"
+  },
+  {
+   "questID": 78700,
+   "passage": "progress",
+   "title": "Controlled Demolition",
+   "npcID": 214890,
+   "npcName": "Ironhaul Bodyguard",
+   "soundFile": "78700_progress.ogg",
+   "text": "There's more to be done. We can't let this corruption spread."
+  },
+  {
+   "questID": 78700,
+   "passage": "completion",
+   "title": "Controlled Demolition",
+   "npcID": 214890,
+   "npcName": "Ironhaul Bodyguard",
+   "soundFile": "78700_completion.ogg",
+   "text": "Maybe we've only killed a few skardyn from a much larger swarm. But we have to start somewhere."
+  },
+  {
+   "questID": 78706,
+   "passage": "completion",
+   "title": "The High Speaker's Secret",
+   "npcID": 212741,
+   "npcName": "Speaker Brinthe",
+   "soundFile": "78706_completion.ogg",
+   "text": "Thank you for looking into the mystery plaguing Taelloch.\n\nWhat did you find?"
+  },
+  {
+   "questID": 78714,
+   "passage": "description",
+   "title": "A Poor Reception",
+   "npcID": 213620,
+   "npcName": "Thrall",
+   "soundFile": "78714_description.ogg",
+   "text": "There's strong evidence that the Radiant Song is a warning from Azeroth herself. A cry for help.\n\nThat's why we're here. If this vision truly is Azeroth's message, Magni will know what she's trying to tell us.\n\nHe should be in the Chamber of the Heart. Let's go."
+  },
+  {
+   "questID": 78722,
+   "passage": "completion",
+   "title": "To Khaz Algar!",
+   "npcID": 214908,
+   "npcName": "Alleria Windrunner",
+   "soundFile": "78722_completion.ogg",
+   "text": "She was Archmage Drenden. All along, Xal'atath has been watching, plotting, right in front of me. How could I be so blind? \n\nAnd now she's invading Dalaran with an army of nerubians. \n\nXal'atath planned this. All of this. She wanted us to come to Khaz Algar."
+  },
+  {
+   "questID": 78743,
+   "passage": "description",
+   "title": "Before I Depart",
+   "npcID": 213184,
+   "npcName": "Korgran",
+   "soundFile": "78743_description.ogg",
+   "text": "I can feel my energy reserves depleting.\n\nI will soon not be able to execute my duties. That is why I have Urtago here to take over.\n\nBefore my systems grind to a halt, I must make sure Mourning Rise is free of kobolds. They have invaded the memorial site I tend and plunder the Unbound shrines and bodies that are there.\n\nMaybe it is good you are here. You may have the strength to help us.\n\nPlease, help Urtago rid the site of kobolds."
+  },
+  {
+   "questID": 78743,
+   "passage": "completion",
+   "title": "Before I Depart",
+   "npcID": 213687,
+   "npcName": "Urtago",
+   "soundFile": "78743_completion.ogg",
+   "text": "Korgran still calls himself the caretaker, but I'm the one who has been taking care of Mourning Rise for some time.\n\nI don't mind. Korgran is very kind. \n\nBut the situation here has gotten away from me. We have some work ahead of us."
+  },
+  {
+   "questID": 78749,
+   "passage": "description",
+   "title": "Who Runs This Fine Establishment?",
+   "npcID": 213688,
+   "npcName": "Urtago",
+   "soundFile": "78749_description.ogg",
+   "text": "While you were dealing with the tunnels and the workmasters, I saw a peculiar kobold go into a cave to the northwest. The kobolds seemed to respect him more than the others, calling him Grand-Heister Bokk and offering him the food you call \"cheese.\" This makes me think he is the real mastermind.\n\nIf that kobold is in fact the real Ward of this operation, then we should take the opportunity to strike him down.\n\nI will meet you at this cave."
+  },
+  {
+   "questID": 78749,
+   "passage": "completion",
+   "title": "Who Runs This Fine Establishment?",
+   "npcID": 213187,
+   "npcName": "Urtago",
+   "soundFile": "78749_completion.ogg",
+   "text": "I am happy to see you, <name>.\n\nI feel my inner workings grinding--that's a sign of anxiety. Korgran nears his shutdown with every passing moment, and then this place will be under my care. \n\nIt is a lot of responsibility. But I believe that I am ready for it."
+  },
+  {
+   "questID": 78754,
+   "passage": "description",
+   "title": "Lost Delivery",
+   "npcID": 214640,
+   "npcName": "Harvester Farnee",
+   "soundFile": "78754_description.ogg",
+   "text": "<You find a small yet heavy leather-bound package on the road with an attached label.>\n\nGundargaz Courier Express\n\nEXPEDITED\n\nTo: \nHarvester Farnee\nDurgaz Cabin\n\nOPEN WITH CARE: Contains volatile elemental minerals."
+  },
+  {
+   "questID": 78754,
+   "passage": "completion",
+   "title": "Lost Delivery",
+   "npcID": 214640,
+   "npcName": "Harvester Farnee",
+   "soundFile": "78754_completion.ogg",
+   "text": "Well, smoke the hive... you found it! I still can't believe the courier just lost my package...\n\nWe've been waiting on this to help with Shalehoof's leg. \n\nMixed with fire honey, this stuff should patch him up quickly!"
+  },
+  {
+   "questID": 78895,
+   "passage": "description",
+   "title": "A Shadow Over Gundargaz",
+   "npcID": 213869,
+   "npcName": "Watcher Toki",
+   "soundFile": "78895_description.ogg",
+   "text": "You look dangerous.\n\n<Toki spits on the ground.>\n\nThat's good. We need dangerous. Something is stalking Gundargaz. \n\nSomething mean. \n\nSomething... recent. \n\nJust before the Coreway collapsed I started getting reports of workers going missing mid-shift. Only thing we've been able to find have been the odd chunk of rock.\n\nFingers, mostly. \n\nIf you could sniff out what's stalking my town, I'd be in your debt."
+  },
+  {
+   "questID": 78895,
+   "passage": "completion",
+   "title": "A Shadow Over Gundargaz",
+   "npcID": 213869,
+   "npcName": "Watcher Toki",
+   "soundFile": "78895_completion.ogg",
+   "text": "A demon? Escaped from the crashed ruins of a flying magical city?\n\nIf you say so. \n\nI'm just glad it's sorted."
+  },
+  {
+   "questID": 78901,
+   "passage": "description",
+   "title": "Heeeelllp!!!",
+   "npcID": 214168,
+   "npcName": "Skedgit Cinderbangs",
+   "soundFile": "78901_description.ogg",
+   "text": "Hey! You!\n\nGet me down! Away from these worms! Please!\n\nI'll pay you! I'll even owe you one! Heck, I'll gladly sell out any cartel member you need dirt on! \n\nJust get me down!\n\nAlso, don't walk too much. They can hear your footsteps. Move from rock to rock if you don't want a swarm coming after you."
+  },
+  {
+   "questID": 78929,
+   "passage": "completion",
+   "title": "Tricks of the Dark",
+   "npcID": 214377,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "78929_completion.ogg",
+   "text": "Thank you, <name>. These people are badly hurt, but I think they will make it. Some seem to have some skill in healing of their own."
+  },
+  {
+   "questID": 78937,
+   "passage": "completion",
+   "title": "Shadow upon Shadow",
+   "npcID": 214405,
+   "npcName": "Alleria Windrunner",
+   "soundFile": "78937_completion.ogg",
+   "text": "The fear and shame of these people lingers in the air like a fog."
+  },
+  {
+   "questID": 78950,
+   "passage": "progress",
+   "title": "Cutting Off the Legs",
+   "npcID": 214273,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "78950_progress.ogg",
+   "text": "Speak with Anduin within the Sanguine Grasps."
+  },
+  {
+   "questID": 78950,
+   "passage": "completion",
+   "title": "Cutting Off the Legs",
+   "npcID": 214273,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "78950_completion.ogg",
+   "text": "Oh, good, you made it."
+  },
+  {
+   "questID": 78996,
+   "passage": "description",
+   "title": "Weapons and Warriors",
+   "npcID": 214444,
+   "npcName": "Aggartha",
+   "soundFile": "78996_description.ogg",
+   "text": "Gorloc raiders have been slaughtering these farmers and stealing their pearls. They seek our protection, but we may not be enough.\n\nI know of others nearby who can help. Seek them out and request their aid. If they are hesitant, offer them the promise of pearls as payment.\n\nWe will also need to arm these farmers so they can defend themselves. Search for spare weapons and equipment that they might be able to use.\n\nI will go with the farmers and train them as best I can."
+  },
+  {
+   "questID": 78996,
+   "passage": "completion",
+   "title": "Weapons and Warriors",
+   "npcID": 215201,
+   "npcName": "Aggartha",
+   "soundFile": "78996_completion.ogg",
+   "text": "Good work. I'm glad you were able to recruit some fighters. It is worse than I expected, and we will need every one we have."
+  },
+  {
+   "questID": 78998,
+   "passage": "description",
+   "title": "Frontline Farmers",
+   "npcID": 215201,
+   "npcName": "Aggartha",
+   "soundFile": "78998_description.ogg",
+   "text": "Most of the farmers are already out in the field, defending their positions. I have trained them as best I could given the circumstances, but they are still wielding farming tools. \n\nI need you to distribute the weapons you gathered to those on the frontlines. While it may not markedly improve their combat ability, at least it will boost their confidence that they are not alone in this fight."
+  },
+  {
+   "questID": 78998,
+   "passage": "completion",
+   "title": "Frontline Farmers",
+   "npcID": 215327,
+   "npcName": "Aggartha",
+   "soundFile": "78998_completion.ogg",
+   "text": "Excellent. As long as they fight together and for each other, I believe we will be victorious."
+  },
+  {
+   "questID": 79089,
+   "passage": "description",
+   "title": "Consecrated Cleanup",
+   "npcID": 225188,
+   "npcName": "General Steelstrike",
+   "soundFile": "79089_description.ogg",
+   "text": "Our Veneration Grounds have been desecrated. Its beauty marred. \n\nIt's going to take a bigger effort, but I would appreciate anything you can do to cleanup our grounds."
+  },
+  {
+   "questID": 79089,
+   "passage": "completion",
+   "title": "Consecrated Cleanup",
+   "npcID": 225188,
+   "npcName": "General Steelstrike",
+   "soundFile": "79089_completion.ogg",
+   "text": "Thank you, <name>. It may not have seemed like much, but this is one of our most sacred places. \n\nWe remember our dead here. We... have a lot to remember."
+  },
+  {
+   "questID": 79107,
+   "passage": "description",
+   "title": "After the Storm",
+   "npcID": 223944,
+   "npcName": "Alleria Windrunner",
+   "soundFile": "79107_description.ogg",
+   "text": "Turalyon and Geya'rah are training our new earthen allies as ground forces. But we will need more than that. We will need the Stormriders. \n\nMany were lost in the infiltration of the Stormperch and more to the nerubians. Their leader, Stormward Baelgrim, died valiantly.\n\nThe surviving Stormriders are being cared for at a triage station nearby. We need to do whatever is necessary to get them and their rooks back in the air. They will be the earthen's most potent weapon in the battles to come."
+  },
+  {
+   "questID": 79109,
+   "passage": "description",
+   "title": "Follow Miral",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "79109_description.ogg",
+   "text": "Tomothy's lynx, Miral, has been bugging me. I don't know what she wants but it is unusual to see her without my brother. She's a great farm cat, but she's still a cat, so maybe she's just bored with Tomothy today? I don't know. Maybe Tomothy got into some sort of trouble.\n\nCan you find out what is bothering her for me?"
+  },
+  {
+   "questID": 79110,
+   "passage": "completion",
+   "title": "Save Tomothy",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "79110_completion.ogg",
+   "text": "You saved my idiot brother from the darkness! Thank you."
+  },
+  {
+   "questID": 79115,
+   "passage": "description",
+   "title": "Expert Consultant",
+   "npcID": 214356,
+   "npcName": "Vix'aron",
+   "soundFile": "79115_description.ogg",
+   "text": "You alone are no longer sufficient. We require additional assistance, and the jawcrawlers and threadlings also need oversight.\n\nThe niffen settlement, Mmarl, is not far. However, past forced conscription attempts have failed. Nerubians are now forbidden within the settlement. We need someone to communicate in our stead.\n\nGo and barter with the rats. Come back with able bodies."
+  },
+  {
+   "questID": 79117,
+   "passage": "progress",
+   "title": "Bright Young Niffen",
+   "npcID": 215037,
+   "npcName": "Vetiverian",
+   "soundFile": "79117_progress.ogg",
+   "text": "Have you found anyone yet?"
+  },
+  {
+   "questID": 79118,
+   "passage": "completion",
+   "title": "Rak-Ush Under New Management",
+   "npcID": 214356,
+   "npcName": "Vix'aron",
+   "soundFile": "79118_completion.ogg",
+   "text": "Excellent."
+  },
+  {
+   "questID": 79120,
+   "passage": "description",
+   "title": "Beetle in a Haystack",
+   "npcID": 214356,
+   "npcName": "Vix'aron",
+   "soundFile": "79120_description.ogg",
+   "text": "There are still feral stagshells on the outskirts of Rak-Ush.\n\nThis scent grenade should be sufficient in stunning the beasts and alerting the niffen to their location.\n\nOnce they are stunned, one of the rats will take them back to their hollow.\n\nCapture them and bring them back. We will be waiting."
+  },
+  {
+   "questID": 79120,
+   "passage": "completion",
+   "title": "Beetle in a Haystack",
+   "npcID": 214356,
+   "npcName": "Vix'aron",
+   "soundFile": "79120_completion.ogg",
+   "text": "Excellent work."
+  },
+  {
+   "questID": 79123,
+   "passage": "description",
+   "title": "Permanent Hire",
+   "npcID": 214359,
+   "npcName": "Kish'nal",
+   "soundFile": "79123_description.ogg",
+   "text": "Rak-Ush is beginning to look like a functioning swarmery.\n\nThe role of delegation has suited me and Vix'aron well. You will continue to aid the niffen. In return, you may keep a portion of the wealth the swarmbeasts produce. \n\nSaffrin has more detailed plans around the development of the swarmery. Go speak to him, I have nothing else to say to you."
+  },
+  {
+   "questID": 79123,
+   "passage": "progress",
+   "title": "Permanent Hire",
+   "npcID": 217250,
+   "npcName": "Saffrin",
+   "soundFile": "79123_progress.ogg",
+   "text": "You have not spoken to Saffrin yet, have you? Otherwise you would not be here."
+  },
+  {
+   "questID": 79124,
+   "passage": "description",
+   "title": "Conduit of the Southern Storm",
+   "npcID": 214995,
+   "npcName": "Olbarig",
+   "soundFile": "79124_description.ogg",
+   "text": "I'll tell you what I told Baelgrim when we last spoke. The binding of stormrooks is wrong. These creatures are as smart as any earthen. Some I'd say are smarter.\n\nBut... Lufsela seems to be different. If her stormrook follows her willingly, then perhaps others will make that choice as well if she summons them.\n\nTo summon rooks, we need Baelgrim's conduit. It's tucked away here somewhere. Have a look around, and maybe ask these pilgrims if they have seen it."
+  },
+  {
+   "questID": 79127,
+   "passage": "description",
+   "title": "The Outland Cup Begins",
+   "npcID": 214022,
+   "npcName": "Racing Enthusiast",
+   "soundFile": "79127_description.ogg",
+   "text": "Skyrider! Lord Andestrasz has left the Dragon Isles and is visiting Stormwind. He's looking for capable skyriders like yourself to compete in new races!"
+  },
+  {
+   "questID": 79127,
+   "passage": "completion",
+   "title": "The Outland Cup Begins",
+   "npcID": 214111,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "79127_completion.ogg",
+   "text": "Thank you for visiting, skyrider!"
+  },
+  {
+   "questID": 79128,
+   "passage": "completion",
+   "title": "The Outland Cup Begins",
+   "npcID": 214112,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "79128_completion.ogg",
+   "text": "Thank you for visiting, dragonrider!"
+  },
+  {
+   "questID": 79129,
+   "passage": "description",
+   "title": "Rook Rally",
+   "npcID": 215039,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "79129_description.ogg",
+   "text": "Now that we've got the conduit all charged, I suppose it's time we joined everyone on the peak. \n\nThrall talked me through what to expect, but also said summoning the stormrooks will require me to trust my feelings and instincts.\n\nAn earthen trusting their feelings and instincts. That's... a challenge.\n\nYou will help me, right? I'm not a fighter, and it looks dangerous up there. \n\nIf anything happens to me, make sure Shraubendre makes it out safe. Please."
+  },
+  {
+   "questID": 79131,
+   "passage": "completion",
+   "title": "The Northrend Cup Begins",
+   "npcID": 206737,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "79131_completion.ogg",
+   "text": "Thank you for visiting, dragonrider!"
+  },
+  {
+   "questID": 79132,
+   "passage": "completion",
+   "title": "The Northrend Cup Begins",
+   "npcID": 214111,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "79132_completion.ogg",
+   "text": "Thank you for visiting, dragonrider!"
+  },
+  {
+   "questID": 79133,
+   "passage": "completion",
+   "title": "The Northrend Cup Begins",
+   "npcID": 214112,
+   "npcName": "Lord Andestrasz",
+   "soundFile": "79133_completion.ogg",
+   "text": "Thank you for visiting, dragonrider!"
+  },
+  {
+   "questID": 79139,
+   "passage": "description",
+   "title": "Alone in the Dark",
+   "npcID": 215113,
+   "npcName": "Orweyna",
+   "soundFile": "79139_description.ogg",
+   "text": "My people do not think that this Black Blood is a threat to our world. It has sat dormant for ages, after all. Why should that change now?\n\nBut the world is changing more quickly than my people realize. The nerubians' decision to extract the Blood for their own ends is proof of that.\n\nThe nerubians hold a watchtower not far from here. The ones who survived the pit could not have gotten too far. We should give chase immediately."
+  },
+  {
+   "questID": 79139,
+   "passage": "completion",
+   "title": "Alone in the Dark",
+   "npcID": 216213,
+   "npcName": "Spindle",
+   "soundFile": "79139_completion.ogg",
+   "text": "<The bizarre creature's eyes remain locked upon you, unwavering. It nudges something towards you--a scroll with a thick seal of violet wax.>"
+  },
+  {
+   "questID": 79140,
+   "passage": "description",
+   "title": "Goldbricking",
+   "npcID": 215187,
+   "npcName": "Overlord Geya'rah",
+   "soundFile": "79140_description.ogg",
+   "text": "Is this what we are to rely on to help us defeat Xal'atath? The Unbound define themselves by their desertion. And the Oathsworn, for being made of stone, are pretty soft. City life hasn't done them any favors. \n\nWe've got a lot of work to do.\n\nGet down there and give these earthen a taste of what it's like to face a real threat. Try not to knock any \"offline,\" but a maiming here or there would send a strong message to the rest."
+  },
+  {
+   "questID": 79145,
+   "passage": "description",
+   "title": "Metal and Stone",
+   "npcID": 223205,
+   "npcName": "High Exarch Turalyon",
+   "soundFile": "79145_description.ogg",
+   "text": "While some of these recruits struggle with discipline, most have a strong work ethic. They only need training and the equipment to make the most of it.\n\nEarthen weaponsmiths and armorers have been working around the clock to equip this fledgling army. But we could use some help getting the new armaments into the hands of these trainees."
+  },
+  {
+   "questID": 79146,
+   "passage": "description",
+   "title": "Ground Pounders",
+   "npcID": 214919,
+   "npcName": "Thrall",
+   "soundFile": "79146_description.ogg",
+   "text": "The rooks and their chosen riders will need time to bond. \n\nPerhaps you should use this time to check in on our other trainees. \n\nThe Stormriders are the traditional army of the earthen, but many Unbound and Oathsworn have expressed willingness to fight at our side due to help in restoring their machines.\n\nAdelgonn, Geya'rah, and Turalyon are busy training them. Go and see if they need any assistance."
+  },
+  {
+   "questID": 79147,
+   "passage": "description",
+   "title": "Flight Training 101",
+   "npcID": 215211,
+   "npcName": "Kurdran Wildhammer",
+   "soundFile": "79147_description.ogg",
+   "text": "Now that all of our recruits are present, it's high time we took to the air. See what I did there? High time? No?\n\nRight then. We'll be puttin' these rookies through their paces. Startin' with the basics of aerial maneuverin' at speed, we'll do our best to simulate the kind of precision flyin' we might expect below ground. \n\nAfter that, we'll see what these rooks can really do--an I think Thrall and Lufsela have somethin' special cookin'."
+  },
+  {
+   "questID": 79148,
+   "passage": "description",
+   "title": "The Nibelgaz Refinery",
+   "npcID": 215208,
+   "npcName": "Orsenth",
+   "soundFile": "79148_description.ogg",
+   "text": "Quickly! Elementals have overrun the Nibelgaz Mine and the refinery crew are trapped down there with them. \n\nI am especially worried about my fused, Munderut. His memory is not the best these days. If you are a friend, rescue him and the refinery workers.\n\nHere, take this healing clay. It only helps a little, but it should be enough for any injured to make their way back. I wish we had a rejuvenating crystal, but that is the stuff of legends."
+  },
+  {
+   "questID": 79148,
+   "passage": "completion",
+   "title": "The Nibelgaz Refinery",
+   "npcID": 215208,
+   "npcName": "Orsenth",
+   "soundFile": "79148_completion.ogg",
+   "text": "The workers told me that you helped them escape the refinery. Task complete! \n\nI'll take the clay back now. Gratitude."
+  },
+  {
+   "questID": 79149,
+   "passage": "description",
+   "title": "Rampage in the Refinery",
+   "npcID": 215234,
+   "npcName": "Ferdagor",
+   "soundFile": "79149_description.ogg",
+   "text": "Catastrophe! Oh, this is awful. Awful! Those accursed slag heap elementals are keeping my refinery workers from being able to do their jobs.\n\nDuty demands we carry on our work. These delays will not be tolerated. You look competent enough. Go on, get down there and get to work destroying elementals. Production must not be slowed!"
+  },
+  {
+   "questID": 79149,
+   "passage": "completion",
+   "title": "Rampage in the Refinery",
+   "npcID": 215234,
+   "npcName": "Ferdagor",
+   "soundFile": "79149_completion.ogg",
+   "text": "What a terrible delay in production. The miners will have to work twice as hard to make up for lost time, I am afraid.\n\nIt is good you came around when you did. Those elementals are a menace. An awful menace!"
+  },
+  {
+   "questID": 79152,
+   "passage": "description",
+   "title": "Gutting the Pool",
+   "npcID": 218062,
+   "npcName": "Alyza Bowblaze",
+   "soundFile": "79152_description.ogg",
+   "text": "The kobyss are... a bit larger than I expected, and I might--might, you understand?--have more trouble with them than I originally anticipated.\n\nKill any stupid fish-faces you see."
+  },
+  {
+   "questID": 79152,
+   "passage": "completion",
+   "title": "Gutting the Pool",
+   "npcID": 215254,
+   "npcName": "Alyza Bowblaze",
+   "soundFile": "79152_completion.ogg",
+   "text": "You've killed a lot of them.\n\nI wouldn't mind if you killed more. Just saying."
+  },
+  {
+   "questID": 79154,
+   "passage": "description",
+   "title": "A Final Goodbye",
+   "npcID": 215254,
+   "npcName": "Alyza Bowblaze",
+   "soundFile": "79154_description.ogg",
+   "text": "Well, parents avenged, fish killed, more fish killed, biggest fish killed. \n\nPretty good day.\n\nI guess I should go burn stuff."
+  },
+  {
+   "questID": 79154,
+   "passage": "completion",
+   "title": "A Final Goodbye",
+   "npcID": 219368,
+   "npcName": "Alyza Bowblaze",
+   "soundFile": "79154_completion.ogg",
+   "text": "Thanks, <name>. I'll make sure to put in a good word with General Steelstrike for you. I know her well. \n\nWell, I met her once. \n\nWell, I saw her in the street.\n\nBut I did think about talking to her, so it's the same thing really."
+  },
+  {
+   "questID": 79156,
+   "passage": "description",
+   "title": "The Edicts",
+   "npcID": 214916,
+   "npcName": "Merrix",
+   "soundFile": "79156_description.ogg",
+   "text": "Merrix and Adelgonn will be expecting an update. On my way here, I heard that they're all heading to the Proscenium to commit to the war officially. You should go and brief them on the readiness of the Stormriders.\n\nI'd like a moment with Zarein here. But we'll be along soon. And we'll be bringing Baelgrim's spirit with us."
+  },
+  {
+   "questID": 79158,
+   "passage": "progress",
+   "title": "Seeds of Salvation",
+   "npcID": 206441,
+   "npcName": "Auebry Irongear",
+   "soundFile": "79158_progress.ogg",
+   "text": "Have you planted the seeds?"
+  },
+  {
+   "questID": 79165,
+   "passage": "completion",
+   "title": "A Moment to Rest",
+   "npcID": 218541,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "79165_completion.ogg",
+   "text": "<Anduin chews his lip, lost in thought.>"
+  },
+  {
+   "questID": 79173,
+   "passage": "progress",
+   "title": "Supply the Effort",
+   "npcID": 206150,
+   "npcName": "Erol Ellimoore",
+   "soundFile": "79173_progress.ogg",
+   "text": "Have you recovered the stolen items?"
+  },
+  {
+   "questID": 79206,
+   "passage": "description",
+   "title": "Broken Memories",
+   "npcID": 212519,
+   "npcName": "Speaker Brinthe",
+   "soundFile": "79206_description.ogg",
+   "text": "Something about this particular gemstone feels important. Perhaps it would be worthwhile to bring it to Speaker Brinthe."
+  },
+  {
+   "questID": 79216,
+   "passage": "progress",
+   "title": "Web of Manipulation",
+   "npcID": 206150,
+   "npcName": "Erol Ellimoore",
+   "soundFile": "79216_progress.ogg",
+   "text": "Have you solved our spider problem?"
+  },
+  {
+   "questID": 79221,
+   "passage": "description",
+   "title": "The Unusual Bug",
+   "npcID": 207471,
+   "npcName": "Widow Arak'nai",
+   "soundFile": "79221_description.ogg",
+   "text": "Nerubians in Rak-Ush may find this strange little spider of interest."
+  },
+  {
+   "questID": 79225,
+   "passage": "description",
+   "title": "The Lost Flame",
+   "npcID": 215527,
+   "npcName": "Keyrra Flamestonge",
+   "soundFile": "79225_description.ogg",
+   "text": "<A tinderbox of a Hallowfall Expedition member, its return would help honor the memory of those who bravely gave their lives.>\n\nAn expedition scout might possess knowledge about this item.>"
+  },
+  {
+   "questID": 79234,
+   "passage": "description",
+   "title": "A Small Bag of Seeds",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "79234_description.ogg",
+   "text": "<This small bag of seeds seems forgotten, perhaps Aliya Hillhelm could make use of them.>"
+  },
+  {
+   "questID": 79258,
+   "passage": "description",
+   "title": "Mineral Water Woes",
+   "npcID": 215788,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79258_description.ogg",
+   "text": "When that magic hammer fell into the Deeps, I knew it could be a formidable weapon against the skardyn menace. Your friend has told me that it's 'particular' about its wielder.\n\nFortunately, I am a hero!\n\nAnd as a hero, I know how to get close to it. We need to have a good mix of pollen and water plastered onto us. That way, the beast standing over it will think we're just like it.\n\nThat mineral water has to be the exact right temperature to mix with the lashroom dust and blend in."
+  },
+  {
+   "questID": 79259,
+   "passage": "progress",
+   "title": "Put On a Good Face",
+   "npcID": 215788,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79259_progress.ogg",
+   "text": "Have you gathered up that dust? It's the only way you're going to get near that hammer, especially with that creature wandering around."
+  },
+  {
+   "questID": 79259,
+   "passage": "completion",
+   "title": "Put On a Good Face",
+   "npcID": 215788,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79259_completion.ogg",
+   "text": "<Berrund the Gleaming appears not to have a speck of pollen on himself.>\n\nYou got yourself good and covered in that lashroom dust, all right.\n\nI'm a bit surprised you're not itching and sneezing, like your friend here."
+  },
+  {
+   "questID": 79260,
+   "passage": "description",
+   "title": "Epicenter",
+   "npcID": 215822,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79260_description.ogg",
+   "text": "There is the creature standing between us and that magic hammer. It certainly made an impact when it landed here in the Ringing Deeps, didn't it? Look at the size of that crater!\n\nWith the pollen and water splashed on you like this, you should be able to approach that beast and, theoretically, not be harmed. You'll blend right in with it!\n\nBut if it does turn aggressive, don't worry, I'll be right behind you.\n\nWe'll get that hammer out of here safely!"
+  },
+  {
+   "questID": 79263,
+   "passage": "progress",
+   "title": "Fault Lines",
+   "npcID": 215836,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79263_progress.ogg",
+   "text": "You found me?"
+  },
+  {
+   "questID": 79263,
+   "passage": "completion",
+   "title": "Fault Lines",
+   "npcID": 215836,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79263_completion.ogg",
+   "text": "<Berrund the Gleaming's skin is chipped and damaged. His eyes can barely focus. He is near to death.>\n\nEvery time... I tried to use the hammer... it just got away from me. I could have saved people. I don't... I don't..."
+  },
+  {
+   "questID": 79264,
+   "passage": "description",
+   "title": "These Strong Hands",
+   "npcID": 215836,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "79264_description.ogg",
+   "text": "<Berrund the Gleaming coughs dustily.>\n\nI knew I couldn't take the skardyn without some help. I thought, if I just had that magic hammer, then nothing would stop me. I had to have it, you see, or else, maybe I wasn't who I was made to be.\n\nBut it kept slipping out of my fingers. Like it didn't want anything to do with me. It fell out of my hands at the worst moment and now... <He coughs again.>\n\nIt's clearly not mine. It never was. I'm... I'm... sorry."
+  },
+  {
+   "questID": 79327,
+   "passage": "description",
+   "title": "The Glittering Shard",
+   "npcID": 219042,
+   "npcName": "Orsenth",
+   "soundFile": "79327_description.ogg",
+   "text": "<Glistening with an inner light, this shard of crystal feels warm to the touch..\n\nOrsenth may be interested in examining this piece of ore.>"
+  },
+  {
+   "questID": 79337,
+   "passage": "description",
+   "title": "The Last Journey",
+   "npcID": 216169,
+   "npcName": "Korgran",
+   "soundFile": "79337_description.ogg",
+   "text": "This lantern is perfect.\n\nEnough of this. It is time! I can feel my memory clouding. We have to get going. Urtago is waiting for us. They will join us on my final journey to Mourning Rise, where we will conduct a ceremony.\n\n<Korgran forces a smile.>\n\nIt is nothing fancy, I promise. As I said, it is more symbolic than anything else.\n\nMy head feels heavy. What was I doing again? Hmm, oh, right! Meeting Urtago!"
+  },
+  {
+   "questID": 79337,
+   "passage": "completion",
+   "title": "The Last Journey",
+   "npcID": 213187,
+   "npcName": "Urtago",
+   "soundFile": "79337_completion.ogg",
+   "text": "<name>, we have to find Korgran! If he keeps on exerting himself, he will shutdown in the middle of nowhere.\n\nAnd it's not safe for him to be out in his condition. He would be easy prey for stormfangs and even kobolds."
+  },
+  {
+   "questID": 79339,
+   "passage": "description",
+   "title": "A Change of Tradition",
+   "npcID": 216878,
+   "npcName": "Urtago",
+   "soundFile": "79339_description.ogg",
+   "text": "An Unbound earthen can't return to the Coreway, so we have Mourning Rise. But looking at Korgran, remembering our last conversation before...\n\nI may not be the Mourning Rise caretaker just yet, but with Korgran's condition, it falls to me to be in charge. \n\nAs Unbound, we made our own rules and traditions. So what if he doesn't want to stand at Mourning Rise? If a seaside memorial is what Caretaker Korgran wants, that's what he gets.\n\n<name>, meet me at the shore to the southeast of here."
+  },
+  {
+   "questID": 79339,
+   "passage": "completion",
+   "title": "A Change of Tradition",
+   "npcID": 216173,
+   "npcName": "Urtago",
+   "soundFile": "79339_completion.ogg",
+   "text": "He enjoyed the walk, but it has taken a heavy toll on him.\n\nKorgran barely recognizes me now."
+  },
+  {
+   "questID": 79343,
+   "passage": "description",
+   "title": "Everyday I'm Snufflin'",
+   "npcID": 216164,
+   "npcName": "Gnawbles",
+   "soundFile": "79343_description.ogg",
+   "text": "Perhaps the kobolds of Gundargaz would be interested in this Odd Glob of Wax."
+  },
+  {
+   "questID": 79344,
+   "passage": "progress",
+   "title": "Urban Odyssey",
+   "npcID": 214917,
+   "npcName": "Moira Thaurissan",
+   "soundFile": "79344_progress.ogg",
+   "text": "I am glad to see you return, <name>."
+  },
+  {
+   "questID": 79344,
+   "passage": "completion",
+   "title": "Urban Odyssey",
+   "npcID": 214917,
+   "npcName": "Moira Thaurissan",
+   "soundFile": "79344_completion.ogg",
+   "text": "Thank ye, <name>. The more people we get on board with helpin', the more successful we'll be.\n\nBut we won't get anywhere if we dunnae have a large enough fightin' force.\n\nThe earthen are nae in good shape. But I think Alleria may be helpin' with that."
+  },
+  {
+   "questID": 79349,
+   "passage": "completion",
+   "title": "Entrepreneur, Inc.",
+   "npcID": 216308,
+   "npcName": "Ripsnoodle",
+   "soundFile": "79349_completion.ogg",
+   "text": "Skedgit actually found something out there? She always did have a good nose for business."
+  },
+  {
+   "questID": 79372,
+   "passage": "description",
+   "title": "A Clutch of Hope",
+   "npcID": 215737,
+   "npcName": "Nebb",
+   "soundFile": "79372_description.ogg",
+   "text": "<The broodmother lies dead, coiled around a single egg. She gave her life to keep it from the spiders.\n\nYou should take it to Nebb. He and the other Grubtenders would know what to do with it.>"
+  },
+  {
+   "questID": 79475,
+   "passage": "description",
+   "title": "Charging Up That Hill",
+   "npcID": 214995,
+   "npcName": "Olbarig",
+   "soundFile": "79475_description.ogg",
+   "text": "Before we use the conduit to summon the stormrooks, we need to recharge it. There are other, gentler ways to do this but... we have to work with what's on hand. \n\nThe way to the peak is overrun with hostile elementals cast off from the storm. If we send them back to their plane, we can capture their residual energy and re-energize the conduit.\n\nWhile you work on recharging the conduit, we will go ahead and prepare for the ritual at the peak."
+  },
+  {
+   "questID": 79476,
+   "passage": "description",
+   "title": "Heeding the Call",
+   "npcID": 214995,
+   "npcName": "Olbarig",
+   "soundFile": "79476_description.ogg",
+   "text": "Earthen from across the island have been drawn to this place. Kind of a strange coincidence you'd show up now too.\n\nMaybe it's because Baelgrim's gone or... a new Stormward's coming. Or it could just be barometric pressure...\n\nBah! There's time enough to spin wild theories later. Right now, we need to assist the pilgrims that have foolishly attempted the summit unprepared. We can't be worrying about them while we try to summon the stormrooks."
+  },
+  {
+   "questID": 79477,
+   "passage": "description",
+   "title": "Strays",
+   "npcID": 215039,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "79477_description.ogg",
+   "text": "Kurdran Wildhammer has come to train the new Stormriders in aerial maneuvers. Thrall says his clan rides gryphons--much like the Stormriders ride stormrooks--so he should be of great help to us.\n\nUnfortunately, a few of our new recruits seem to have, uh, wandered off with their stormrooks. I wanted them to have a chance to bond, but it's time to come home.\n\nWould you mind rounding them up? Thrall and I are putting together something special for these \"rookies\" lessons."
+  },
+  {
+   "questID": 79480,
+   "passage": "description",
+   "title": "Paying Respects",
+   "npcID": 214995,
+   "npcName": "Olbarig",
+   "soundFile": "79480_description.ogg",
+   "text": "Please excuse my absence. It was never my intention to turn my back on the Stormriders, then or now. But I needed to come here and pay my respects to Baelgrim.\n\nUnfortunately, these blasted nerubians are still lingering. I think they're searching for something, but I don't know what. Whatever their reasons, I cannot abide them lurking where Baelgrim fell."
+  },
+  {
+   "questID": 79481,
+   "passage": "description",
+   "title": "Tending to the Terrified",
+   "npcID": 217152,
+   "npcName": "Snubjaw",
+   "soundFile": "79481_description.ogg",
+   "text": "All happen so fast. One moment, we gathering eggs and grubs. Next, spiders swarming.\n\nNebb drag me here, many others trapped. Caught in webs, soon to be feasts. Must save the Grubtenders. \n\nWe tenders, not fighters. Do not let friends become meals."
+  },
+  {
+   "questID": 79481,
+   "passage": "completion",
+   "title": "Tending to the Terrified",
+   "npcID": 217152,
+   "npcName": "Snubjaw",
+   "soundFile": "79481_completion.ogg",
+   "text": "Aha, Grubtenders free! They survive to harvest again."
+  },
+  {
+   "questID": 79525,
+   "passage": "description",
+   "title": "Report to the Councilward",
+   "npcID": 219394,
+   "npcName": "Peacekeeper Kragad",
+   "soundFile": "79525_description.ogg",
+   "text": "Those receipts you found... Steelvein is a known smuggler that we've been chasing for a long time. The Councilward will be pleased to finally have solid evidence on his activities, and maybe even on his whereabouts.\n\nBring these receipts to Merrix immediately. He will want to study them in detail. He said he was heading back to his office, so you should be able to find him at the Councilward's Rise.\n\nI'll package up the rest of the evidence to be brought to him later. Good work today."
+  },
+  {
+   "questID": 79526,
+   "passage": "description",
+   "title": "Sedition",
+   "npcID": 219400,
+   "npcName": "Merrix",
+   "soundFile": "79526_description.ogg",
+   "text": "<The poster reads:>\n\nMERRIX is CORRUPT! STEELVEIN is WEAK!\n\nThey cannot protect the earthen! They do not care about them! They spit upon the Edicts!\n\nMERRIX was BRIBED to reopen Steelvein's smuggling operation! Steelvein HIDES behind MERRIX's authority!\n\nThey are taking from YOUR pockets to line THEIRS!\n\nDO NOT TRUST THEIR LIES!"
+  },
+  {
+   "questID": 79526,
+   "passage": "completion",
+   "title": "Sedition",
+   "npcID": 219400,
+   "npcName": "Merrix",
+   "soundFile": "79526_completion.ogg",
+   "text": "Yes, I am quite aware of the situation.\n\nIt has rather disrupted my morning."
+  },
+  {
+   "questID": 79529,
+   "passage": "description",
+   "title": "Forcing My Hand",
+   "npcID": 219400,
+   "npcName": "Merrix",
+   "soundFile": "79529_description.ogg",
+   "text": "I do not know if Ardgrin merely intended to sabotage me or if he wanted to force a confrontation. Either way, a confrontation he will have.\n\nI believe this situation can be rectified peacefully, but I cannot do it as the Councilward. Steelvein has never appeared in the stone, but he must now. I will parlay with Ardgrin in the Deeps and this situation will be concluded.\n\nI would have you accompany me, but there are some things I want you to know before that. Help me prepare and I will speak with you."
+  },
+  {
+   "questID": 79529,
+   "passage": "completion",
+   "title": "Forcing My Hand",
+   "npcID": 219475,
+   "npcName": "Steelvein",
+   "soundFile": "79529_completion.ogg",
+   "text": "I will have this solved peacefully.\n\nThough if Ardgrin asks for violence, we will answer."
+  },
+  {
+   "questID": 79530,
+   "passage": "description",
+   "title": "Bad Business",
+   "npcID": 219475,
+   "npcName": "Steelvein",
+   "soundFile": "79530_description.ogg",
+   "text": "I have not been to the Deeps since their machines shut down. Obstorn will have to guide us to Ardgrin's depot.\n\nOnce there, I will attempt a conversation. If Ardgrin is not amenable, which I suspect will be the case, we will respond with equal force. Our goal is to bring him back into the fold, not to beat him into submission. Ruling by fear only breeds resentment.\n\nWe will meet you in the Deeps. Come swiftly--and, of course, speak of this to no one."
+  },
+  {
+   "questID": 79530,
+   "passage": "completion",
+   "title": "Bad Business",
+   "npcID": 220192,
+   "npcName": "Steelvein",
+   "soundFile": "79530_completion.ogg",
+   "text": "Now that Ardgrin is willing to talk, we will talk. And all of this will be settled.\n\nYou have my gratitude, <name>."
+  },
+  {
+   "questID": 79540,
+   "passage": "description",
+   "title": "The Party's Over",
+   "npcID": 217402,
+   "npcName": "Grigg",
+   "soundFile": "79540_description.ogg",
+   "text": "Nope, nope, nope!\n\nLook, I'm used to dealing with the additives in our swimming hole and keeping things at \"marginally safe\" levels, but spiders emerging to chew us to death? That's a hard pass from me. \n\nThis is OUR place, why are they buggin' us?"
+  },
+  {
+   "questID": 79543,
+   "passage": "description",
+   "title": "Dornogal's Benefactor",
+   "npcID": 217069,
+   "npcName": "Merrix",
+   "soundFile": "79543_description.ogg",
+   "text": "You are in a unique position, <name>. A position to learn.\n\nYou met those who would bring this \"Bender of Edicts\" to justice, but what of the people of Dornogal? What do the earthen think of this Steelvein fellow? \n\nHumor me. Take the smuggled goods you intercepted and bring them to their intended recipients. Tell them the items are a gift from a \"mutual friend.\"\n\nYou might be surprised to learn who benefits from these... illicit deeds."
+  },
+  {
+   "questID": 79543,
+   "passage": "completion",
+   "title": "Dornogal's Benefactor",
+   "npcID": 217095,
+   "npcName": "Merrix",
+   "soundFile": "79543_completion.ogg",
+   "text": "Harthan mentioned Ardgrin, you say?\n\nHe is a trade overseer from the Ringing Deeps. If he quarreled with Steelvein, that certainly concerns me."
+  },
+  {
+   "questID": 79554,
+   "passage": "description",
+   "title": "Holy Hydrocarbons",
+   "npcID": 216598,
+   "npcName": "Janky",
+   "soundFile": "79554_description.ogg",
+   "text": "These devotional candles might be of interest to Janky the kobold candlesmith in Gundargaz."
+  },
+  {
+   "questID": 79555,
+   "passage": "description",
+   "title": "Deep Wax Galactic",
+   "npcID": 216598,
+   "npcName": "Janky",
+   "soundFile": "79555_description.ogg",
+   "text": "While sourcing it may not be pleasant, this waxy substance seems like it might make a fine candle.\n\nJanky the candlesmith in Gundargaz might be interested in this."
+  },
+  {
+   "questID": 79574,
+   "passage": "completion",
+   "title": "The Second Front",
+   "npcID": 212076,
+   "npcName": "General Steelstrike",
+   "soundFile": "79574_completion.ogg",
+   "text": "I will NOT risk the nerubians flanking us again. Their ambush is now our staging ground!"
+  },
+  {
+   "questID": 79580,
+   "passage": "description",
+   "title": "Offensive Counter",
+   "npcID": 212076,
+   "npcName": "General Steelstrike",
+   "soundFile": "79580_description.ogg",
+   "text": "I will not yield this ground. \n\nGet out there and kill anything with more than two legs!"
+  },
+  {
+   "questID": 79580,
+   "passage": "completion",
+   "title": "Offensive Counter",
+   "npcID": 212076,
+   "npcName": "General Steelstrike",
+   "soundFile": "79580_completion.ogg",
+   "text": "Well done."
+  },
+  {
+   "questID": 79644,
+   "passage": "completion",
+   "title": "Go to the Priory",
+   "npcID": 217398,
+   "npcName": "Sister Etna Blayze",
+   "soundFile": "79644_completion.ogg",
+   "text": "So young to have been taken from us. So brave and bold. Perhaps too bold."
+  },
+  {
+   "questID": 79646,
+   "passage": "description",
+   "title": "Memorial Wine",
+   "npcID": 217398,
+   "npcName": "Sister Etna Blayze",
+   "soundFile": "79646_description.ogg",
+   "text": "Oh, Theleon. He always did follow his big brother into anything. \n\nWhile we prepare Theleon for his final rest, would you please help Brother Abealard with a batch of Memorial Wine for the service?"
+  },
+  {
+   "questID": 79646,
+   "passage": "completion",
+   "title": "Memorial Wine",
+   "npcID": 217398,
+   "npcName": "Sister Etna Blayze",
+   "soundFile": "79646_completion.ogg",
+   "text": "Such a shame we need to make so much of this wine."
+  },
+  {
+   "questID": 79650,
+   "passage": "description",
+   "title": "Priory of the Sacred Flame: A Brother's Grief",
+   "npcID": 217398,
+   "npcName": "Sister Etna Blayze",
+   "soundFile": "79650_description.ogg",
+   "text": "I fear that the Prioress may be behind our missing dead-- and our missing baron. Sybaestan has disappeared as well and I don't believe in coincidences. \n\nShe and Sybaestan have taken our recent losses hard. I fear what their overwhelming grief might be doing to their souls. We must confront them and bring them back to sanity... If we can.\n\nTell General Steelstrike what you have learned. We might need her backup. I'll be waiting for you here."
+  },
+  {
+   "questID": 79650,
+   "passage": "completion",
+   "title": "Priory of the Sacred Flame: A Brother's Grief",
+   "npcID": 217398,
+   "npcName": "Sister Etna Blayze",
+   "soundFile": "79650_completion.ogg",
+   "text": "I wish it could have happened some other way... but at last they are all at peace."
+  },
+  {
+   "questID": 79651,
+   "passage": "completion",
+   "title": "Trade Partners",
+   "npcID": 217029,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "79651_completion.ogg",
+   "text": "Hey there <name>! Thanks for catchin' up with me."
+  },
+  {
+   "questID": 79679,
+   "passage": "description",
+   "title": "Muddled Mind in the Mine",
+   "npcID": 215208,
+   "npcName": "Orsenth",
+   "soundFile": "79679_description.ogg",
+   "text": "The workers said they saw Munderut near the back of the mining area. Please find him and tell him that I said he needs to report back in. \n\nHe might not remember me, or that I am his fused. Tell him to look down at his chest, at the medallion he wears. His memory of our time together fades in and out these days, but the medallion tells of our story and bond forever."
+  },
+  {
+   "questID": 79691,
+   "passage": "description",
+   "title": "Monsters in the Dark",
+   "npcID": 216094,
+   "npcName": "Kodun",
+   "soundFile": "79691_description.ogg",
+   "text": "The local quarry was an active source of clay and ore for us until the fungarians took over some time ago.\n\nWe were worried about the fungarians encroaching upon the village, but there's something more.\n\nMultiple sightings of a creature much larger than our native wildlife have been reported at night.\n\nCombined with villager Modhina's disappearance, I fear this is no coincidence. She visited the quarry recently and hasn't returned.\n\nWe would be in your debt if you searched the tunnels."
+  },
+  {
+   "questID": 79691,
+   "passage": "completion",
+   "title": "Monsters in the Dark",
+   "npcID": 216094,
+   "npcName": "Kodun",
+   "soundFile": "79691_completion.ogg",
+   "text": "A stonestalker, here? Their habitat resides far beneath the isle's surface. All the recent change must be disturbing them.\n\nRegardless, thank you for slaying it. They are highly territorial and kill for sport.\n\nAs for the tunnels, the area sounds beyond recovery. We'll have to let nature reclaim it."
+  },
+  {
+   "questID": 79692,
+   "passage": "description",
+   "title": "Buried, Not Forgotten",
+   "npcID": 216094,
+   "npcName": "Kodun",
+   "soundFile": "79692_description.ogg",
+   "text": "Several suns ago, my friend Modhina ventured into the quarry cave. She wanted to find rare ore for Hreka, to help her craftsmanship. Modhina was excited, I remember. A rare feeling for earthen.\n\nShe hasn't returned. The fungarians prevent us from searching the area.\n\nIt would mean a great deal to us if you could look for her. I didn't know it was possible to spend so much of the day thinking about what if's."
+  },
+  {
+   "questID": 79692,
+   "passage": "completion",
+   "title": "Buried, Not Forgotten",
+   "npcID": 216094,
+   "npcName": "Kodun",
+   "soundFile": "79692_completion.ogg",
+   "text": "You've returned! Did you find Modhina...? What is all that you are carrying?"
+  },
+  {
+   "questID": 79944,
+   "passage": "progress",
+   "title": "Raging Rifts",
+   "npcID": 223000,
+   "npcName": "Keldaz",
+   "soundFile": "79944_progress.ogg",
+   "text": "Destroy what rifts you come across, but above all, find their source! I suspect you will find it deep inside the nearby cave.\n\nThe miners you rescued spoke of breaking through to a crystal-filled room, and of the elementals pouring forth from within."
+  },
+  {
+   "questID": 80175,
+   "passage": "description",
+   "title": "The Last Mage",
+   "npcID": 215335,
+   "npcName": "General Steelstrike",
+   "soundFile": "80175_description.ogg",
+   "text": "I want you to check in on someone. He's a mage... the only one of us who is. All the others died in the crash.\n\nHe's trying to make a portal to the Empire, so we can get reinforcements and have a way to and from home. \n\nWe all know it's a lost cause, but he still hasn't given up. \n\nMaybe meeting a seasoned traveler like you will give him the reality check he needs. Check on him, will you?"
+  },
+  {
+   "questID": 80179,
+   "passage": "completion",
+   "title": "Finding Justice",
+   "npcID": 215335,
+   "npcName": "General Steelstrike",
+   "soundFile": "80179_completion.ogg",
+   "text": "<Steelstrike listens to your story with growing concern.>\n\nNo! Dead?!"
+  },
+  {
+   "questID": 80203,
+   "passage": "description",
+   "title": "Social Clues",
+   "npcID": 219357,
+   "npcName": "Orator Tx'itk",
+   "soundFile": "80203_description.ogg",
+   "text": "<The nerubian keeps her voice low, a careful eye on the guards behind you.>\n\nThe Weaver sent you, yes? I arrived to petition the Magistrate's approval for Ascension--to infiltrate high society, of course.\n\nBut he's missing. A rather large inconvenience.\n\nI need to ask around. You're just what I've been waiting for! You may pretend to be my... servant. Pet? Whatever makes it more palatable to you.\n\nI so rarely get to work alongside a friend. We will have fun together, fellow spy."
+  },
+  {
+   "questID": 80203,
+   "passage": "completion",
+   "title": "Social Clues",
+   "npcID": 221092,
+   "npcName": "Orator Tx'itk",
+   "soundFile": "80203_completion.ogg",
+   "text": "I knew Ascension changed people, but... They were my friends. And now, they don't even want to be seen with me.\n\nIt makes me wonder... if I succeed in all this, will I even still be myself?\n\n<Tx'itk shakes her head.>\n\nIt doesn't matter. I'll do what needs to be done."
+  },
+  {
+   "questID": 80205,
+   "passage": "description",
+   "title": "Pulling Strings",
+   "npcID": 221093,
+   "npcName": "Orator Tx'itk",
+   "soundFile": "80205_description.ogg",
+   "text": "Just think of it! Overcrawlers, war prisoners, civilians, fellow nerubians, important nobility being kidnapped and turned into puppets right under the Magistrate's nose.\n\nIt's horrific--and exactly what I needed! If we save the Magistrate from this fate, he'll owe me. Not just for saving his life, but to keep quiet about all this.\n\nWe're off to the theater, then. If you can keep the Puppetmaster occupied, I'll free High Elevator Etak'kaht from his grasp.\n\nHopefully he's not part of the show yet."
+  },
+  {
+   "questID": 80205,
+   "passage": "completion",
+   "title": "Pulling Strings",
+   "npcID": 221088,
+   "npcName": "Orator Tx'itk",
+   "soundFile": "80205_completion.ogg",
+   "text": "I'm thrilled. There couldn't have been a more perfect opportunity to get the Magistrate's attention. And the Weaver will be pleased to hear we have him in our pocket indefinitely, with this blackmail situation.\n\nNow, I suppose I'm off to the Transformatory.\n\n<Tx'itk shudders subtly.>\n\nI... I must not let my resolve falter now. The Weaver has asked this of me. I will be her eyes."
+  },
+  {
+   "questID": 80207,
+   "passage": "completion",
+   "title": "How Scandalous!",
+   "npcID": 219394,
+   "npcName": "Peacekeeper Kragad",
+   "soundFile": "80207_completion.ogg",
+   "text": "Move along. This is an ongoing--Oh, <name>, my apologies.\n\nWe may actually need your assistance."
+  },
+  {
+   "questID": 80209,
+   "passage": "description",
+   "title": "An Oddball in Dornogal",
+   "npcID": 222224,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80209_description.ogg",
+   "text": "We have received reports that an eccentric Arathi is accosting our citizens. We have little experience with outsiders and my superiors are wary of a diplomatic incident.\n\nI have been tasked with finding this \"Lamplighter\" and resolving his concerns. You have worked with the Arathi before - can you assist me?\n\nI have a list of earthen who have reported the Lamplighter. You can interview half the list. Between us, we can hopefully locate the Arathi before he troubles more citizens."
+  },
+  {
+   "questID": 80209,
+   "passage": "completion",
+   "title": "An Oddball in Dornogal",
+   "npcID": 222268,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80209_completion.ogg",
+   "text": "This is not quite what I was expecting.\n\nHe is certainly odd but a troublemaker? I think not."
+  },
+  {
+   "questID": 80210,
+   "passage": "description",
+   "title": "Found Around the Unbound",
+   "npcID": 222268,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80210_description.ogg",
+   "text": "This Lamplighter is looking for his fellow Arathi. The foreman says he directed an Arathi shipwright to Freywold Village.\n\nMy superiors insist that Peacekeepers do not leave Dornogal... but per their orders, I must assist Kaerter. And to do that, I have no choice but to leave the city.\n\n<Leif quickly hides a smile.>\n\nIt is decided then. If you are willing, please meet us at Freywold Village. Your continued aid would be appreciated."
+  },
+  {
+   "questID": 80210,
+   "passage": "completion",
+   "title": "Found Around the Unbound",
+   "npcID": 222314,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80210_completion.ogg",
+   "text": "It seems the locals have taken issue with our foreign companion. I am attempting to defuse the situation as best I can.\n\nBut we have more pressing problems."
+  },
+  {
+   "questID": 80212,
+   "passage": "description",
+   "title": "The Abductors' Obstructors",
+   "npcID": 222314,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80212_description.ogg",
+   "text": "The Order of Night is clearly interested in our resources. They have abducted earthen to harvest for them and may continue taking others. We must stop them.\n\nThe next largest earthen settlement is Rambleshire. If the Order needs more workers, they might have gone there to get them.\n\nGo on ahead <name>. I must first speak with Kaerter about why the Arathi are doing this."
+  },
+  {
+   "questID": 80212,
+   "passage": "completion",
+   "title": "The Abductors' Obstructors",
+   "npcID": 222353,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80212_completion.ogg",
+   "text": "While we have not yet seen any Arathi, there is an uneasiness about the town.\n\nKaerter believes the Order is here. He says they are simply waiting for a moment to strike."
+  },
+  {
+   "questID": 80215,
+   "passage": "completion",
+   "title": "Ungirthin' the Earthen",
+   "npcID": 222360,
+   "npcName": "Lamplighter Kaerter",
+   "soundFile": "80215_completion.ogg",
+   "text": "Well done. I will lead the few I was able to rescue to safety."
+  },
+  {
+   "questID": 80216,
+   "passage": "description",
+   "title": "Concealed in the Weald",
+   "npcID": 222358,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80216_description.ogg",
+   "text": "The nerubians seem to be in league with the Arathi. Many of them are guarding the mill, but I am sure there are more than we can see.\n\nWe cannot allow such a large enemy force to operate unimpeded this close to Rambleshire.\n\nThe nerubians attacked and destroyed large sections of Dornogal not too long ago. The Order of Night Arathi are abducting and enslaving our people.\n\nWe must eliminate as many of them as we can. Preferably all of them."
+  },
+  {
+   "questID": 80216,
+   "passage": "completion",
+   "title": "Concealed in the Weald",
+   "npcID": 222362,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80216_completion.ogg",
+   "text": "That should disrupt their operation. Let us hope it is enough for now."
+  },
+  {
+   "questID": 80217,
+   "passage": "description",
+   "title": "A Lamplight for the Shipwright",
+   "npcID": 222362,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80217_description.ogg",
+   "text": "Where is Kaerter now? Did he go off on his own again?\n\n<Leif sighs.>\n\nWe've rescued the earthen and eliminated many hostile forces, but our task is not yet complete.\n\nShortly before you arrived, we spotted a group of Arathi traveling up this hill. One of them was identified as the Arathi shipwright.\n\nThe shipwright is the leader here. Losing her will cripple their efforts to utilize the mill.\n\nHead up the hill and find her before she can escape."
+  },
+  {
+   "questID": 80217,
+   "passage": "completion",
+   "title": "A Lamplight for the Shipwright",
+   "npcID": 222363,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80217_completion.ogg",
+   "text": "Kaerter is injured. He will not be an effective fighter until he heals."
+  },
+  {
+   "questID": 80312,
+   "passage": "description",
+   "title": "Gasping Plea",
+   "npcID": 219430,
+   "npcName": "Peculiar Fish",
+   "soundFile": "80312_description.ogg",
+   "text": "<A gasping, pathetic-looking fish taken from the corpse of a kobyss flops weakly in your hand. Its beady eye twitches, and you suddenly hear a breathless voice in the recesses of your mind.>\n\nThe water. Take me to the water. Away from these kobyss wretches. Away from the sky."
+  },
+  {
+   "questID": 80321,
+   "passage": "description",
+   "title": "Departure",
+   "npcID": 219885,
+   "npcName": "Anduin Wrynn",
+   "soundFile": "80321_description.ogg",
+   "text": "Best if we split up here. I'll guide everyone to safety and see about getting them evacuated.\n\nIn the meantime, you should search for Khadgar. I'm sure he could use your aid as well.\n\nYou'll find another exit further ahead that should lead back to the surface."
+  },
+  {
+   "questID": 80378,
+   "passage": "description",
+   "title": "A Light of the Dark",
+   "npcID": 216598,
+   "npcName": "Janky",
+   "soundFile": "80378_description.ogg",
+   "text": "The image of a purple candle, burning with glorious power springs unbidden to your mind as you contemplate the decaying filth before you, followed by a faint whisper echoing through your mind: \"One candle to rule them all, and in its brightness bind them.\"\n\nBring Janky the candlesmith in Gundargaz enough Coagulated Black Blood to forge a most unfortunate candle."
+  },
+  {
+   "questID": 80392,
+   "passage": "description",
+   "title": "The Caretaker of Brunwin's Terrace",
+   "npcID": 219784,
+   "npcName": "Batzvara",
+   "soundFile": "80392_description.ogg",
+   "text": "Greetings, outlander. You must be the problem solver I've heard about! I'm Caretaker Batzvara. I tend to earthen who have gone into stasis, like our friend here.\n\nI often patrol Brunwin's Terrace to honor my fellow earthen with an offering of cinderbrew. Recently, however, I've drawn the attention of a local species of moles. They have a nose for sweets, and greedy claws for all else.\n\nYou look like you can defend yourself. Will you accompany me to pay respect to those who have gone into stasis?"
+  },
+  {
+   "questID": 80392,
+   "passage": "completion",
+   "title": "The Caretaker of Brunwin's Terrace",
+   "npcID": 224362,
+   "npcName": "Batzvara",
+   "soundFile": "80392_completion.ogg",
+   "text": "Gratitude expressed. Your reputation as a stalwart ally is well-deserved."
+  },
+  {
+   "questID": 80408,
+   "passage": "description",
+   "title": "Shimmermist Falls",
+   "npcID": 224362,
+   "npcName": "Batzvara",
+   "soundFile": "80408_description.ogg",
+   "text": "West of Gundargaz is another green space - a lovely area with waterfalls and more terraces. My schedule takes me in that direction next, and I would be very glad of your company to help deal with the wildlife there as well. \n\nIf your other duties are not pressing, let us meet there."
+  },
+  {
+   "questID": 80408,
+   "passage": "completion",
+   "title": "Shimmermist Falls",
+   "npcID": 219899,
+   "npcName": "Batzvara",
+   "soundFile": "80408_completion.ogg",
+   "text": "You made it! Let us get to work."
+  },
+  {
+   "questID": 80434,
+   "passage": "completion",
+   "title": "Into the Deeps",
+   "npcID": 212592,
+   "npcName": "Speaker Brinthe",
+   "soundFile": "80434_completion.ogg",
+   "text": "By the Titans! It looks like the nerubians did a number on our station... but I see no spidery fiends here. Only struggling Machine Speakers..."
+  },
+  {
+   "questID": 80456,
+   "passage": "description",
+   "title": "A Sassy Arathi",
+   "npcID": 219437,
+   "npcName": "Dornogal Citizen",
+   "soundFile": "80456_description.ogg",
+   "text": "I had heard that an Arathi was making trouble in the city. It sounds like he is butting heads with the peacekeepers.\n\nYou've worked with the Arathi before, haven't you? Maybe you'd be able to smooth over any ruffled feathers."
+  },
+  {
+   "questID": 80456,
+   "passage": "completion",
+   "title": "A Sassy Arathi",
+   "npcID": 222224,
+   "npcName": "Peacekeeper Leif",
+   "soundFile": "80456_completion.ogg",
+   "text": "Yes, how can I help you?"
+  },
+  {
+   "questID": 80502,
+   "passage": "description",
+   "title": "Don't Cry for Me, Azj-Kahet",
+   "npcID": 220690,
+   "npcName": "Klaskin",
+   "soundFile": "80502_description.ogg",
+   "text": "<You find a crumpled page of journal paper wrapped around a small key.>\n\nI always suspected Arax'ne was a traditionalist, but I didn't think she'd go this far. I don't know where I'm going, but I just have to get away from her.\n\nTo whoever finds this, it means the worst has come to pass. This key unlocks a chest that contains all my worldly possessions. They are yours.\n\nAll I ask is that you avenge me by slaying Arax'ne."
+  },
+  {
+   "questID": 80508,
+   "passage": "description",
+   "title": "Dread in the Den",
+   "npcID": 222234,
+   "npcName": "Scrit",
+   "soundFile": "80508_description.ogg",
+   "text": "You kobold friend, yes? Need help. Bad things happening in the Chittering Den. \n\nGlumtooth Gang setting up camp. Cronies of Candle King, want war with earthen.\n\nCan't stop them alone. Meet me at camp."
+  },
+  {
+   "questID": 80508,
+   "passage": "completion",
+   "title": "Dread in the Den",
+   "npcID": 222234,
+   "npcName": "Scrit",
+   "soundFile": "80508_completion.ogg",
+   "text": "You came. Good. Much to do. Much to protect."
+  },
+  {
+   "questID": 80510,
+   "passage": "description",
+   "title": "Healing the Headwaters",
+   "npcID": 222234,
+   "npcName": "Scrit",
+   "soundFile": "80510_description.ogg",
+   "text": "Glumtooth Gang so wasteful! They leave much scrap in the water. Bad for water. Bad for scrap. Go clean it up."
+  },
+  {
+   "questID": 80510,
+   "passage": "completion",
+   "title": "Healing the Headwaters",
+   "npcID": 222234,
+   "npcName": "Scrit",
+   "soundFile": "80510_completion.ogg",
+   "text": "Much better. Make no sense to let scrap rot in pool."
+  },
+  {
+   "questID": 80514,
+   "passage": "description",
+   "title": "Break out Berrund!",
+   "npcID": 222239,
+   "npcName": "Scrit",
+   "soundFile": "80514_description.ogg",
+   "text": "You work good. Now they let you into ring to \"fight\" earthen. You go to ring when ready. Cinder-flash candles could go off any moment.\n\nI head back to camp. Wait for you and earthen there.\n\nYou good one. No get killed."
+  },
+  {
+   "questID": 80514,
+   "passage": "completion",
+   "title": "Break out Berrund!",
+   "npcID": 220220,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "80514_completion.ogg",
+   "text": "Captured? No, I was just gathering information. And I've got bad news."
+  },
+  {
+   "questID": 80516,
+   "passage": "description",
+   "title": "Bump off the Boss",
+   "npcID": 220220,
+   "npcName": "Berrund the Gleaming",
+   "soundFile": "80516_description.ogg",
+   "text": "That kobold knows her stuff. Scrit says Boss Whiskerlash has his own cadre of spiders in a cave nearby. Don't worry, I'll lead the charge. \n\nCome on, we've got a boss to take down."
+  },
+  {
+   "questID": 80516,
+   "passage": "completion",
+   "title": "Bump off the Boss",
+   "npcID": 222234,
+   "npcName": "Scrit",
+   "soundFile": "80516_completion.ogg",
+   "text": "You back! Berrund came back alone. Scrit worried.\n\nIt done then? Good. Glumtooth Gang no last long without leader."
+  },
+  {
+   "questID": 80565,
+   "passage": "description",
+   "title": "Resounding Repercussions",
+   "npcID": 220603,
+   "npcName": "Orweyna",
+   "soundFile": "80565_description.ogg",
+   "text": "I did not mean for...\n\n<Orweyna's eyes narrow.>\n\nFetch him, <name>. You were exposed to the Black Blood, too. But Hannan took most of it.\n\nHe has entered the Unseeming, his mind shifted to a realm beyond our eyes through exposure to the Black Blood. You may need to join him, however far in he ventured, to retrieve him.\n\nI will activate the nerubian cleansing instrument for when you return.\n\nDo not lose yourself in that altered state."
+  },
+  {
+   "questID": 80565,
+   "passage": "progress",
+   "title": "Resounding Repercussions",
+   "npcID": 220608,
+   "npcName": "Hannan",
+   "soundFile": "80565_progress.ogg",
+   "text": "Is this real? Am I imagining the monsters?"
+  },
+  {
+   "questID": 80566,
+   "passage": "description",
+   "title": "Enemies Abound",
+   "npcID": 220608,
+   "npcName": "Hannan",
+   "soundFile": "80566_description.ogg",
+   "text": "<Hannan is barely responsive and less corporeal than he should be, lost deeper in the Unseeming than you.>\n\nSome of the canisters exploded... Then the spiders appeared.\n\nKill the--kill the spiders!"
+  },
+  {
+   "questID": 80566,
+   "passage": "completion",
+   "title": "Enemies Abound",
+   "npcID": 223285,
+   "npcName": "Orweyna",
+   "soundFile": "80566_completion.ogg",
+   "text": "Hmm. I have noticed you seem good at surviving challenging tasks. I will remember this about you."
+  },
+  {
+   "questID": 80567,
+   "passage": "description",
+   "title": "Song of Restoring",
+   "npcID": 223285,
+   "npcName": "Orweyna",
+   "soundFile": "80567_description.ogg",
+   "text": "<Orweyna looks relieved at the sight of Hannan, but does not seem dissuaded from her task.>\n\nI cannot say I am surprised at what you found in that cave. Nerubians stuck in the Unseeming, trapped in a realm of monsters and madness...\n\nI would pity them, but they sought this out.\n\nYou, however, need to shift back before the influence of the Black Blood becomes too strong on your mind."
+  },
+  {
+   "questID": 80567,
+   "passage": "progress",
+   "title": "Song of Restoring",
+   "npcID": 223286,
+   "npcName": "Hannan",
+   "soundFile": "80567_progress.ogg",
+   "text": "It is a relief that the tuning crystal we found worked on this strange instrument. For once we should be grateful for the ingenuity of the nerubians.\n\nIf this device had not worked, we may have been stuck in the Unseeming forever. Like the nerubians in the cave."
+  },
+  {
+   "questID": 80570,
+   "passage": "description",
+   "title": "Staunch the Flow",
+   "npcID": 220610,
+   "npcName": "Orweyna",
+   "soundFile": "80570_description.ogg",
+   "text": "Do they even understand what they are doing?\n\n<Orweyna bares her teeth, practically growling.>\n\nDestroy as many of those extractors as you can. Shatter the bulbs, snap the limbs, burn the wreckage.\n\nWe cannot stop them all, not today. But a bit of destruction may temper my rage."
+  },
+  {
+   "questID": 80570,
+   "passage": "completion",
+   "title": "Staunch the Flow",
+   "npcID": 220610,
+   "npcName": "Orweyna",
+   "soundFile": "80570_completion.ogg",
+   "text": "They have already done so much damage. The creatures that once lived here, the earth that once thrived...\n\nIf we cannot stop them, we will take vengeance for that which they've destroyed beyond repair."
+  },
+  {
+   "questID": 80576,
+   "passage": "description",
+   "title": "Listener Lost",
+   "npcID": 220600,
+   "npcName": "Haimaz",
+   "soundFile": "80576_description.ogg",
+   "text": "Blast it all! \n\nBrennok and I were on our way to Shadowvein Point to conduct a recitation ceremony. We were attacked by scorpids. Now the hauler has a scorpid stinger lodged in its gears, and Brennok wandered off.\n\nHe said he was going to stretch his legs while I fixed the hauler, but that was a while ago. I need to get the bot moving again, can you look for him?"
+  },
+  {
+   "questID": 80670,
+   "passage": "description",
+   "title": "Eyes of the Weaver",
+   "npcID": 220867,
+   "npcName": "Y'tekhi",
+   "soundFile": "80670_description.ogg",
+   "text": "The Weaver's many eyes lurk throughout the city, learning as much as they can about Ansurek's machinations.\n\nStill, intelligence enough will not be sufficient to turn the tide against the Sureki forces. The Weaver requires someone willing to get their hands dirty.\n\nLucky you, I suppose."
+  },
+  {
+   "questID": 80670,
+   "passage": "progress",
+   "title": "Eyes of the Weaver",
+   "npcID": 224734,
+   "npcName": "Bobbin",
+   "soundFile": "80670_progress.ogg",
+   "text": "Chk-chaah! You return at least. What news of the city do you bring me, hrm?"
+  },
+  {
+   "questID": 80671,
+   "passage": "description",
+   "title": "Blade of the General",
+   "npcID": 220867,
+   "npcName": "Y'tekhi",
+   "soundFile": "80671_description.ogg",
+   "text": "Even now, General Anub'azal's forces work tirelessly to ensure the security of Azj-Kahet.\n\nAnsurek's reach extends to every corner of her domain. The General seeks to undermine her military authority. If we stretch her resources thin, then we may find new opportunities to strike."
+  },
+  {
+   "questID": 80672,
+   "passage": "description",
+   "title": "Hand of the Vizier",
+   "npcID": 220867,
+   "npcName": "Y'tekhi",
+   "soundFile": "80672_description.ogg",
+   "text": "The Vizier works even now to spread our conspiracy's influence amongst the well-to-do of Azj-Kahet's elite. Given his position, though, he can offer little in the way of direct support.\n\nThat is where you come in. Your growing reputation precedes you; you can move in ways that the Vizier cannot. Just take care not to get eaten, hrm?"
+  },
+  {
+   "questID": 80672,
+   "passage": "completion",
+   "title": "Hand of the Vizier",
+   "npcID": 224733,
+   "npcName": "Tulumun",
+   "soundFile": "80672_completion.ogg",
+   "text": "Thanks to your efforts, the Vizier is one step closer to parity with the enemy. \n\nFor that, thanks are necessary."
+  },
+  {
+   "questID": 80681,
+   "passage": "completion",
+   "title": "Broken Bracelet",
+   "npcID": 215527,
+   "npcName": "Keyrra Flamestonge",
+   "soundFile": "80681_completion.ogg",
+   "text": "That is... \n\n<Keyrra carefully places the bracelet in her palm.>\n\nI can't believe it."
+  },
+  {
+   "questID": 80682,
+   "passage": "completion",
+   "title": "One Last Story",
+   "npcID": 220600,
+   "npcName": "Haimaz",
+   "soundFile": "80682_completion.ogg",
+   "text": "I knew Brennok was acting odd. Then one of the miners mentioned you'd borrowed a spare set of clothes. That and his strange mood, well, it wasn't hard to guess that he planned to leave.\n\nI expected him to come this way, though. Have you seen him?"
+  },
+  {
+   "questID": 80689,
+   "passage": "description",
+   "title": "Tending to Ausgazur",
+   "npcID": 219899,
+   "npcName": "Batzvara",
+   "soundFile": "80689_description.ogg",
+   "text": "Assigned tasks complete! I'll check back on these folks on my next scheduled patrol.\n\nThere is one more earthen I must tend to today. He was... he is very special to me.\n\nYou've been an especially considerate colleague, so I'd like for you to see him. Let us travel west a bit, closer to the falls."
+  },
+  {
+   "questID": 80689,
+   "passage": "completion",
+   "title": "Tending to Ausgazur",
+   "npcID": 220784,
+   "npcName": "Batzvara",
+   "soundFile": "80689_completion.ogg",
+   "text": "You made it! \n\n<She looks at the outstretched hand of the earthen next to her and sighs.>\n\nI admit that I am quite disturbed by what I've found here. Your presence is a comfort."
+  },
+  {
+   "questID": 81613,
+   "passage": "completion",
+   "title": "Let's Not Worry Her",
+   "npcID": 220600,
+   "npcName": "Haimaz",
+   "soundFile": "81613_completion.ogg",
+   "text": "Thank you for bringing him back. He always acts strange when we come to Shadowvein Point, but he seems more out of sorts than usual."
+  },
+  {
+   "questID": 81640,
+   "passage": "description",
+   "title": "Tenir and the Order of Night",
+   "npcID": 214296,
+   "npcName": "Stage Manager Huberta",
+   "soundFile": "81640_description.ogg",
+   "text": "<A script for an epic stage play. Stage Manager Huberta on the Isle of Dorn may have interest in this.>"
+  },
+  {
+   "questID": 81661,
+   "passage": "description",
+   "title": "To Mourning Rise",
+   "npcID": 221355,
+   "npcName": "Urtago",
+   "soundFile": "81661_description.ogg",
+   "text": "Greetings, outlander. My name is Urtago, and I am Caretaker Korgran's apprentice at the Mourning Rise memorial site.\n\nThe mischievous Candlelit Kobolds have overrun Mourning Rise, and we seek assistance. Would you meet me at Fallside Outpost? It is just to the north of here. I will be able to tell you more once you arrive."
+  },
+  {
+   "questID": 81661,
+   "passage": "completion",
+   "title": "To Mourning Rise",
+   "npcID": 213187,
+   "npcName": "Urtago",
+   "soundFile": "81661_completion.ogg",
+   "text": "You are here! Thank you for coming."
+  },
+  {
+   "questID": 81669,
+   "passage": "description",
+   "title": "Sticks and Bones",
+   "npcID": 220417,
+   "npcName": "Kagfritha",
+   "soundFile": "81669_description.ogg",
+   "text": "While the krolusks like to attack from beneath, the Rumbling Waste also plays host to a predator who prefers to swoop down from above. Deepsflayers have built nests on the peaks and ridges around the Waste. \n\nDestroy their nests and show them that the Waste is no welcoming home."
+  },
+  {
+   "questID": 81669,
+   "passage": "completion",
+   "title": "Sticks and Bones",
+   "npcID": 220417,
+   "npcName": "Kagfritha",
+   "soundFile": "81669_completion.ogg",
+   "text": "I could see the smoke from here! Good job! That ought to make those wretched things look for a new place to perch."
+  },
+  {
+   "questID": 81685,
+   "passage": "description",
+   "title": "Azj-Kahet's Next Top Dyemaster",
+   "npcID": 222132,
+   "npcName": "Teth",
+   "soundFile": "81685_description.ogg",
+   "text": "Ren'khat and the Overspinner are fighting pincer-and-claw. Inside the spinneret. With no witnesses.\n\nWe have a unique opportunity here. If they took one another out... well, with Antourix's favorites dispatched and the whole of Rak-Ahat in disarray, the next best authority would be the caravan coordinator. Me.\n\nI don't love being in the spotlight, but it would be very beneficial to our secret-smuggling operation if those two didn't make it out of the dyeworks."
+  },
+  {
+   "questID": 81685,
+   "passage": "completion",
+   "title": "Azj-Kahet's Next Top Dyemaster",
+   "npcID": 222136,
+   "npcName": "Teth",
+   "soundFile": "81685_completion.ogg",
+   "text": "The sheer scandal will have the record-keepers in the City of Threads busy for months.\n\nAnd I'll make sure they don't look too closely at how it happened."
+  },
+  {
+   "questID": 81686,
+   "passage": "description",
+   "title": "Subterfuge in Silk",
+   "npcID": 207476,
+   "npcName": "Kex",
+   "soundFile": "81686_description.ogg",
+   "text": "I'm expecting a shipment of silk. That it hasn't arrived worries me.\n\nMost silk in Azj-Kahet, from the finest veils to the strongest warsilk, comes from Rak-Ahat. It makes the place a convenient nexus of information.\n\nOne of my agents smuggles military secrets woven into the silk itself. Recently, she has reported a power struggle emerging in Rak-Ahat... and even more recently, she has reported nothing at all.\n\nMeet with her and ensure no more delays."
+  },
+  {
+   "questID": 81686,
+   "passage": "completion",
+   "title": "Subterfuge in Silk",
+   "npcID": 222136,
+   "npcName": "Teth",
+   "soundFile": "81686_completion.ogg",
+   "text": "I see our mutual \"friend\" got my message and sent you to aid.\n\nOur production schedule is shot as our management struggles to assert itself.\n\nI propose this chaos is fertile ground for the ambitious."
+  },
+  {
+   "questID": 81688,
+   "passage": "completion",
+   "title": "That's All",
+   "npcID": 207471,
+   "npcName": "Widow Arak'nai",
+   "soundFile": "81688_completion.ogg",
+   "text": "Aha, I admit I hadn't expected to receive this.\n\n<The Weaver runs her pedipalps over the secret-woven silk, delighted.>\n\nVery interesting. I will have to keep this in mind."
+  },
+  {
+   "questID": 81692,
+   "passage": "completion",
+   "title": "The Flame Within",
+   "npcID": 217128,
+   "npcName": "Speaker Kuldas",
+   "soundFile": "81692_completion.ogg",
+   "text": "You were correct to seek my assistance. As a machine speaker there are few problems I cannot solve."
+  },
+  {
+   "questID": 81693,
+   "passage": "description",
+   "title": "Desperately Seeking Skorthuz",
+   "npcID": 220415,
+   "npcName": "Hrandaz",
+   "soundFile": "81693_description.ogg",
+   "text": "Eh? Who are you? Oh that's right, I heard that there were new folk about.\n\nSay, are you heading north? If so, keep an eye out for my friend, Skorthuz, will you? The laggard was due back an hour ago but is nowhere to be seen. I heard he was heading towards the Chittering Den for some awful reason. \n\nIf you see him, tell him to hurry up and get back here or I'm drinking alone!"
+  },
+  {
+   "questID": 81693,
+   "passage": "completion",
+   "title": "Desperately Seeking Skorthuz",
+   "npcID": 220446,
+   "npcName": "Skorthuz",
+   "soundFile": "81693_completion.ogg",
+   "text": "Who are you? Oh, Hrandaz sent you? Is it that time already?"
+  },
+  {
+   "questID": 81798,
+   "passage": "description",
+   "title": "Return to Moira",
+   "npcID": 213672,
+   "npcName": "Foreman Uzjax",
+   "soundFile": "81798_description.ogg",
+   "text": "Speaker Brinthe's impulsiveness is getting the better of her. \n\nYou'd best return to your comrades and let them know of her intentions!"
+  },
+  {
+   "questID": 81886,
+   "passage": "description",
+   "title": "For the Alliance",
+   "npcID": 221890,
+   "npcName": "Dawn",
+   "soundFile": "81886_description.ogg",
+   "text": "For the first time in our history, the outside world is ours to explore and experience.\n\nAn off-island faction known as the Alliance came to the aid of our kin. Valiant and wise, the stalwart Alliance has extended an open hand to our people.\n\nWill you be among the first to accept and visit their lands, learn their histories and walk amongst their people?\n\nIf that path calls to you, then I hope you'll return to share those experiences and show the earthen what the world has to offer."
+  },
+  {
+   "questID": 81887,
+   "passage": "progress",
+   "title": "Stranger in a Strange Land",
+   "npcID": 224806,
+   "npcName": "Adhelda",
+   "soundFile": "81887_progress.ogg",
+   "text": "Greetings, <name>."
+  },
+  {
+   "questID": 81887,
+   "passage": "completion",
+   "title": "Stranger in a Strange Land",
+   "npcID": 224806,
+   "npcName": "Adhelda",
+   "soundFile": "81887_completion.ogg",
+   "text": "Welcome to Stormwind. Acclimate yourself and learn all you can.\n\nOur experiences will be invaluable to the Archives back in Dornogal."
+  },
+  {
+   "questID": 81888,
+   "passage": "description",
+   "title": "For the Horde",
+   "npcID": 221890,
+   "npcName": "Dawn",
+   "soundFile": "81888_description.ogg",
+   "text": "For the first time in our history, the outside world is ours to explore and experience.\n\nAn off-island faction known as the Horde came to the aid of our kin. Spiritual and mighty, the honorable Horde has opened their hand to our people.\n\nWill you be among the first to go where no earthen has ever gone? To walk their lands, hear their songs and learn from their people?\n\nIf that path calls to you, then I hope you'll return to share those experiences and show the earthen what the world has to offer."
+  },
+  {
+   "questID": 81889,
+   "passage": "progress",
+   "title": "Stranger in a Strange Land",
+   "npcID": 224807,
+   "npcName": "Brunhold",
+   "soundFile": "81889_progress.ogg",
+   "text": "Greetings, <name>."
+  },
+  {
+   "questID": 81889,
+   "passage": "completion",
+   "title": "Stranger in a Strange Land",
+   "npcID": 224807,
+   "npcName": "Brunhold",
+   "soundFile": "81889_completion.ogg",
+   "text": "Welcome to Orgrimmar. Acclimate yourself and learn all you can.\n\nOur experiences will be invaluable to the Archives back in Dornogal."
+  },
+  {
+   "questID": 81890,
+   "passage": "description",
+   "title": "Unfulfilled Requests",
+   "npcID": 208782,
+   "npcName": "Executor Nizrek",
+   "soundFile": "81890_description.ogg",
+   "text": "I have heard the citizens of the Silken Ward are having trouble with a group of Ascended called the Pale Weavelashers.\n\nThe new ward is supposed to be a fresh start for citizens of the capital, at least that is the way the Queen tells it. In actuality it is a way for her to tighten her grip on those she distrust. \n\nMeet with my assistant Sum'latha. I sent her there ahead of time to gather information. She can fill you in on any details."
+  },
+  {
+   "questID": 81890,
+   "passage": "completion",
+   "title": "Unfulfilled Requests",
+   "npcID": 221948,
+   "npcName": "Sum'latha",
+   "soundFile": "81890_completion.ogg",
+   "text": "You must be the help the Vizier sent. Welcome to the Silken Ward."
+  },
+  {
+   "questID": 81912,
+   "passage": "description",
+   "title": "Flight Training 102",
+   "npcID": 215211,
+   "npcName": "Kurdran Wildhammer",
+   "soundFile": "81912_description.ogg",
+   "text": "Dunnae think I had nae noticed those rooks spittin' lightnin'. Sure beats tossin' hammers. But it won't mean nothin' if the Stormriders can't hit what they're fightin'.\n\nLet's test their aim. Got some gnomish contraptions here that'll project easy targets for practice. Take Shraubendre back out there an' show them how it's done!"
+  },
+  {
+   "questID": 81913,
+   "passage": "description",
+   "title": "Flight Training 103",
+   "npcID": 215211,
+   "npcName": "Kurdran Wildhammer",
+   "soundFile": "81913_description.ogg",
+   "text": "These recruits seem tae be up for a challenge. Let's find them somethin' with a little bite!\n\nI saw a poor giant just off shore bein' pestered by a swarm of flying devils. Let's see if these rooks can shoot the wings off 'em an' provide some relief.\n\nYou and Shraubendre are settin' a good example for the rest. Keep it up!"
+  },
+  {
+   "questID": 81914,
+   "passage": "description",
+   "title": "Dhar Oztan",
+   "npcID": 215039,
+   "npcName": "Rooktender Lufsela",
+   "soundFile": "81914_description.ogg",
+   "text": "I love the stormrooks. Taking care of them was my directive, so they're all I've ever known. But even so, there are questions about them that even I don't have answers to.\n\nBaelgrim--Stormward Baelgrim--he was the expert. I'd pester him about them at every opportunity. And he shared what he could.\n\nHe told me once about summoning rooks at Dhar Oztan. It's an old Stormrider outpost that predates the Stormperch. If you want to know more about stormrooks, that's where we need to go."
+  },
+  {
+   "questID": 81915,
+   "passage": "description",
+   "title": "Home to Roost",
+   "npcID": 215277,
+   "npcName": "Adelgonn",
+   "soundFile": "81915_description.ogg",
+   "text": "You've already done us a great service here, <name>. We will carry on by the example you have set.\n\nYou should return to Dhar Oztan and see to these new Stormriders you've recruited. They will undoubtedly benefit from the same diligence you have shown here.\n\nAnd, you can get away from these two and their posturing. I envy you, <name>..."
+  },
+  {
+   "questID": 81930,
+   "passage": "description",
+   "title": "The War Within",
+   "npcID": 221967,
+   "npcName": "Lady Jaina Proudmoore",
+   "soundFile": "81930_description.ogg",
+   "text": "People are experiencing visions of a \"Radiant Song\" all across Azeroth. We have reason to believe it's a warning of some kind.\n\nMeet me in Silithus. Perhaps Azeroth's Speaker can shed some light on what this warning might mean."
+  },
+  {
+   "questID": 81930,
+   "passage": "progress",
+   "title": "The War Within",
+   "npcID": 213625,
+   "npcName": "Lady Jaina Proudmoore",
+   "soundFile": "81930_progress.ogg",
+   "text": "These visions grow stronger by the day."
+  },
+  {
+   "questID": 81945,
+   "passage": "description",
+   "title": "To Arathi's End",
+   "npcID": 211409,
+   "npcName": "Faerin Lothar",
+   "soundFile": "81945_description.ogg",
+   "text": "We will regroup on the outskirts of Arathi's End to the east.\n\nTheir forces are nearly ready and there isn't much time, <name>."
+  },
+  {
+   "questID": 81945,
+   "passage": "completion",
+   "title": "To Arathi's End",
+   "npcID": 221977,
+   "npcName": "Monte Gazlowe",
+   "soundFile": "81945_completion.ogg",
+   "text": "You made it. Now let's see if we can make a dent in these nerubians and save Hallowfall.\n\nI can already taste the rewards!"
+  },
+  {
+   "questID": 81990,
+   "passage": "description",
+   "title": "The Light's Call",
+   "npcID": 213145,
+   "npcName": "Auralia Steelstrike",
+   "soundFile": "81990_description.ogg",
+   "text": "Attention, residents of Hallowfall!\n\nUrgent assistance is needed to reclaim the shadowed outskirts.\n\nAs darkness grips countless family farms, your aid is needed to ignite the sacred flame and restore safety to our lands."
+  },
+  {
+   "questID": 81990,
+   "passage": "completion",
+   "title": "The Light's Call",
+   "npcID": 215527,
+   "npcName": "Keyrra Flamestonge",
+   "soundFile": "81990_completion.ogg",
+   "text": "We are glad to have your support. Anything you can do to help re-ignite these keyflames will help!"
+  },
+  {
+   "questID": 82153,
+   "passage": "completion",
+   "title": "Embassies and Envoys",
+   "npcID": 214917,
+   "npcName": "Moira Thaurissan",
+   "soundFile": "82153_completion.ogg",
+   "text": "Ye mean tae tell me ye have been an interior decorator this whole time an ye have been holdin' out on me?\n\nWell done, <name>.\n\nYe are rearrangin' me chambers when we get home, ye are."
+  },
+  {
+   "questID": 82214,
+   "passage": "description",
+   "title": "Does Anyone Like Wasps?",
+   "npcID": 213145,
+   "npcName": "Auralia Steelstrike",
+   "soundFile": "82214_description.ogg",
+   "text": "We haven't been able to gather resources from this area due to hornets moving in. \n\nWe just haven't been able to spare the resources from the wall to deal with them. If you can, we'd all appreciate it."
+  },
+  {
+   "questID": 82214,
+   "passage": "completion",
+   "title": "Does Anyone Like Wasps?",
+   "npcID": 213145,
+   "npcName": "Auralia Steelstrike",
+   "soundFile": "82214_completion.ogg",
+   "text": "Thanks, <name>. \n\nI hate those things. Seriously, who thought it was a good idea to have wasps the size of a lynx."
+  },
+  {
+   "questID": 82223,
+   "passage": "description",
+   "title": "A Home Cooked Meal",
+   "npcID": 224154,
+   "npcName": "General Steelstrike",
+   "soundFile": "82223_description.ogg",
+   "text": "Home-cooked stew. There is nothing like it in the world. \n\nI grant you, it might not be as tasty as the stew from the Empires Edge Inn. But it was cooked by family. That's what makes it great.\n\nJoin us. You have more than earned the right."
+  },
+  {
+   "questID": 82223,
+   "passage": "progress",
+   "title": "A Home Cooked Meal",
+   "npcID": 225745,
+   "npcName": "Vaelisia Steelstrike",
+   "soundFile": "82223_progress.ogg",
+   "text": "It's been such a long time since I had a meal with the entire family."
+  },
+  {
+   "questID": 82224,
+   "passage": "description",
+   "title": "Check on the Compiler",
+   "npcID": 220600,
+   "npcName": "Haimaz",
+   "soundFile": "82224_description.ogg",
+   "text": "That's everything up here. Would you check on Brennok? Recitations can be stressful, I'm sure he'd appreciate the help."
+  },
+  {
+   "questID": 82452,
+   "passage": "description",
+   "title": "Worldsoul: World Quests",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82452_description.ogg",
+   "text": "There so much to be done and so little time to do it!\n\nBrinthe and I have been gathering word of the people that need the most aid throughout all of Khaz Algar. There's too many to count!\n\nGo out and help them. With your aid, will can bring all our people closer together... so we may all grow stronger."
+  },
+  {
+   "questID": 82452,
+   "passage": "progress",
+   "title": "Worldsoul: World Quests",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82452_progress.ogg",
+   "text": "Strange, these notes that come from Azj-kahet. I am.. hesitant to send any aid to the nerubians. Not after what they've done to my people.\n\nBut between your reports and those from our scouts... perhaps we can use their... disagreements to our advantage. And perhaps some are truly in need of aid. Of kindness. \n\nI do not want my eyes to be clouded by hate. And yet... \n\n<Faerin sighs.> \n\nWho knows. All I do know I won't regret a kindness."
+  },
+  {
+   "questID": 82478,
+   "passage": "progress",
+   "title": "Regularly Scheduled Maintenance",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "82478_progress.ogg",
+   "text": "These are from Orren? I think they go well together, even though they're so different."
+  },
+  {
+   "questID": 82478,
+   "passage": "completion",
+   "title": "Regularly Scheduled Maintenance",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "82478_completion.ogg",
+   "text": "Wow, that's really sweet of him. I'll be here for a while, dealing with the kobyss, but I should send something back. \n\nSo he knows I'm safe, and that I can't wait to see him."
+  },
+  {
+   "questID": 82479,
+   "passage": "description",
+   "title": "The Sword is Mightier",
+   "npcID": 213613,
+   "npcName": "Aemyra Acton",
+   "soundFile": "82479_description.ogg",
+   "text": "I had told Orren I'd be back by now, but Velhan's Claim has larger problems than I expected. The people here need my help against the kobyss.\n\nadventurer, I've always been better with a sword than a pen. Strong feelings and being far apart makes it even harder. \n\nI'm more at home protecting the vulnerable than being vulnerable. \n\nPerhaps I could tell you what I want to get across and you could write it for me?"
+  },
+  {
+   "questID": 82482,
+   "passage": "description",
+   "title": "Worldsoul: Snuffling",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82482_description.ogg",
+   "text": "I've wanted to be able to explore beyond Hallowfall's caves for so long now. Of course, I hardly have time, but when I do... there's such surprises everywhere!\n\nTreasures, friends in need, foes great and small... All so wonderful. \n\nI'll just have to live vicariously through you. Deeds need doing! Go out and seek the surprises in every nook and cranny. I'm certain you will find things that need doing!"
+  },
+  {
+   "questID": 82482,
+   "passage": "progress",
+   "title": "Worldsoul: Snuffling",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82482_progress.ogg",
+   "text": "Oh, what have you found?! Tell me everything."
+  },
+  {
+   "questID": 82485,
+   "passage": "description",
+   "title": "Worldsoul: Cinderbrew Meadery",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82485_description.ogg",
+   "text": "Ah, Cinderbrew. It really is as stout and fiery a brew as they claim.\n\nI can't help but imagine it's how Beledar would taste...\n\nThe earthen love it! And it's an important part of their heritage. And so we can't let their meadery fall into the wrong hands.\n\nBut... watch out for the cinderbees. I hear their stingers are... well, I won't scare you with that. But I am glad I'm leaving this to you."
+  },
+  {
+   "questID": 82495,
+   "passage": "description",
+   "title": "Worldsoul: Cinderbrew Meadery",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82495_description.ogg",
+   "text": "Ah, Cinderbrew. It really is as stout and fiery a brew as they claim.\n\nI can't help but imagine it's how Beledar would taste...\n\nThe earthen love it! And it's an important part of their heritage. And so we can't let their meadery fall into the wrong hands.\n\nBut... watch out for the cinderbees. I hear their stingers are... well, I won't scare you with that. But I am glad I'm leaving this to you."
+  },
+  {
+   "questID": 82511,
+   "passage": "description",
+   "title": "Worldsoul: Awakening Machine",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "82511_description.ogg",
+   "text": "The earthen tell me of this \"Awakening Machine\" that is part of their life cycle.\n\nIt imbues them with energy, once a gift of the titans but now from the Worldsoul.\n\n<Faerin smiles faintly and nods knowingly.>\n\nThey hold it in high reverence--as we do Beledar. \n\nI will fight to defend it with the same fervor as I would defend our own star! \n\nAid me, <name>. We can't let them down."
+  },
+  {
+   "questID": 82539,
+   "passage": "description",
+   "title": "Radiant Echoes",
+   "npcID": 213627,
+   "npcName": "Archmage Khadgar",
+   "soundFile": "82539_description.ogg",
+   "text": "<A missive finds its way to you.>\n\nadventurer, please come to Dalaran at once. Strange phenomena are appearing all across Azeroth. We believe they may be connected to the Radiant Song. I'd like you to investigate."
+  },
+  {
+   "questID": 82628,
+   "passage": "description",
+   "title": "The Brothers Braunpyke",
+   "npcID": 215335,
+   "npcName": "General Steelstrike",
+   "soundFile": "82628_description.ogg",
+   "text": "Baron Braunpyke and his brother have been working on removing our lingering kobyss problem from near the Veneration Grounds.\n\nMeet with them there and see what help you can offer."
+  },
+  {
+   "questID": 82680,
+   "passage": "description",
+   "title": "Birdman of the Three Shields",
+   "npcID": 224394,
+   "npcName": "Harmot",
+   "soundFile": "82680_description.ogg",
+   "text": "Are you here to watch the mosswools? No? \n\nThat's too bad. I find the elemental creatures on our isle fascinating. I'm not the only one. \n\nAn old friend of mine named Olbarig resides out on the Three Shields. He studies the wild cloudrooks there.\n\nBut come to think of it, I haven't heard from him in awhile. Maybe someone should check on him. Hm. Would you mind?"
+  },
+  {
+   "questID": 82680,
+   "passage": "completion",
+   "title": "Birdman of the Three Shields",
+   "npcID": 224392,
+   "npcName": "Olbarig",
+   "soundFile": "82680_completion.ogg",
+   "text": "Harmot sent you to check on me? \n\nHuh. Well, I didn't know that sack of charcoal cared.\n\nBut he does have an innate sense of when elementals are in turmoil. Maybe he knew something was brewing out here.\n\nHarmot's timing is good, outlander. And your aid would be most welcome."
+  },
+  {
+   "questID": 82748,
+   "passage": "description",
+   "title": "Deephaul Ravine",
+   "npcID": 219260,
+   "npcName": "Ruffious",
+   "soundFile": "82748_description.ogg",
+   "text": "We've received reports of troubles in the earthen depths. Explore the Deephaul Ravine and the resources available, then report to Ruffious."
+  },
+  {
+   "questID": 82771,
+   "passage": "description",
+   "title": "Heritage of the Earthen",
+   "npcID": 224790,
+   "npcName": "Dawn",
+   "soundFile": "82771_description.ogg",
+   "text": "The time has come to give back to the Archives. \n\nAll earthen wanderers are invited to share their experiences for the preservation of what has come before and the betterment of those who will come after. \n\nThis knowledge and experience of the wider world of Azeroth is a priceless treasure, and the practice of sharing it is key to our earthen heritage."
+  },
+  {
+   "questID": 82785,
+   "passage": "description",
+   "title": "Ghosts in the Machine",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82785_description.ogg",
+   "text": "There's a substation directly below us? Perhaps that is where Arbauch went to hide it... Disregard, we must investigate.\n\nWith luck, Arbauch may still be here. The entrance should be to the north, near the pool of water from the burst pipe. Please, come with me. He may need our help.\n\nI will explain everything once he is located."
+  },
+  {
+   "questID": 82785,
+   "passage": "completion",
+   "title": "Ghosts in the Machine",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82785_completion.ogg",
+   "text": "It killed him, and we let it loose. Even his memory gem is gone."
+  },
+  {
+   "questID": 82786,
+   "passage": "description",
+   "title": "Duty of Care",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82786_description.ogg",
+   "text": "The golem is unstable. I doubt it can travel far. We will track it, but haste failed me once already. Arbauch showed true devotion to the machines--we will follow his example. Repairs must come first.\n\nMachine systems are delicate. We must activate the backup before the failure can cascade. Exterminate any pests you find as well. Even the smallest creature can ruin delicate machinery.\n\nI am damaged. I will send my cogwalker with you to relay instructions."
+  },
+  {
+   "questID": 82792,
+   "passage": "description",
+   "title": "All Ore Nothing",
+   "npcID": 218535,
+   "npcName": "Germira",
+   "soundFile": "82792_description.ogg",
+   "text": "Outlander. Your aid is requested. \n\nThe earthen here have said you would be of help. \n\nOur fellow earthen at the Opalcreg have not reported their quota for the past day. There must be something causing a disruption. \n\nWould you pay Foreman Alvegar a visit?"
+  },
+  {
+   "questID": 82792,
+   "passage": "completion",
+   "title": "All Ore Nothing",
+   "npcID": 224707,
+   "npcName": "Alvegar",
+   "soundFile": "82792_completion.ogg",
+   "text": "I'm hiding... lay low. \n\nForeman Germira sent you? She must be worried that we haven't sent over our quota."
+  },
+  {
+   "questID": 82796,
+   "passage": "description",
+   "title": "Third Mine Blind",
+   "npcID": 224707,
+   "npcName": "Alvegar",
+   "soundFile": "82796_description.ogg",
+   "text": "I got cut off from the rest of the crew. We did not expect to be attacked by nerubians. Though I can't imagine the rest quitting.\n\nOur duty is too important to give up just yet. \n\nBarging right into the mine could cause the nerubians to frenzy and hurt the others. So, I found a third way to get in earlier. Though undetected will still be tough. \n\nFollow me."
+  },
+  {
+   "questID": 82796,
+   "passage": "completion",
+   "title": "Third Mine Blind",
+   "npcID": 224707,
+   "npcName": "Alvegar",
+   "soundFile": "82796_completion.ogg",
+   "text": "You made it undetected, good. Time to surprise these Nerubians!"
+  },
+  {
+   "questID": 82797,
+   "passage": "description",
+   "title": "Hit Rock Bottom",
+   "npcID": 224707,
+   "npcName": "Alvegar",
+   "soundFile": "82797_description.ogg",
+   "text": "A long way down to be sure, but I am certain that you can make it. \n\nIf you doubt yourself, I made some parachutes to help you stick the landing. \n\nOnce you get to the bottom of the cave, look for Cenderragg. She's the most senior of the group and probably has the best idea on how to rescue the team."
+  },
+  {
+   "questID": 82797,
+   "passage": "completion",
+   "title": "Hit Rock Bottom",
+   "npcID": 224708,
+   "npcName": "Cenderragg",
+   "soundFile": "82797_completion.ogg",
+   "text": "Who are you and why are you here?"
+  },
+  {
+   "questID": 82799,
+   "passage": "description",
+   "title": "Web Beats Rock",
+   "npcID": 224708,
+   "npcName": "Cenderragg",
+   "soundFile": "82799_description.ogg",
+   "text": "So, Foreman Alvegar sent you? That explains it.\n\nThe situation is not great. This place is crawling with nerubians and they're showing us no mercy. They forced us to mine and took our hard-earned opals. \n\nWhen you disobey, they web you up. \n\nI was barely able to escape them when they came. The others... Well, that's where you come in.\n\nWith you here distracting them, I can go rally the webbed earthen."
+  },
+  {
+   "questID": 82799,
+   "passage": "completion",
+   "title": "Web Beats Rock",
+   "npcID": 224708,
+   "npcName": "Cenderragg",
+   "soundFile": "82799_completion.ogg",
+   "text": "Thank the machine! They're free!"
+  },
+  {
+   "questID": 82801,
+   "passage": "description",
+   "title": "Beetlejeweled",
+   "npcID": 224708,
+   "npcName": "Cenderragg",
+   "soundFile": "82801_description.ogg",
+   "text": "To make sure no other earthen gets harmed we're going to have to eliminate their leader. \n\nYou know the saying, rid yourself of the foreman and the whole line collapses. \n\nEither way, to get to safety we're going to have to go through them."
+  },
+  {
+   "questID": 82801,
+   "passage": "completion",
+   "title": "Beetlejeweled",
+   "npcID": 218535,
+   "npcName": "Germira",
+   "soundFile": "82801_completion.ogg",
+   "text": "You made it back, I was beginning to think all hope was destroyed. \n\nAlvegar filled me in with the issue. I'm just glad all our people are safe, and we got the opal too.\n\nA small win, but a win."
+  },
+  {
+   "questID": 82810,
+   "passage": "description",
+   "title": "Time Found",
+   "npcID": 220718,
+   "npcName": "Maera Ashyld",
+   "soundFile": "82810_description.ogg",
+   "text": "Yer back!\n\nIf you're up for it, there's more things in the muck to be found. Might have to dig a bit deeper this time."
+  },
+  {
+   "questID": 82814,
+   "passage": "progress",
+   "title": "Decommissioning Darkness",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82814_progress.ogg",
+   "text": "Regret. This should have been my burden."
+  },
+  {
+   "questID": 82814,
+   "passage": "completion",
+   "title": "Decommissioning Darkness",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82814_completion.ogg",
+   "text": "There is no joy in the death of a machine, but I express gratitude. I suspect Arbauch would too. \n\nHis decisions were his own, but none can doubt that he devoted his life to the machines. The Titans would be proud."
+  },
+  {
+   "questID": 82846,
+   "passage": "completion",
+   "title": "Dented Spearhead",
+   "npcID": 213145,
+   "npcName": "Auralia Steelstrike",
+   "soundFile": "82846_completion.ogg",
+   "text": "Ah, I thought I simply misplaced this."
+  },
+  {
+   "questID": 82956,
+   "passage": "completion",
+   "title": "To Opportunity Point",
+   "npcID": 225067,
+   "npcName": "Griz Finglebur",
+   "soundFile": "82956_completion.ogg",
+   "text": "Welcome to Opportunity Point! You got a drink ticket, eh? Coming right up!"
+  },
+  {
+   "questID": 82960,
+   "passage": "description",
+   "title": "Hillhelm Family: Lily's Locket",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "82960_description.ogg",
+   "text": "<This locket must be important to someone. Maybe Aliya Hillhelm can shed some light on it.>"
+  },
+  {
+   "questID": 82969,
+   "passage": "description",
+   "title": "Stone Tracing",
+   "npcID": 216311,
+   "npcName": "Clive DelGizmo",
+   "soundFile": "82969_description.ogg",
+   "text": "Couldn't help overhearing. Not to brag, but goblins are specialists in the field of rampaging robots.\n\nIf that golem's as unstable as Danagh says, it'll be leaking all sorts of energy. Take this, run a few scans, and you'll find it. Oh, and be careful. Animals tend to go a little cuckoo when you power this thing on.\n\nNo charge--a murderous golem's bad for business. And I kinda feel bad making you work just to find a dead guy."
+  },
+  {
+   "questID": 82990,
+   "passage": "description",
+   "title": "Undoing the Damage",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82990_description.ogg",
+   "text": "Apologies. Arbauch was not here for repairs--he stole that golem.\n\nArbauch and I worked alongside it for years in the darkest reaches of the Deeps. The work took its toll on the golem. It became erratic, dangerous even. We planned to decommission it, but when the time came, Arbauch couldn't bear it. He'd become attached. Before it could be destroyed, he took it and fled.\n\nIt must be found, but the damage to this substation is catastrophic. With your help, I will attempt repairs."
+  },
+  {
+   "questID": 82990,
+   "passage": "completion",
+   "title": "Undoing the Damage",
+   "npcID": 224602,
+   "npcName": "Danagh",
+   "soundFile": "82990_completion.ogg",
+   "text": "A foreman and a substation lost. Blast. I was careless."
+  },
+  {
+   "questID": 83164,
+   "passage": "description",
+   "title": "City of Threads: Splice the Splicer",
+   "npcID": 224733,
+   "npcName": "Tulumun",
+   "soundFile": "83164_description.ogg",
+   "text": "\"Ascension\" is no true evolution. It is defilement. It is doom. And Ansurek further etches that doom in stone with each passing day.\n\nIf we bring down the Transformatory, then we can potentially rid Azj-Kahet of these abominations for good.\n\nIzo the Grand Splicer is Ansurek's chosen overseer of the Ascension process. Cut that wretch's head from her body, and perhaps these mutations will cease."
+  },
+  {
+   "questID": 83164,
+   "passage": "completion",
+   "title": "City of Threads: Splice the Splicer",
+   "npcID": 224733,
+   "npcName": "Tulumun",
+   "soundFile": "83164_completion.ogg",
+   "text": "You've dealt a blow that Ansurek will never recover from, <name>.\n\nTake this and be well."
+  },
+  {
+   "questID": 83165,
+   "passage": "description",
+   "title": "Badly Behaved Bot",
+   "npcID": 223759,
+   "npcName": "Sinruna",
+   "soundFile": "83165_description.ogg",
+   "text": "Go ahead, laugh. I would be as well if I didn't have such pressing business. My bot's foot clipped a nearby rock, spilled me out and then righted herself. Without me in the cockpit! \n\nI'm grounded while she floats there quite cheerfully. Can you believe it? \n\nListen, if you are heading up to Shadowvein Point, will you let Kagfritha know that I'll be late for my shift? I need to wait for this hunk of metal to run out of fuel and dip low enough for me to get back in the driver's seat."
+  },
+  {
+   "questID": 83165,
+   "passage": "completion",
+   "title": "Badly Behaved Bot",
+   "npcID": 220417,
+   "npcName": "Kagfritha",
+   "soundFile": "83165_completion.ogg",
+   "text": "Sinruna got tossed again, did she? I keep telling her she's flying too low. Maybe this'll knock some sense into her."
+  },
+  {
+   "questID": 83166,
+   "passage": "description",
+   "title": "Ara-Kara, the City of Echoes: Harvest's End",
+   "npcID": 224733,
+   "npcName": "Tulumun",
+   "soundFile": "83166_description.ogg",
+   "text": "You've seen it yourself, haven't you? The \"Black Blood,\" as we call it.\n\nWe will not stand idle any longer. Not while Ansurek mutilates, drills, and exsanguinates our precious land for the last, fetid dribbles of the old gods' death rattle. \n\nSeek out the old city beneath us--Ara-Kara, The City of Echoes. You will receive a handsome bounty should you slay the crony in charge of the excavation. Her people call her Ki'katal, the Harvester."
+  },
+  {
+   "questID": 83166,
+   "passage": "completion",
+   "title": "Ara-Kara, the City of Echoes: Harvest's End",
+   "npcID": 224733,
+   "npcName": "Tulumun",
+   "soundFile": "83166_completion.ogg",
+   "text": "Ki'katal is dead? Excellent.\n\nYou have our thanks, <name>. In both praise, and material value."
+  },
+  {
+   "questID": 83271,
+   "passage": "completion",
+   "title": "There's Always Another Secret",
+   "npcID": 226040,
+   "npcName": "High Speaker Brinthe",
+   "soundFile": "83271_completion.ogg",
+   "text": "Fascinating. This is clearly a chamber meant for a Keeper. But for what? \n\nWe need to investigate."
+  },
+  {
+   "questID": 83278,
+   "passage": "description",
+   "title": "Hillhelm Family: A Lost Shoe",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "83278_description.ogg",
+   "text": "<A shoe in the style worn by members of the Hillhelm family. Maybe Aliya Hillhelm can shed some light on it.>"
+  },
+  {
+   "questID": 83282,
+   "passage": "description",
+   "title": "Hillhelm Family: A Clutch of Eggs",
+   "npcID": 206528,
+   "npcName": "Aliya Hillhelm",
+   "soundFile": "83282_description.ogg",
+   "text": "<A clutch of chicken eggs, they must have come from a nearby farm. Maybe Aliya Hillhelm can shed some light on it.>"
+  },
+  {
+   "questID": 83306,
+   "passage": "description",
+   "title": "Where the Wild Things Camp",
+   "npcID": 211409,
+   "npcName": "Faerin Lothar",
+   "soundFile": "83306_description.ogg",
+   "text": "Some of my people found a few haranir setting up one of their camps to the southwest. They were missing some vital supplies, so my people offered to help out. However, I worry about how they're all getting along over there.\n\nCould you check in on them? Make sure we're being good hosts to the haranir... and that nobody has inadvertently offended anyone. Please."
+  },
+  {
+   "questID": 83306,
+   "passage": "completion",
+   "title": "Where the Wild Things Camp",
+   "npcID": 220595,
+   "npcName": "Orweyna",
+   "soundFile": "83306_completion.ogg",
+   "text": "You again. Curious."
+  },
+  {
+   "questID": 83324,
+   "passage": "completion",
+   "title": "A Silken Thread",
+   "npcID": 221948,
+   "npcName": "Sum'latha",
+   "soundFile": "83324_completion.ogg",
+   "text": "You must be the help our \"mutual friend\" sent. Welcome to the Silken Ward."
+  },
+  {
+   "questID": 83325,
+   "passage": "completion",
+   "title": "Bountiful Beetles",
+   "npcID": 214359,
+   "npcName": "Kish'nal",
+   "soundFile": "83325_completion.ogg",
+   "text": "Ah, so the general has sent out an observer?"
+  },
+  {
+   "questID": 83331,
+   "passage": "description",
+   "title": "Preserve and Pretend",
+   "npcID": 226255,
+   "npcName": "Chive",
+   "soundFile": "83331_description.ogg",
+   "text": "Chive dig for history. You help find? \n\nGot history detector from goblin. Said it finds history underground! You use. Chive dig."
+  },
+  {
+   "questID": 83331,
+   "passage": "completion",
+   "title": "Preserve and Pretend",
+   "npcID": 226255,
+   "npcName": "Chive",
+   "soundFile": "83331_completion.ogg",
+   "text": "Many thanks, dig-finder. \n\nChive know these have no important history... but they will one day.\n \nChive will keep safe until then. Kobolds make new history. \n\nThen save and protect. Forever."
+  },
+  {
+   "questID": 83333,
+   "passage": "description",
+   "title": "Gearing Up for Trouble",
+   "npcID": 216164,
+   "npcName": "Gnawbles",
+   "soundFile": "83333_description.ogg",
+   "text": "Greetings friend,\n\nThe machine is once again in disrepair and requires restoration. \nI am in need of your expertise to successfully perform maintenance.\n\nA reward shall be provided for well-executed assistance."
+  },
+  {
+   "questID": 83337,
+   "passage": "description",
+   "title": "Stormscarred",
+   "npcID": 226792,
+   "npcName": "Rancher Edidithet",
+   "soundFile": "83337_description.ogg",
+   "text": "Take a look around this beautiful town. What do you see? Ranchers 'n' their mosswools. But where is this rancher's flock? In the guts of a beast, they are. Stormscar they call 'im. \n\nStormscar, whose howl is as the thunder. Whose bite is lightning. Whose belly is full of my life's work. \n\nI came here to buy weapons and all we have is ranching equipment. You look strong. Would you put an end to Stormscar's reign in our pastures?"
+  },
+  {
+   "questID": 83337,
+   "passage": "completion",
+   "title": "Stormscarred",
+   "npcID": 226792,
+   "npcName": "Rancher Edidithet",
+   "soundFile": "83337_completion.ogg",
+   "text": "Thank you, adventurer. My role in this world is to be a rancher. Yours is to slay wolves. We all have our places."
+  },
+  {
+   "questID": 83492,
+   "passage": "description",
+   "title": "Warbands: Warbanding Together",
+   "npcID": 226658,
+   "npcName": "Blue",
+   "soundFile": "83492_description.ogg",
+   "text": "<name>, some adventurers have gotten together to form a warband and could use your help.\n\nFind Blue and her group in Gadgetzan."
+  },
+  {
+   "questID": 83548,
+   "passage": "description",
+   "title": "Isle of Dorn",
+   "npcID": 211994,
+   "npcName": "Lady Jaina Proudmoore",
+   "soundFile": "83548_description.ogg",
+   "text": "Survivors from the attack on Dalaran are beset by nerubians led by Queensguard Zirix.\n\nLend your aid to protect whomever remains."
+  },
+  {
+   "questID": 83550,
+   "passage": "description",
+   "title": "The Ringing Deeps",
+   "npcID": 212592,
+   "npcName": "Speaker Brinthe",
+   "soundFile": "83550_description.ogg",
+   "text": "Speaker Brinthe has gone to The Ringing Deeps to see how the Machine Speakers have fared while she was away.\n\nShe has asked for adventurers to join her at the bottom of the Coreway."
+  },
+  {
+   "questID": 83551,
+   "passage": "description",
+   "title": "Hallowfall",
+   "npcID": 213116,
+   "npcName": "Faerin Lothar",
+   "soundFile": "83551_description.ogg",
+   "text": "Anduin Wrynn hopes to gain the trust and aid of the Arathi in Hallowfall.\n\nHe will need help to win over these potential allies."
+  },
+  {
+   "questID": 83552,
+   "passage": "description",
+   "title": "Azj-Kahet",
+   "npcID": 211699,
+   "npcName": "Faerin",
+   "soundFile": "83552_description.ogg",
+   "text": "An Arathi airship is stranded in Azj-Kahet following a vicious nerubian ambush.\n\nAid the survivors as they withstand the nerubian assault."
+  },
+  {
+   "questID": 83627,
+   "passage": "description",
+   "title": "The Beginning of Something Beautiful",
+   "npcID": 218171,
+   "npcName": "Shalba",
+   "soundFile": "83627_description.ogg",
+   "text": "<This seems like it would be of interest to a nerubian alchemist. \n\nAscension is their specialty, and this may be key to understanding more about the process.>"
+  },
+  {
+   "questID": 83632,
+   "passage": "progress",
+   "title": "Rings of Memory",
+   "npcID": 215724,
+   "npcName": "Ney'leia",
+   "soundFile": "83632_progress.ogg",
+   "text": "Did you find the ancients?"
+  },
+  {
+   "questID": 83632,
+   "passage": "completion",
+   "title": "Rings of Memory",
+   "npcID": 215724,
+   "npcName": "Ney'leia",
+   "soundFile": "83632_completion.ogg",
+   "text": "Goehi sent this root, yet was still alive...\n\nI understand. His story is safe with us."
+  },
+  {
+   "questID": 83639,
+   "passage": "description",
+   "title": "Open Communications",
+   "npcID": 215724,
+   "npcName": "Ney'leia",
+   "soundFile": "83639_description.ogg",
+   "text": "You understand that others lead lives different to your own. Our ways restrict us. Our traditions are not for the ears of strangers. I have only spoken to you at all due to Orweyna's word. But I can feel On'hiea's disapproval from here.\n\nIt is uncomfortable to have mysteries at times. It is why so many fear the dark. It is unknown.\n\nI know I must seem cryptic. But our ways do not mean we are offended by the Arathi. They are creating tension where it does not exist for us."
+  },
+  {
+   "questID": 83716,
+   "passage": "description",
+   "title": "Beneath the Roots",
+   "npcID": 211409,
+   "npcName": "Faerin Lothar",
+   "soundFile": "83716_description.ogg",
+   "text": "I am glad to see you are well, <name>. I have recently received word that a number of the Aeroknights have taken shelter in a camp close to where the airship was seized in mid-air. \n\nWould you check on them?"
+  },
+  {
+   "questID": 83766,
+   "passage": "description",
+   "title": "Delver's Call: Dread Pit",
+   "npcID": 216311,
+   "npcName": "Clive DelGizmo",
+   "soundFile": "83766_description.ogg",
+   "text": "Two things are bad for business. Earnest competition and the Dread Pit caves. We need someone to deal with the latter!\n\nSomething bad is going on here. We lost a bunch of workers in this cave.\n\nWe need you to deal with the threat, so we can keep business booming!"
+  },
+  {
+   "questID": 83766,
+   "passage": "completion",
+   "title": "Delver's Call: Dread Pit",
+   "npcID": 216311,
+   "npcName": "Clive DelGizmo",
+   "soundFile": "83766_completion.ogg",
+   "text": "You took care of them spiders in the Dread Pit? Great!\n\nI'll get to work on figuring out a better name for that place. \"Dread Pit\" just ain't catchy enough."
+  },
+  {
+   "questID": 84246,
+   "passage": "description",
+   "title": "Witnessing Brilliance",
+   "npcID": 218171,
+   "npcName": "Shalba",
+   "soundFile": "84246_description.ogg",
+   "text": "The time has finally come and the moment could not be more exhilarating. It's time to get to work.\n\nJoin me outside, let's observe the fruits of our labor."
+  },
+  {
+   "questID": 84246,
+   "passage": "completion",
+   "title": "Witnessing Brilliance",
+   "npcID": 218171,
+   "npcName": "Shalba",
+   "soundFile": "84246_completion.ogg",
+   "text": "Well... that certainly did not go as planned."
+  },
+  {
+   "questID": 84365,
+   "passage": "description",
+   "title": "Something on the Horizon",
+   "npcID": 206017,
+   "npcName": "Brann Bronzebeard",
+   "soundFile": "84365_description.ogg",
+   "text": "Brann's scouts have reported sightings of reinforcements approaching the shores of Khaz Algar.\n\nHe's put out the call for adventurers to join him in Dornogal."
+  },
+  {
+   "questID": 84367,
+   "passage": "description",
+   "title": "A Time to Come Together",
+   "npcID": 206017,
+   "npcName": "Brann Bronzebeard",
+   "soundFile": "84367_description.ogg",
+   "text": "We ought tae be getting a whole fleet o' reinforcements soon. Just in time, I hear Alleria and Anduin are back in Dornogal.\n\nIf I know Moira, she'll already be workin' with 'em tae figure out our next move. She knows how tae lead like a gryphon knows how tae fly. Best go find her before she comes looking for ye."
+  },
+  {
+   "questID": 84446,
+   "passage": "completion",
+   "title": "Renown of Khaz Algar",
+   "npcID": 223875,
+   "npcName": "Faerin Lothar",
+   "soundFile": "84446_completion.ogg",
+   "text": "Good to see you again, <name>. \n\nWe have a lot of work to do."
+  },
+  {
+   "questID": 84682,
+   "passage": "description",
+   "title": "Of Pacts and Patrons",
+   "npcID": 207471,
+   "npcName": "Widow Arak'nai",
+   "soundFile": "84682_description.ogg",
+   "text": "The Severed Threads is ready for you and your allies. You will be a lit torch to Ansurek's webs.\n\nThe General, the Vizier, and, myself, the Weaver, each have differing methods of combating our foes... and different benefits of aiding our accomplices. You may prefer to prioritize one, or perhaps to dabble with all three instead.\n\nMeet with our representatives, and inform yourself on our varying practices. Then you may forge your first Pact.\n\nDon't worry, little morsel, no choice is ever permanent."
+  },
+  {
+   "questID": 84908,
+   "passage": "description",
+   "title": "Stormrider's Honors",
+   "npcID": 225347,
+   "npcName": "Stormrider Bruelda",
+   "soundFile": "84908_description.ogg",
+   "text": "<A golden missive finds its way to you.>\n\nChampion, though you are no Stormrider, you may yet be worthy of the Stormrider's armor.\n\nFind Stormrider Bruelda if you wish to claim this honor."
+  },
+  {
+   "questID": 86706,
+   "passage": "completion",
+   "title": "Seeking Knowledge of the Past",
+   "npcID": 236382,
+   "npcName": "Soridormi",
+   "soundFile": "86706_completion.ogg",
+   "text": "You are just in time as always! Let us speak of what brings me here."
+  },
+  {
+   "questID": 91063,
+   "passage": "completion",
+   "title": "The Blooming Lattice",
+   "npcID": 245639,
+   "npcName": "Su'meera",
+   "soundFile": "91063_completion.ogg",
+   "text": "Thanks for coming. I wasn't sure you would. Up the hill that way is Blooming Lattice--a settlement of rutaani who are quite vicious.\n\nTheir leaders killed Ja'kul, and took his things. I want them back!"
+  },
+  {
+   "questID": 91346,
+   "passage": "completion",
+   "title": "Supplicants to the Goddess",
+   "npcID": 246607,
+   "npcName": "Greenspeaker Cyenna",
+   "soundFile": "91346_completion.ogg",
+   "text": "This may seem inconsequential, but it's all a part of the process."
+  },
+  {
+   "questID": 95245,
+   "passage": "description",
+   "title": "Midnight: World Tour",
+   "npcID": 235787,
+   "npcName": "Lor'themar Theron",
+   "soundFile": "95245_description.ogg",
+   "text": "The immediate danger has passed, but there is still much to be done.\n\nGo out and work with our allies to secure what ground we have made against the darkness. Whether it is in Azeroth or beyond, there is still much to be done."
+  },
+  {
+   "questID": 95520,
+   "passage": "progress",
+   "title": "Purging the Vaults",
+   "npcID": 262798,
+   "npcName": "Warleader Abdumati",
+   "soundFile": "95520_progress.ogg",
+   "text": "Send their souls howling back to Ula'tek."
+  },
+  {
+   "questID": 95780,
+   "passage": "completion",
+   "title": "Hope for the Orphans",
+   "npcID": 259335,
+   "npcName": "Vanessa VanCleef",
+   "soundFile": "95780_completion.ogg",
+   "text": "You actually went. I wasn't sure you would.\n\nThe kids will remember that. They always remember the ones who show up.\n\nWhat's that wooden sword you got there? Let me take a look.\n\n<Vanessa and Garona flip over the sword, and notice it has a message engraved.>\n\n\"For a hero.\"\n\nThere is probably a great spot to hang this in the Arcantina."
+  },
+  {
+   "questID": 96004,
+   "passage": "completion",
+   "title": "Prey: A Slithering Threat",
+   "npcID": 246231,
+   "npcName": "Astalor Bloodsworn",
+   "soundFile": "96004_completion.ogg",
+   "text": "Snake creatures? Delightful."
+  },
+  {
+   "questID": 96112,
+   "passage": "progress",
+   "title": "Venom Fishing: Maddening Concoction",
+   "npcID": 258755,
+   "npcName": "Captain Tokka",
+   "soundFile": "96112_progress.ogg",
+   "text": "I've seen Leathertongue's cookpot lyin' empty for a full moon now. Whatever he's currently using to practice his venom-addled cookin' is sure to protect ye from the serpent."
+  },
+  {
+   "questID": 96112,
+   "passage": "completion",
+   "title": "Venom Fishing: Maddening Concoction",
+   "npcID": 258755,
+   "npcName": "Captain Tokka",
+   "soundFile": "96112_completion.ogg",
+   "text": "I feared one day that Leathertongue would find a way to kill the crew with his dishes. That you've put that poor venom-cursed fool to rest puts me at ease.\n\nHis spare pot has seen a lot of use. It'll serve ye well."
+  },
+  {
+   "questID": 96273,
+   "passage": "completion",
+   "title": "A Balance Paid in Blood",
+   "npcID": 264611,
+   "npcName": "Du'gal",
+   "soundFile": "96273_completion.ogg",
+   "text": "De spirits see what ya done, and rest now in de balance you have brought."
+  },
+  {
+   "questID": 96276,
+   "passage": "completion",
+   "title": "Dark Charms",
+   "npcID": 264611,
+   "npcName": "Du'gal",
+   "soundFile": "96276_completion.ogg",
+   "text": "De ancestors' spirits see what ya done, and dey are pleased!"
+  },
+  {
+   "questID": 96466,
+   "passage": "progress",
+   "title": "Prey: Anguish Island",
+   "npcID": 265267,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96466_progress.ogg",
+   "text": "I hate it here."
+  },
+  {
+   "questID": 96466,
+   "passage": "completion",
+   "title": "Prey: Anguish Island",
+   "npcID": 265267,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96466_completion.ogg",
+   "text": "Snakes. \n\nWhy'd it have to be snakes?"
+  },
+  {
+   "questID": 96474,
+   "passage": "progress",
+   "title": "Prey: Something for Astalor",
+   "npcID": 265267,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96474_progress.ogg",
+   "text": "Can we leave yet?"
+  },
+  {
+   "questID": 96474,
+   "passage": "completion",
+   "title": "Prey: Something for Astalor",
+   "npcID": 265267,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96474_completion.ogg",
+   "text": "<Ethrandil sighs heavily.>\n\nOf course there are ghosts."
+  },
+  {
+   "questID": 96503,
+   "passage": "completion",
+   "title": "Prey: A Ghostly Nightmare",
+   "npcID": 246231,
+   "npcName": "Astalor Bloodsworn",
+   "soundFile": "96503_completion.ogg",
+   "text": "I hope you haven't brought anything particularly nasty back with you."
+  },
+  {
+   "questID": 96523,
+   "passage": "progress",
+   "title": "Living Legend",
+   "npcID": 265660,
+   "npcName": "Kehiah",
+   "soundFile": "96523_progress.ogg",
+   "text": "There's a lesson to be learned."
+  },
+  {
+   "questID": 96525,
+   "passage": "completion",
+   "title": "Prey: Out of Our Depth",
+   "npcID": 246231,
+   "npcName": "Astalor Bloodsworn",
+   "soundFile": "96525_completion.ogg",
+   "text": "You reek of fear and desperation.\n\nFascinating."
+  },
+  {
+   "questID": 96528,
+   "passage": "progress",
+   "title": "Prey: Anguish from Beyond",
+   "npcID": 265529,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96528_progress.ogg",
+   "text": "After you..."
+  },
+  {
+   "questID": 96532,
+   "passage": "completion",
+   "title": "Prey: Attending the Attendant",
+   "npcID": 265529,
+   "npcName": "Sanctum Attendant Ethrandil",
+   "soundFile": "96532_completion.ogg",
+   "text": "You're alive! I'm alive! \n\nStill."
+  },
+  {
+   "questID": 96573,
+   "passage": "progress",
+   "title": "Soul Lattice Revealed",
+   "npcID": 265950,
+   "npcName": "Commander Tala'saan",
+   "soundFile": "96573_progress.ogg",
+   "text": "Riftblade Maella agrees that the Hal'hadar in the crypt must be stopped.\n\nIt may not be the crux of their operation here on Naigtal, but it is not a threat we can ignore."
+  },
+  {
+   "questID": 96574,
+   "passage": "progress",
+   "title": "Cryptside Rendezvous",
+   "npcID": 266829,
+   "npcName": "Allari the Souleater",
+   "soundFile": "96574_progress.ogg",
+   "text": "For a bunch of scavengers, these ethereals are far more provocative than I expected. It will make killing them all the more satisfying."
+  },
+  {
+   "questID": 96640,
+   "passage": "progress",
+   "title": "Bounty of the Cursed",
+   "npcID": 262880,
+   "npcName": "Er'inye",
+   "soundFile": "96640_progress.ogg",
+   "text": "What have you found?"
+  },
+  {
+   "questID": 96640,
+   "passage": "completion",
+   "title": "Bounty of the Cursed",
+   "npcID": 262880,
+   "npcName": "Er'inye",
+   "soundFile": "96640_completion.ogg",
+   "text": "We'll use de Soulcoilers' own works to purge dem."
+  },
+  {
+   "questID": 96642,
+   "passage": "completion",
+   "title": "Decisive Incursions",
+   "npcID": 262798,
+   "npcName": "Warleader Abdumati",
+   "soundFile": "96642_completion.ogg",
+   "text": "Now dat was a battle worthy of de old songs! I can see why Zul'jarra likes you."
+  },
+  {
+   "questID": 96643,
+   "passage": "progress",
+   "title": "From Whence it Came",
+   "npcID": 262880,
+   "npcName": "Er'inye",
+   "soundFile": "96643_progress.ogg",
+   "text": "Can you feel it? De violence just waitin' to spill over?"
+  },
+  {
+   "questID": 96801,
+   "passage": "completion",
+   "title": "Calling All Combatants!",
+   "npcID": 243225,
+   "npcName": "Mirvedon",
+   "soundFile": "96801_completion.ogg",
+   "text": "<Mirvedon clears his throat.>\n\nTake these heraldries straight over to the Crafting Order station to get a custom piece. Anything you make with these will keep you safe while crossing swords in the battlegrounds. If you ever want more heraldries I've got what you need.\n\nFor a price this time, of course."
+  },
+  {
+   "questID": 96808,
+   "passage": "progress",
+   "title": "Sparks of War: The Coiled Isle",
+   "npcID": 254971,
+   "npcName": "Zerella",
+   "soundFile": "96808_progress.ogg",
+   "text": "Well, get on then!"
+  },
+  {
+   "questID": 96808,
+   "passage": "completion",
+   "title": "Sparks of War: The Coiled Isle",
+   "npcID": 254971,
+   "npcName": "Zerella",
+   "soundFile": "96808_completion.ogg",
+   "text": "Many thanks for clearing things out."
+  },
+  {
+   "questID": 96995,
+   "passage": "progress",
+   "title": "Turn Back the Surge",
+   "npcID": 267635,
+   "npcName": "Talon Commander Zela",
+   "soundFile": "96995_progress.ogg",
+   "text": "We must survive."
+  },
+  {
+   "questID": 97141,
+   "passage": "progress",
+   "title": "Spoils of the Vaults",
+   "npcID": 268228,
+   "npcName": "Jan'sari the Watchful",
+   "soundFile": "97141_progress.ogg",
+   "text": "Careful not to fall in de rivers of venom."
+  },
+  {
+   "questID": 97382,
+   "passage": "progress",
+   "title": "Counter-Curse Bounty",
+   "npcID": 268228,
+   "npcName": "Jan'sari the Watchful",
+   "soundFile": "97382_progress.ogg",
+   "text": "Careful not to fall in de rivers of venom."
+  },
+  {
+   "questID": 97454,
+   "passage": "progress",
+   "title": "Seasonal Refresher: Midnight",
+   "npcID": 242381,
+   "npcName": "Valeera Sanguinar",
+   "soundFile": "97454_progress.ogg",
+   "text": "Good to go?"
+  },
+  {
+   "questID": 97458,
+   "passage": "completion",
+   "title": "Tackled and Boxed",
+   "npcID": 257598,
+   "npcName": "Second Mate Sluggs",
+   "soundFile": "97458_completion.ogg",
+   "text": "Is this where all the screaming has been coming from? Birdie said it was the cannons."
+  },
+  {
+   "questID": 97459,
+   "passage": "completion",
+   "title": "Something Smelly",
+   "npcID": 257598,
+   "npcName": "Second Mate Sluggs",
+   "soundFile": "97459_completion.ogg",
+   "text": "Oh my, that smells curiously like Inktail's signature scent. She always had odd taste."
+  },
+  {
+   "questID": 97464,
+   "passage": "completion",
+   "title": "A Dash of Poison",
+   "npcID": 257598,
+   "npcName": "Second Mate Sluggs",
+   "soundFile": "97464_completion.ogg",
+   "text": "How... mysterious! And green! This does seem like something Cook Leathertongue might hold onto."
+  },
+  {
+   "questID": 97465,
+   "passage": "completion",
+   "title": "The Intended Way to Fish",
+   "npcID": 257598,
+   "npcName": "Second Mate Sluggs",
+   "soundFile": "97465_completion.ogg",
+   "text": "This is a spear. What else is there to mention?\n\nI believe it belonged to Grenadier Birdie, not that she ever used it."
+  },
+  {
+   "questID": 97482,
+   "passage": "completion",
+   "title": "Fangs for the Memories",
+   "npcID": 242381,
+   "npcName": "Valeera Sanguinar",
+   "soundFile": "97482_completion.ogg",
+   "text": "Nicely done. It'll make a lovely pair of boots."
+  },
+  {
+   "questID": 97557,
+   "passage": "progress",
+   "title": "Tailing the Tlhapi",
+   "npcID": 268394,
+   "npcName": "Brinedrinker Gills",
+   "soundFile": "97557_progress.ogg",
+   "text": "Hmph. Should have asked for a lime, too."
+  },
+  {
+   "questID": 97557,
+   "passage": "completion",
+   "title": "Tailing the Tlhapi",
+   "npcID": 268394,
+   "npcName": "Brinedrinker Gills",
+   "soundFile": "97557_completion.ogg",
+   "text": "Oh yes, they'll do much better among the crew than they would in the open ocean.\n\nI suspect Captain Tokka will be pleased."
+  },
+  {
+   "questID": 97621,
+   "passage": "progress",
+   "title": "The Singularity Anchor",
+   "npcID": 248328,
+   "npcName": "Void Researcher Anomander",
+   "soundFile": "97621_progress.ogg",
+   "text": "Have you defended the anchor from the encroaching void forces?"
+  },
+  {
+   "questID": 97945,
+   "passage": "completion",
+   "title": "In the Catalyst's Shadow",
+   "npcID": 269987,
+   "npcName": "Orin Straylight",
+   "soundFile": "97945_completion.ogg",
+   "text": "Ah, so you spoke with Decimus? It looks like we're on our own now. Better get started."
+  },
+  {
+   "questID": 97978,
+   "passage": "progress",
+   "title": "Prismatic Potential",
+   "npcID": 269987,
+   "npcName": "Orin Straylight",
+   "soundFile": "97978_progress.ogg",
+   "text": "Do you have those Elementary Voidcore Shards?"
+  },
+  {
+   "questID": 97978,
+   "passage": "completion",
+   "title": "Prismatic Potential",
+   "npcID": 269987,
+   "npcName": "Orin Straylight",
+   "soundFile": "97978_completion.ogg",
+   "text": "I hope it wasn't too difficult to come by these Elementary Voidcore Shards. Now that we have them, I can continue my research into the void potential of the Catalyst's power. This will take a while, so check back with me later."
+  },
+  {
+   "questID": 98234,
+   "passage": "completion",
+   "title": "Week 1 of 3: Gladiator's Distinction",
+   "npcID": 256212,
+   "npcName": "Archmage Aethas Sunreaver",
+   "soundFile": "98234_completion.ogg",
+   "text": "Excellent work. Always utilize your Gladiator's Medallion or you'll get crushed out there."
+  },
+  {
+   "questID": 98415,
+   "passage": "completion",
+   "title": "A Favor to the Captain",
+   "npcID": 258755,
+   "npcName": "Captain Tokka",
+   "soundFile": "98415_completion.ogg",
+   "text": "I've another task for you. Each more grisly than the last, eh?"
+  },
+  {
+   "questID": 98419,
+   "passage": "progress",
+   "title": "Shoulder to Shoulder",
+   "npcID": 262798,
+   "npcName": "Warleader Abdumati",
+   "soundFile": "98419_progress.ogg",
+   "text": "Dis is a war, <name>. No one should fight alone."
+  }
+ ]
+}

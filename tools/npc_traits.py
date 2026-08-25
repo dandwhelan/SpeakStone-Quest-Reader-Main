@@ -21,6 +21,7 @@ Usage:
 
 import argparse
 import csv
+import json
 import os
 import re
 import shutil
@@ -114,13 +115,70 @@ def load_tables(refresh=False):
     return creatures, by_name, display_to_extra, extras
 
 
-def resolve(name_or_id, tables):
+def load_observed(path):
+    """Race/sex/creature type as reported by live game clients.
+
+    The client tables this module reads are published datamined snapshots, so
+    they lag the game: an NPC added in the current patch may not be in them at
+    all, and resolve() then returns None for it. Players running the addon are
+    looking at the real thing right now, and their submissions carry what the
+    unit actually is. Speakstone aggregates those and its export includes them
+    per passage as npcRace / npcSex / npcCreatureType.
+
+    Returns {npcID: {race, sex, type}} for whatever the file happens to carry;
+    an absent file is not an error, it just means no observations to add.
+    """
+    if not path or not os.path.exists(path):
+        return {}
+
+    with open(path, encoding="utf-8") as handle:
+        data = json.load(handle)
+    passages = data.get("passages", data) if isinstance(data, dict) else data
+
+    observed = {}
+    for row in passages:
+        if not isinstance(row, dict):
+            continue
+        npc_id = row.get("npcID")
+        if npc_id in (None, ""):
+            continue
+        entry = observed.setdefault(str(npc_id), {})
+        # First non-empty value wins; the site already resolved disagreement
+        # between submitters before exporting, so there is nothing to re-judge
+        # here.
+        for src, dst in (("npcRace", "race"), ("npcSex", "sex"),
+                         ("npcCreatureType", "type")):
+            value = row.get(src)
+            if value and not entry.get(dst):
+                entry[dst] = value
+    return observed
+
+
+def resolve(name_or_id, tables, observed=None):
     creatures, by_name, display_to_extra, extras = tables
     key = str(name_or_id).strip()
     creature_id = key if key.isdigit() and key in creatures \
         else by_name.get(fold(key))
     if not creature_id:
-        return None
+        # Not in the published tables. An observation from a live client is
+        # the only thing that can identify a brand-new NPC, so use it rather
+        # than dropping the NPC entirely -- dropping is what left 2,671 of
+        # them sharing one fallback voice.
+        seen = (observed or {}).get(key)
+        if not seen:
+            return None
+        race, sex = seen.get("race", ""), seen.get("sex", "")
+        ctype = seen.get("type", "") or "Humanoid"
+        return {
+            "npcID": key,
+            "npcName": key,
+            "type": ctype,
+            "race": race,
+            "sex": sex,
+            "source": "observed",
+            "voiceGroup": "_".join(p.lower().replace(" ", "-") for p in
+                                   (race or ctype, sex or "neutral")),
+        }
 
     record = creatures[creature_id]
     race = sex = None
@@ -132,12 +190,26 @@ def resolve(name_or_id, tables):
             sex = SEX.get(raw_sex)
             break
 
+    # Present in the tables but the display chain resolved nothing -- the
+    # other half of the coverage gap this module's docstring describes. The
+    # datamined value still wins where there is one; observation only fills a
+    # blank.
+    source = "client"
+    if not (race and sex):
+        seen = (observed or {}).get(str(creature_id)) or (observed or {}).get(key)
+        if seen:
+            if not race and seen.get("race"):
+                race, source = seen["race"], "observed"
+            if not sex and seen.get("sex"):
+                sex, source = seen["sex"], "observed"
+
     return {
         "npcID": creature_id,
         "npcName": record["name"],
         "type": record["type"],
         "race": race or "",
         "sex": sex or "",
+        "source": source,
         # The key a fallback voice is chosen for. NPCs sharing it can share a
         # voice without sounding wrong.
         "voiceGroup": "_".join(p.lower().replace(" ", "-") for p in

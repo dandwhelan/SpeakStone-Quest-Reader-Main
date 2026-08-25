@@ -1,0 +1,41 @@
+{
+  "source": "harvester",
+  "passages": [
+    {
+      "questID": "npc261870",
+      "passage": "gossip1",
+      "title": "Captain Tokka",
+      "npcID": 261870,
+      "npcName": "Captain Tokka",
+      "soundFile": "npc261870_gossip1.ogg",
+      "text": "It be good to see some fresh faces around here. My crew and I have been stranded for over seven years, and we were beginning to believe we'd have to rebuild society from scratch!"
+    },
+    {
+      "questID": "npc261870",
+      "passage": "gossip2",
+      "title": "Captain Tokka",
+      "npcID": 261870,
+      "npcName": "Captain Tokka",
+      "soundFile": "npc261870_gossip2.ogg",
+      "text": "We'd been sailing Torga's Beak, a gift given to us by the Zandalari, when out of nowhere a great white serpent broke our hull. My crew acted quickly, and took us to shore before we took on too much water.\r\n\r\nWould have been better to let the ship sink and swim back to Zul'Aman, but little did we know the trap we had put ourselves in.\r\n\r\nAfter establishing ourselves on the island, we built small dinghies to escape--only to find the fogs constantly turning us back to shore.\r\n\r\nWe've spent the last few years making this place a home. We had begun to acclimate, until just a day ago when the foul serpents poured forth from the mountainside. My crew scattered across this cursed island.\r\n\r\nWhat cruel winds, for the fog to lift only now."
+    },
+    {
+      "questID": "npc261870",
+      "passage": "gossip3",
+      "title": "Captain Tokka",
+      "npcID": 261870,
+      "npcName": "Captain Tokka",
+      "soundFile": "npc261870_gossip3.ogg",
+      "text": "'Twas a cursed land, even before the snakes emerged. Many a crewmate found themselves attacked by the souls of the dead that wander here, and we've found a number of other Zandalari ships that met the fate of ours.\r\n\r\nTo the north, we've made allies with a hermit by the name of Ofi, an Amani exile. She prefers to keep to herself, but is the only friendly face we've seen.\r\n\r\nTo the east, the island turns to muck and mud, and a combination of murlocs and spirits make their home there. The murlocs have a crazed glint in their eyes... a curse that spread to some of my crewmates as well. As for the spirits, some of them seem friendly enough while others attack you on sight. We've generally found it best to avoid the dead."
+    },
+    {
+      "questID": "npc261870",
+      "passage": "gossip4",
+      "title": "Captain Tokka",
+      "npcID": 261870,
+      "npcName": "Captain Tokka",
+      "soundFile": "npc261870_gossip4.ogg",
+      "text": "To the south lays Gnarldor Isle, where some burly giants seem to have taken home. They're none too friendly and we give them a wide berth.\r\n\r\nTo the west are the crypts and temples where the snakes emerged from. My crew is a superstitious sort and don't like messing with graves, so we thought to leave the quiet lands alone. We didn't expect venom to spew from the mountains and flying snakes with two heads!\r\n\r\nYou'd best be getting on with your soldiers. I could use your help around here later, but for now it seems we have an outpost to fortify.\r\n\r\nYou're a ray of hope, Nerfwins."
+    }
+  ]
+}

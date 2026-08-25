@@ -1,0 +1,68 @@
+{
+  "source": "wowhead",
+  "passages": [
+    {
+      "questID": 38598,
+      "passage": "description",
+      "title": "TEST: Craft Some Legplates",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "38598_description.ogg",
+      "text": "The Highmountain tauren craft their legplates piece-by-piece, then assemble them all at the end.\n\nSeems pretty slow and unnecessarily arduous if you ask me, but we should start here before making any efficiency improvements.\n\nHere's some leystone. I've added the recipe into your workbook, as well. Let's give this a shot!"
+    },
+    {
+      "questID": 44482,
+      "passage": "description",
+      "title": "Recruiting Ebon Knights",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "44482_description.ogg",
+      "text": "Korgaz Deadaxe has been hard at work training a new generation of death knights.\n\nHe has done an excellent job culling the ranks of weakness. Those who have survived the trials of death knight training are ready to join the ranks of the Ebon Blade.\n\nKorgaz is waiting for you on the upper level. I suggest you speak with him at your soonest convenience.\n\nNew death knights will bolster our ranks and aid is in the war against the Burning Legion."
+    },
+    {
+      "questID": 45397,
+      "passage": "description",
+      "title": "Fire the Cannons!",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "45397_description.ogg",
+      "text": "It will take more than a damn shipwreck to bring me down. Those overgrown, vomit-reeking, demon felbags have another thing coming if they think that's all it's gonna take to stop me. \n\n<Keeshan coughs up seawater, wiping his mouth dry with his sleeve.>\n\nUghh... I may need a little breather though. Here, take this flare gun and use it to call down artillery strikes on the beach. Rain hell on those worthless, half-goat bastards and I'll rendezvous with you back at the base when the mission is complete! \n See if you've already completed this by typing:\n\n /run print(C_QuestLog.IsQuestFlaggedCompleted(45397))\n WH.clickToCopy(document.currentScript.parentNode, \"\\/run print(C_QuestLog.IsQuestFlaggedCompleted(45397))\");\n \n \n \n \n \n const cta = WH.Tools.createWowheadClientCta();\n if (cta) {\n $('.db-page-collection-tracker-cta').append(cta);\n }"
+    },
+    {
+      "questID": 47029,
+      "passage": "description",
+      "title": "Holy: A Threat in Val'sharah",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "47029_description.ogg",
+      "text": "It appears you have grown strong enough to take on another Legion threat. If you could speak to Archmage Modera in Dalaran as soon as possible, the Council would be in your debt."
+    },
+    {
+      "questID": 47246,
+      "passage": "description",
+      "title": "Remnants of the Damned",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "47246_description.ogg",
+      "text": "Ever since da spirits have begun calling upon this \"G'huun\" me temple has been covered with the unbearable taint of the undead. \n\nDa undead be an abomination, but da bloodstones that create them be powerful. They could be of use ta Bwonsamdi.\n\nIf you wish ta show me your fervor, then cleanse me temple of their filth and bring me their bloodstones."
+    },
+    {
+      "questID": 54943,
+      "passage": "description",
+      "title": "The Dark Ranger's Pupil",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "54943_description.ogg",
+      "text": "Thank the abyss you're here, Huntmaster <name>!\n\nI'm concerned about Dark Ranger Velonara. We have become good friends during our time together in the Trueshot Lodge, and I fear she is in peril.\n\nShe's been training an apprentice dark ranger, a lad named Prelus. Newly raised, she said. At any rate, Prelus ran off after receiving a letter from his brother, and now Velonara has gone to Tirisfal Glades to find him.\n\nI have a bad feeling about all this. Could you check on her safety?"
+    },
+    {
+      "questID": 62394,
+      "passage": "description",
+      "title": "House In Decline",
+      "npcID": "",
+      "npcName": "",
+      "soundFile": "62394_description.ogg",
+      "text": "Our forces are gathering.\n\nSoon it will be time to move against the House of Rituals.\n\nSee what you can do to continue strengthening our position."
+    }
+  ]
+}

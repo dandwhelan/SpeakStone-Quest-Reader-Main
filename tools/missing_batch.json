@@ -1,0 +1,617 @@
+{
+  "source": "wowhead",
+  "passages": [
+    {
+      "questID": 92000,
+      "passage": "description",
+      "title": "Bring the Ruckus",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92000_description.ogg",
+      "text": "This place is pretty fun so far, despite all the dry political talk. I know Saltheril is trying to get the nobles to buy up war bonds, but we could really use some more energy in here. If the nobles are all asleep, no one's buying anything.\n\nTell you what. Go invite some of my friends. They hang out under the bridge right outside of Silvermoon's gates.\n\nIf anyone can bring some energy to the soiree, it's us."
+    },
+    {
+      "questID": 92000,
+      "passage": "completion",
+      "title": "Bring the Ruckus",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92000_completion.ogg",
+      "text": "The energy's high, the drinks are flowing, and people are having a good time!\n\nThat's how you start making deals."
+    },
+    {
+      "questID": 92001,
+      "passage": "description",
+      "title": "One Smuggler to Another",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92001_description.ogg",
+      "text": "The whole point of this deal is showing the nobles what we bring to the table, both for Silvermoon and for them personally.\n\nThese other groups bring strength, power, and really nice armor. What we bring is resources: getting the sin'dorei what they need, when they need it, with no questions asked.\n\nI heard some folks over at Sunsail Anchorage have been trying out the same business, but they're putting gold in the wrong pockets. Swipe their stock and bring it here."
+    },
+    {
+      "questID": 92001,
+      "passage": "progress",
+      "title": "One Smuggler to Another",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92001_progress.ogg",
+      "text": "I don't mind competitors, but I don't like the deals those smugglers are making."
+    },
+    {
+      "questID": 92001,
+      "passage": "completion",
+      "title": "One Smuggler to Another",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92001_completion.ogg",
+      "text": "If there's anything good in these crates, we'll get it on the market."
+    },
+    {
+      "questID": 92002,
+      "passage": "description",
+      "title": "Dangerous Showpieces",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92002_description.ogg",
+      "text": "You'd be surprised at the money you can make off of weapons. No, not the kind you're meant to use--the kind you stick up on the wall and have conversations about.\n\nUsually those weapons are expensive, or dangerous, or otherwise hard to get your hands on. The more rare and exclusive, the better.\n\nThe weapons those Twilight cultists are carrying around should sell pretty well, especially to buyers with edgier tastes. If you happen to come across any, I'll gladly take them off your hands."
+    },
+    {
+      "questID": 92002,
+      "passage": "progress",
+      "title": "Dangerous Showpieces",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92002_progress.ogg",
+      "text": "If it has some blood on it, that's actually better."
+    },
+    {
+      "questID": 92002,
+      "passage": "completion",
+      "title": "Dangerous Showpieces",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92002_completion.ogg",
+      "text": "Nice work. Eversong is safer because of your heroism, and I get to pocket a little more gold. I'd call that a win-win."
+    },
+    {
+      "questID": 92003,
+      "passage": "description",
+      "title": "Artisanal Replicas",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92003_description.ogg",
+      "text": "Don't let the austere demeanor fool you. Nobles are just as susceptible to flashy party favors as the rest of us.\n\nI had my people bring over a batch of Felo'melorn replicas. They look great on display, and even better--they're enchanted. Swing them around and they leave a trail of fire.\n\nI haven't sold an enchanted batch before, so I'd like to do some testing before I hand them out. Saltheril wouldn't be too happy if I burned a guest to a crisp.\n\nWanna take one of the replicas for a test run?"
+    },
+    {
+      "questID": 92003,
+      "passage": "progress",
+      "title": "Artisanal Replicas",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92003_progress.ogg",
+      "text": "I recommend trying it out on something not flammable.\n\nOr extremely flammable. Up to you."
+    },
+    {
+      "questID": 92003,
+      "passage": "completion",
+      "title": "Artisanal Replicas",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92003_completion.ogg",
+      "text": "I told you they were flashy!\n\nSounds like the enchantment could get tuned down a little bit, but where's the fun in that?"
+    },
+    {
+      "questID": 92004,
+      "passage": "description",
+      "title": "Shady Dealings",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92004_description.ogg",
+      "text": "I feel like I just got here and I'm already fresh out of half the poisons I brought.\n\nWhat? Don't look at me like that. Nobles are some of my top customers for poisons. Quieter than magic and cleaner than blades.\n\nI need to restock. The frogs way down in the south produce a poisonous slime that I can bottle without much fuss. Bring some of it to me and I'll get you a cut of the earnings."
+    },
+    {
+      "questID": 92004,
+      "passage": "progress",
+      "title": "Shady Dealings",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92004_progress.ogg",
+      "text": "Were you able to find any of those frogs?"
+    },
+    {
+      "questID": 92004,
+      "passage": "completion",
+      "title": "Shady Dealings",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92004_completion.ogg",
+      "text": "Excellent. That's enough to restock what I've sold and then some.\n\nOh, by the way, you probably want to wash your hands. Maybe a few times."
+    },
+    {
+      "questID": 92005,
+      "passage": "description",
+      "title": "Throw the Dice",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92005_description.ogg",
+      "text": "We've been making friends with some of the guests by teaching them how to play dice. It's a nice way to draw people out of the crowd and get them in a quieter space where you can talk privately.\n\nI wasn't expecting so much interest, to be honest. We're running out of dice sets.\n\nI can carve some more, but I'll need materials. Usually teeth or bone are good picks. Actually, the fangs from those naga along the coast would be perfect. Now that's a conversation starter!"
+    },
+    {
+      "questID": 92005,
+      "passage": "progress",
+      "title": "Throw the Dice",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92005_progress.ogg",
+      "text": "Any luck finding some of those fangs?"
+    },
+    {
+      "questID": 92005,
+      "passage": "completion",
+      "title": "Throw the Dice",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92005_completion.ogg",
+      "text": "Oh, that smell is... very fishy. Definitely going to let these dry out for a while.\n\nYour exceptionally efficient help is appreciated, <name>."
+    },
+    {
+      "questID": 92006,
+      "passage": "description",
+      "title": "We Need a Refill",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92006_description.ogg",
+      "text": "I talked to some of the servants earlier and it sounds like the casks are running low. That's a recipe for disaster at an event like this.\n\nFortunately, I've got a lot of contacts across Eversong who can help us restock.\n\nI need to stay here and play politics, but could you head over to Tranquillien and grab a few bottles? I'll give you a list."
+    },
+    {
+      "questID": 92006,
+      "passage": "progress",
+      "title": "We Need a Refill",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92006_progress.ogg",
+      "text": "Trust me. Everything on that list is fantastic."
+    },
+    {
+      "questID": 92006,
+      "passage": "completion",
+      "title": "We Need a Refill",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92006_completion.ogg",
+      "text": "Nice work. I'll see about getting those casks refilled, but these bottles should keep everyone happy in the meantime."
+    },
+    {
+      "questID": 92007,
+      "passage": "description",
+      "title": "Begged, Borrowed, or Stolen",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92007_description.ogg",
+      "text": "The oldest trick in the book is to create a problem on purpose, solve it yourself, and look like the hero.\n\nOne of the nobles just got word that some prized valuable was stolen from their estate while they were occupied here. It just so happens I might have put one of their servants up to it.\n\nGo talk to a man named Seridis over at the livery. He'll hand over the valuable to you, then you'll come back here and pretend you valiantly subdued the thief and retrieved the item.\n\nEveryone's happy."
+    },
+    {
+      "questID": 92007,
+      "passage": "progress",
+      "title": "Begged, Borrowed, or Stolen",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92007_progress.ogg",
+      "text": "Making friends with the servants in noble households opens up a lot of doors. Sometimes literally."
+    },
+    {
+      "questID": 92007,
+      "passage": "completion",
+      "title": "Begged, Borrowed, or Stolen",
+      "npcID": 240837,
+      "npcName": "Vyrin the Supplier",
+      "soundFile": "92007_completion.ogg",
+      "text": "Look at that. Everyone comes out a winner!\n\nThe noble gets his valuable back unscathed, Seridis gets paid handsomely, and you and I look brave and capable in front of the soiree."
+    },
+    {
+      "questID": 92012,
+      "passage": "description",
+      "title": "WANTED: Gorebarb's Pincers",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92012_description.ogg",
+      "text": "Gorebarb is a creature quite unlike most others who make Harandar their home. He's incredibly violent and his kind is not seen here very often. \n\nLet's see less of him. Kill him and bring me his pincers as proof of the deed."
+    },
+    {
+      "questID": 92012,
+      "passage": "progress",
+      "title": "WANTED: Gorebarb's Pincers",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92012_progress.ogg",
+      "text": "Take care that Gorebarb doesn't catch you with those pincers. I imagine his breath isn't pleasant at all."
+    },
+    {
+      "questID": 92012,
+      "passage": "completion",
+      "title": "WANTED: Gorebarb's Pincers",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92012_completion.ogg",
+      "text": "Well, well. You managed to take down Gorebarb and retrieve the pincers? Ah, of course I never doubted you would."
+    },
+    {
+      "questID": 92013,
+      "passage": "description",
+      "title": "WANTED: Dionaea's Thorntusks",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92013_description.ogg",
+      "text": "Many thornmaws make the mire their home, but none as are vicious as Dionaea. Unlike the others, she kills merely for the joy of it, and her gluttony threatens the delicate balance of the wildlife in this area. \n\nTake her out and restore the equilibrium. Bring me back her thorntusks as proof of the deed."
+    },
+    {
+      "questID": 92013,
+      "passage": "progress",
+      "title": "WANTED: Dionaea's Thorntusks",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92013_progress.ogg",
+      "text": "Dionaea hunts for the thrill of it. She seems to be unable to satiate her hunger. Have you handled her yet?"
+    },
+    {
+      "questID": 92013,
+      "passage": "completion",
+      "title": "WANTED: Dionaea's Thorntusks",
+      "npcID": 249361,
+      "npcName": "Shul'ka Li'tya",
+      "soundFile": "92013_completion.ogg",
+      "text": "You bring me the thorntusks? Excellent. May balance return to the Mire."
+    },
+    {
+      "questID": 92030,
+      "passage": "description",
+      "title": "A New Tradition",
+      "npcID": 229476,
+      "npcName": "Lorewalker Cho",
+      "soundFile": "92030_description.ogg",
+      "text": "Chon was just looking for you. You can find him at his house, serving drinks with Chen.\n\n<Lorewalker Cho laughs--a deep, warm rumble.>\n\nGo on, adventurer! I won't be leaving anytime soon, that's for sure."
+    },
+    {
+      "questID": 92030,
+      "passage": "completion",
+      "title": "A New Tradition",
+      "npcID": 231913,
+      "npcName": "Chon Po Stormstout",
+      "soundFile": "92030_completion.ogg",
+      "text": "Ah, <name>... you have traveled far, but returned. You have reminded all who live here that the Spirit Festival is not just for the elemental spirits, but the spirits of all <race> who call this place home... even if they leave for a time. \n\nIn thanks, our tailors have crafted these for you. The maker's design celebrates your adventures, but also honors your origins... just as you have today.\n\nMaster Shang Xi would be so, so proud.\n\nTo you, my friend. To home."
+    },
+    {
+      "questID": 92031,
+      "passage": "description",
+      "title": "Meet the Vandals",
+      "npcID": 245344,
+      "npcName": "Zo'turu",
+      "soundFile": "92031_description.ogg",
+      "text": "<The Manaforge Vandals at Shadow Point are eager to see the Shadowguard and their allies removed from Manaforge Omega. It's probably a good time to pay them a visit.>"
+    },
+    {
+      "questID": 92031,
+      "passage": "completion",
+      "title": "Meet the Vandals",
+      "npcID": 245344,
+      "npcName": "Zo'turu",
+      "soundFile": "92031_completion.ogg",
+      "text": "Hero! Your reputation for toppling tyrants precedes you. Let's see about adding one more to that list."
+    },
+    {
+      "questID": 92106,
+      "passage": "description",
+      "title": "Ignite the Skies: Northern Kalimdor",
+      "npcID": 251986,
+      "npcName": "Fiery Image of Elder Sunhorn",
+      "soundFile": "92106_description.ogg",
+      "text": "Midsummer is the time to reflect and a time to tell stories by the bonfire.\n\nOne such story is the tale of the sun blossom ritual and how this offering to An'she first came to be.\n\nOur journey will take us through Northern Kalimdor, into territories beyond the lands of the shu'halo.\n\nIf you wish, take to the skies of Kalimdor and ignite the blossoms as I tell the tale.\n\nOur story begins in the Western Barrens..."
+    },
+    {
+      "questID": 92106,
+      "passage": "completion",
+      "title": "Ignite the Skies: Northern Kalimdor",
+      "npcID": 251986,
+      "npcName": "Fiery Image of Elder Sunhorn",
+      "soundFile": "92106_completion.ogg",
+      "text": "This important journey would soon become a yearly pilgrimage for the tribes of Central Kalimdor.\n\nAs the summer season approached, and the tribes began to gather near Stonetalon, a chosen few would journey to the highest peak and make offerings to the sun.\n\nAn'she was pleased by this act, and the offering of sun blossoms became pivotal to Midsummer celebration."
+    },
+    {
+      "questID": 92136,
+      "passage": "description",
+      "title": "Infusion of Hope",
+      "npcID": 237602,
+      "npcName": "Alonsus Faol",
+      "soundFile": "92136_description.ogg",
+      "text": "I hope my staff's light has been enough to uphold those at the Sunwell while we have sought these relics.\n\nTogether with those from Light's Hope, they should be a much more significant aid.\n\nLet us return there quickly."
+    },
+    {
+      "questID": 92136,
+      "passage": "completion",
+      "title": "Infusion of Hope",
+      "npcID": 251355,
+      "npcName": "Alonsus Faol",
+      "soundFile": "92136_completion.ogg",
+      "text": "Quickly, <name>. Let us get these distributed!"
+    },
+    {
+      "questID": 92156,
+      "passage": "description",
+      "title": "It Follows Me",
+      "npcID": 249917,
+      "npcName": "Havazza",
+      "soundFile": "92156_description.ogg",
+      "text": "You must listen. An evil creature attached itself to me not long ago. It followed me about, angrily hurling objects, playing tricks, and consuming anything it could.\n\nJust now, it stopped following me. It likes you now, I think.\n\nIf you feed it, it should leave you be for a time. Mark the defeated in the Sparring Grounds with this brand. It should consume them, giving us time to talk more."
+    },
+    {
+      "questID": 92156,
+      "passage": "completion",
+      "title": "It Follows Me",
+      "npcID": 249917,
+      "npcName": "Havazza",
+      "soundFile": "92156_completion.ogg",
+      "text": "It's still hungry. The meals are never enough.\n\nThat's why I'm so weakened. It was constantly nagging me. You seem strong enough, though."
+    },
+    {
+      "questID": 92177,
+      "passage": "description",
+      "title": "One Hero's Prey",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92177_description.ogg",
+      "text": "Again, we sin'dorei find our city under assault. And again, it is up to the finer minds among us to come to Silvermoon's aid.\n\nMortal anguish, it seems, is a powerful reflection of the soul. When contained and manipulated, anguish acts as a form of magic that we can wield to protect this great city.\n\nI've located a number of anguish-filled targets across Azeroth.\n\nSelect and hunt one such target, storing their anguish in this crystalline vessel. Then return to me."
+    },
+    {
+      "questID": 92177,
+      "passage": "completion",
+      "title": "One Hero's Prey",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92177_completion.ogg",
+      "text": "While you collect more anguish, I will experiment with this power's potential."
+    },
+    {
+      "questID": 92178,
+      "passage": "description",
+      "title": "Practical Magic",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92178_description.ogg",
+      "text": "While you've been out pursuing targets, I've been developing various applications for anguish.\n\nThe power these raw emotions contain is unfathomable. For now, our applications might seem quaint, but given enough time, I'm certain my discoveries will further Silvermoon's aims.\n\nLet me show you. Take the crystalline vessel and meet me below."
+    },
+    {
+      "questID": 92178,
+      "passage": "completion",
+      "title": "Practical Magic",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92178_completion.ogg",
+      "text": "For so many years, I've dedicated my life to these magical pursuits.\n\nThis next chapter will be something to behold."
+    },
+    {
+      "questID": 92179,
+      "passage": "description",
+      "title": "Dark Mending",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92179_description.ogg",
+      "text": "So far, anguish has been invaluable in bolstering our forces. Our weaponry and golems are all the more hardy and potent thanks to this newfound power.\n\nI've also been developing ways to shape anguish into robust enchantments that can strengthen us elves.\n\nMeet me downstairs. I will show you what I've found."
+    },
+    {
+      "questID": 92179,
+      "passage": "completion",
+      "title": "Dark Mending",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92179_completion.ogg",
+      "text": "Unfortunate side effects are expected when we're on the bleeding edge of magical discoveries."
+    },
+    {
+      "questID": 92180,
+      "passage": "description",
+      "title": "Precious Jewels",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92180_description.ogg",
+      "text": "<name>...\n\nWhile you've been away, I've been refining our work.\n\n<He produces a jeweled ring in the palm of his hand.>\n\nSmall trinkets and jewelry that contain crystallized anguish.\n\nI've discretely gifted these to a few willing Silvermoon citizens. I wish to observe the effect of a controlled concentration of anguish over time.\n\nI've shaped the magic to lend the bearer health and strength. Seek our volunteers out and check up on them."
+    },
+    {
+      "questID": 92180,
+      "passage": "progress",
+      "title": "Precious Jewels",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92180_progress.ogg",
+      "text": "My work here will make the world fear Silvermoon's might."
+    },
+    {
+      "questID": 92180,
+      "passage": "completion",
+      "title": "Precious Jewels",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92180_completion.ogg",
+      "text": "Aggression is simply an expression of strength.\n\nSo long as we are the predator, not the prey."
+    },
+    {
+      "questID": 92181,
+      "passage": "description",
+      "title": "Garden Variety Sacrifices",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92181_description.ogg",
+      "text": "<name>... I need you to attend to a matter in the city.\n\nI've received word from Knight Captain Solara that there's been an incident in the Gardens of Remembrance. She reports elves have begun acting out violently, causing coalesced anguish to manifest and terrorize the residents.\n\nYou can use the crystalline vessel to reclaim the coalesced anguish and soothe the elves whose minds have crumbled.\n\nSo much of the magic will weigh heavy upon you, but I'm confident you have the strength."
+    },
+    {
+      "questID": 92181,
+      "passage": "progress",
+      "title": "Garden Variety Sacrifices",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92181_progress.ogg",
+      "text": "In all of my endeavors, there are always some who seek to impede my progress."
+    },
+    {
+      "questID": 92181,
+      "passage": "completion",
+      "title": "Garden Variety Sacrifices",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92181_completion.ogg",
+      "text": "There will always be some who resist progress, but no matter the cost, my studies in anguish are for the people of Silvermoon."
+    },
+    {
+      "questID": 92182,
+      "passage": "description",
+      "title": "The Sheep or the Wolf",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92182_description.ogg",
+      "text": "I heard word of your heroics in the garden. Silvermoon thanks you for quelling the chaos.\n\nAnd I thank you for recovering so much anguish.\n\nThe crystalline vessel may be the conduit, but the body must be robust to handle so much power... Like me, you have the strength to withstand the torrent of anguish inside you, at least for a short while.\n\nCome, let me relieve you of the burden."
+    },
+    {
+      "questID": 92182,
+      "passage": "completion",
+      "title": "The Sheep or the Wolf",
+      "npcID": 246231,
+      "npcName": "Astalor Bloodsworn",
+      "soundFile": "92182_completion.ogg",
+      "text": "Anguish is power, and power is predation.\n\nWould you rather that we be the sheep or the wolf?"
+    },
+    {
+      "questID": 92185,
+      "passage": "description",
+      "title": "The Tale of the Frost Lord",
+      "npcID": null,
+      "npcName": null,
+      "soundFile": "92185_description.ogg",
+      "text": "Midsummer is the time to reflect on the past and share stories by the fireside.\n\nOne such tale is the defeat of Frost Lord Ahune!\n\nBut this is a story you must witness for yourself so you may share it around the bonfire with others!"
+    },
+    {
+      "questID": 92185,
+      "passage": "completion",
+      "title": "The Tale of the Frost Lord",
+      "npcID": null,
+      "npcName": null,
+      "soundFile": "92185_completion.ogg",
+      "text": "Now that, my friend, is a story worth telling.\n\nIt is a tale we shaman often reflect upon during this time.\n\nThe stirring of the Frost Lord during the season of fire was an imbalance of nature. A flame that never should have sparked.\n\nIt is a cautionary tale of passion and conflict that we would all do well to remember.\n\nThank you for this reminder."
+    },
+    {
+      "questID": 92895,
+      "passage": "description",
+      "title": "Hagar's Invitation",
+      "npcID": 253640,
+      "npcName": "Orweyna",
+      "soundFile": "92895_description.ogg",
+      "text": "Hagar has a message she believes the elves and trolls of Azeroth must all hear. She has sent a call to leaders from the elven and troll tribes to come to Harandar.\n\nI have come here to ask the blood elves to join us, but you should be there as well. You have been with us through so much of this.\n\nThe Rootways from Silvermoon would be the fastest way."
+    },
+    {
+      "questID": 92895,
+      "passage": "completion",
+      "title": "Hagar's Invitation",
+      "npcID": 253654,
+      "npcName": "Orweyna",
+      "soundFile": "92895_completion.ogg",
+      "text": "It should not be long now."
+    },
+    {
+      "questID": 92897,
+      "passage": "description",
+      "title": "The Preparations Are Complete",
+      "npcID": 253640,
+      "npcName": "Orweyna",
+      "soundFile": "92897_description.ogg",
+      "text": "<name>,\n\nI bear an important message from Hagar. You are invited to a special meeting in Harandar. Please meet me in Silvermoon to discuss it.\n\nOrweyna"
+    },
+    {
+      "questID": 92897,
+      "passage": "completion",
+      "title": "The Preparations Are Complete",
+      "npcID": 253640,
+      "npcName": "Orweyna",
+      "soundFile": "92897_completion.ogg",
+      "text": "The preparations have been made."
+    },
+    {
+      "questID": 92899,
+      "passage": "description",
+      "title": "History Lesson",
+      "npcID": 253654,
+      "npcName": "Orweyna",
+      "soundFile": "92899_description.ogg",
+      "text": "Hagar requested that we invite to this meeting all of the troll and elven leaders we know.\n\nIt was not easy to convince them to come. There are some... past grievances between these groups. Hagar hopes to overcome these divisions.\n\nAs we wait for the others to arrive, feel free to speak to the other delegates. The wait is making them restless, so try not to inflame tensions."
+    },
+    {
+      "questID": 92899,
+      "passage": "completion",
+      "title": "History Lesson",
+      "npcID": 253651,
+      "npcName": "Loa Speaker Kinduru",
+      "soundFile": "92899_completion.ogg",
+      "text": "Good to see you again!\n\n<Kinduru looks around the Den, then sighs.>\n\nDo you know where Zul'jan has stomped off to?"
+    },
+    {
+      "questID": 92900,
+      "passage": "description",
+      "title": "A Favor for Kinduru",
+      "npcID": 253651,
+      "npcName": "Loa Speaker Kinduru",
+      "soundFile": "92900_description.ogg",
+      "text": "Zul'jarra could not leave Zul'Aman as the Amani still recover. She sent Zul'jan in her stead.\n\nShe hoped showing trust and giving him dis responsibility would bring him out of her shadow. Make use of his talents. But dis news...\n\nI am an old troll. I have a hard time reining Zul'jan in, but he may listen to you.\n\nWould you join us? Zul'jarra and I would be grateful if Zul'jan stayed out of trouble."
+    },
+    {
+      "questID": 92900,
+      "passage": "completion",
+      "title": "A Favor for Kinduru",
+      "npcID": 253673,
+      "npcName": "Zul'jan",
+      "soundFile": "92900_completion.ogg",
+      "text": "My patience is dwindling."
+    },
+    {
+      "questID": 92901,
+      "passage": "description",
+      "title": "Revisionist History",
+      "npcID": 253675,
+      "npcName": "Orweyna",
+      "soundFile": "92901_description.ogg",
+      "text": "Not all of the visions in this place were clear to us. Some of them were... strange.\n\nOne in particular seemed to revolve around an unfamiliar people: a people that we learned are the Amani trolls.\n\nThe magic used to create the painting, to pull the memories from the past, are tied to the haranir and those close to us. If there was no connection, the Zur'ashar--who create the paintings--could not have recalled troll history.\n\nI can show you and Zul'jan, and you can judge for yourselves."
+    },
+    {
+      "questID": 92901,
+      "passage": "completion",
+      "title": "Revisionist History",
+      "npcID": 255659,
+      "npcName": "Orweyna",
+      "soundFile": "92901_completion.ogg",
+      "text": "Amani history, painted on the walls of our ancestors. This magic does not work without a bond between our peoples."
+    },
+    {
+      "questID": 92904,
+      "passage": "description",
+      "title": "Return to Zul'Aman",
+      "npcID": 255660,
+      "npcName": "Zul'jan",
+      "soundFile": "92904_description.ogg",
+      "text": "I have heard de story since I was a child! De Amani were outnumbered and still dey fought on! Dey claimed victory through sheer will!\n\nOrweyna says de visions cannot lie. Uncle thinks details of de battle could have been lost. Dey would question everything it means to be Amani.\n\n<Zul'jan scowls.>\n\nI must find de truth of dis. Uncle says if anyone would know, it would be de loa. De loa have said nothing of dis before, but we must start somewhere.\n\nIt's time to go home."
+    },
+    {
+      "questID": 92904,
+      "passage": "completion",
+      "title": "Return to Zul'Aman",
+      "npcID": 253788,
+      "npcName": "Zul'jan",
+      "soundFile": "92904_completion.ogg",
+      "text": "Why is my uncle so disorganized?"
+    },
+    {
+      "questID": 92905,
+      "passage": "description",
+      "title": "Help Uncle with Loa",
+      "npcID": null,
+      "npcName": null,
+      "soundFile": "92905_description.ogg",
+      "text": "You go find Uncle Kinduru. Uncle doesn't know anything about Ula'tek but can ask the eagle loa. You help him perform a ritual to ask the loa. He says the loa don't know either. \n See if you've already completed this by typing:\n\n /run print(C_QuestLog.IsQuestFlaggedCompleted(92905))\n WH.clickToCopy(document.currentScript.parentNode, \"\\/run print(C_QuestLog.IsQuestFlaggedCompleted(92905))\");\n \n \n \n \n \n const cta = WH.Tools.createWowheadClientCta();\n if (cta) {\n $('.db-page-collection-tracker-cta').append(cta);\n }"
+    }
+  ]
+}

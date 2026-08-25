@@ -1,0 +1,14 @@
+{
+  "source": "item",
+  "passages": [
+    {
+      "questID": "item_profaned_plaque",
+      "passage": "page1",
+      "title": "Profaned Plaque",
+      "npcID": "",
+      "npcName": "Loa Speaker Kinduru",
+      "soundFile": "item_profaned_plaque_page1.ogg",
+      "text": "I have seen such horrors in life. I commit myself to an everlasting death to save my children and their children from the evil that defeated darkness. The snakes must remain sealed away. The weapon is as deadly as the Void. Our shame must remained buried. I proudly pay the eternal price. Let my spirit guard these halls. Let my shade bar the way."
+    }
+  ]
+}

@@ -87,15 +87,36 @@ def fetch(quest_id, delay, refresh=False):
                     handle.write("")
                 time.sleep(delay)
                 return None
-            if exc.code in (403, 429) and attempt < 3:
-                print(f"  rate limited ({exc.code}); waiting {backoff}s ...",
+            # 503/502/504 are the site being briefly unavailable, not a rate
+            # limit -- but an uncaught one crashed a run overnight, unattended,
+            # and it took an hour before anyone noticed the process had died.
+            # Retried the same as 403/429 rather than left to propagate.
+            if exc.code in (403, 429, 502, 503, 504) and attempt < 3:
+                print(f"  {exc.code} from wowhead; waiting {backoff}s ...",
                       file=sys.stderr)
                 time.sleep(backoff)
                 backoff *= 2
                 continue
             if exc.code in (403, 429):
                 raise Blocked(f"still {exc.code} after {attempt} retries")
+            if exc.code in (502, 503, 504):
+                raise Blocked(f"still {exc.code} after {attempt} retries -- "
+                             f"wowhead itself may be down, not a rate limit")
             raise
+        except (TimeoutError, urllib.error.URLError) as exc:
+            # Not an HTTP error at all -- the connection itself timed out or
+            # failed (DNS, reset, etc). Two separate crashes in one overnight
+            # run: this was the second, after 502/503/504 were already fixed.
+            # Same retry-then-give-up shape as the HTTP case, because leaving
+            # any network exception uncaught here is exactly how a harvester
+            # meant to run unattended stops running unattended.
+            if attempt < 3:
+                print(f"  network error ({exc}); waiting {backoff}s ...",
+                      file=sys.stderr)
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+            raise Blocked(f"still failing after {attempt} retries: {exc}")
         finally:
             # Pace every request, including failures, so a run of missing IDs
             # does not turn into a burst.

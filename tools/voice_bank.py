@@ -75,13 +75,13 @@ def match_pool(pools, race, sex):
     return folder, count, clips
 
 
-def build(names, index, tables, pools):
+def build(names, index, tables, pools, observed=None):
     """Group NPCs by race and sex, and pick the best donor in each group."""
     groups = {}
     unresolved = []
 
     for name in names:
-        traits = npc_traits.resolve(name, tables)
+        traits = npc_traits.resolve(name, tables, observed)
         if not traits:
             unresolved.append(name)
             continue
@@ -139,6 +139,10 @@ def main():
                         help="file with one NPC name per line")
     parser.add_argument("--patch", nargs="+",
                         help="use the NPCs voiced for these patches")
+    parser.add_argument("--observed", metavar="PASSAGES_JSON",
+                        help="Speakstone export carrying npcRace/npcSex per "
+                             "passage, used to identify NPCs the published "
+                             "client tables do not have yet")
     parser.add_argument("-o", "--output")
     parser.add_argument("--report", action="store_true",
                         help="print a summary instead of writing the bank")
@@ -158,7 +162,11 @@ def main():
     pools = generic_pools(index)
     print(f"{len(pools)} generic voice pool(s) available as stand-ins.",
           file=sys.stderr)
-    groups, unresolved = build(names, index, tables, pools)
+    observed = npc_traits.load_observed(getattr(args, "observed", None))
+    if observed:
+        print(f"Loaded live-client traits for {len(observed):,} NPC(s).",
+              file=sys.stderr)
+    groups, unresolved = build(names, index, tables, pools, observed)
 
     covered = sum(1 for g in groups.values() if g["donor"])
     needing = sum(1 for g in groups.values() for m in g["members"]

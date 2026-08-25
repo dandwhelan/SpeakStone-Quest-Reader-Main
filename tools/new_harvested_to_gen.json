@@ -1,0 +1,158 @@
+{
+  "source": "harvester",
+  "passages": [
+    {
+      "questID": 91063,
+      "passage": "description",
+      "title": "The Blooming Lattice",
+      "npcID": 245637,
+      "npcName": "Su'meera",
+      "soundFile": "91063_description.ogg",
+      "text": "You're that stranger I've been hearing about, aren't you? I'm Su'meera, apprentice painter to Ja'kul. You heard of him? No? Maybe his work hasn't made it to your lands. That makes sense, I guess.\r\n\r\nAnyhow, I heard you like helping people out. Well, a few important things went missing when Ja'kul was attacked and killed. I want them back.\r\n\r\nWill you meet me near Blooming Lattice?"
+    },
+    {
+      "questID": 91346,
+      "passage": "description",
+      "title": "Supplicants to the Goddess",
+      "npcID": 246607,
+      "npcName": "Greenspeaker Cyenna",
+      "soundFile": "91346_description.ogg",
+      "text": "We have long tended to the roots with the help of the creatures who live and grow here. Think of it as a symbiotic relationship from which we, the creatures, and the roots all benefit. That said, my partner Riverscale isn't contributing very much lately!\r\n\r\nPlease help me find a way to motivate him again.\r\n\r\nFirst, you must cleanse off the essence of the outside. Cleanse yourself in the waters of Har'kuai."
+    },
+    {
+      "questID": 95245,
+      "passage": "completion",
+      "title": "Midnight: World Tour",
+      "npcID": 235787,
+      "npcName": "Lor'themar Theron",
+      "soundFile": "95245_completion.ogg",
+      "text": "Back so soon? Impressive!"
+    },
+    {
+      "questID": 96614,
+      "passage": "completion",
+      "title": "Forged Through Fire",
+      "npcID": 243229,
+      "npcName": "Eldara Dawnrunner",
+      "soundFile": "96614_completion.ogg",
+      "text": "It is said the blessings of a phoenix long-forgotten seep through every swing of the hammer and bellow of flames at this forge.\r\n\r\nThat is why any who are serious about their craft come from all over to forge their creations here at this spot. Perhaps though, all that power is just superstition. A way for the Sunstrider dynasty to give power to the powerless. Yet again, perhaps it is not.\r\n\r\nGive it a try, won't you?"
+    },
+    {
+      "questID": "npc235787",
+      "passage": "gossip1",
+      "title": "Lor'themar Theron",
+      "npcID": 235787,
+      "npcName": "Lor'themar Theron",
+      "soundFile": "npc235787_gossip1.ogg",
+      "text": "Silvermoon is grateful for your aid."
+    },
+    {
+      "questID": "npc239670",
+      "passage": "gossip1",
+      "title": "Vaultkeeper Elysa",
+      "npcID": 239670,
+      "npcName": "Vaultkeeper Elysa",
+      "soundFile": "npc239670_gossip1.ogg",
+      "text": "How may I help you?"
+    },
+    {
+      "questID": "npc241703",
+      "passage": "gossip1",
+      "title": "Silvermoon Guard",
+      "npcID": 241703,
+      "npcName": "Silvermoon Guard",
+      "soundFile": "npc241703_gossip1.ogg",
+      "text": "What do you seek, priest?"
+    },
+    {
+      "questID": "npc243229",
+      "passage": "gossip1",
+      "title": "Eldara Dawnrunner",
+      "npcID": 243229,
+      "npcName": "Eldara Dawnrunner",
+      "soundFile": "npc243229_gossip1.ogg",
+      "text": "A sight to behold, is it not?\r\n\r\nSince the time of Dath'Remar, the elves have used this great forge to craft armor of unparalleled might. It is said that the flames were first stoked by the soul of a phoenix who thought it a fitting nest, and that its power still weaves itself through every creation.\r\n\r\nWe will permit you to share in its gifts."
+    },
+    {
+      "questID": "npc243229",
+      "passage": "gossip2",
+      "title": "Eldara Dawnrunner",
+      "npcID": 243229,
+      "npcName": "Eldara Dawnrunner",
+      "soundFile": "npc243229_gossip2.ogg",
+      "text": "The Catalyst can infuse great power into items, enhancing them and pushing their potential further than ever before!"
+    },
+    {
+      "questID": "npc243280",
+      "passage": "gossip1",
+      "title": "Theremis",
+      "npcID": 243280,
+      "npcName": "Theremis",
+      "soundFile": "npc243280_gossip1.ogg",
+      "text": "Which Midnight Specialization would you like to relearn?"
+    },
+    {
+      "questID": "npc243349",
+      "passage": "gossip1",
+      "title": "Dolothos",
+      "npcID": 243349,
+      "npcName": "Dolothos",
+      "soundFile": "npc243349_gossip1.ogg",
+      "text": "Greetings. Are you seeking instruction in enchanting?"
+    },
+    {
+      "questID": "npc243357",
+      "passage": "gossip1",
+      "title": "Camberon",
+      "npcID": 243357,
+      "npcName": "Camberon",
+      "soundFile": "npc243357_gossip1.ogg",
+      "text": "Greetings. Are you seeking instruction in alchemy?"
+    },
+    {
+      "questID": "npc246607",
+      "passage": "gossip1",
+      "title": "Greenspeaker Cyenna",
+      "npcID": 246607,
+      "npcName": "Greenspeaker Cyenna",
+      "soundFile": "npc246607_gossip1.ogg",
+      "text": "We are blessed to live in Harandar, and we treat that as a responsibility. The roots of World Trees wind through these lands, and we must tend to them to make sure that they continue to thrive.\r\n\r\nI am Cyenna, Charge Nurse of Nordrassil. It is a responsibility I take very seriously."
+    },
+    {
+      "questID": "npc252500",
+      "passage": "gossip1",
+      "title": "Ranger Telenus",
+      "npcID": 252500,
+      "npcName": "Ranger Telenus",
+      "soundFile": "npc252500_gossip1.ogg",
+      "text": "Train a dog, I said. How hard could it be, I said. \r\n\r\nI need to stop talking."
+    },
+    {
+      "questID": "npc257298",
+      "passage": "gossip1",
+      "title": "Loa Speaker Yl'mul",
+      "npcID": 257298,
+      "npcName": "Loa Speaker Yl'mul",
+      "soundFile": "npc257298_gossip1.ogg",
+      "text": "All that's left here is me and de captain. De curse I cast keeps us from movin' on."
+    },
+    {
+      "questID": "npc260638",
+      "passage": "gossip1",
+      "title": "Silvermoon Guard",
+      "npcID": 260638,
+      "npcName": "Silvermoon Guard",
+      "soundFile": "npc260638_gossip1.ogg",
+      "text": "What do you seek, priest?"
+    },
+    {
+      "questID": "npc262204",
+      "passage": "gossip1",
+      "title": "Witherbark Cook",
+      "npcID": 262204,
+      "npcName": "Witherbark Cook",
+      "soundFile": "npc262204_gossip1.ogg",
+      "text": "The ingredients I've got are... suspicious at best. Eh, with your help I'm sure it'll be at least edible."
+    }
+  ]
+}
