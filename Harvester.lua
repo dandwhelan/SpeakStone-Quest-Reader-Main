@@ -107,7 +107,41 @@ local function CurrentSpeaker()
         return {}
     end
 
-    return { id = CreatureIDFromGUID(guid), name = name }
+    -- Race, sex and creature type decide which stand-in voice an NPC gets
+    -- when it has no recorded audio of its own -- roughly a fifth of them,
+    -- the generic unnamed quest givers. tools/npc_traits.py resolves this
+    -- from the client's Creature/CreatureDisplayInfo tables, but its own
+    -- header notes where that fails: models with no extended display record,
+    -- and NPCs too new to be in the published tables at all. That second case
+    -- is precisely what gets captured here -- a live client knows what a
+    -- datamined table published weeks ago does not.
+    --
+    -- Getting it wrong is not cosmetic: with race and sex unresolved, 2,671
+    -- NPCs were once all assigned the same single fallback voice. Anything
+    -- unavailable is left nil rather than guessed, so the resolver can tell
+    -- "not captured" from "captured as unknown".
+    local sex = UnitSex("npc")
+    -- 1 is the API's "unknown", which is not a fact worth recording.
+    if sex ~= 2 and sex ~= 3 then sex = nil end
+
+    local raceName, raceToken
+    local okRace, r1, r2 = pcall(UnitRace, "npc")
+    if okRace and not IsSecret(r1) then
+        raceName, raceToken = r1, r2
+    end
+
+    local creatureType
+    local okType, t = pcall(UnitCreatureType, "npc")
+    if okType and not IsSecret(t) then creatureType = t end
+
+    return {
+        id = CreatureIDFromGUID(guid),
+        name = name,
+        sex = sex,
+        race = raceName,
+        raceToken = raceToken,
+        creatureType = creatureType,
+    }
 end
 
 -- --------------------------------------------------------------------------
@@ -183,6 +217,10 @@ local function RecordPassage(questID, passage, text, wasMissing)
         text = Detokenize(text),
         npcID = speaker.id,
         npcName = speaker.name,
+        npcSex = speaker.sex,
+        npcRace = speaker.race,
+        npcRaceToken = speaker.raceToken,
+        npcCreatureType = speaker.creatureType,
     }
     if wasMissing then
         h.missingIDs[questID] = true
@@ -194,7 +232,8 @@ addon.HarvestRecordPassage = RecordPassage
 -- ID to fold into. Some NPCs cycle through several greeting variants, so
 -- distinct texts are kept as a list, deduplicated by exact match so revisiting
 -- does not grow it without bound.
-local function RecordGossip(npcID, npcName, text)
+local function RecordGossip(speaker, text)
+    local npcID, npcName = speaker.id, speaker.name
     if not text or text == "" then return end
     -- With no way to say who spoke, the line cannot be voiced by anyone in
     -- particular, so there is nothing worth storing.
@@ -234,6 +273,12 @@ local function RecordGossip(npcID, npcName, text)
     end
     entry.npcName = npcName or entry.npcName
     entry.npcID = npcID or entry.npcID
+    -- Same reason as quest passages: this is what picks a stand-in voice for
+    -- an NPC with no audio of its own.
+    entry.npcSex = speaker.sex or entry.npcSex
+    entry.npcRace = speaker.race or entry.npcRace
+    entry.npcRaceToken = speaker.raceToken or entry.npcRaceToken
+    entry.npcCreatureType = speaker.creatureType or entry.npcCreatureType
     for _, existing in ipairs(entry.texts) do
         if existing == text then return end
     end
@@ -275,7 +320,7 @@ frame:SetScript("OnEvent", function(_, event)
     if event == "GOSSIP_SHOW" then
         local speaker = CurrentSpeaker()
         local ok, text = pcall(C_GossipInfo.GetText)
-        if ok then RecordGossip(speaker.id, speaker.name, text) end
+        if ok then RecordGossip(speaker, text) end
         return
     end
 
