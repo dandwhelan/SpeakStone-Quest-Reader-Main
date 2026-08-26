@@ -1,144 +1,435 @@
 local addonName, addon = ...
 
+local NUM_VISIBLE_ROWS = 14
+local ROW_HEIGHT = 26
+local SOUND_EXTS = { ".ogg", ".wav" }
+
+local activeDebugSound = nil
+local activePlayingQuestID = nil
+local activePlayingType = nil
+
+-- Helper to safely get quest title
+local function GetQuestTitle(questID)
+    if not questID then return nil end
+    if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+        local ok, title = pcall(C_QuestLog.GetTitleForQuestID, questID)
+        if ok and title and title ~= "" and not (issecretvalue and issecretvalue(title)) then
+            return title
+        end
+    end
+    if QuestUtils_GetQuestName then
+        local ok, title = pcall(QuestUtils_GetQuestName, questID)
+        if ok and title and title ~= "" and not (issecretvalue and issecretvalue(title)) then
+            return title
+        end
+    end
+    return nil
+end
+
 -- Create the main frame for the Quest Audio Library UI
 local QuestAudioLibraryUI = CreateFrame("Frame", "QuestReaderAudioLibraryUI", UIParent, "BasicFrameTemplateWithInset")
-QuestAudioLibraryUI:SetSize(300, 400)
+QuestAudioLibraryUI:SetSize(400, 500)
 QuestAudioLibraryUI:SetPoint("CENTER")
 QuestAudioLibraryUI:SetMovable(true)
 QuestAudioLibraryUI:EnableMouse(true)
 QuestAudioLibraryUI:RegisterForDrag("LeftButton")
 QuestAudioLibraryUI:SetScript("OnDragStart", QuestAudioLibraryUI.StartMoving)
 QuestAudioLibraryUI:SetScript("OnDragStop", QuestAudioLibraryUI.StopMovingOrSizing)
+QuestAudioLibraryUI:SetClampedToScreen(true)
 QuestAudioLibraryUI:Hide()
 
-QuestAudioLibraryUI.title = QuestAudioLibraryUI:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-QuestAudioLibraryUI.title:SetPoint("TOP", QuestAudioLibraryUI, "TOP", 0, -5)
-QuestAudioLibraryUI.title:SetText("Quest Audio Library")
+-- Allow closing with Escape key
+tinsert(UISpecialFrames, "QuestReaderAudioLibraryUI")
 
--- Create a scrollframe to contain the list of quest IDs
-QuestAudioLibraryUI.scrollFrame = CreateFrame("ScrollFrame", nil, QuestAudioLibraryUI, "UIPanelScrollFrameTemplate")
-QuestAudioLibraryUI.scrollFrame:SetPoint("TOPLEFT", 10, -30)
-QuestAudioLibraryUI.scrollFrame:SetPoint("BOTTOMRIGHT", -30, 40)
+-- Title
+if QuestAudioLibraryUI.TitleText then
+    QuestAudioLibraryUI.TitleText:SetText("SpeakStone Audio Library")
+else
+    local title = QuestAudioLibraryUI:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    title:SetPoint("TOP", QuestAudioLibraryUI, "TOP", 0, -5)
+    title:SetText("SpeakStone Audio Library")
+    QuestAudioLibraryUI.title = title
+end
 
-QuestAudioLibraryUI.content = CreateFrame("Frame", nil, QuestAudioLibraryUI.scrollFrame)
-QuestAudioLibraryUI.content:SetSize(260, 330)
-QuestAudioLibraryUI.scrollFrame:SetScrollChild(QuestAudioLibraryUI.content)
+-- Search Box
+local searchBox = CreateFrame("EditBox", "QuestReaderAudioLibrarySearchBox", QuestAudioLibraryUI, "SearchBoxTemplate")
+searchBox:SetSize(360, 22)
+searchBox:SetPoint("TOPLEFT", QuestAudioLibraryUI, "TOPLEFT", 18, -32)
+searchBox:SetAutoFocus(false)
+searchBox:SetMaxLetters(60)
+if searchBox.Instructions then
+    searchBox.Instructions:SetText("Search quest ID or name...")
+end
+QuestAudioLibraryUI.searchBox = searchBox
 
--- Function to populate the list of quest IDs
-function QuestAudioLibraryUI:PopulateList()
-    -- Clear existing content
-    for _, child in pairs({self.content:GetChildren()}) do
-        child:Hide()
+-- ScrollFrame (FauxScrollFrame for high performance virtualized rows)
+local scrollFrame = CreateFrame("ScrollFrame", "QuestReaderAudioLibraryScrollFrame", QuestAudioLibraryUI, "FauxScrollFrameTemplate")
+scrollFrame:SetPoint("TOPLEFT", QuestAudioLibraryUI, "TOPLEFT", 12, -62)
+scrollFrame:SetPoint("BOTTOMRIGHT", QuestAudioLibraryUI, "BOTTOMRIGHT", -36, 44)
+QuestAudioLibraryUI.scrollFrame = scrollFrame
+
+-- Bottom status and stop preview button
+local countText = QuestAudioLibraryUI:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+countText:SetPoint("BOTTOMLEFT", QuestAudioLibraryUI, "BOTTOMLEFT", 18, 16)
+countText:SetJustifyH("LEFT")
+QuestAudioLibraryUI.countText = countText
+
+local stopButton = CreateFrame("Button", nil, QuestAudioLibraryUI, "UIPanelButtonTemplate")
+stopButton:SetSize(90, 22)
+stopButton:SetPoint("BOTTOMRIGHT", QuestAudioLibraryUI, "BOTTOMRIGHT", -16, 12)
+stopButton:SetText("Stop Audio")
+stopButton:SetScript("OnClick", function()
+    QuestAudioLibraryUI:StopAudio()
+end)
+QuestAudioLibraryUI.stopButton = stopButton
+
+-- Mouse wheel scrolling handler
+local function OnListMouseWheel(delta)
+    local scrollBar = _G["QuestReaderAudioLibraryScrollFrameScrollBar"]
+    if scrollBar and scrollBar:IsShown() then
+        local current = scrollBar:GetValue()
+        local minVal, maxVal = scrollBar:GetMinMaxValues()
+        local step = ROW_HEIGHT * 3
+        if delta > 0 then
+            scrollBar:SetValue(math.max(minVal, current - step))
+        else
+            scrollBar:SetValue(math.min(maxVal, current + step))
+        end
+    end
+end
+
+QuestAudioLibraryUI:EnableMouseWheel(true)
+QuestAudioLibraryUI:SetScript("OnMouseWheel", function(self, delta)
+    OnListMouseWheel(delta)
+end)
+
+scrollFrame:SetScript("OnVerticalScroll", function(self, offset)
+    FauxScrollFrame_OnVerticalScroll(self, offset, ROW_HEIGHT, function()
+        QuestAudioLibraryUI:UpdateList()
+    end)
+end)
+
+-- Create pooled row frames (14 rows created once and reused)
+QuestAudioLibraryUI.rows = {}
+for i = 1, NUM_VISIBLE_ROWS do
+    local row = CreateFrame("Button", nil, QuestAudioLibraryUI)
+    row:SetSize(342, ROW_HEIGHT)
+    row:SetPoint("TOPLEFT", QuestAudioLibraryUI, "TOPLEFT", 16, -62 - (i - 1) * ROW_HEIGHT)
+
+    -- Highlight texture
+    local highlight = row:CreateTexture(nil, "HIGHLIGHT")
+    highlight:SetAllPoints()
+    highlight:SetColorTexture(1, 1, 1, 0.08)
+
+    -- Alternate row background
+    if i % 2 == 0 then
+        local bg = row:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(1, 1, 1, 0.025)
     end
 
-    local yOffset = 0
-    local questIDs = {}
+    local text = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    text:SetPoint("LEFT", row, "LEFT", 4, 0)
+    text:SetPoint("RIGHT", row, "RIGHT", -144, 0)
+    text:SetJustifyH("LEFT")
+    text:SetWordWrap(false)
+    row.text = text
 
-    -- Collect all unique quest IDs from all sound sources
-    for packName, soundLengths in pairs(addon.soundSources) do
-        for soundFile, _ in pairs(soundLengths) do
-            local questID = soundFile:match("(%d+)_")
-            if questID then
-                questIDs[questID] = questIDs[questID] or {}
-                local audioType = soundFile:match("_([a-z]+)%.%w+$")
-                if audioType then
-                    questIDs[questID][audioType] = true  -- Mark this audio type as available for the questID
+    -- Completion button
+    local compBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+    compBtn:SetSize(44, 20)
+    compBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
+    compBtn:SetText("Comp")
+    row.compBtn = compBtn
+
+    -- Progress button
+    local progBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+    progBtn:SetSize(44, 20)
+    progBtn:SetPoint("RIGHT", compBtn, "LEFT", -3, 0)
+    progBtn:SetText("Prog")
+    row.progBtn = progBtn
+
+    -- Description button
+    local descBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+    descBtn:SetSize(44, 20)
+    descBtn:SetPoint("RIGHT", progBtn, "LEFT", -3, 0)
+    descBtn:SetText("Desc")
+    row.descBtn = descBtn
+
+    -- Click handlers
+    descBtn:SetScript("OnClick", function()
+        if row.questData then
+            QuestAudioLibraryUI:PlaySpecificAudio(row.questData.id, "description")
+        end
+    end)
+    progBtn:SetScript("OnClick", function()
+        if row.questData then
+            QuestAudioLibraryUI:PlaySpecificAudio(row.questData.id, "progress")
+        end
+    end)
+    compBtn:SetScript("OnClick", function()
+        if row.questData then
+            QuestAudioLibraryUI:PlaySpecificAudio(row.questData.id, "completion")
+        end
+    end)
+
+    -- Tooltips
+    local function ShowRowTooltip(owner)
+        if not row.questData then return end
+        GameTooltip:SetOwner(owner or row, "ANCHOR_RIGHT")
+        local title = GetQuestTitle(row.questData.id)
+        if title then
+            GameTooltip:AddLine(title, 1, 0.82, 0)
+            GameTooltip:AddLine("Quest ID: " .. row.questData.id, 0.7, 0.7, 0.7)
+        else
+            GameTooltip:AddLine("Quest ID: " .. row.questData.id, 1, 0.82, 0)
+        end
+
+        local dLen = QuestAudioLibraryUI:GetAudioDuration(row.questData.id, "description")
+        local pLen = QuestAudioLibraryUI:GetAudioDuration(row.questData.id, "progress")
+        local cLen = QuestAudioLibraryUI:GetAudioDuration(row.questData.id, "completion")
+
+        if dLen then GameTooltip:AddLine("Description: " .. string.format("%.1fs", dLen), 0.3, 1, 0.3) end
+        if pLen then GameTooltip:AddLine("Progress: " .. string.format("%.1fs", pLen), 0.3, 1, 0.3) end
+        if cLen then GameTooltip:AddLine("Completion: " .. string.format("%.1fs", cLen), 0.3, 1, 0.3) end
+
+        GameTooltip:Show()
+    end
+
+    row:SetScript("OnEnter", function(self) ShowRowTooltip(self) end)
+    row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    descBtn:SetScript("OnEnter", function(self) ShowRowTooltip(self) end)
+    descBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    progBtn:SetScript("OnEnter", function(self) ShowRowTooltip(self) end)
+    progBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    compBtn:SetScript("OnEnter", function(self) ShowRowTooltip(self) end)
+    compBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+    -- Mouse wheel forwarding
+    row:EnableMouseWheel(true)
+    row:SetScript("OnMouseWheel", function(self, delta) OnListMouseWheel(delta) end)
+    descBtn:EnableMouseWheel(true)
+    descBtn:SetScript("OnMouseWheel", function(self, delta) OnListMouseWheel(delta) end)
+    progBtn:EnableMouseWheel(true)
+    progBtn:SetScript("OnMouseWheel", function(self, delta) OnListMouseWheel(delta) end)
+    compBtn:EnableMouseWheel(true)
+    compBtn:SetScript("OnMouseWheel", function(self, delta) OnListMouseWheel(delta) end)
+
+    QuestAudioLibraryUI.rows[i] = row
+end
+
+-- Duration lookup helper
+function QuestAudioLibraryUI:GetAudioDuration(questID, audioType)
+    local exts = SOUND_EXTENSIONS or SOUND_EXTS
+    for _, ext in ipairs(exts) do
+        local filename = questID .. "_" .. audioType .. ext
+        for _, soundLengths in pairs(addon.soundSources or {}) do
+            if type(soundLengths) == "table" and soundLengths[filename] then
+                return soundLengths[filename]
+            end
+        end
+    end
+    return nil
+end
+
+-- Index builder: scans addon.soundSources fast and caches results
+function QuestAudioLibraryUI:BuildIndex(force)
+    if self.isIndexed and not force then
+        return
+    end
+
+    local questMap = {}
+    for packName, soundLengths in pairs(addon.soundSources or {}) do
+        if type(soundLengths) == "table" then
+            for soundFile in pairs(soundLengths) do
+                local questID, audioType = soundFile:match("^(%d+)_(%a+)%.")
+                if questID and audioType then
+                    local idNum = tonumber(questID)
+                    if idNum then
+                        local entry = questMap[idNum]
+                        if not entry then
+                            entry = { id = idNum, types = {} }
+                            questMap[idNum] = entry
+                        end
+                        entry.types[audioType] = true
+                    end
                 end
             end
         end
     end
 
-    -- Sort quest IDs numerically
-    local sortedQuestIDs = {}
-    for questID in pairs(questIDs) do
-        table.insert(sortedQuestIDs, tonumber(questID))
+    local list = {}
+    for _, entry in pairs(questMap) do
+        table.insert(list, entry)
     end
-    table.sort(sortedQuestIDs)
+    table.sort(list, function(a, b) return a.id < b.id end)
 
-    -- Create a frame for each quest ID with buttons for available audio types
-    for _, questID in ipairs(sortedQuestIDs) do
-        local questFrame = CreateFrame("Frame", nil, self.content)
-        questFrame:SetSize(260, 30)
-        questFrame:SetPoint("TOPLEFT", 0, -yOffset)
-
-        -- Quest ID text
-        local text = questFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        text:SetPoint("LEFT", 5, 0)
-        text:SetText("Quest ID: " .. questID)
-
-        local availableTypes = questIDs[tostring(questID)]  -- Get the available types for this questID
-        local rightOffset = -5
-
-        -- Add buttons only for the available audio types
-        if availableTypes["completion"] then
-            local completionButton = CreateFrame("Button", nil, questFrame, "UIPanelButtonTemplate")
-            completionButton:SetSize(40, 20)
-            completionButton:SetPoint("RIGHT", rightOffset, 0)
-            completionButton:SetText("Comp")
-            completionButton:SetScript("OnClick", function()
-                self:PlaySpecificAudio(questID, "completion")
-            end)
-            rightOffset = rightOffset - 45
-        end
-
-        if availableTypes["progress"] then
-            local progressButton = CreateFrame("Button", nil, questFrame, "UIPanelButtonTemplate")
-            progressButton:SetSize(40, 20)
-            progressButton:SetPoint("RIGHT", rightOffset, 0)
-            progressButton:SetText("Prog")
-            progressButton:SetScript("OnClick", function()
-                self:PlaySpecificAudio(questID, "progress")
-            end)
-            rightOffset = rightOffset - 45
-        end
-
-        if availableTypes["description"] then
-            local descriptionButton = CreateFrame("Button", nil, questFrame, "UIPanelButtonTemplate")
-            descriptionButton:SetSize(40, 20)
-            descriptionButton:SetPoint("RIGHT", rightOffset, 0)
-            descriptionButton:SetText("Desc")
-            descriptionButton:SetScript("OnClick", function()
-                self:PlaySpecificAudio(questID, "description")
-            end)
-            rightOffset = rightOffset - 45
-        end
-
-        yOffset = yOffset + 30
-    end
-
-    self.content:SetHeight(math.max(330, yOffset))
+    self.allQuests = list
+    self.questMap = questMap
+    self.isIndexed = true
 end
 
--- Handle of the preview currently playing, so the next preview can stop it.
-local activeDebugSound
+-- Real-time filter
+function QuestAudioLibraryUI:FilterList(query)
+    if not self.allQuests then
+        self:BuildIndex()
+    end
 
--- Function to play a specific audio file for a quest ID
-function QuestAudioLibraryUI:PlaySpecificAudio(questID, audioType)
+    if not query or query:match("^%s*$") then
+        self.filteredList = self.allQuests
+    else
+        local cleanQuery = query:lower():match("^%s*(.-)%s*$")
+        local filtered = {}
+        for _, entry in ipairs(self.allQuests) do
+            local idStr = tostring(entry.id)
+            if idStr:find(cleanQuery, 1, true) then
+                table.insert(filtered, entry)
+            else
+                local title = GetQuestTitle(entry.id)
+                if title and title:lower():find(cleanQuery, 1, true) then
+                    table.insert(filtered, entry)
+                end
+            end
+        end
+        self.filteredList = filtered
+    end
+
+    local scrollBar = _G["QuestReaderAudioLibraryScrollFrameScrollBar"]
+    if scrollBar then
+        scrollBar:SetValue(0)
+    end
+    self:UpdateList()
+end
+
+-- Update visible rows
+function QuestAudioLibraryUI:UpdateList()
+    local list = self.filteredList or self.allQuests or {}
+    local numItems = #list
+    FauxScrollFrame_Update(self.scrollFrame, numItems, NUM_VISIBLE_ROWS, ROW_HEIGHT)
+    local offset = FauxScrollFrame_GetOffset(self.scrollFrame)
+
+    for i = 1, NUM_VISIBLE_ROWS do
+        local index = offset + i
+        local row = self.rows[i]
+        if index <= numItems then
+            local data = list[index]
+            row.questData = data
+            row:Show()
+
+            local title = GetQuestTitle(data.id)
+            if title and title ~= "" then
+                row.text:SetText("|cffffd100[" .. data.id .. "]|r " .. title)
+            else
+                row.text:SetText("Quest ID: |cffffffff" .. data.id .. "|r")
+            end
+
+            -- Description
+            if data.types["description"] then
+                row.descBtn:Show()
+                if activePlayingQuestID == data.id and activePlayingType == "description" then
+                    row.descBtn:SetText("|cff00ff00Desc|r")
+                else
+                    row.descBtn:SetText("Desc")
+                end
+            else
+                row.descBtn:Hide()
+            end
+
+            -- Progress
+            if data.types["progress"] then
+                row.progBtn:Show()
+                if activePlayingQuestID == data.id and activePlayingType == "progress" then
+                    row.progBtn:SetText("|cff00ff00Prog|r")
+                else
+                    row.progBtn:SetText("Prog")
+                end
+            else
+                row.progBtn:Hide()
+            end
+
+            -- Completion
+            if data.types["completion"] then
+                row.compBtn:Show()
+                if activePlayingQuestID == data.id and activePlayingType == "completion" then
+                    row.compBtn:SetText("|cff00ff00Comp|r")
+                else
+                    row.compBtn:SetText("Comp")
+                end
+            else
+                row.compBtn:Hide()
+            end
+        else
+            row.questData = nil
+            row:Hide()
+        end
+    end
+
+    if numItems == 0 then
+        self.countText:SetText("No matching quests found.")
+    elseif self.filteredList and #self.filteredList ~= #(self.allQuests or {}) then
+        self.countText:SetText(string.format("Showing %d / %d quests", numItems, #(self.allQuests or {})))
+    else
+        self.countText:SetText(string.format("Total: %d voiced quests", numItems))
+    end
+end
+
+-- Audio playback
+function QuestAudioLibraryUI:StopAudio()
     if activeDebugSound then
         StopSound(activeDebugSound)
         activeDebugSound = nil
     end
-
-    -- Match PlayQuestAudio: either container may hold a given clip.
-    for _, extension in ipairs(SOUND_EXTENSIONS) do
-      local soundFile = questID .. "_" .. audioType .. extension
-      for packName, soundLengths in pairs(addon.soundSources) do
-        if soundLengths[soundFile] then
-            -- Construct the path to the sound file
-          local soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. soundFile
-          -- Assign without `local`: declaring a new local here left the
-          -- outer handle nil, so previews never stopped the previous clip.
-          local _
-          _, activeDebugSound = PlaySoundFile(soundPath, "Dialog")
-          return  -- Stop after playing the first valid sound file
-        end
-      end
-    end
-
-    print("Audio not found for Quest ID: " .. questID .. " and type: " .. audioType)
+    activePlayingQuestID = nil
+    activePlayingType = nil
+    self:UpdateList()
 end
 
--- Function to toggle the UI visibility
+function QuestAudioLibraryUI:PlaySpecificAudio(questID, audioType)
+    self:StopAudio()
+
+    local exts = SOUND_EXTENSIONS or SOUND_EXTS
+    for _, extension in ipairs(exts) do
+        local soundFile = questID .. "_" .. audioType .. extension
+        for packName, soundLengths in pairs(addon.soundSources or {}) do
+            if type(soundLengths) == "table" and soundLengths[soundFile] then
+                local soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. soundFile
+                local willPlay, handle = PlaySoundFile(soundPath, "Dialog")
+                if willPlay and handle then
+                    activeDebugSound = handle
+                    activePlayingQuestID = questID
+                    activePlayingType = audioType
+                    self:UpdateList()
+                end
+                return
+            end
+        end
+    end
+
+    print("SpeakStone Audio Library: clip not found for Quest ID " .. tostring(questID) .. " (" .. tostring(audioType) .. ")")
+end
+
+-- SearchBox script
+searchBox:SetScript("OnTextChanged", function(self, userInput)
+    if SearchBoxTemplate_OnTextChanged then
+        SearchBoxTemplate_OnTextChanged(self)
+    end
+    QuestAudioLibraryUI:FilterList(self:GetText())
+end)
+
+searchBox:SetScript("OnEscapePressed", function(self)
+    if self:GetText() ~= "" then
+        self:SetText("")
+    else
+        QuestAudioLibraryUI:Hide()
+    end
+end)
+
+-- Main populate / toggle
+function QuestAudioLibraryUI:PopulateList()
+    self:BuildIndex()
+    self:FilterList(self.searchBox:GetText())
+end
+
 function QuestAudioLibraryUI:ToggleVisibility()
     if self:IsVisible() then
         self:Hide()
@@ -148,8 +439,17 @@ function QuestAudioLibraryUI:ToggleVisibility()
     end
 end
 
--- Add a slash command to toggle the UI
-SLASH_QRLIBRARY1 = '/qrlibrary'
+QuestAudioLibraryUI:SetScript("OnShow", function(self)
+    self:PopulateList()
+end)
+
+QuestAudioLibraryUI:SetScript("OnHide", function(self)
+    self:StopAudio()
+end)
+
+-- Slash command
+SLASH_QRLIBRARY1, SLASH_QRLIBRARY2 = '/qrlibrary', '/sslibrary'
 SlashCmdList["QRLIBRARY"] = function()
     QuestAudioLibraryUI:ToggleVisibility()
 end
+
