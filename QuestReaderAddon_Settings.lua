@@ -19,7 +19,7 @@ function QuestReader:CreateSettings()
     local optionsFrame
     optionsFrame = CreateFrame("Frame", nil, nil, "VerticalLayoutFrame")
     optionsFrame.spacing = 4
-    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsFrame, "Speakstone - Quest and World Reader |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
+    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone Narration |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
     addon.settingsCategoryID = category.ID
     Settings.RegisterAddOnCategory(category)
 
@@ -34,7 +34,7 @@ function QuestReader:CreateSettings()
     Header:SetSize(150, 50)
     local headerText = Header:CreateFontString(nil, "ARTWORK", "GameFontHighlightHuge")
     headerText:SetPoint("TOPLEFT", 7, -22)
-    headerText:SetText("Speakstone - Quest and World Reader")
+    headerText:SetText("SpeakStone Narration")
     local divider = Header:CreateTexture(nil, "ARTWORK")
     divider:SetAtlas("Options_HorizontalDivider", true)
     divider:SetPoint("BOTTOMLEFT", -50)
@@ -100,7 +100,7 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
         -- looking at data they thought they had just cleared.
         if addon.HarvestWipe then
             addon.HarvestWipe()
-            print("Speakstone - Quest and World Reader: captured text cleared.")
+            print("SpeakStone Narration: captured text cleared.")
         end
     end,
     timeout = 0,
