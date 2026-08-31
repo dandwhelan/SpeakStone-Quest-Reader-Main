@@ -255,7 +255,7 @@ local function RecordGossip(speaker, text)
     if key and npcName then
         local existing = gossip[key]
         if existing and existing.npcName and existing.npcName ~= npcName then
-            DebugPrint("SpeakStone Narration: creature " .. tostring(key)
+            DebugPrint("Speakstone - Quest and World Reader: creature " .. tostring(key)
                 .. " already recorded as '" .. existing.npcName
                 .. "', now reporting '" .. npcName .. "' -- keying by name.")
             key = nil
@@ -515,7 +515,7 @@ local function RepairSpeakerData(h)
     end
 
     if dropped > 0 or ids > 0 or names > 0 then
-        print("SpeakStone Narration: repaired captured data after a speaker-ID bug -- dropped "
+        print("Speakstone - Quest and World Reader: repaired captured data after a speaker-ID bug -- dropped "
             .. dropped .. " gossip capture(s), cleared " .. ids
             .. " wrong NPC ID(s) and " .. names
             .. " passage(s) attributed to your own character. All quest text was kept."
@@ -560,6 +560,6 @@ function addon.HarvestMigrate()
     end
 
     if moved > 0 then
-        DebugPrint("SpeakStone Narration: imported " .. moved .. " previously captured quest(s).")
+        DebugPrint("Speakstone - Quest and World Reader: imported " .. moved .. " previously captured quest(s).")
     end
 end

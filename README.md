@@ -15,28 +15,6 @@ Quest text appears, the right character reads it to you. That's it.
 
 ## Install
 
-### Option A: one-line installer (recommended)
-
-Open PowerShell and run:
-
-```powershell
-irm https://raw.githubusercontent.com/dandwhelan/SpeakStone-Quest-Reader-Main/main/Install-SpeakStone.ps1 | iex
-```
-
-It finds your AddOns folder, lets you pick which expansion voice packs to
-install, and downloads everything straight there. **Re-run the same command
-any time** to pick up new voices — it only re-downloads a pack if it actually
-changed, so a re-run is fast.
-
-To install everything with no prompts (e.g. scripted installs):
-
-```powershell
-$env:SPEAKSTONE_PACKS = "All"
-irm https://raw.githubusercontent.com/dandwhelan/SpeakStone-Quest-Reader-Main/main/Install-SpeakStone.ps1 | iex
-```
-
-### Option B: manual
-
 You need **two** addons: the main one, and a voice pack for the expansion you
 want to hear.
 

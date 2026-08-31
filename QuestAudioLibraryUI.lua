@@ -36,6 +36,7 @@ QuestAudioLibraryUI:RegisterForDrag("LeftButton")
 QuestAudioLibraryUI:SetScript("OnDragStart", QuestAudioLibraryUI.StartMoving)
 QuestAudioLibraryUI:SetScript("OnDragStop", QuestAudioLibraryUI.StopMovingOrSizing)
 QuestAudioLibraryUI:SetClampedToScreen(true)
+QuestAudioLibraryUI:SetFrameStrata("DIALOG")
 QuestAudioLibraryUI:Hide()
 
 -- Allow closing with Escape key
@@ -440,6 +441,7 @@ function QuestAudioLibraryUI:ToggleVisibility()
 end
 
 QuestAudioLibraryUI:SetScript("OnShow", function(self)
+    self:Raise()
     self:PopulateList()
 end)
 

@@ -123,11 +123,11 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
             end
         elseif button == "MiddleButton" then
             QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
-            print("SpeakStone Narration Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
+            print("Speakstone - Quest and World Reader Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
         end
     end,
     OnTooltipShow = function(tooltip)
-        tooltip:AddLine("SpeakStone Narration")
+        tooltip:AddLine("Speakstone - Quest and World Reader")
         tooltip:AddLine("|cffffffffLeft-Click:|r Open Settings", 1, 1, 1)
         tooltip:AddLine("|cffffffffMiddle-Click:|r Toggle Debug Messages (" .. ((QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages) and "|cff00ff00On|r" or "|cffff0000Off|r") .. ")", 1, 1, 1)
         tooltip:AddLine("|cff00ff00Right-Click:|r Export Captured Text", 0.2, 1, 0.2)
@@ -457,7 +457,7 @@ function PlayQuestAudio(textType, skipDelay)
             -- autoplay does not repeat the same line on every quest interaction.
             if not addon.reportedMissing[baseName] then
                 addon.reportedMissing[baseName] = true
-                DebugPrint("SpeakStone Narration: no audio for quest " .. questID .. " (" .. textType .. ")")
+                DebugPrint("Speakstone - Quest and World Reader: no audio for quest " .. questID .. " (" .. textType .. ")")
             end
             -- Capture the text itself, not just the fact that it is missing,
             -- so it is ready to submit whether or not this player ever runs
@@ -550,7 +550,7 @@ function PlayGossipAudio()
         -- per NPC interaction.
         if not addon.reportedMissing[baseName] then
             addon.reportedMissing[baseName] = true
-            DebugPrint("SpeakStone Narration: no gossip audio for NPC " .. npcID)
+            DebugPrint("Speakstone - Quest and World Reader: no gossip audio for NPC " .. npcID)
         end
         addon.activeSound = nil
         return
@@ -625,7 +625,7 @@ local function PlayItemAudioDirect(itemLink, page)
         local reportKey = baseNames[1]
         if not addon.reportedMissing[reportKey] then
             addon.reportedMissing[reportKey] = true
-            DebugPrint("SpeakStone Narration: no audio for " .. displayName .. " (page " .. page .. ")")
+            DebugPrint("Speakstone - Quest and World Reader: no audio for " .. displayName .. " (page " .. page .. ")")
         end
         addon.activeSound = nil
         return
@@ -637,7 +637,7 @@ local function PlayItemAudioDirect(itemLink, page)
         soundFile = soundFile,
         soundPath = soundPath,
     }
-    DebugPrint("SpeakStone Narration: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
+    DebugPrint("Speakstone - Quest and World Reader: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
     DoPlaySound()
 end
 
@@ -723,7 +723,7 @@ local function OnPlayerLogout()
 end
 
 -- Keybindings
-BINDING_HEADER_QUESTREADERADDON = "SpeakStone Narration"
+BINDING_HEADER_QUESTREADERADDON = "Speakstone - Quest and World Reader"
 BINDING_NAME_PLAYACTIVEQUEST = "Play active quest voiceover"
 
 -- Event Handling for Quest Dialog Events
@@ -813,7 +813,7 @@ SlashCmdList["QUESTREADERAUTO"] = function(msg)
     else
         QuestReaderAddonDB.autoPlayEnabled = not QuestReaderAddonDB.autoPlayEnabled
     end
-    print("SpeakStone Narration Auto-Play: " .. (QuestReaderAddonDB.autoPlayEnabled and "Enabled" or "Disabled"))
+    print("Speakstone - Quest and World Reader Auto-Play: " .. (QuestReaderAddonDB.autoPlayEnabled and "Enabled" or "Disabled"))
 end
 
 -- Slash command to toggle debug messages
@@ -826,7 +826,7 @@ SlashCmdList["QUESTREADERDEBUG"] = function(msg)
     else
         QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
     end
-    print("SpeakStone Narration Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
+    print("Speakstone - Quest and World Reader Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
 end
 
 -- Frame for copy-pasting missing quests
@@ -838,6 +838,7 @@ missingCopyFrame:EnableMouse(true)
 missingCopyFrame:RegisterForDrag("LeftButton")
 missingCopyFrame:SetScript("OnDragStart", missingCopyFrame.StartMoving)
 missingCopyFrame:SetScript("OnDragStop", missingCopyFrame.StopMovingOrSizing)
+missingCopyFrame:SetFrameStrata("DIALOG")
 missingCopyFrame:Hide()
 
 -- Set frame title
@@ -865,28 +866,29 @@ scrollFrame:SetScrollChild(editBox)
 -- put up the same frame rather than each building their own.
 function addon.ShowHarvestExport(missingOnly)
     if not addon.HarvestExportText then
-        print("SpeakStone Narration: capture module not loaded.")
+        print("Speakstone - Quest and World Reader: capture module not loaded.")
         return
     end
     local text, count = addon.HarvestExportText(missingOnly)
     if count == 0 then
         if missingOnly then
-            print("SpeakStone Narration: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
+            print("Speakstone - Quest and World Reader: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
         elseif not (addon.HarvestEnabled and addon.HarvestEnabled()) then
             -- Only say this when it is actually true. Blaming the setting
             -- while capture was running sent people to toggle a switch that
             -- was already on.
-            print("SpeakStone Narration: text capture is switched off -- turn it back on in settings, or with '/ssharvest on'.")
+            print("Speakstone - Quest and World Reader: text capture is switched off -- turn it back on in settings, or with '/ssharvest on'.")
         else
-            print("SpeakStone Narration: nothing captured yet. Talk to an NPC or pick up a quest and it records automatically.")
+            print("Speakstone - Quest and World Reader: nothing captured yet. Talk to an NPC or pick up a quest and it records automatically.")
         end
         return
     end
 
     editBox:SetText(text)
     missingCopyFrame:Show()
+    missingCopyFrame:Raise()
     editBox:HighlightText()
-    print("SpeakStone Narration: " .. count .. " quest(s) ready. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    print("Speakstone - Quest and World Reader: " .. count .. " quest(s) ready. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
 end
 
 -- Only the quests that had no audio installed.
@@ -906,16 +908,16 @@ if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestRea
             return
         elseif msg == "wipe" or msg == "clear" then
             addon.HarvestWipe()
-            print("SpeakStone Narration: captured text cleared.")
+            print("Speakstone - Quest and World Reader: captured text cleared.")
             return
         elseif msg == "on" or msg == "off" then
             QuestReaderAddonDB.harvestEnabled = (msg == "on")
-            print("SpeakStone Narration: text capture " .. (msg == "on" and "enabled" or "disabled") .. ".")
+            print("Speakstone - Quest and World Reader: text capture " .. (msg == "on" and "enabled" or "disabled") .. ".")
             return
         end
 
         local quests, passages, unvoiced, npcs, lines, items, pages, missing = addon.HarvestCounts()
-        print("SpeakStone Narration capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
+        print("Speakstone - Quest and World Reader capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
         print("  " .. quests .. " quest(s), " .. passages .. " passage(s); " .. missing .. " with no audio installed.")
         if unvoiced > 0 then
             -- A passage with no creature ID cannot be matched to a voice later.

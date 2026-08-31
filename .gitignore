@@ -21,6 +21,9 @@ tools/message_in_a_bottle.json
 missing.txt
 npcs.txt
 
+# Secrets -- never commit
+tools/.r2_credentials.env
+
 # OS / Backups
 .DS_Store
 Thumbs.db
