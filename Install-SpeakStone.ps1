@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Installs or updates SpeakStone Narration (the base addon + chosen
+    Installs or updates SpeakStone (the base addon + chosen
     per-expansion voice packs) straight into your WoW AddOns folder.
 
 .DESCRIPTION
@@ -51,7 +51,7 @@ function Get-Sha256 {
     (Get-FileHash -Path $Path -Algorithm SHA256).Hash.ToLower()
 }
 
-Write-Host "SpeakStone Narration installer/updater" -ForegroundColor Cyan
+Write-Host "SpeakStone installer/updater" -ForegroundColor Cyan
 Write-Host "========================================"
 
 $AddonsDir = Find-AddonsDir

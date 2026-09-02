@@ -43,9 +43,11 @@ local function Store()
     h.quests = h.quests or {}
     h.gossip = h.gossip or {}
     h.itemText = h.itemText or {}
-    -- Which captured quests had no audio installed at the time. Just a set of
-    -- IDs pointing into h.quests, so /qrmissing can export the gaps alone
-    -- without a second copy of the same text living in the saved variables.
+    -- Which captured quests had no audio installed at the time. A set of IDs
+    -- pointing into h.quests, so it costs nothing beyond the IDs. It used to
+    -- drive a separate "missing quests only" export; that is gone, and this is
+    -- now only a statistic -- and a soft one, since a quest with no audio is as
+    -- likely to have been removed from the game as to be waiting for a voice.
     h.missingIDs = h.missingIDs or {}
     return h
 end
@@ -255,7 +257,7 @@ local function RecordGossip(speaker, text)
     if key and npcName then
         local existing = gossip[key]
         if existing and existing.npcName and existing.npcName ~= npcName then
-            DebugPrint("SpeakStone Narration: creature " .. tostring(key)
+            DebugPrint("SpeakStone: creature " .. tostring(key)
                 .. " already recorded as '" .. existing.npcName
                 .. "', now reporting '" .. npcName .. "' -- keying by name.")
             key = nil
@@ -415,17 +417,20 @@ local function Serialize(tbl, indent)
     return table.concat(lines, "\n") .. "\n"
 end
 
---- Build the export payload.
---- @param missingOnly boolean restrict to quests that had no audio installed
-function addon.HarvestExportText(missingOnly)
+--- Build the export payload: everything captured, of every kind.
+---
+--- There used to be a second, narrower export of "quests with no audio
+--- installed" only, promoted as the most useful thing to submit. Two things
+--- were wrong with it. Most of those quests turn out to have been removed from
+--- the game, so they can never be voiced no matter how often they are
+--- submitted. And it dropped gossip and book text from the payload entirely --
+--- which is precisely the material that cannot be obtained any other way,
+--- since neither has a table in the client or a scrapeable equivalent. The
+--- narrow export was therefore worth less than the full one it was recommended
+--- over, so there is now only the full one.
+function addon.HarvestExportText()
     local h = Store()
     local quests = h.quests
-    if missingOnly then
-        quests = {}
-        for questID in pairs(h.missingIDs) do
-            if h.quests[questID] then quests[questID] = h.quests[questID] end
-        end
-    end
 
     local data = {
         locale = GetLocale(),
@@ -433,11 +438,9 @@ function addon.HarvestExportText(missingOnly)
         addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata
                         and C_AddOns.GetAddOnMetadata(addonName, "Version")) or "unknown",
         quests = quests,
+        gossip = h.gossip,
+        itemText = h.itemText,
     }
-    if not missingOnly then
-        data.gossip = h.gossip
-        data.itemText = h.itemText
-    end
     for key, value in pairs(PlayerMetadata()) do
         data[key] = value
     end
@@ -450,10 +453,8 @@ function addon.HarvestExportText(missingOnly)
     -- there in the payload.
     local count = 0
     for _ in pairs(quests) do count = count + 1 end
-    if not missingOnly then
-        for _ in pairs(h.gossip) do count = count + 1 end
-        for _ in pairs(h.itemText) do count = count + 1 end
-    end
+    for _ in pairs(h.gossip) do count = count + 1 end
+    for _ in pairs(h.itemText) do count = count + 1 end
     return "QuestReaderAddonExport = {\n" .. Serialize(data, "  ") .. "}", count
 end
 
@@ -515,7 +516,7 @@ local function RepairSpeakerData(h)
     end
 
     if dropped > 0 or ids > 0 or names > 0 then
-        print("SpeakStone Narration: repaired captured data after a speaker-ID bug -- dropped "
+        print("SpeakStone: repaired captured data after a speaker-ID bug -- dropped "
             .. dropped .. " gossip capture(s), cleared " .. ids
             .. " wrong NPC ID(s) and " .. names
             .. " passage(s) attributed to your own character. All quest text was kept."
@@ -560,6 +561,6 @@ function addon.HarvestMigrate()
     end
 
     if moved > 0 then
-        DebugPrint("SpeakStone Narration: imported " .. moved .. " previously captured quest(s).")
+        DebugPrint("SpeakStone: imported " .. moved .. " previously captured quest(s).")
     end
 end

@@ -1,7 +1,7 @@
 ## Interface: 110207, 120000, 120001, 120100
 ## X-Interface: 110207, 120000, 120001, 120100
-## Title: SpeakStone Narration
-## Notes: Plays AI-generated voiceovers for quests, books, and gossip.
+## Title: SpeakStone
+## Notes: Plays AI-generated voiceovers for quests, books, and gossip, in each NPC's own voice.
 ## Author: clhammer weirdautomation@gmail.com, Paratus
 ## Version: 1.3
 ## SavedVariables: QuestReaderAddonDB

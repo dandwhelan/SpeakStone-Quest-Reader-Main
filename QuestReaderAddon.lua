@@ -61,7 +61,12 @@ local defaultSettings = {
     showMinimapButton = true,
     autoPlayEnabled = true,
     autoPlayInQuestMap = false,
-    muteGossip = true,
+    -- Off: Blizzard's own voice acting plays, and narration waits its turn
+    -- (see autoPlayDelay). The game's voiced dialogue is the thing the player
+    -- came for where it exists; SpeakStone fills the silence where it does
+    -- not. Turning this on silences the game's Dialog channel instead and
+    -- narrates immediately.
+    muteGossip = false,
     stopDialogueOnClose = true,
     showDebugMessages = false,
     -- Capture quest/gossip/book text as it is encountered, so gaps in the
@@ -70,6 +75,14 @@ local defaultSettings = {
     -- nothing to run, and the player's own character name is scrubbed before
     -- anything is stored. Switched off in the settings panel.
     harvestEnabled = true,
+    -- Shown at the bottom of the quest window / quest log. Some players use a
+    -- replacement quest UI and never want ours drawn over it.
+    showQuestButton = true,
+    -- Seconds to hold narration back so Blizzard's own voice line can finish
+    -- first. Was hardcoded to 2; a slider is better because the right value
+    -- depends on how fast the player clicks through dialogue. Only applies
+    -- while those lines are audible -- see muteGossip.
+    autoPlayDelay = 2,
 }
 
 local function DebugPrint(...)
@@ -119,15 +132,15 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
             if SlashCmdList["QUESTREADERHARVEST"] then
                 SlashCmdList["QUESTREADERHARVEST"]("export")
             else
-                addon.ShowHarvestExport(false)
+                addon.ShowHarvestExport()
             end
         elseif button == "MiddleButton" then
             QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
-            print("SpeakStone Narration Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
+            print("SpeakStone Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
         end
     end,
     OnTooltipShow = function(tooltip)
-        tooltip:AddLine("SpeakStone Narration")
+        tooltip:AddLine("SpeakStone")
         tooltip:AddLine("|cffffffffLeft-Click:|r Open Settings", 1, 1, 1)
         tooltip:AddLine("|cffffffffMiddle-Click:|r Toggle Debug Messages (" .. ((QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages) and "|cff00ff00On|r" or "|cffff0000Off|r") .. ")", 1, 1, 1)
         tooltip:AddLine("|cff00ff00Right-Click:|r Export Captured Text", 0.2, 1, 0.2)
@@ -135,6 +148,11 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
 })
 
 local function UpdateMinimapButtonVisibility()
+    -- LibDBIcon reads its own hide flag out of this table on register and on
+    -- profile refresh. Setting only showMinimapButton left the two disagreeing,
+    -- so the button came back on the next login after being hidden.
+    QuestReaderAddonDB.minimapButton = QuestReaderAddonDB.minimapButton or {}
+    QuestReaderAddonDB.minimapButton.hide = not QuestReaderAddonDB.showMinimapButton
     if QuestReaderAddonDB.showMinimapButton then
         icon:Show("QuestReaderAddon")
         C_Timer.After(0.1, function()
@@ -198,6 +216,17 @@ end)
 local questButtonFrame = CreateFrame("Frame")
 questButtonFrame:RegisterEvent("ADDON_LOADED")
 
+-- Kept so the settings toggle can show and hide them after creation.
+addon.questButtons = {}
+
+local function UpdateQuestButtonVisibility()
+    local show = QuestReaderAddonDB.showQuestButton
+    for _, button in ipairs(addon.questButtons) do
+        if show then button:Show() else button:Hide() end
+    end
+end
+addon.UpdateQuestButtonVisibility = UpdateQuestButtonVisibility
+
 local function InitializeQuestFrameButtons()
     -- Create the button for the QuestFrame
     local questFrameButton = CreateFrame("Button", "QuestReaderButtonFrame", QuestFrame, "UIPanelButtonTemplate")
@@ -208,6 +237,7 @@ local function InitializeQuestFrameButtons()
     questFrameButton:SetScript("OnClick", function()
         PlayQuestAudio(nil, true)
     end)
+    table.insert(addon.questButtons, questFrameButton)
 
     -- Create the button for the Quest Log (QuestMapFrame)
     if QuestMapFrame and QuestMapFrame.DetailsFrame then
@@ -220,7 +250,10 @@ local function InitializeQuestFrameButtons()
         questLogButton:SetScript("OnClick", function()
             PlayQuestAudio("description", true)
         end)
+        table.insert(addon.questButtons, questLogButton)
     end
+
+    UpdateQuestButtonVisibility()
 end
 
 questButtonFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
@@ -231,11 +264,11 @@ questButtonFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
 end)
 
 -- Slash command to toggle minimap button
-SLASH_QRTOGGLE1 = '/qrtoggle'
+SLASH_QRTOGGLE1, SLASH_QRTOGGLE2 = '/qrtoggle', '/sstoggle'
 SlashCmdList["QRTOGGLE"] = function()
     QuestReaderAddonDB.showMinimapButton = not QuestReaderAddonDB.showMinimapButton
     UpdateMinimapButtonVisibility()
-    print("Minimap button visibility: " .. tostring(QuestReaderAddonDB.showMinimapButton))
+    print("SpeakStone minimap button: " .. (QuestReaderAddonDB.showMinimapButton and "|cff00ff00shown|r" or "|cffff0000hidden|r"))
 end
 
 -- Function to automatically play quest audio
@@ -269,6 +302,38 @@ end
 addon.activeSound = nil
 -- Quest audio the player has encountered that no installed pack provides.
 addon.reportedMissing = {}
+-- The passage type of the last quest panel seen. Declared here, empty, so the
+-- "Read Quest" button has something valid to fall back on before any quest
+-- panel has been shown. It used to be assigned from an out-of-scope variable
+-- at the bottom of the file, which made it nil and turned a click with no
+-- panel open into a "concatenate a nil value" error.
+lastTextType = ""
+
+-- How much audio is actually installed, and where it came from. The settings
+-- panel shows this: "no audio for this quest" and "no packs installed at all"
+-- look identical from the player's side otherwise.
+function addon.GetInstalledAudioSummary()
+    local packs, clips = {}, 0
+    local quests = {}
+    for packName, soundLengths in pairs(addon.soundSources or {}) do
+        if type(soundLengths) == "table" then
+            local packClips = 0
+            for soundFile in pairs(soundLengths) do
+                packClips = packClips + 1
+                local questID = soundFile:match("^(%d+)_")
+                if questID then quests[questID] = true end
+            end
+            if packClips > 0 then
+                table.insert(packs, { name = packName, clips = packClips })
+                clips = clips + packClips
+            end
+        end
+    end
+    table.sort(packs, function(a, b) return a.name < b.name end)
+    local questCount = 0
+    for _ in pairs(quests) do questCount = questCount + 1 end
+    return packs, clips, questCount
+end
 
 -- Function to detect available sound packs
 function DetectSoundPacks()
@@ -298,7 +363,7 @@ end
 -- function ShowNoSoundPacksDialog()
 --     -- Define the static popup dialog
 --     StaticPopupDialogs["NO_SOUND_PACKS"] = {
---         text = "You're using Quest Reader Addon but you've not installed any Quest Reader sound packs.",
+--         text = "You're using SpeakStone but you've not installed any SpeakStone voice packs.",
 --         button1 = "OK",
 --         timeout = 0,  -- No timeout
 --         whileDead = true,  -- Allow showing while dead
@@ -416,12 +481,15 @@ function PlayQuestAudio(textType, skipDelay)
         -- Gossip has its own playback path, PlayGossipAudio: it has no
         -- questID to key on, so it cannot share this function's lookup.
         else
-            if (lastTextType == "") then
+            textType = lastTextType
+            if not textType or textType == "" then
                 return
-            else
-                textType = lastTextType
             end
         end
+    end
+
+    if not textType or textType == "" then
+        return
     end
 
     -- Debug: Ensure questID and textType are valid
@@ -457,7 +525,7 @@ function PlayQuestAudio(textType, skipDelay)
             -- autoplay does not repeat the same line on every quest interaction.
             if not addon.reportedMissing[baseName] then
                 addon.reportedMissing[baseName] = true
-                DebugPrint("SpeakStone Narration: no audio for quest " .. questID .. " (" .. textType .. ")")
+                DebugPrint("SpeakStone: no audio for quest " .. questID .. " (" .. textType .. ")")
             end
             -- Capture the text itself, not just the fact that it is missing,
             -- so it is ready to submit whether or not this player ever runs
@@ -476,7 +544,8 @@ function PlayQuestAudio(textType, skipDelay)
         
         -- Delay shortly to account for greeting audio when using autoplay
         if QuestReaderAddonDB.autoPlayEnabled and not skipDelay and not QuestReaderAddonDB.muteGossip then
-            addon.activeSound.nextSoundTimer = C_Timer.After(2, function()
+            local delay = tonumber(QuestReaderAddonDB.autoPlayDelay) or 2
+            addon.activeSound.nextSoundTimer = C_Timer.After(delay, function()
                 DoPlaySound()
             end)
         else
@@ -550,7 +619,7 @@ function PlayGossipAudio()
         -- per NPC interaction.
         if not addon.reportedMissing[baseName] then
             addon.reportedMissing[baseName] = true
-            DebugPrint("SpeakStone Narration: no gossip audio for NPC " .. npcID)
+            DebugPrint("SpeakStone: no gossip audio for NPC " .. npcID)
         end
         addon.activeSound = nil
         return
@@ -625,7 +694,7 @@ local function PlayItemAudioDirect(itemLink, page)
         local reportKey = baseNames[1]
         if not addon.reportedMissing[reportKey] then
             addon.reportedMissing[reportKey] = true
-            DebugPrint("SpeakStone Narration: no audio for " .. displayName .. " (page " .. page .. ")")
+            DebugPrint("SpeakStone: no audio for " .. displayName .. " (page " .. page .. ")")
         end
         addon.activeSound = nil
         return
@@ -637,7 +706,7 @@ local function PlayItemAudioDirect(itemLink, page)
         soundFile = soundFile,
         soundPath = soundPath,
     }
-    DebugPrint("SpeakStone Narration: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
+    DebugPrint("SpeakStone: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
     DoPlaySound()
 end
 
@@ -723,7 +792,7 @@ local function OnPlayerLogout()
 end
 
 -- Keybindings
-BINDING_HEADER_QUESTREADERADDON = "SpeakStone Narration"
+BINDING_HEADER_QUESTREADERADDON = "SpeakStone"
 BINDING_NAME_PLAYACTIVEQUEST = "Play active quest voiceover"
 
 -- Event Handling for Quest Dialog Events
@@ -798,7 +867,6 @@ questEventFrame:SetScript("OnEvent", function(self, event, ...)
     lastTextType = textType
 end)
 
-lastTextType = textType
 local logoutFrame = CreateFrame("Frame")
 logoutFrame:RegisterEvent("PLAYER_LOGOUT")
 logoutFrame:SetScript("OnEvent", OnPlayerLogout)
@@ -813,7 +881,7 @@ SlashCmdList["QUESTREADERAUTO"] = function(msg)
     else
         QuestReaderAddonDB.autoPlayEnabled = not QuestReaderAddonDB.autoPlayEnabled
     end
-    print("SpeakStone Narration Auto-Play: " .. (QuestReaderAddonDB.autoPlayEnabled and "Enabled" or "Disabled"))
+    print("SpeakStone Auto-Play: " .. (QuestReaderAddonDB.autoPlayEnabled and "Enabled" or "Disabled"))
 end
 
 -- Slash command to toggle debug messages
@@ -826,7 +894,7 @@ SlashCmdList["QUESTREADERDEBUG"] = function(msg)
     else
         QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
     end
-    print("SpeakStone Narration Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
+    print("SpeakStone Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
 end
 
 -- Frame for copy-pasting missing quests
@@ -839,10 +907,15 @@ missingCopyFrame:RegisterForDrag("LeftButton")
 missingCopyFrame:SetScript("OnDragStart", missingCopyFrame.StartMoving)
 missingCopyFrame:SetScript("OnDragStop", missingCopyFrame.StopMovingOrSizing)
 missingCopyFrame:SetFrameStrata("DIALOG")
+missingCopyFrame:SetClampedToScreen(true)
 missingCopyFrame:Hide()
+-- Escape closes it like every other addon window. Previously only the edit box
+-- handled Escape, so clicking anywhere else in the frame first left the player
+-- with no way out but the X.
+tinsert(UISpecialFrames, "QuestReaderMissingCopyFrame")
 
 -- Set frame title
-missingCopyFrame.TitleText:SetText("Missing Quest Audio -- Export to Submit")
+missingCopyFrame.TitleText:SetText("Captured Text -- Export to Submit")
 
 -- ScrollFrame for the EditBox
 local scrollFrame = CreateFrame("ScrollFrame", nil, missingCopyFrame, "UIPanelScrollFrameTemplate")
@@ -853,10 +926,33 @@ scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27
 local editBox = CreateFrame("EditBox", nil, scrollFrame)
 editBox:SetSize(scrollFrame:GetSize())
 editBox:SetMultiLine(true)
-editBox:SetAutoFocus(true)
+-- Focus is not taken: the frame opens with everything already selected, and
+-- grabbing focus meant a stray keypress replaced the export the player was
+-- about to copy.
+editBox:SetAutoFocus(false)
 editBox:SetFontObject("ChatFontNormal")
 editBox:SetScript("OnEscapePressed", function(self) missingCopyFrame:Hide() end)
 scrollFrame:SetScrollChild(editBox)
+
+-- One-click re-select, for when the highlight has been lost to a click in the
+-- box. Ctrl+A still works; this is just discoverable.
+local selectAllButton = CreateFrame("Button", nil, missingCopyFrame, "UIPanelButtonTemplate")
+selectAllButton:SetSize(110, 22)
+selectAllButton:SetPoint("BOTTOMLEFT", missingCopyFrame, "BOTTOMLEFT", 12, 8)
+selectAllButton:SetText("Select All")
+selectAllButton:SetScript("OnClick", function()
+    editBox:SetFocus()
+    editBox:HighlightText()
+end)
+
+local copyHintText = missingCopyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
+copyHintText:SetPoint("RIGHT", missingCopyFrame, "RIGHT", -12, 0)
+copyHintText:SetJustifyH("LEFT")
+copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+
+-- The scroll area has to end above the button row, or the two overlap.
+scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27, 34)
 
 -- Slash command to export the text captured for quests the installed sound
 -- packs have no audio for, ready to paste into the website's submit form --
@@ -864,22 +960,20 @@ scrollFrame:SetScrollChild(editBox)
 -- Shared window for both export commands. addon.ShowHarvestExport is what
 -- the launcher's right-click and the settings panel call, so all three routes
 -- put up the same frame rather than each building their own.
-function addon.ShowHarvestExport(missingOnly)
+function addon.ShowHarvestExport()
     if not addon.HarvestExportText then
-        print("SpeakStone Narration: capture module not loaded.")
+        print("SpeakStone: capture module not loaded.")
         return
     end
-    local text, count = addon.HarvestExportText(missingOnly)
+    local text, count = addon.HarvestExportText()
     if count == 0 then
-        if missingOnly then
-            print("SpeakStone Narration: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
-        elseif not (addon.HarvestEnabled and addon.HarvestEnabled()) then
+        if not (addon.HarvestEnabled and addon.HarvestEnabled()) then
             -- Only say this when it is actually true. Blaming the setting
             -- while capture was running sent people to toggle a switch that
             -- was already on.
-            print("SpeakStone Narration: text capture is switched off -- turn it back on in settings, or with '/ssharvest on'.")
+            print("SpeakStone: text capture is switched off -- turn it back on in settings, or with '/ssharvest on'.")
         else
-            print("SpeakStone Narration: nothing captured yet. Talk to an NPC or pick up a quest and it records automatically.")
+            print("SpeakStone: nothing captured yet. Talk to an NPC or pick up a quest and it records automatically.")
         end
         return
     end
@@ -888,13 +982,15 @@ function addon.ShowHarvestExport(missingOnly)
     missingCopyFrame:Show()
     missingCopyFrame:Raise()
     editBox:HighlightText()
-    print("SpeakStone Narration: " .. count .. " quest(s) ready. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
 end
 
--- Only the quests that had no audio installed.
+-- There is one export now, and this is an alias for it. The command used to
+-- produce a quests-only subset; keeping the name working matters more than
+-- retiring it, since it is the one printed in the README and in chat.
 SLASH_QUESTREADERMISSING1, SLASH_QUESTREADERMISSING2, SLASH_QUESTREADERMISSING3 = '/qrmissing', '/ssmissing', '/speakstonemissing'
 SlashCmdList["QUESTREADERMISSING"] = function()
-    addon.ShowHarvestExport(true)
+    addon.ShowHarvestExport()
 end
 
 -- Everything captured: quests, gossip and book text, voiced or not. Not
@@ -904,29 +1000,31 @@ if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestRea
     SLASH_QUESTREADERHARVEST1, SLASH_QUESTREADERHARVEST2, SLASH_QUESTREADERHARVEST3 = '/qrharvest', '/ssharvest', '/speakstoneharvest'
     SlashCmdList["QUESTREADERHARVEST"] = function(msg)
         if msg == "export" or msg == "copy" then
-            addon.ShowHarvestExport(false)
+            addon.ShowHarvestExport()
             return
         elseif msg == "wipe" or msg == "clear" then
             addon.HarvestWipe()
-            print("SpeakStone Narration: captured text cleared.")
+            print("SpeakStone: captured text cleared.")
             return
         elseif msg == "on" or msg == "off" then
             QuestReaderAddonDB.harvestEnabled = (msg == "on")
-            print("SpeakStone Narration: text capture " .. (msg == "on" and "enabled" or "disabled") .. ".")
+            print("SpeakStone: text capture " .. (msg == "on" and "enabled" or "disabled") .. ".")
             return
         end
 
-        local quests, passages, unvoiced, npcs, lines, items, pages, missing = addon.HarvestCounts()
-        print("SpeakStone Narration capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
-        print("  " .. quests .. " quest(s), " .. passages .. " passage(s); " .. missing .. " with no audio installed.")
+        local quests, passages, unvoiced, npcs, lines, items, pages = addon.HarvestCounts()
+        print("SpeakStone capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
+        -- Greetings and book text first: neither exists in the client's own
+        -- files nor anywhere scrapeable, so capture is the only way they can
+        -- ever be obtained. Quest text can at least be sourced elsewhere.
+        print("  " .. npcs .. " NPC(s), " .. lines .. " greeting line(s).")
+        print("  " .. items .. " book(s)/plaque(s), " .. pages .. " page(s).")
+        print("  " .. quests .. " quest(s), " .. passages .. " passage(s).")
         if unvoiced > 0 then
             -- A passage with no creature ID cannot be matched to a voice later.
             print("  " .. unvoiced .. " passage(s) have no NPC recorded (offered by an object or auto-accepted).")
         end
-        print("  " .. npcs .. " NPC(s), " .. lines .. " gossip line(s).")
-        print("  " .. items .. " item(s)/plaque(s), " .. pages .. " page(s).")
-        print("  '/ssharvest export' to copy it out, '/ssmissing' for unvoiced quests only.")
-        print("  Paste at speakstone.beanw.co.uk to have it voiced.")
+        print("  '/ssharvest export' to copy it all out, then paste at speakstone.beanw.co.uk.")
     end
 end
 
