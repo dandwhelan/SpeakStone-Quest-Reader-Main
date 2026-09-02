@@ -127,7 +127,7 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
             if SlashCmdList["QUESTREADERHARVEST"] then
                 SlashCmdList["QUESTREADERHARVEST"]("export")
             else
-                addon.ShowHarvestExport(false)
+                addon.ShowHarvestExport()
             end
         elseif button == "MiddleButton" then
             QuestReaderAddonDB.showDebugMessages = not QuestReaderAddonDB.showDebugMessages
@@ -910,7 +910,7 @@ missingCopyFrame:Hide()
 tinsert(UISpecialFrames, "QuestReaderMissingCopyFrame")
 
 -- Set frame title
-missingCopyFrame.TitleText:SetText("Missing Quest Audio -- Export to Submit")
+missingCopyFrame.TitleText:SetText("Captured Text -- Export to Submit")
 
 -- ScrollFrame for the EditBox
 local scrollFrame = CreateFrame("ScrollFrame", nil, missingCopyFrame, "UIPanelScrollFrameTemplate")
@@ -955,16 +955,14 @@ scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27
 -- Shared window for both export commands. addon.ShowHarvestExport is what
 -- the launcher's right-click and the settings panel call, so all three routes
 -- put up the same frame rather than each building their own.
-function addon.ShowHarvestExport(missingOnly)
+function addon.ShowHarvestExport()
     if not addon.HarvestExportText then
         print("SpeakStone Narration: capture module not loaded.")
         return
     end
-    local text, count = addon.HarvestExportText(missingOnly)
+    local text, count = addon.HarvestExportText()
     if count == 0 then
-        if missingOnly then
-            print("SpeakStone Narration: no unvoiced quests captured yet -- they get recorded automatically as you hit them.")
-        elseif not (addon.HarvestEnabled and addon.HarvestEnabled()) then
+        if not (addon.HarvestEnabled and addon.HarvestEnabled()) then
             -- Only say this when it is actually true. Blaming the setting
             -- while capture was running sent people to toggle a switch that
             -- was already on.
@@ -975,23 +973,19 @@ function addon.ShowHarvestExport(missingOnly)
         return
     end
 
-    -- The window serves both exports; saying "Missing Quest Audio" over a full
-    -- export of everything captured was simply wrong.
-    missingCopyFrame.TitleText:SetText(missingOnly
-        and "Unvoiced Quests -- Export to Submit"
-        or "Captured Text -- Export to Submit")
-
     editBox:SetText(text)
     missingCopyFrame:Show()
     missingCopyFrame:Raise()
     editBox:HighlightText()
-    print("SpeakStone Narration: " .. count .. " quest(s) ready. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    print("SpeakStone Narration: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
 end
 
--- Only the quests that had no audio installed.
+-- There is one export now, and this is an alias for it. The command used to
+-- produce a quests-only subset; keeping the name working matters more than
+-- retiring it, since it is the one printed in the README and in chat.
 SLASH_QUESTREADERMISSING1, SLASH_QUESTREADERMISSING2, SLASH_QUESTREADERMISSING3 = '/qrmissing', '/ssmissing', '/speakstonemissing'
 SlashCmdList["QUESTREADERMISSING"] = function()
-    addon.ShowHarvestExport(true)
+    addon.ShowHarvestExport()
 end
 
 -- Everything captured: quests, gossip and book text, voiced or not. Not
@@ -1001,7 +995,7 @@ if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestRea
     SLASH_QUESTREADERHARVEST1, SLASH_QUESTREADERHARVEST2, SLASH_QUESTREADERHARVEST3 = '/qrharvest', '/ssharvest', '/speakstoneharvest'
     SlashCmdList["QUESTREADERHARVEST"] = function(msg)
         if msg == "export" or msg == "copy" then
-            addon.ShowHarvestExport(false)
+            addon.ShowHarvestExport()
             return
         elseif msg == "wipe" or msg == "clear" then
             addon.HarvestWipe()
@@ -1013,17 +1007,19 @@ if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestRea
             return
         end
 
-        local quests, passages, unvoiced, npcs, lines, items, pages, missing = addon.HarvestCounts()
+        local quests, passages, unvoiced, npcs, lines, items, pages = addon.HarvestCounts()
         print("SpeakStone Narration capture: " .. (QuestReaderAddonDB.harvestEnabled and "|cff00ff00on|r" or "|cffff0000off|r"))
-        print("  " .. quests .. " quest(s), " .. passages .. " passage(s); " .. missing .. " with no audio installed.")
+        -- Greetings and book text first: neither exists in the client's own
+        -- files nor anywhere scrapeable, so capture is the only way they can
+        -- ever be obtained. Quest text can at least be sourced elsewhere.
+        print("  " .. npcs .. " NPC(s), " .. lines .. " greeting line(s).")
+        print("  " .. items .. " book(s)/plaque(s), " .. pages .. " page(s).")
+        print("  " .. quests .. " quest(s), " .. passages .. " passage(s).")
         if unvoiced > 0 then
             -- A passage with no creature ID cannot be matched to a voice later.
             print("  " .. unvoiced .. " passage(s) have no NPC recorded (offered by an object or auto-accepted).")
         end
-        print("  " .. npcs .. " NPC(s), " .. lines .. " gossip line(s).")
-        print("  " .. items .. " item(s)/plaque(s), " .. pages .. " page(s).")
-        print("  '/ssharvest export' to copy it out, '/ssmissing' for unvoiced quests only.")
-        print("  Paste at speakstone.beanw.co.uk to have it voiced.")
+        print("  '/ssharvest export' to copy it all out, then paste at speakstone.beanw.co.uk.")
     end
 end
 

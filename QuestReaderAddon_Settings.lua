@@ -24,11 +24,11 @@ local function StandaloneHarvesterActive()
         and C_AddOns.IsAddOnLoaded("QuestReaderHarvester")
 end
 
-local function ExportHarvest(missingOnly)
-    if not missingOnly and StandaloneHarvesterActive() and SlashCmdList["QUESTREADERHARVEST"] then
+local function ExportHarvest()
+    if StandaloneHarvesterActive() and SlashCmdList["QUESTREADERHARVEST"] then
         SlashCmdList["QUESTREADERHARVEST"]("export")
     else
-        addon.ShowHarvestExport(missingOnly)
+        addon.ShowHarvestExport()
     end
 end
 
@@ -276,17 +276,20 @@ function QuestReader:CreateSettings()
         end
 
         if addon.HarvestCounts then
-            local capturedQuests, passages, _, npcs, glines, items, pages, missing = addon.HarvestCounts()
+            local capturedQuests, passages, _, npcs, glines, items, pages = addon.HarvestCounts()
             if StandaloneHarvesterActive() then
                 table.insert(lines, "The standalone Harvester addon is installed and is doing the capturing; SpeakStone's own capture is standing down.")
             elseif not QuestReaderAddonDB.harvestEnabled then
                 table.insert(lines, "|cffff6060Capture is off.|r Nothing new is being recorded.")
             end
-            table.insert(lines, string.format("Captured: %d quest(s) / %d passage(s), %d NPC greeting(s) over %d line(s), %d book(s) over %d page(s).",
-                capturedQuests, passages, npcs, glines, items, pages))
-            if missing > 0 then
-                table.insert(lines, string.format("|cffffd100%d quest(s) had no audio installed|r -- exporting those is the most useful thing you can send.", missing))
-            end
+            -- Greetings and books lead. Neither has a table in the client or a
+            -- scrapeable equivalent, so capture is the only way they can ever
+            -- be obtained; quest text can be sourced other ways, and a quest
+            -- with no audio is as often one removed from the game as one
+            -- waiting for a voice.
+            table.insert(lines, string.format("Captured |cffffd100%d greeting(s)|r from %d NPC(s) and |cffffd100%d page(s)|r across %d book(s) -- neither exists anywhere but a live client, so this is the part worth sending.",
+                glines, npcs, pages, items))
+            table.insert(lines, string.format("Also %d quest(s) over %d passage(s).", capturedQuests, passages))
         end
 
         statusText:SetText(table.concat(lines, "\n"))
@@ -337,20 +340,13 @@ function QuestReader:CreateSettings()
             tooltip = "Browse and replay every voiced quest your installed packs provide. Also /qrlibrary.",
         },
         {
-            text = "Export Unvoiced Quests",
-            onClick = function() ExportHarvest(true) end,
-            tooltip = "Just the quests that had no audio when you hit them -- the shortest, most useful thing to submit. Also /qrmissing.",
-        },
-    })
-
-    makeButtonRow({
-        {
-            text = "Export Everything Captured",
-            onClick = function() ExportHarvest(false) end,
-            tooltip = "Quests, greetings and book text, voiced or not. Also /ssharvest export.",
+            text = "Export Captured Text",
+            onClick = ExportHarvest,
+            tooltip = "Everything recorded: NPC greetings, books and quest text, in one payload to paste at the site. Also /ssharvest export.",
         },
         {
             text = "Clear Captured Data",
+            width = 150,
             onClick = function() StaticPopup_Show("QUESTREADER_CONFIRM_CLEAR_HARVEST") end,
             tooltip = "Throw away everything captured so far. Submit it first if you have not.",
         },

@@ -42,8 +42,8 @@ appears at the bottom of the quest window if you'd rather trigger it yourself.
 | `/qrauto` | Turn auto-read on or off |
 | `/qrtoggle` | Show or hide the minimap button |
 | `/qrlibrary` | Browse and replay any voiced quest |
-| `/qrmissing` | Export quests that had no audio, so they can be voiced |
 | `/ssharvest` | Show and export everything the addon has captured |
+| `/qrmissing` | The same export, under its older name |
 
 Short forms work too: `/ss`, `/ssauto`, `/ssmissing`.
 
@@ -51,11 +51,17 @@ Short forms work too: `/ss`, `/ssauto`, `/ssmissing`.
 
 That quest hasn't been voiced yet — nothing is broken.
 
-The addon quietly saves that quest's text when it happens. Type `/qrmissing`,
-copy what appears, and paste it at
-**[speakstone.beanw.co.uk](https://speakstone.beanw.co.uk)** to put it in the
-queue to be voiced. That's the single most useful thing you can do to help,
-and it takes about ten seconds.
+The addon quietly saves that quest's text when it happens. Type `/ssharvest
+export`, copy what appears, and paste it at
+**[speakstone.beanw.co.uk](https://speakstone.beanw.co.uk)**. It takes about
+ten seconds.
+
+Worth knowing what's in that export, because it isn't only quests. A fair
+share of quests with no audio turn out to have been removed from the game and
+can never be voiced. The **NPC greetings and book pages** in the same export
+are the valuable part: neither exists in the files Blizzard ships, and neither
+can be scraped from anywhere, so a live client reading them is the only way
+they will ever be obtained.
 
 This capture is **on by default** and also picks up NPC greetings and book
 text as you go — that content can't be gathered any other way, so playing
@@ -94,8 +100,8 @@ text costs money to keep running. If you'd like to chip in:
 
 **[buymeacoffee.com/dandwhelane](https://buymeacoffee.com/dandwhelane)**
 
-Never required, always appreciated. Submitting missing quests with
-`/qrmissing` helps just as much.
+Never required, always appreciated. Sending in what you've captured with
+`/ssharvest export` helps just as much.
 
 ## Links
 
@@ -126,15 +132,19 @@ players. Both are used here — a companion in-game addon
 (`QuestReaderHarvester`) for authoritative live capture, and a Wowhead
 scraper for bulk coverage of content Wowhead has already indexed.
 
-The base narration addon (`QuestReaderAddon`, this repo's root) also captures
-quest text on its own, scoped to exactly the passages it finds no audio for
-as you quest normally -- `/qrmissing` exports what it has caught, in the same
-shape `QuestReaderHarvester`'s export uses, ready to paste at
-speakstone.beanw.co.uk. It is a narrower net than the Harvester (quests only,
-not gossip or item text, and only what has no audio yet rather than
-everything), but it means a gap gets reported by every player who hits it in
-normal play, not only players who separately install and enable the
-Harvester.
+The base narration addon (`QuestReaderAddon`, this repo's root) captures the
+same three kinds on its own -- quest passages, gossip and item text -- as you
+play normally. `/ssharvest export` copies all of it out in the same shape
+`QuestReaderHarvester`'s export uses, ready to paste at
+speakstone.beanw.co.uk. The point of it living in the base addon is reach: a
+line gets captured by every player who encounters it in normal play, not only
+by players who separately install and enable the Harvester.
+
+There was briefly a second, narrower export of "quests with no audio" only.
+It has been removed. Most quests with no audio are quests removed from the
+game, so resubmitting them achieves nothing, and the narrow payload left out
+gossip and item text -- the two kinds that can *only* come from capture. One
+export, everything in it.
 
 Gossip text — the greeting an NPC gives when clicked, whether or not they
 offer a quest — has the exact same problem, confirmed directly against the
