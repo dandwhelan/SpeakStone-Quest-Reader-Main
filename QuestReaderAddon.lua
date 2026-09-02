@@ -70,6 +70,14 @@ local defaultSettings = {
     -- nothing to run, and the player's own character name is scrubbed before
     -- anything is stored. Switched off in the settings panel.
     harvestEnabled = true,
+    -- Shown at the bottom of the quest window / quest log. Some players use a
+    -- replacement quest UI and never want ours drawn over it.
+    showQuestButton = true,
+    -- Seconds to wait before quest audio starts when autoplay follows a
+    -- greeting line, so the two do not talk over each other. Was hardcoded to
+    -- 2; a slider is better because the right value depends on how fast the
+    -- player clicks through gossip.
+    autoPlayDelay = 2,
 }
 
 local function DebugPrint(...)
@@ -135,6 +143,11 @@ local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
 })
 
 local function UpdateMinimapButtonVisibility()
+    -- LibDBIcon reads its own hide flag out of this table on register and on
+    -- profile refresh. Setting only showMinimapButton left the two disagreeing,
+    -- so the button came back on the next login after being hidden.
+    QuestReaderAddonDB.minimapButton = QuestReaderAddonDB.minimapButton or {}
+    QuestReaderAddonDB.minimapButton.hide = not QuestReaderAddonDB.showMinimapButton
     if QuestReaderAddonDB.showMinimapButton then
         icon:Show("QuestReaderAddon")
         C_Timer.After(0.1, function()
@@ -198,6 +211,17 @@ end)
 local questButtonFrame = CreateFrame("Frame")
 questButtonFrame:RegisterEvent("ADDON_LOADED")
 
+-- Kept so the settings toggle can show and hide them after creation.
+addon.questButtons = {}
+
+local function UpdateQuestButtonVisibility()
+    local show = QuestReaderAddonDB.showQuestButton
+    for _, button in ipairs(addon.questButtons) do
+        if show then button:Show() else button:Hide() end
+    end
+end
+addon.UpdateQuestButtonVisibility = UpdateQuestButtonVisibility
+
 local function InitializeQuestFrameButtons()
     -- Create the button for the QuestFrame
     local questFrameButton = CreateFrame("Button", "QuestReaderButtonFrame", QuestFrame, "UIPanelButtonTemplate")
@@ -208,6 +232,7 @@ local function InitializeQuestFrameButtons()
     questFrameButton:SetScript("OnClick", function()
         PlayQuestAudio(nil, true)
     end)
+    table.insert(addon.questButtons, questFrameButton)
 
     -- Create the button for the Quest Log (QuestMapFrame)
     if QuestMapFrame and QuestMapFrame.DetailsFrame then
@@ -220,7 +245,10 @@ local function InitializeQuestFrameButtons()
         questLogButton:SetScript("OnClick", function()
             PlayQuestAudio("description", true)
         end)
+        table.insert(addon.questButtons, questLogButton)
     end
+
+    UpdateQuestButtonVisibility()
 end
 
 questButtonFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
@@ -231,11 +259,11 @@ questButtonFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
 end)
 
 -- Slash command to toggle minimap button
-SLASH_QRTOGGLE1 = '/qrtoggle'
+SLASH_QRTOGGLE1, SLASH_QRTOGGLE2 = '/qrtoggle', '/sstoggle'
 SlashCmdList["QRTOGGLE"] = function()
     QuestReaderAddonDB.showMinimapButton = not QuestReaderAddonDB.showMinimapButton
     UpdateMinimapButtonVisibility()
-    print("Minimap button visibility: " .. tostring(QuestReaderAddonDB.showMinimapButton))
+    print("SpeakStone Narration minimap button: " .. (QuestReaderAddonDB.showMinimapButton and "|cff00ff00shown|r" or "|cffff0000hidden|r"))
 end
 
 -- Function to automatically play quest audio
@@ -269,6 +297,38 @@ end
 addon.activeSound = nil
 -- Quest audio the player has encountered that no installed pack provides.
 addon.reportedMissing = {}
+-- The passage type of the last quest panel seen. Declared here, empty, so the
+-- "Read Quest" button has something valid to fall back on before any quest
+-- panel has been shown. It used to be assigned from an out-of-scope variable
+-- at the bottom of the file, which made it nil and turned a click with no
+-- panel open into a "concatenate a nil value" error.
+lastTextType = ""
+
+-- How much audio is actually installed, and where it came from. The settings
+-- panel shows this: "no audio for this quest" and "no packs installed at all"
+-- look identical from the player's side otherwise.
+function addon.GetInstalledAudioSummary()
+    local packs, clips = {}, 0
+    local quests = {}
+    for packName, soundLengths in pairs(addon.soundSources or {}) do
+        if type(soundLengths) == "table" then
+            local packClips = 0
+            for soundFile in pairs(soundLengths) do
+                packClips = packClips + 1
+                local questID = soundFile:match("^(%d+)_")
+                if questID then quests[questID] = true end
+            end
+            if packClips > 0 then
+                table.insert(packs, { name = packName, clips = packClips })
+                clips = clips + packClips
+            end
+        end
+    end
+    table.sort(packs, function(a, b) return a.name < b.name end)
+    local questCount = 0
+    for _ in pairs(quests) do questCount = questCount + 1 end
+    return packs, clips, questCount
+end
 
 -- Function to detect available sound packs
 function DetectSoundPacks()
@@ -416,12 +476,15 @@ function PlayQuestAudio(textType, skipDelay)
         -- Gossip has its own playback path, PlayGossipAudio: it has no
         -- questID to key on, so it cannot share this function's lookup.
         else
-            if (lastTextType == "") then
+            textType = lastTextType
+            if not textType or textType == "" then
                 return
-            else
-                textType = lastTextType
             end
         end
+    end
+
+    if not textType or textType == "" then
+        return
     end
 
     -- Debug: Ensure questID and textType are valid
@@ -476,7 +539,8 @@ function PlayQuestAudio(textType, skipDelay)
         
         -- Delay shortly to account for greeting audio when using autoplay
         if QuestReaderAddonDB.autoPlayEnabled and not skipDelay and not QuestReaderAddonDB.muteGossip then
-            addon.activeSound.nextSoundTimer = C_Timer.After(2, function()
+            local delay = tonumber(QuestReaderAddonDB.autoPlayDelay) or 2
+            addon.activeSound.nextSoundTimer = C_Timer.After(delay, function()
                 DoPlaySound()
             end)
         else
@@ -798,7 +862,6 @@ questEventFrame:SetScript("OnEvent", function(self, event, ...)
     lastTextType = textType
 end)
 
-lastTextType = textType
 local logoutFrame = CreateFrame("Frame")
 logoutFrame:RegisterEvent("PLAYER_LOGOUT")
 logoutFrame:SetScript("OnEvent", OnPlayerLogout)
@@ -839,7 +902,12 @@ missingCopyFrame:RegisterForDrag("LeftButton")
 missingCopyFrame:SetScript("OnDragStart", missingCopyFrame.StartMoving)
 missingCopyFrame:SetScript("OnDragStop", missingCopyFrame.StopMovingOrSizing)
 missingCopyFrame:SetFrameStrata("DIALOG")
+missingCopyFrame:SetClampedToScreen(true)
 missingCopyFrame:Hide()
+-- Escape closes it like every other addon window. Previously only the edit box
+-- handled Escape, so clicking anywhere else in the frame first left the player
+-- with no way out but the X.
+tinsert(UISpecialFrames, "QuestReaderMissingCopyFrame")
 
 -- Set frame title
 missingCopyFrame.TitleText:SetText("Missing Quest Audio -- Export to Submit")
@@ -853,10 +921,33 @@ scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27
 local editBox = CreateFrame("EditBox", nil, scrollFrame)
 editBox:SetSize(scrollFrame:GetSize())
 editBox:SetMultiLine(true)
-editBox:SetAutoFocus(true)
+-- Focus is not taken: the frame opens with everything already selected, and
+-- grabbing focus meant a stray keypress replaced the export the player was
+-- about to copy.
+editBox:SetAutoFocus(false)
 editBox:SetFontObject("ChatFontNormal")
 editBox:SetScript("OnEscapePressed", function(self) missingCopyFrame:Hide() end)
 scrollFrame:SetScrollChild(editBox)
+
+-- One-click re-select, for when the highlight has been lost to a click in the
+-- box. Ctrl+A still works; this is just discoverable.
+local selectAllButton = CreateFrame("Button", nil, missingCopyFrame, "UIPanelButtonTemplate")
+selectAllButton:SetSize(110, 22)
+selectAllButton:SetPoint("BOTTOMLEFT", missingCopyFrame, "BOTTOMLEFT", 12, 8)
+selectAllButton:SetText("Select All")
+selectAllButton:SetScript("OnClick", function()
+    editBox:SetFocus()
+    editBox:HighlightText()
+end)
+
+local copyHintText = missingCopyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
+copyHintText:SetPoint("RIGHT", missingCopyFrame, "RIGHT", -12, 0)
+copyHintText:SetJustifyH("LEFT")
+copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+
+-- The scroll area has to end above the button row, or the two overlap.
+scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27, 34)
 
 -- Slash command to export the text captured for quests the installed sound
 -- packs have no audio for, ready to paste into the website's submit form --
@@ -883,6 +974,12 @@ function addon.ShowHarvestExport(missingOnly)
         end
         return
     end
+
+    -- The window serves both exports; saying "Missing Quest Audio" over a full
+    -- export of everything captured was simply wrong.
+    missingCopyFrame.TitleText:SetText(missingOnly
+        and "Unvoiced Quests -- Export to Submit"
+        or "Captured Text -- Export to Submit")
 
     editBox:SetText(text)
     missingCopyFrame:Show()
