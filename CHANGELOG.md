@@ -1,5 +1,47 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **The addon is now called SpeakStone**, not SpeakStone Narration. The folder,
+  saved variables and the function voice packs call to register themselves keep
+  their old names, so existing installs, settings and packs carry over
+  untouched.
+- **Blizzard's own voice lines now take priority.** Where the game has voiced a
+  line, that recording plays and SpeakStone waits its turn; it speaks over the
+  silence where there is none. Previously the game's Dialog channel was muted by
+  default. The old behaviour is still one checkbox away, and the pause before
+  SpeakStone speaks is now a slider rather than a hardcoded two seconds. Only
+  the default changed -- if you have played before, your existing setting is
+  kept as it is.
+- **One export instead of two.** The separate "quests with no audio" export is
+  gone. Most such quests turn out to have been removed from the game, and that
+  payload left out gossip and book text -- the two kinds that exist in no
+  shipped file and on no scrapeable site, so capture is the only way they are
+  ever obtained. `/ssharvest export` now always carries quests, greetings and
+  books together, and `/qrmissing` runs the same thing.
+- **The settings panel is grouped and explained.** Playback, Interface and
+  Contribute, with a tooltip on every option, and a status block showing which
+  voice packs are installed and what capture has collected -- previously there
+  was no way to tell "this quest has no audio" apart from "no voice pack is
+  installed at all".
+
+### Added
+
+- A **Read Quest button** toggle, for players whose quest UI already occupies
+  that spot.
+- `/sstoggle`, matching the `ss` short form every other command already had.
+
+### Fixed
+
+- Clicking **Read Quest** with no quest panel open threw a Lua error instead of
+  doing nothing.
+- Hiding the minimap button did not survive a relog.
+- The export window ignored Escape unless its text box had focus, took keyboard
+  focus when it opened (so a stray keypress could replace the export before it
+  was copied), and described a full export as "Missing Quest Audio".
+
 ## 1.3
 
 First public release.

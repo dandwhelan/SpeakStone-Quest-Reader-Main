@@ -1,9 +1,9 @@
 local addonName, addon = ...
-local QuestReader = {}
+local SpeakStone = {}
 
 EventUtil.ContinueOnAddOnLoaded(addonName, function()
     QuestReaderAddonDB = QuestReaderAddonDB or {}
-    QuestReader:CreateSettings()
+    SpeakStone:CreateSettings()
 end)
 
 local WEBSITE = "speakstone.beanw.co.uk"
@@ -13,7 +13,7 @@ local function OpenAudioLibraryUI()
         QuestReaderAudioLibraryUI:Show()
         QuestReaderAudioLibraryUI:PopulateList()
     else
-        print("SpeakStone Narration: the audio library window is not available.")
+        print("SpeakStone: the audio library window is not available.")
     end
 end
 
@@ -53,7 +53,7 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
         -- looking at data they thought they had just cleared.
         if addon.HarvestWipe then
             addon.HarvestWipe()
-            print("SpeakStone Narration: captured text cleared.")
+            print("SpeakStone: captured text cleared.")
         end
         if addon.RefreshSettingsStatus then addon.RefreshSettingsStatus() end
     end,
@@ -82,8 +82,8 @@ local SETTINGS_SECTIONS = {
             },
             {
                 option = "muteGossip",
-                label = "Mute Blizzard's own voice lines",
-                tooltip = "Silences the game's Dialog channel while SpeakStone speaks, so the two do not overlap. Narration also starts instantly instead of waiting for the greeting to finish.",
+                label = "Silence Blizzard's own voice lines",
+                tooltip = "Off by default: where Blizzard has voiced a line, that recording plays and SpeakStone waits its turn. Turn this on to mute the game's Dialog channel instead, so narration starts immediately and nothing plays over it.",
             },
             {
                 option = "stopDialogueOnClose",
@@ -127,11 +127,11 @@ local SETTINGS_SECTIONS = {
     },
 }
 
-function QuestReader:CreateSettings()
+function SpeakStone:CreateSettings()
     local optionsFrame
     optionsFrame = CreateFrame("Frame", nil, nil, "VerticalLayoutFrame")
     optionsFrame.spacing = 4
-    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone Narration |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
+    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
     addon.settingsCategoryID = category.ID
     Settings.RegisterAddOnCategory(category)
 
@@ -146,7 +146,7 @@ function QuestReader:CreateSettings()
     Header:SetSize(150, 50)
     local headerText = Header:CreateFontString(nil, "ARTWORK", "GameFontHighlightHuge")
     headerText:SetPoint("TOPLEFT", 7, -22)
-    headerText:SetText("SpeakStone Narration")
+    headerText:SetText("SpeakStone")
     local divider = Header:CreateTexture(nil, "ARTWORK")
     divider:SetAtlas("Options_HorizontalDivider", true)
     divider:SetPoint("BOTTOMLEFT", -50)
@@ -237,7 +237,7 @@ function QuestReader:CreateSettings()
             slider:SetScript("OnEnter", function(self)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
                 GameTooltip:AddLine("Wait before speaking", 1, 0.82, 0)
-                GameTooltip:AddLine("How long to hold back so the NPC's own greeting can finish. Ignored when Blizzard's voice lines are muted, because then there is nothing to wait for.", 1, 1, 1, true)
+                GameTooltip:AddLine("How long to hold back so Blizzard's own voice line can finish before SpeakStone speaks. Ignored when those lines are silenced above, because then there is nothing to wait for.", 1, 1, 1, true)
                 GameTooltip:Show()
             end)
             slider:SetScript("OnLeave", function() GameTooltip:Hide() end)

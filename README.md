@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="media/icon.png" alt="SpeakStone Narration" width="160">
+  <img src="media/icon.png" alt="SpeakStone" width="160">
 </p>
 
-<h1 align="center">SpeakStone Narration</h1>
+<h1 align="center">SpeakStone</h1>
 
 **A World of Warcraft addon that reads quest text out loud — in the voice of
 the NPC who's actually speaking.**
@@ -18,8 +18,8 @@ Quest text appears, the right character reads it to you. That's it.
 You need **two** addons: the main one, and a voice pack for the expansion you
 want to hear.
 
-1. Download **SpeakStone Narration** (the main addon) and
-   **SpeakStone Narration - Midnight Voices** (the audio).
+1. Download **SpeakStone** (the main addon) and
+   **SpeakStone - Midnight Voices** (the voice pack).
 2. Unzip both into your AddOns folder, usually:
    `C:\Program Files (x86)\World of Warcraft\_retail_\Interface\AddOns`
 3. Start WoW and make sure both are ticked in the AddOns list.
@@ -29,6 +29,12 @@ are the records. Install as many packs as you like; they stack.
 
 Pick up a quest and it just starts talking. A **Read Quest** button also
 appears at the bottom of the quest window if you'd rather trigger it yourself.
+
+Where Blizzard has voiced a line themselves, that recording plays first and
+SpeakStone waits its turn — the game's own voice acting takes priority, and
+SpeakStone fills the silence where there is none. If you'd rather hear
+SpeakStone straight away, turn on **Silence Blizzard's own voice lines** in
+the settings; the pause before it speaks is adjustable there too.
 
 > Using a quest UI addon like **Immersion** or **DialogueUI**? Turn auto-play
 > on in SpeakStone's own settings — those addons use their own window, which
