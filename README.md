@@ -40,11 +40,20 @@ the settings; the pause before it speaks is adjustable there too.
 > on in SpeakStone's own settings — those addons use their own window, which
 > otherwise bypasses the trigger.
 
+## Settings
+
+`/ss`, the minimap button, or the AddOns list opens SpeakStone's own window.
+Down the left are status cards: how many clips are installed and from which
+packs, how much text capture has collected, and whether capture is running —
+each one clickable through to the audio library or the export. The options sit
+beside them, grouped into Playback, Interface and Contribute, with a tooltip on
+every one. Escape closes the window; drag the title bar to move it.
+
 ## Commands
 
 | Command | What it does |
 | --- | --- |
-| `/speakstone` | Open settings |
+| `/speakstone` | Open the settings window |
 | `/qrauto` | Turn auto-read on or off |
 | `/qrtoggle` | Show or hide the minimap button |
 | `/qrlibrary` | Browse and replay any voiced quest |

@@ -21,6 +21,12 @@
   shipped file and on no scrapeable site, so capture is the only way they are
   ever obtained. `/ssharvest export` now always carries quests, greetings and
   books together, and `/qrmissing` runs the same thing.
+- **Settings now open in their own window.** `/ss`, the minimap button and the
+  AddOns list all lead to a movable panel that closes with Escape, with status
+  cards down the left -- voice packs installed, text captured, whether capture
+  is running -- and the options beside them. The state that matters most, "no
+  voice pack is installed at all", now reads at a glance in red instead of
+  sitting in a paragraph below the options.
 - **The settings panel is grouped and explained.** Playback, Interface and
   Contribute, with a tooltip on every option, and a status block showing which
   voice packs are installed and what capture has collected -- previously there
