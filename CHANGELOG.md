@@ -35,6 +35,11 @@
 
 ### Added
 
+- **A reminder to send in captured text.** Once a few hundred entries have
+  built up, SpeakStone says so at login and the Captured card turns green with
+  a prompt to export -- at most once every three days, and never before there
+  is a real amount waiting. Capture only helps once it reaches the website, and
+  nothing ever said so unprompted.
 - A **Read Quest button** toggle, for players whose quest UI already occupies
   that spot.
 - `/sstoggle`, matching the `ss` short form every other command already had.
@@ -47,7 +52,38 @@
   at every NPC you pass. The master switch still governs all of them, and the
   three are on by default -- existing installs behave exactly as before.
 
+### Performance
+
+- **Login is cheaper.** The settings window and the audio library window are
+  now built the first time you open them, not on every login -- together they
+  were around a hundred frames assembled for windows many players never open.
+  Filling the settings dashboard also meant walking every clip in every
+  installed voice pack, which happened at login whether or not the panel was
+  ever shown; that count is now worked out on demand and cached until a pack
+  registers.
+- **Searching the audio library no longer stutters.** Typing re-filtered the
+  whole library on every keystroke, and filtering by name means resolving a
+  title for every voiced quest -- tens of thousands of them with a full pack
+  set. Titles are now remembered once looked up, and a burst of typing costs
+  one pass instead of one per character.
+- The addon stopped listening for other addons loading once it has nothing
+  left to wait for, rather than waking for every on-demand addon all session.
+
 ### Fixed
+
+- **Blizzard's dialogue could be left silent.** With "silence Blizzard's own
+  voice lines" on and "stop narration when the window closes" off, the Dialog
+  channel was muted when narration started and nothing ever unmuted it: there
+  is no notification when a clip finishes, so the addon believed it was still
+  playing for the rest of the session. Narration now knows how long its own
+  clip runs and releases the channel when it ends. That volume is also saved
+  to disk while muted, so a crash or disconnect mid-line no longer leaves you
+  with silent dialogue and nothing to point at -- it is restored on the next
+  login.
+- Eleven functions and variables the addon kept in the shared global namespace
+  -- among them names as generic as `IsPlaying`, `GetCurrentSound` and
+  `lastTextType` -- are now private to it. Any other addon defining one of
+  those would have silently broken playback, or been broken by it.
 
 - **A stopped clip could still start speaking.** The delay before narration
   used a timer that could not be cancelled, so walking away during the pause

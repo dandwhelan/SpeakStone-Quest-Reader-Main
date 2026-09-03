@@ -354,6 +354,68 @@ frame:SetScript("OnEvent", function(_, event)
 end)
 
 -- --------------------------------------------------------------------------
+-- Submitting
+--
+-- Capture is only worth anything once it reaches the website; until then it
+-- is a table in a saved-variables file doing nobody any good. Nothing in the
+-- addon ever said so unprompted, so a player could collect for months and
+-- never think to send it. This is that prompt.
+--
+-- It is a reminder, not a limit: nothing is dropped, capture keeps running,
+-- and a player who ignores it loses nothing.
+-- --------------------------------------------------------------------------
+
+-- Roughly a long evening's play. Low enough to catch people early, high
+-- enough not to fire at someone who just installed the addon.
+local REMIND_AT = 250
+-- And not again for this long, however much more accumulates. A reminder that
+-- arrives every login is an annoyance, not a prompt.
+local REMIND_INTERVAL = 3 * 24 * 60 * 60
+
+-- Top-level entries only -- quests, NPCs and books -- which is the same thing
+-- the export counts. Deliberately not the full per-passage walk HarvestCounts
+-- does: this runs at login, where the cheap answer is the right one.
+function addon.HarvestEntryCount()
+    local h = Store()
+    local count = 0
+    for _ in pairs(h.quests) do count = count + 1 end
+    for _ in pairs(h.gossip) do count = count + 1 end
+    for _ in pairs(h.itemText) do count = count + 1 end
+    return count
+end
+
+-- Whether the store has grown past the point of being worth sending in. The
+-- settings dashboard asks this to colour its card, so it carries no
+-- side-effects and no time check.
+function addon.HarvestShouldSubmit()
+    return addon.HarvestEntryCount() >= REMIND_AT
+end
+
+-- Called after an export: the player has just been handed the payload, so
+-- the clock starts again whether or not they paste it anywhere.
+function addon.HarvestMarkOffered()
+    Store().lastReminder = time()
+end
+
+function addon.HarvestRemindIfLarge()
+    if not Enabled() then return end
+
+    local count = addon.HarvestEntryCount()
+    if count < REMIND_AT then return end
+
+    local h = Store()
+    local now = time()
+    if h.lastReminder and (now - h.lastReminder) < REMIND_INTERVAL then
+        return
+    end
+    h.lastReminder = now
+
+    print("|cffffd100SpeakStone:|r " .. count .. " captured entries are waiting to be sent in"
+        .. " -- greetings and book text can only come from a live client like yours.")
+    print("  Type |cff00ff00/ssharvest export|r to copy them out, then paste at |cff00ccffspeakstone.beanw.co.uk|r.")
+end
+
+-- --------------------------------------------------------------------------
 -- Counting and export
 -- --------------------------------------------------------------------------
 function addon.HarvestCounts()
@@ -472,6 +534,9 @@ end
 function addon.HarvestWipe()
     local h = Store()
     h.quests, h.gossip, h.itemText, h.missingIDs = {}, {}, {}, {}
+    -- Nothing left to submit, so nothing to be reminded about: an empty store
+    -- should not sit silently through the interval before it can prompt again.
+    h.lastReminder = nil
 end
 
 -- --------------------------------------------------------------------------

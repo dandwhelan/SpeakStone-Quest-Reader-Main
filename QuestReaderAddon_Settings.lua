@@ -15,9 +15,8 @@ end)
 local WEBSITE = "speakstone.beanw.co.uk"
 
 local function OpenAudioLibraryUI()
-    if QuestReaderAudioLibraryUI then
-        QuestReaderAudioLibraryUI:Show()
-        QuestReaderAudioLibraryUI:PopulateList()
+    if addon.OpenAudioLibrary then
+        addon.OpenAudioLibrary()
     else
         print("SpeakStone: the audio library window is not available.")
     end
@@ -506,9 +505,17 @@ function SpeakStone:CreateWindow()
             -- Greetings and books lead. Neither has a table in the client nor
             -- a scrapeable equivalent, so capture is the only way they can
             -- ever be obtained; quest text can be sourced other ways.
-            SetCardState(cards.captured, ACCENT_NEUTRAL, glines,
-                string.format("greeting(s) from %d NPC(s)\n%d page(s) in %d book(s) - %d quest(s), %d passage(s)",
-                    npcs, pages, items, capturedQuests, passages))
+            local summary = string.format("greeting(s) from %d NPC(s)\n%d page(s) in %d book(s) - %d quest(s), %d passage(s)",
+                npcs, pages, items, capturedQuests, passages)
+            -- Once there is a real amount sitting here, the card stops being a
+            -- statistic and starts asking for something. Capture that nobody
+            -- submits helps nobody.
+            if addon.HarvestShouldSubmit and addon.HarvestShouldSubmit() then
+                SetCardState(cards.captured, ACCENT_GOOD, glines,
+                    summary .. "\n|cff00ff00Ready to submit -- click to export.|r")
+            else
+                SetCardState(cards.captured, ACCENT_NEUTRAL, glines, summary)
+            end
         end
     end
 
@@ -527,8 +534,10 @@ end
 -- The game's own AddOns list still needs an entry, or the addon looks absent
 -- from Options entirely. It is a doorway now, not the settings themselves.
 function SpeakStone:CreateSettings()
-    self:CreateWindow()
-
+    -- Deliberately not CreateWindow: the settings window is seven hundred
+    -- pixels of cards, checkboxes and sliders, and building it at login also
+    -- meant walking every clip in every installed pack to fill the dashboard.
+    -- addon:OpenSettings builds it the first time someone asks for it.
     local optionsFrame = CreateFrame("Frame", nil, nil, "VerticalLayoutFrame")
     optionsFrame.spacing = 8
     -- Textures resolve from the game root, not the addon folder, so the
