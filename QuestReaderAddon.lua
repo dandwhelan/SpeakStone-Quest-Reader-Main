@@ -34,6 +34,11 @@ function QuestReaderAddon_RegisterSoundPack(packName, soundLengths)
     -- with the base addon in an earlier version of this mechanism, and
     -- breaking here meant only one pack could ever be registered.
     addon.soundSources[packName] = soundLengths
+    -- The audio library caches its index on first open. A pack arriving after
+    -- that would otherwise stay invisible until reload.
+    if QuestReaderAudioLibraryUI then
+        QuestReaderAudioLibraryUI.isIndexed = false
+    end
 end
 
 -- Drain anything a pack queued before this file ran (see above).
@@ -349,6 +354,9 @@ function DetectSoundPacks()
                     -- bundled with the base addon, and breaking here meant only
                     -- one language pack could ever be active at a time.
                     addon.soundSources[name] = pack
+                    if QuestReaderAudioLibraryUI then
+                        QuestReaderAudioLibraryUI.isIndexed = false
+                    end
                     hasEntries = true
                 end
             end
@@ -380,7 +388,7 @@ function GetCurrentSound()
 end
 
 function DoPlaySound()
-    soundData = GetCurrentSound()
+    local soundData = GetCurrentSound()
     if not soundData then
         -- This can fire when a sound was canceled while in timer
         return
@@ -426,9 +434,10 @@ function StopCurrentSound()
         -- print("No sound currently playing")
     end
 
-    if QuestReaderAddonDB.muteGossip then
-        UnmuteDialogChannel()
-    end
+    -- Unconditionally: the setting can be turned off while a clip is
+    -- playing, and gating on it left the Dialog channel muted for the rest
+    -- of the session.
+    UnmuteDialogChannel()
 
     addon.activeSound = nil
 end
@@ -545,7 +554,10 @@ function PlayQuestAudio(textType, skipDelay)
         -- Delay shortly to account for greeting audio when using autoplay
         if QuestReaderAddonDB.autoPlayEnabled and not skipDelay and not QuestReaderAddonDB.muteGossip then
             local delay = tonumber(QuestReaderAddonDB.autoPlayDelay) or 2
-            addon.activeSound.nextSoundTimer = C_Timer.After(delay, function()
+            -- NewTimer, not After: After returns nothing, so the handle
+            -- stored here was always nil and StopCurrentSound's Cancel never
+            -- ran. A queued clip then fired after the player had walked away.
+            addon.activeSound.nextSoundTimer = C_Timer.NewTimer(delay, function()
                 DoPlaySound()
             end)
         else
@@ -765,7 +777,8 @@ function PlayItemAudio(page)
             itemAudioTimer = nil
         end
 
-        itemAudioTimer = C_Timer.After(0.1, function()
+        -- Cancellable, for the same reason as the quest delay above.
+        itemAudioTimer = C_Timer.NewTimer(0.1, function()
             itemAudioTimer = nil
             if currentItemName == itemLink then
                 PlayItemAudioDirect(itemLink, 1)
@@ -782,6 +795,11 @@ function PlayItemAudio(page)
         end
     end
 end
+
+-- The saved Dialog volume, held while narration is muting the channel.
+-- A global here meant any other addon writing the same name could strand the
+-- player's dialogue at zero.
+local originalDialogVolume = nil
 
 local function OnPlayerLogout()
     local currentSound = GetCurrentSound()
@@ -1028,16 +1046,12 @@ if not (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("QuestRea
     end
 end
 
-local function SaveMinimapIconPosition()
-    local position = icon:GetMinimapButton("QuestReaderAddon"):GetPoint()
-    QuestReaderAddonDB.minimapIconPosition.point, _, QuestReaderAddonDB.minimapIconPosition.relPoint, QuestReaderAddonDB.minimapIconPosition.x, QuestReaderAddonDB.minimapIconPosition.y = position
-end
-
-local minimapIcon = icon:GetMinimapButton("QuestReaderAddon")
-if minimapIcon then
-    minimapIcon:HookScript("OnDragStop", SaveMinimapIconPosition)
-    minimapIcon:HookScript("OnMouseUp", SaveMinimapIconPosition)
-end
+-- The minimap button's position is saved by the OnDragStop hook installed
+-- after icon:Register, up in the ADDON_LOADED handler. A second copy used to
+-- sit here at file scope, where the button does not exist yet, so it never
+-- hooked anything -- and it captured only GetPoint's first return into one
+-- local before unpacking it into four fields, which would have stored a point
+-- and three nils had it ever run.
 
 -- Function to mute the dialog channel
 function MuteDialogChannel()

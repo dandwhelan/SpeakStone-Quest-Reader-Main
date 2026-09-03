@@ -41,6 +41,20 @@
 
 ### Fixed
 
+- **A stopped clip could still start speaking.** The delay before narration
+  used a timer that could not be cancelled, so walking away during the pause
+  left the queued line to play anyway. Same fault, same fix, for the short
+  delay before a book's first page.
+- **The Dialog channel could stay muted.** Turning "Silence Blizzard's own
+  voice lines" off while a clip was playing meant the volume was never put
+  back, and the game stayed silent for the rest of the session.
+- **The SpeakStone icon in the AddOns list.** Its texture path was missing the
+  `Interface\AddOns` prefix, so nothing was drawn.
+- **The Capture card went blank** rather than reporting its state when the
+  counts were unavailable.
+- Clearing captured data no longer prints "cleared" twice.
+- The audio library rebuilds its index when a voice pack registers after the
+  window has been opened, instead of showing the pack only after a reload.
 - Clicking **Read Quest** with no quest panel open threw a Lua error instead of
   doing nothing.
 - Hiding the minimap button did not survive a relog.

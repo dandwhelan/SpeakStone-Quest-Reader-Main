@@ -43,10 +43,12 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
         if StandaloneHarvesterActive() and SlashCmdList["QUESTREADERHARVEST"] then
             SlashCmdList["QUESTREADERHARVEST"]("wipe")
         elseif QuestReaderHarvesterDB then
+            -- Left over from the standalone addon, cleared silently: the one
+            -- line printed below covers both stores, and two "cleared"
+            -- messages for one click read as if something went twice.
             QuestReaderHarvesterDB.quests = {}
             QuestReaderHarvesterDB.gossip = {}
             QuestReaderHarvesterDB.itemText = {}
-            print("SpeakStone Harvester: cleared.")
         end
         -- Clear this addon's own store too. It is separate from the
         -- standalone Harvester's, so wiping only one would leave the player
@@ -433,6 +435,20 @@ function SpeakStone:CreateWindow()
             end
         end
 
+        -- Whether capture is running is not a fact about the counts, so it is
+        -- set outside the block below: with the capture module absent, the
+        -- card used to be left blank rather than saying anything.
+        if StandaloneHarvesterActive() then
+            SetCardState(cards.capture, ACCENT_NEUTRAL, "Harvester",
+                "The standalone Harvester addon is installed and is doing the capturing; SpeakStone's own capture is standing down.")
+        elseif QuestReaderAddonDB.harvestEnabled then
+            SetCardState(cards.capture, ACCENT_GOOD, "Recording",
+                "Quest text, greetings and books are being recorded as you meet them.")
+        else
+            SetCardState(cards.capture, ACCENT_BAD, "Off",
+                "Nothing new is being recorded. Turn on capture under Contribute.")
+        end
+
         if addon.HarvestCounts then
             local capturedQuests, passages, _, npcs, glines, items, pages = addon.HarvestCounts()
             -- Greetings and books lead. Neither has a table in the client nor
@@ -441,17 +457,6 @@ function SpeakStone:CreateWindow()
             SetCardState(cards.captured, ACCENT_NEUTRAL, glines,
                 string.format("greeting(s) from %d NPC(s)\n%d page(s) in %d book(s) - %d quest(s), %d passage(s)",
                     npcs, pages, items, capturedQuests, passages))
-
-            if StandaloneHarvesterActive() then
-                SetCardState(cards.capture, ACCENT_NEUTRAL, "Harvester",
-                    "The standalone Harvester addon is installed and is doing the capturing; SpeakStone's own capture is standing down.")
-            elseif QuestReaderAddonDB.harvestEnabled then
-                SetCardState(cards.capture, ACCENT_GOOD, "Recording",
-                    "Quest text, greetings and books are being recorded as you meet them.")
-            else
-                SetCardState(cards.capture, ACCENT_BAD, "Off",
-                    "Nothing new is being recorded. Turn on capture under Contribute.")
-            end
         end
     end
 
@@ -470,7 +475,10 @@ function SpeakStone:CreateSettings()
 
     local optionsFrame = CreateFrame("Frame", nil, nil, "VerticalLayoutFrame")
     optionsFrame.spacing = 8
-    local category = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
+    -- Textures resolve from the game root, not the addon folder, so the
+    -- path needs the Interface\\AddOns prefix -- without it the escape drew
+    -- nothing at all.
+    local category = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone |TInterface\\AddOns\\" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
     addon.settingsCategoryID = category.ID
     Settings.RegisterAddOnCategory(category)
 
