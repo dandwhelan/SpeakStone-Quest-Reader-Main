@@ -39,6 +39,14 @@
   that spot.
 - `/sstoggle`, matching the `ss` short form every other command already had.
 
+### Added
+
+- **Autoplay is now three switches, not one.** Quests, NPC greetings, and
+  books/letters/plaques each have their own checkbox under "Read
+  automatically", so you can have tomes read aloud without narration starting
+  at every NPC you pass. The master switch still governs all of them, and the
+  three are on by default -- existing installs behave exactly as before.
+
 ### Fixed
 
 - **A stopped clip could still start speaking.** The delay before narration
@@ -52,6 +60,13 @@
   `Interface\AddOns` prefix, so nothing was drawn.
 - **The Capture card went blank** rather than reporting its state when the
   counts were unavailable.
+- **Exports could be unparseable.** The serialiser escaped quotes in values
+  but not in table keys, and books and plaques are keyed by their in-game name
+  when they carry no item ID. One name containing a quote broke the whole
+  payload at the far end.
+- **A fresh install could show every option switched off.** The settings panel
+  and the addon's own setup both run on ADDON_LOADED with no order between
+  them; arriving first, the panel read defaults that had not been applied yet.
 - Clearing captured data no longer prints "cleared" twice.
 - The audio library rebuilds its index when a voice pack registers after the
   window has been opened, instead of showing the pack only after a reload.

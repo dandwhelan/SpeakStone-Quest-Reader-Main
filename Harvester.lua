@@ -389,20 +389,31 @@ end
 -- shape (top-level .quests/.gossip/.itemText plus locale and player
 -- metadata), not which addon wrote it, so this output is interchangeable with
 -- the standalone Harvester's.
+-- Backslashes first, or the escapes added after would be escaped again.
+local function EscapeString(text)
+    return (text:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n"))
+end
+
 local function Serialize(tbl, indent)
     indent = indent or ""
     local lines = {}
     for k, v in pairs(tbl) do
         local keyOk, keyStr = pcall(function()
-            return type(k) == "number" and ("[" .. k .. "]") or ('["' .. tostring(k) .. '"]')
+            if type(k) == "number" then
+                return "[" .. k .. "]"
+            end
+            -- Escaped like any other string. Table keys are not all ours to
+            -- choose: books and plaques are keyed by their in-game name when
+            -- they carry no item ID, and a name holding a quote -- or a
+            -- backslash, or a newline -- closed the key early and left the
+            -- whole export unparseable at the far end.
+            return '["' .. EscapeString(tostring(k)) .. '"]'
         end)
         if keyOk then
             if type(v) == "table" then
                 table.insert(lines, indent .. keyStr .. " = {\n" .. Serialize(v, indent .. "  ") .. indent .. "},")
             elseif type(v) == "string" then
-                local ok, escaped = pcall(function()
-                    return v:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n")
-                end)
+                local ok, escaped = pcall(EscapeString, v)
                 if ok then
                     table.insert(lines, indent .. keyStr .. ' = "' .. escaped .. '",')
                 end

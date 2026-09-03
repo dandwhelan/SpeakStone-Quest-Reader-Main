@@ -64,7 +64,13 @@ local optionalSoundPacks = {
 -- at file scope, where they would be overwritten by the saved variables file.
 local defaultSettings = {
     showMinimapButton = true,
+    -- The master switch. The three below are what it covers, so a player who
+    -- wants narration for books but not for every passing greeting does not
+    -- have to give up autoplay entirely.
     autoPlayEnabled = true,
+    autoPlayQuests = true,
+    autoPlayGossip = true,
+    autoPlayItemText = true,
     autoPlayInQuestMap = false,
     -- Off: Blizzard's own voice acting plays, and narration waits its turn
     -- (see autoPlayDelay). The game's voiced dialogue is the thing the player
@@ -90,6 +96,18 @@ local defaultSettings = {
     autoPlayDelay = 2,
 }
 
+-- Autoplay for one kind of text. The master switch gates all three, so
+-- turning autoplay off still means off; each kind then has its own say.
+-- Nil-safe on the sub-keys so a saved-variables file written before they
+-- existed reads as "on" rather than silently disabling narration.
+local function AutoPlayAllowed(kind)
+    if not QuestReaderAddonDB or not QuestReaderAddonDB.autoPlayEnabled then
+        return false
+    end
+    return QuestReaderAddonDB[kind] ~= false
+end
+addon.AutoPlayAllowed = AutoPlayAllowed
+
 local function DebugPrint(...)
     if QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages then
         print(...)
@@ -97,7 +115,17 @@ local function DebugPrint(...)
 end
 addon.DebugPrint = DebugPrint
 
+-- Applying defaults is idempotent, and both this file and the settings panel
+-- want it done before they read anything. Their ADDON_LOADED handlers run in
+-- no guaranteed order -- EventUtil's frame registered for the event long
+-- before ours did -- so the settings panel calls this itself rather than
+-- assuming it has already run. Whichever gets there first does the work; the
+-- second call finds every key present and changes nothing.
+local dbInitialized = false
+
 local function InitializeAddonDB()
+    if dbInitialized then return end
+    dbInitialized = true
     QuestReaderAddonDB = QuestReaderAddonDB or {}
     QuestReaderAddonDB.minimapButton = QuestReaderAddonDB.minimapButton or { hide = false }
     QuestReaderAddonDB.minimapIconPosition = QuestReaderAddonDB.minimapIconPosition or {}
@@ -118,6 +146,7 @@ local function InitializeAddonDB()
         addon.HarvestMigrate()
     end
 end
+addon.EnsureDB = InitializeAddonDB
 
 -- Create the LDB launcher
 local questReaderLauncher = LDB:NewDataObject("QuestReaderAddon", {
@@ -278,7 +307,7 @@ end
 
 -- Function to automatically play quest audio
 local function AutoPlayQuestAudio()
-    if QuestReaderAddonDB.autoPlayEnabled then
+    if AutoPlayAllowed("autoPlayQuests") then
         PlayQuestAudio()
     end
 end
@@ -833,7 +862,7 @@ questEventFrame:SetScript("OnEvent", function(self, event, ...)
     -- Gossip and Items have no questID and their own lookup, so they are handled before
     -- anything below assumes one exists.
     if event == "GOSSIP_SHOW" then
-        if QuestReaderAddonDB.autoPlayEnabled then
+        if AutoPlayAllowed("autoPlayGossip") then
             PlayGossipAudio()
         end
         return
@@ -843,7 +872,7 @@ questEventFrame:SetScript("OnEvent", function(self, event, ...)
         end
         return
     elseif event == "ITEM_TEXT_READY" then
-        if QuestReaderAddonDB.autoPlayEnabled then
+        if AutoPlayAllowed("autoPlayItemText") then
             PlayItemAudio()
         end
         return
@@ -870,7 +899,7 @@ questEventFrame:SetScript("OnEvent", function(self, event, ...)
         textType = "completion"
     end
 
-    if textType ~= "" and QuestReaderAddonDB.autoPlayEnabled then
+    if textType ~= "" and AutoPlayAllowed("autoPlayQuests") then
         if QuestMapFrame and QuestMapFrame:IsVisible() and not (QuestFrame and QuestFrame:IsVisible()) then
             if not QuestReaderAddonDB.autoPlayInQuestMap then
                 lastTextType = textType
