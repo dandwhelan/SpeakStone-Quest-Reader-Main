@@ -3,6 +3,12 @@ local SpeakStone = {}
 
 EventUtil.ContinueOnAddOnLoaded(addonName, function()
     QuestReaderAddonDB = QuestReaderAddonDB or {}
+    -- The two ADDON_LOADED handlers -- this one and the main file's -- have no
+    -- guaranteed order between them, and every checkbox below reads its
+    -- default out of the saved variables. Arriving first meant reading nil and
+    -- drawing a fresh install's options as all-off. The call is idempotent, so
+    -- it costs nothing when the main file got here first.
+    if addon.EnsureDB then addon.EnsureDB() end
     SpeakStone:CreateSettings()
 end)
 
@@ -43,10 +49,12 @@ StaticPopupDialogs["QUESTREADER_CONFIRM_CLEAR_HARVEST"] = {
         if StandaloneHarvesterActive() and SlashCmdList["QUESTREADERHARVEST"] then
             SlashCmdList["QUESTREADERHARVEST"]("wipe")
         elseif QuestReaderHarvesterDB then
+            -- Left over from the standalone addon, cleared silently: the one
+            -- line printed below covers both stores, and two "cleared"
+            -- messages for one click read as if something went twice.
             QuestReaderHarvesterDB.quests = {}
             QuestReaderHarvesterDB.gossip = {}
             QuestReaderHarvesterDB.itemText = {}
-            print("SpeakStone Harvester: cleared.")
         end
         -- Clear this addon's own store too. It is separate from the
         -- standalone Harvester's, so wiping only one would leave the player
@@ -72,12 +80,31 @@ local SETTINGS_SECTIONS = {
         options = {
             {
                 option = "autoPlayEnabled",
-                label = "Read quests automatically",
-                tooltip = "Start narrating as soon as a quest, greeting or book appears. Turn this on if you use Immersion or DialogueUI -- their windows bypass the Read Quest button.",
+                label = "Read automatically",
+                tooltip = "Start narrating as soon as text appears, rather than waiting for the Read Quest button. The three below choose what that covers; with this off, none of them apply. Turn this on if you use Immersion or DialogueUI -- their windows bypass the Read Quest button.",
+            },
+            {
+                option = "autoPlayQuests",
+                label = "Quests",
+                indent = true,
+                tooltip = "Quest descriptions, progress and completion text, read at the quest giver.",
+            },
+            {
+                option = "autoPlayGossip",
+                label = "NPC greetings",
+                indent = true,
+                tooltip = "The lines an NPC says when you first talk to them. Turn this off if you pass a lot of NPCs and only want quest text read.",
+            },
+            {
+                option = "autoPlayItemText",
+                label = "Books, letters and plaques",
+                indent = true,
+                tooltip = "Anything read through the book window -- tomes, scrolls, letters and the plaques in dungeons.",
             },
             {
                 option = "autoPlayInQuestMap",
                 label = "Also read from the quest log map",
+                indent = true,
                 tooltip = "Narrate when a quest is selected in the world map's quest list, not just at the quest giver.",
             },
             {
@@ -298,6 +325,25 @@ function SpeakStone:CreateWindow()
     local optionsWidth = FRAME_WIDTH - RIGHT_X - 22
     local cursorY = TOP_Y
 
+    -- The options under "Read automatically", greyed while it is off: they
+    -- still hold their own value, but none of them does anything until the
+    -- master switch is back on, and a live checkbox that changes nothing is a
+    -- worse answer than a dimmed one.
+    local dependentButtons = {}
+    local function RefreshOptionStates()
+        local master = QuestReaderAddonDB.autoPlayEnabled
+        for _, button in ipairs(dependentButtons) do
+            if master then button:Enable() else button:Disable() end
+            if button.text then
+                if master then
+                    button.text:SetTextColor(1, 0.82, 0)
+                else
+                    button.text:SetTextColor(0.5, 0.5, 0.5)
+                end
+            end
+        end
+    end
+
     local function Advance(height)
         cursorY = cursorY - height
     end
@@ -317,7 +363,10 @@ function SpeakStone:CreateWindow()
 
     local function makeCheckButton(info)
         local checkButton = CreateFrame("CheckButton", addonName .. "CheckBox_" .. info.option, frame, "SettingsCheckBoxTemplate")
-        checkButton:SetPoint("TOPLEFT", frame, "TOPLEFT", RIGHT_X + 2, cursorY)
+        -- Indented options are the ones the option above them governs, so the
+        -- shape of the list says which switch turns which off.
+        local x = RIGHT_X + 2 + (info.indent and 18 or 0)
+        checkButton:SetPoint("TOPLEFT", frame, "TOPLEFT", x, cursorY)
         checkButton.text = checkButton:CreateFontString(nil, "ARTWORK", "GameFontNormal")
         checkButton.text:SetText(info.label)
         checkButton.text:SetPoint("LEFT", checkButton, "RIGHT", 4, 0)
@@ -330,10 +379,15 @@ function SpeakStone:CreateWindow()
         checkButton:SetScript("OnClick", function(self)
             QuestReaderAddonDB[info.option] = self:GetChecked()
             if info.onChange then info.onChange(self:GetChecked()) end
+            RefreshOptionStates()
         end)
         checkButton:SetScript("OnShow", function(self)
             self:SetChecked(QuestReaderAddonDB[info.option])
         end)
+
+        if info.indent then
+            table.insert(dependentButtons, checkButton)
+        end
 
         AttachTooltip(checkButton, info.label, info.tooltip)
         Advance(24)
@@ -433,6 +487,20 @@ function SpeakStone:CreateWindow()
             end
         end
 
+        -- Whether capture is running is not a fact about the counts, so it is
+        -- set outside the block below: with the capture module absent, the
+        -- card used to be left blank rather than saying anything.
+        if StandaloneHarvesterActive() then
+            SetCardState(cards.capture, ACCENT_NEUTRAL, "Harvester",
+                "The standalone Harvester addon is installed and is doing the capturing; SpeakStone's own capture is standing down.")
+        elseif QuestReaderAddonDB.harvestEnabled then
+            SetCardState(cards.capture, ACCENT_GOOD, "Recording",
+                "Quest text, greetings and books are being recorded as you meet them.")
+        else
+            SetCardState(cards.capture, ACCENT_BAD, "Off",
+                "Nothing new is being recorded. Turn on capture under Contribute.")
+        end
+
         if addon.HarvestCounts then
             local capturedQuests, passages, _, npcs, glines, items, pages = addon.HarvestCounts()
             -- Greetings and books lead. Neither has a table in the client nor
@@ -441,23 +509,16 @@ function SpeakStone:CreateWindow()
             SetCardState(cards.captured, ACCENT_NEUTRAL, glines,
                 string.format("greeting(s) from %d NPC(s)\n%d page(s) in %d book(s) - %d quest(s), %d passage(s)",
                     npcs, pages, items, capturedQuests, passages))
-
-            if StandaloneHarvesterActive() then
-                SetCardState(cards.capture, ACCENT_NEUTRAL, "Harvester",
-                    "The standalone Harvester addon is installed and is doing the capturing; SpeakStone's own capture is standing down.")
-            elseif QuestReaderAddonDB.harvestEnabled then
-                SetCardState(cards.capture, ACCENT_GOOD, "Recording",
-                    "Quest text, greetings and books are being recorded as you meet them.")
-            else
-                SetCardState(cards.capture, ACCENT_BAD, "Off",
-                    "Nothing new is being recorded. Turn on capture under Contribute.")
-            end
         end
     end
 
     addon.RefreshSettingsStatus = RefreshDashboard
-    frame:SetScript("OnShow", RefreshDashboard)
+    frame:SetScript("OnShow", function()
+        RefreshDashboard()
+        RefreshOptionStates()
+    end)
     RefreshDashboard()
+    RefreshOptionStates()
 
     addon.settingsWindow = frame
     return frame
@@ -470,7 +531,10 @@ function SpeakStone:CreateSettings()
 
     local optionsFrame = CreateFrame("Frame", nil, nil, "VerticalLayoutFrame")
     optionsFrame.spacing = 8
-    local category = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone |T" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
+    -- Textures resolve from the game root, not the addon folder, so the
+    -- path needs the Interface\\AddOns prefix -- without it the escape drew
+    -- nothing at all.
+    local category = Settings.RegisterCanvasLayoutCategory(optionsFrame, "SpeakStone |TInterface\\AddOns\\" .. addonName .. "\\cs_icon.tga:18:18:0:0|t")
     addon.settingsCategoryID = category.ID
     Settings.RegisterAddOnCategory(category)
 
