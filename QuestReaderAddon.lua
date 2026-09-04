@@ -1117,11 +1117,61 @@ local function EnsureExportFrame()
         editBox:HighlightText()
     end)
 
+    -- A long-running capture serialises to more than one edit box should be
+    -- asked to hold, so the payload arrives in pieces and these step between
+    -- them. Each piece is a complete export on its own -- see
+    -- HarvestExportBatches -- so a player who pastes only the first has still
+    -- sent something whole.
+    local nextButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    nextButton:SetSize(58, 22)
+    nextButton:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -12, 8)
+    nextButton:SetText("Next >")
+
+    local partText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    partText:SetWidth(96)
+    partText:SetJustifyH("CENTER")
+    partText:SetPoint("RIGHT", nextButton, "LEFT", -4, 0)
+
+    local prevButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    prevButton:SetSize(58, 22)
+    prevButton:SetPoint("RIGHT", partText, "LEFT", -4, 0)
+    prevButton:SetText("< Prev")
+
     local copyHintText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
-    copyHintText:SetPoint("RIGHT", frame, "RIGHT", -12, 0)
+    copyHintText:SetPoint("RIGHT", prevButton, "LEFT", -8, 0)
     copyHintText:SetJustifyH("LEFT")
-    copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+
+    -- Put one piece in the box, ready to copy.
+    function frame:ShowBatch(index)
+        local batches = self.batches or {}
+        local total = #batches
+        if total == 0 then return end
+        index = math.max(1, math.min(index or 1, total))
+        self.batchIndex = index
+
+        editBox:SetText(batches[index])
+        editBox:SetCursorPosition(0)
+        editBox:HighlightText()
+
+        if total > 1 then
+            partText:SetText(string.format("Part %d of %d", index, total))
+            partText:Show()
+            prevButton:Show()
+            nextButton:Show()
+            if index > 1 then prevButton:Enable() else prevButton:Disable() end
+            if index < total then nextButton:Enable() else nextButton:Disable() end
+            copyHintText:SetText("Ctrl+C, paste at |cff00ccffspeakstone.beanw.co.uk|r, then Next")
+        else
+            partText:Hide()
+            prevButton:Hide()
+            nextButton:Hide()
+            copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+        end
+    end
+
+    prevButton:SetScript("OnClick", function() frame:ShowBatch((frame.batchIndex or 1) - 1) end)
+    nextButton:SetScript("OnClick", function() frame:ShowBatch((frame.batchIndex or 1) + 1) end)
 
     exportFrame, exportEditBox = frame, editBox
     return frame, editBox
@@ -1134,11 +1184,11 @@ end
 -- the launcher's right-click and the settings panel call, so all three routes
 -- put up the same frame rather than each building their own.
 function addon.ShowHarvestExport()
-    if not addon.HarvestExportText then
+    if not addon.HarvestExportBatches then
         print("SpeakStone: capture module not loaded.")
         return
     end
-    local text, count = addon.HarvestExportText()
+    local batches, count = addon.HarvestExportBatches()
     if count == 0 then
         if not (addon.HarvestEnabled and addon.HarvestEnabled()) then
             -- Only say this when it is actually true. Blaming the setting
@@ -1157,12 +1207,22 @@ function addon.ShowHarvestExport()
         addon.HarvestMarkOffered()
     end
 
-    local frame, editBox = EnsureExportFrame()
-    editBox:SetText(text)
+    local frame = EnsureExportFrame()
+    frame.batches = batches
     frame:Show()
     frame:Raise()
-    editBox:HighlightText()
-    print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    frame:ShowBatch(1)
+
+    if #batches > 1 then
+        -- Said plainly, because a player who copies the first box and stops
+        -- would otherwise never know the rest existed. Each piece stands on
+        -- its own, so stopping early costs only what is left, not the lot.
+        print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books."
+            .. " Too much for one paste, so it is in " .. #batches .. " parts:"
+            .. " copy this one to speakstone.beanw.co.uk, then click Next and repeat.")
+    else
+        print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    end
 end
 
 -- There is one export now, and this is an alias for it. The command used to

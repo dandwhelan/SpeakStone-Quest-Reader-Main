@@ -514,7 +514,34 @@ local function SerializeInto(out, tbl, indent)
     end
 end
 
---- Build the export payload: everything captured, of every kind.
+--- How much of a payload to put in front of the player at once.
+---
+--- The export goes into a game edit box for the player to select and copy,
+--- and that widget is not built for a document. A store that has been
+--- collecting for months serialises to megabytes -- the reminder to submit
+--- fires at 250 entries and nothing prunes the store afterwards, so this is
+--- the ordinary end state of an addon left switched on, not a pathological
+--- one. Past some size the box stops being something a person can select and
+--- copy out, and the failure is silent: the text is simply not all there.
+---
+--- So the payload is cut into pieces, each a complete and valid export in its
+--- own right rather than a fragment that only means something reassembled.
+--- The website already merges and deduplicates submissions, so pasting three
+--- pieces one after another lands exactly what one big paste would have, and
+--- a player who stops after the first has still sent real, usable data rather
+--- than a broken half of something.
+---
+--- The number is deliberately conservative and has not been measured against
+--- a live client -- it wants checking against a real edit box with a real
+--- store behind it, and can be raised if the widget turns out to cope.
+local EXPORT_BATCH_BYTES = 384 * 1024
+
+--- Build the export payload: everything captured, of every kind, split into
+--- pieces no larger than `maxBytes`.
+---
+--- Returns the list of payload strings, the number of top-level entries
+--- across all of them, and the number of entries that did not fit in the
+--- first piece.
 ---
 --- There used to be a second, narrower export of "quests with no audio
 --- installed" only, promoted as the most useful thing to submit. Two things
@@ -525,36 +552,114 @@ end
 --- since neither has a table in the client or a scrapeable equivalent. The
 --- narrow export was therefore worth less than the full one it was recommended
 --- over, so there is now only the full one.
-function addon.HarvestExportText()
+function addon.HarvestExportBatches(maxBytes)
+    maxBytes = maxBytes or EXPORT_BATCH_BYTES
     local h = Store()
-    local quests = h.quests
 
-    local data = {
+    -- Every piece carries the same metadata. Which client, which build and
+    -- which player wrote a capture is not a property of the quests in it, so
+    -- a piece without it would be worth less than the whole.
+    local meta = {
         locale = GetLocale(),
         build = select(2, GetBuildInfo()),
         addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata
                         and C_AddOns.GetAddOnMetadata(addonName, "Version")) or "unknown",
-        quests = quests,
-        gossip = h.gossip,
-        itemText = h.itemText,
     }
     for key, value in pairs(PlayerMetadata()) do
-        data[key] = value
+        meta[key] = value
+    end
+    local header = {}
+    SerializeInto(header, meta, "  ")
+    header = table.concat(header)
+
+    -- One flat, ordered list of everything to write, so the cut between two
+    -- pieces can fall anywhere without either losing an entry or repeating
+    -- one. Grouped by kind, which is what lets a piece hold at most one open
+    -- sub-table at a time.
+    local plan = {}
+    for key, entry in pairs(h.quests) do plan[#plan + 1] = { "quests", key, entry } end
+    for key, entry in pairs(h.gossip) do plan[#plan + 1] = { "gossip", key, entry } end
+    for key, entry in pairs(h.itemText) do plan[#plan + 1] = { "itemText", key, entry } end
+
+    local batches = {}
+    local out, size, openKind, inBatch
+
+    local function Emit(text)
+        out[#out + 1] = text
+        size = size + #text
+    end
+    local function Begin()
+        out, size, openKind, inBatch = {}, 0, nil, 0
+        Emit("QuestReaderAddonExport = {\n")
+        Emit(header)
+    end
+    local function CloseKind()
+        if openKind then
+            Emit("  },\n")
+            openKind = nil
+        end
+    end
+    local function Finish()
+        CloseKind()
+        Emit("}")
+        batches[#batches + 1] = table.concat(out)
     end
 
+    Begin()
+    for _, item in ipairs(plan) do
+        local kind, key, entry = item[1], item[2], item[3]
+
+        -- Serialised on its own first, because whether it fits cannot be known
+        -- until its size is.
+        local piece = {}
+        piece[#piece + 1] = "    " ..
+            (type(key) == "number" and ("[" .. key .. "]")
+                                    or ('["' .. EscapeString(tostring(key)) .. '"]')) .. " = {\n"
+        SerializeInto(piece, entry, "      ")
+        piece[#piece + 1] = "    },\n"
+        piece = table.concat(piece)
+
+        local opening = (openKind ~= kind) and ('  ["' .. kind .. '"] = {\n') or nil
+        -- Room for what this entry costs plus the punctuation that has to
+        -- follow it: closing whatever sub-table is open, and the final brace.
+        local needed = #piece + (opening and #opening or 0) + (openKind and 5 or 0) + 1
+
+        -- An entry larger than a whole batch still has to go somewhere, so a
+        -- batch holding nothing yet always accepts one. Without that guard
+        -- this loop would cut forever without ever writing it.
+        if inBatch > 0 and size + needed > maxBytes then
+            Finish()
+            Begin()
+            opening = '  ["' .. kind .. '"] = {\n'
+        end
+
+        if openKind ~= kind then
+            CloseKind()
+            Emit(opening or ('  ["' .. kind .. '"] = {\n'))
+            openKind = kind
+        end
+        Emit(piece)
+        inBatch = inBatch + 1
+    end
+    Finish()
+
+    return batches, #plan
+end
+
+--- The whole capture as a single payload, however large.
+---
+--- Kept because it is the shape anything outside this file expects, and
+--- because the split above has to be able to say what it would otherwise have
+--- produced. Everything the player sees goes through HarvestExportBatches.
+function addon.HarvestExportText()
     -- Count everything the payload actually carries, not just quests. Counting
     -- quests alone made a full export refuse to open whenever a session had
     -- captured gossip but no new quest text -- which is the normal shape of a
     -- session spent talking to NPCs -- and the "nothing captured yet" message
     -- then wrongly blamed the capture setting for data that was sitting right
     -- there in the payload.
-    local count = 0
-    for _ in pairs(quests) do count = count + 1 end
-    for _ in pairs(h.gossip) do count = count + 1 end
-    for _ in pairs(h.itemText) do count = count + 1 end
-    local out = {}
-    SerializeInto(out, data, "  ")
-    return "QuestReaderAddonExport = {\n" .. table.concat(out) .. "}", count
+    local batches, count = addon.HarvestExportBatches(math.huge)
+    return batches[1], count
 end
 
 function addon.HarvestWipe()
