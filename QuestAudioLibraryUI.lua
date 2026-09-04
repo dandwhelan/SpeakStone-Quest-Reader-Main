@@ -7,6 +7,19 @@ local ROW_HEIGHT = 26
 -- this much, a burst of typing costs one pass instead of one per character.
 local SEARCH_DEBOUNCE = 0.2
 local FALLBACK_EXTS = { ".ogg", ".wav" }
+-- How long one pass of the filter may hold the client's frame before handing
+-- it back. Resolving a quest title is two protected API calls, and a name
+-- search asks for one per quest that does not match on ID -- tens of
+-- thousands of them with a full pack set, which is seconds of frozen client
+-- if it is done in a single pass. The search runs across frames instead, so
+-- the window stays responsive and results fill in as they are found.
+local FILTER_BUDGET_MS = 8
+-- Consulted only every so many quests: reading the clock costs more than the
+-- comparison it guards, and a hundred quests is far below one frame's worth.
+local FILTER_CHECK_EVERY = 100
+-- Used where debugprofilestop is unavailable, since there is then no way to
+-- ask how long the pass has been running.
+local FILTER_CHUNK = 400
 
 -- The window, built the first time it is opened. It used to be assembled at
 -- file scope: fourteen rows of a button and three sub-buttons apiece, around
@@ -278,74 +291,143 @@ local function BuildUI()
         return nil
     end
 
-    -- Index builder: scans addon.soundSources fast and caches results
+    -- The filter pass currently running, if it has not finished yet. Declared
+    -- ahead of BuildIndex so that rebuilding the index can retire one.
+    local activeFilter
+    local function CancelFilter()
+        if activeFilter then
+            if activeFilter.timer then activeFilter.timer:Cancel() end
+            activeFilter = nil
+        end
+        frame.filtering = false
+    end
+
+    -- The per-quest index is built once for the whole addon, in
+    -- QuestReaderAddon.lua, because the settings dashboard needs a walk over
+    -- the same packs to count clips. This used to repeat that walk with its
+    -- own string match per clip -- tens of thousands of them -- for an answer
+    -- the other pass had already worked out.
     function frame:BuildIndex(force)
         if self.isIndexed and not force then
             return
         end
 
-        local questMap = {}
-        for packName, soundLengths in pairs(addon.soundSources or {}) do
-            if type(soundLengths) == "table" then
-                for soundFile in pairs(soundLengths) do
-                    local questID, audioType = soundFile:match("^(%d+)_(%a+)%.")
-                    if questID and audioType then
-                        local idNum = tonumber(questID)
-                        if idNum then
-                            local entry = questMap[idNum]
-                            if not entry then
-                                entry = { id = idNum, types = {} }
-                                questMap[idNum] = entry
-                            end
-                            entry.types[audioType] = true
-                        end
-                    end
-                end
-            end
-        end
+        CancelFilter()
 
         local list = {}
-        for _, entry in pairs(questMap) do
-            table.insert(list, entry)
+        if addon.GetAudioIndex then
+            for _, entry in pairs(addon.GetAudioIndex().quests) do
+                table.insert(list, entry)
+            end
         end
         table.sort(list, function(a, b) return a.id < b.id end)
 
         self.allQuests = list
-        self.questMap = questMap
         self.isIndexed = true
         self.filteredList = nil
+        -- A rebuilt index invalidates the narrowing below, which assumes the
+        -- previous result was drawn from the same library.
+        self.lastQuery = nil
+        self.lastResult = nil
     end
 
-    -- Real-time filter
+    -- Real-time filter, run across frames.
+    --
+    -- Matching on ID is a substring test; matching on name is not, because a
+    -- title has to be resolved first and that is two protected API calls per
+    -- quest. Done in one pass over a full pack set that is tens of thousands
+    -- of them and a client frozen for seconds, so the pass takes a slice of
+    -- each frame and yields, filling the list in as it goes.
     function frame:FilterList(query)
         if not self.allQuests then
             self:BuildIndex()
         end
-
-        if not query or query:match("^%s*$") then
-            self.filteredList = self.allQuests
-        else
-            local cleanQuery = query:lower():match("^%s*(.-)%s*$")
-            local filtered = {}
-            for _, entry in ipairs(self.allQuests) do
-                local idStr = tostring(entry.id)
-                if idStr:find(cleanQuery, 1, true) then
-                    table.insert(filtered, entry)
-                else
-                    local title = GetQuestTitle(entry.id)
-                    if title and title:lower():find(cleanQuery, 1, true) then
-                        table.insert(filtered, entry)
-                    end
-                end
-            end
-            self.filteredList = filtered
-        end
+        CancelFilter()
 
         local scrollBar = _G["QuestReaderAudioLibraryScrollFrameScrollBar"]
         if scrollBar then
             scrollBar:SetValue(0)
         end
-        self:UpdateList()
+
+        local cleanQuery = query and query:lower():match("^%s*(.-)%s*$") or ""
+        if cleanQuery == "" then
+            self.filteredList = self.allQuests
+            self.lastQuery = ""
+            self.lastResult = self.allQuests
+            self:UpdateList()
+            return
+        end
+
+        -- Extending a query can only ever narrow the result: a quest that
+        -- matches "westf" matched "west" too, whether it matched on ID or on
+        -- title. So the longer query is filtered over what the shorter one
+        -- produced rather than over the whole library.
+        --
+        -- Only over a *finished* result, though. A pass that was cancelled
+        -- part-way through -- which is what happens when someone keeps typing
+        -- -- has found only some of its matches, and narrowing from that would
+        -- drop the rest for good rather than merely deferring them. That is
+        -- why the completed result is kept apart from the one on screen.
+        local source = self.allQuests
+        if self.lastQuery and self.lastQuery ~= "" and self.lastResult
+            and cleanQuery:sub(1, #self.lastQuery) == self.lastQuery then
+            source = self.lastResult
+        end
+
+        local state = { query = cleanQuery, source = source, index = 1, results = {} }
+        activeFilter = state
+        self.filteredList = state.results
+        self.filtering = true
+
+        local function Step()
+            -- A newer query, a rebuilt index or a closed window retires this
+            -- pass; the timer that woke it may already be obsolete.
+            if activeFilter ~= state then return end
+
+            local source, results, needle = state.source, state.results, state.query
+            local total = #source
+            local i = state.index
+            local startedAt = debugprofilestop and debugprofilestop() or nil
+            local processed = 0
+
+            while i <= total do
+                local entry = source[i]
+                local idStr = entry.idStr or tostring(entry.id)
+                if idStr:find(needle, 1, true) then
+                    results[#results + 1] = entry
+                else
+                    local title = GetQuestTitle(entry.id)
+                    if title and title:lower():find(needle, 1, true) then
+                        results[#results + 1] = entry
+                    end
+                end
+                i = i + 1
+                processed = processed + 1
+                if processed % FILTER_CHECK_EVERY == 0 then
+                    if startedAt then
+                        if debugprofilestop() - startedAt >= FILTER_BUDGET_MS then break end
+                    elseif processed >= FILTER_CHUNK then
+                        break
+                    end
+                end
+            end
+
+            state.index = i
+            if i > total then
+                activeFilter = nil
+                frame.filtering = false
+                -- Complete, so the next query may narrow over it.
+                frame.lastQuery = needle
+                frame.lastResult = results
+                frame:UpdateList()
+            else
+                frame:UpdateList()
+                -- Next frame, not next second: this is a yield, not a delay.
+                state.timer = C_Timer.NewTimer(0, Step)
+            end
+        end
+
+        Step()
     end
 
     -- Filtering by name touches the whole library, so a burst of typing is
@@ -425,7 +507,13 @@ local function BuildUI()
             end
         end
 
-        if numItems == 0 then
+        if self.filtering then
+            -- A pass still running has not found everything yet, and "no
+            -- matching quests" while it is still looking is simply wrong --
+            -- which is what the empty result reads as for the first frame of
+            -- every name search.
+            self.countText:SetText(string.format("Searching... %d so far", numItems))
+        elseif numItems == 0 then
             self.countText:SetText("No matching quests found.")
         elseif self.filteredList and #self.filteredList ~= #(self.allQuests or {}) then
             self.countText:SetText(string.format("Showing %d / %d quests", numItems, #(self.allQuests or {})))
@@ -500,8 +588,12 @@ local function BuildUI()
 
     frame:SetScript("OnShow", function(self)
         self:Raise()
-        -- A title the client did not know last time it may know now.
+        -- A title the client did not know last time it may know now -- so the
+        -- narrowed result from the previous open, computed while those were
+        -- still misses, cannot be reused either.
         wipe(titleMisses)
+        self.lastQuery = nil
+        self.lastResult = nil
         self:PopulateList()
     end)
 
@@ -510,6 +602,9 @@ local function BuildUI()
             searchTimer:Cancel()
             searchTimer = nil
         end
+        -- A pass left running against a closed window is work nobody is
+        -- waiting for, and it would keep waking every frame until it finished.
+        CancelFilter()
         self:StopAudio()
     end)
 

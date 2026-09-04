@@ -25,7 +25,7 @@ addon.soundSources["QuestReaderAddon"] = QuestReaderSoundLengths
 -- that can change the answer, so this is called from the two places that
 -- register one.
 local function InvalidateAudioCaches()
-    addon.audioSummary = nil
+    addon.audioIndex = nil
     if addon.AudioLibraryInvalidate then
         addon.AudioLibraryInvalidate()
     end
@@ -395,27 +395,47 @@ addon.reportedMissing = {}
 -- panel open into a "concatenate a nil value" error.
 local lastTextType = ""
 
--- How much audio is actually installed, and where it came from. The settings
--- panel shows this: "no audio for this quest" and "no packs installed at all"
--- look identical from the player's side otherwise.
-function addon.GetInstalledAudioSummary()
-    -- Walking every clip in every pack is the single most expensive thing
-    -- this addon does, and the settings dashboard asks for it on every open.
-    -- The answer only changes when a pack registers, which invalidates this.
-    local cached = addon.audioSummary
-    if cached then
-        return cached.packs, cached.clips, cached.quests
-    end
+-- Everything derived from the installed packs, from one walk over them.
+--
+-- Walking every clip in every pack is the single most expensive thing this
+-- addon does -- around 34,000 clips with today's packs and growing with every
+-- expansion -- and it was being done twice over: once here for the settings
+-- dashboard's counts, and again in QuestAudioLibraryUI's own index for the
+-- library list, each with its own string match per clip. Both answers come
+-- out of the same pass now, and both are dropped together when a pack
+-- registers. The two used to derive the quest count with slightly different
+-- patterns, so the dashboard and the library could disagree about how many
+-- quests were voiced; sharing the pass makes that impossible.
+local function BuildAudioIndex()
+    local index = addon.audioIndex
+    if index then return index end
 
     local packs, clips = {}, 0
-    local quests = {}
+    local quests, questCount = {}, 0
     for packName, soundLengths in pairs(addon.soundSources or {}) do
         if type(soundLengths) == "table" then
             local packClips = 0
             for soundFile in pairs(soundLengths) do
                 packClips = packClips + 1
-                local questID = soundFile:match("^(%d+)_")
-                if questID then quests[questID] = true end
+                -- "<questID>_<passage>.<ext>". Gossip and book clips are named
+                -- "npc<id>_..." and "item<id>_...", so they do not match here
+                -- and stay out of the quest library, which is what we want.
+                local questID, passage = soundFile:match("^(%d+)_(%a+)%.")
+                if questID then
+                    local id = tonumber(questID)
+                    if id then
+                        local entry = quests[id]
+                        if not entry then
+                            -- idStr is kept rather than rebuilt with tostring
+                            -- in the library's search filter, which compared
+                            -- against it once per quest on every pass.
+                            entry = { id = id, idStr = questID, types = {} }
+                            quests[id] = entry
+                            questCount = questCount + 1
+                        end
+                        entry.types[passage] = true
+                    end
+                end
             end
             if packClips > 0 then
                 table.insert(packs, { name = packName, clips = packClips })
@@ -424,10 +444,19 @@ function addon.GetInstalledAudioSummary()
         end
     end
     table.sort(packs, function(a, b) return a.name < b.name end)
-    local questCount = 0
-    for _ in pairs(quests) do questCount = questCount + 1 end
-    addon.audioSummary = { packs = packs, clips = clips, quests = questCount }
-    return packs, clips, questCount
+
+    index = { packs = packs, clips = clips, quests = quests, questCount = questCount }
+    addon.audioIndex = index
+    return index
+end
+addon.GetAudioIndex = BuildAudioIndex
+
+-- How much audio is actually installed, and where it came from. The settings
+-- panel shows this: "no audio for this quest" and "no packs installed at all"
+-- look identical from the player's side otherwise.
+function addon.GetInstalledAudioSummary()
+    local index = BuildAudioIndex()
+    return index.packs, index.clips, index.questCount
 end
 
 -- Function to detect available sound packs
@@ -1088,11 +1117,61 @@ local function EnsureExportFrame()
         editBox:HighlightText()
     end)
 
+    -- A long-running capture serialises to more than one edit box should be
+    -- asked to hold, so the payload arrives in pieces and these step between
+    -- them. Each piece is a complete export on its own -- see
+    -- HarvestExportBatches -- so a player who pastes only the first has still
+    -- sent something whole.
+    local nextButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    nextButton:SetSize(58, 22)
+    nextButton:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -12, 8)
+    nextButton:SetText("Next >")
+
+    local partText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    partText:SetWidth(96)
+    partText:SetJustifyH("CENTER")
+    partText:SetPoint("RIGHT", nextButton, "LEFT", -4, 0)
+
+    local prevButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    prevButton:SetSize(58, 22)
+    prevButton:SetPoint("RIGHT", partText, "LEFT", -4, 0)
+    prevButton:SetText("< Prev")
+
     local copyHintText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
-    copyHintText:SetPoint("RIGHT", frame, "RIGHT", -12, 0)
+    copyHintText:SetPoint("RIGHT", prevButton, "LEFT", -8, 0)
     copyHintText:SetJustifyH("LEFT")
-    copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+
+    -- Put one piece in the box, ready to copy.
+    function frame:ShowBatch(index)
+        local batches = self.batches or {}
+        local total = #batches
+        if total == 0 then return end
+        index = math.max(1, math.min(index or 1, total))
+        self.batchIndex = index
+
+        editBox:SetText(batches[index])
+        editBox:SetCursorPosition(0)
+        editBox:HighlightText()
+
+        if total > 1 then
+            partText:SetText(string.format("Part %d of %d", index, total))
+            partText:Show()
+            prevButton:Show()
+            nextButton:Show()
+            if index > 1 then prevButton:Enable() else prevButton:Disable() end
+            if index < total then nextButton:Enable() else nextButton:Disable() end
+            copyHintText:SetText("Ctrl+C, paste at |cff00ccffspeakstone.beanw.co.uk|r, then Next")
+        else
+            partText:Hide()
+            prevButton:Hide()
+            nextButton:Hide()
+            copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+        end
+    end
+
+    prevButton:SetScript("OnClick", function() frame:ShowBatch((frame.batchIndex or 1) - 1) end)
+    nextButton:SetScript("OnClick", function() frame:ShowBatch((frame.batchIndex or 1) + 1) end)
 
     exportFrame, exportEditBox = frame, editBox
     return frame, editBox
@@ -1105,11 +1184,11 @@ end
 -- the launcher's right-click and the settings panel call, so all three routes
 -- put up the same frame rather than each building their own.
 function addon.ShowHarvestExport()
-    if not addon.HarvestExportText then
+    if not addon.HarvestExportBatches then
         print("SpeakStone: capture module not loaded.")
         return
     end
-    local text, count = addon.HarvestExportText()
+    local batches, count = addon.HarvestExportBatches()
     if count == 0 then
         if not (addon.HarvestEnabled and addon.HarvestEnabled()) then
             -- Only say this when it is actually true. Blaming the setting
@@ -1128,12 +1207,22 @@ function addon.ShowHarvestExport()
         addon.HarvestMarkOffered()
     end
 
-    local frame, editBox = EnsureExportFrame()
-    editBox:SetText(text)
+    local frame = EnsureExportFrame()
+    frame.batches = batches
     frame:Show()
     frame:Raise()
-    editBox:HighlightText()
-    print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    frame:ShowBatch(1)
+
+    if #batches > 1 then
+        -- Said plainly, because a player who copies the first box and stops
+        -- would otherwise never know the rest existed. Each piece stands on
+        -- its own, so stopping early costs only what is left, not the lot.
+        print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books."
+            .. " Too much for one paste, so it is in " .. #batches .. " parts:"
+            .. " copy this one to speakstone.beanw.co.uk, then click Next and repeat.")
+    else
+        print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
+    end
 end
 
 -- There is one export now, and this is an alias for it. The command used to

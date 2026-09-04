@@ -387,8 +387,14 @@ end
 -- Whether the store has grown past the point of being worth sending in. The
 -- settings dashboard asks this to colour its card, so it carries no
 -- side-effects and no time check.
-function addon.HarvestShouldSubmit()
-    return addon.HarvestEntryCount() >= REMIND_AT
+--
+-- Takes the count when the caller already has it. The dashboard calls
+-- HarvestCounts immediately before this, which walks the whole store, and
+-- then walked it a second time here for a number the first walk had already
+-- counted -- twice over on every settings open, since the window refreshed
+-- itself once on build and again on show.
+function addon.HarvestShouldSubmit(entries)
+    return (entries or addon.HarvestEntryCount()) >= REMIND_AT
 end
 
 -- Called after an export: the player has just been handed the payload, so
@@ -451,46 +457,91 @@ end
 -- shape (top-level .quests/.gossip/.itemText plus locale and player
 -- metadata), not which addon wrote it, so this output is interchangeable with
 -- the standalone Harvester's.
--- Backslashes first, or the escapes added after would be escaped again.
+-- One pass over the string rather than four chained gsubs, each of which
+-- copied the whole thing again. Quest and gossip text is the bulk of the
+-- payload, so every passage in the store was being rebuilt four times over on
+-- every export. A replacement table also removes the ordering trap the old
+-- chain had to be careful about -- each character is matched and replaced
+-- exactly once, so an added escape can no longer be escaped again.
+local ESCAPES = { ["\\"] = "\\\\", ['"'] = '\\"', ["\r"] = "\\r", ["\n"] = "\\n" }
+
 local function EscapeString(text)
-    return (text:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n"))
+    return (text:gsub('[\\"\r\n]', ESCAPES))
 end
 
-local function Serialize(tbl, indent)
-    indent = indent or ""
-    local lines = {}
+-- Append this table's lines to `out`, depth-first.
+--
+-- This used to return a string per level, which the level above embedded in a
+-- string of its own: with the payload four tables deep, every byte of it was
+-- copied four times and the intermediates handed straight to the collector. A
+-- player with a few hundred captured quests exports megabytes, so that was
+-- the export's whole cost. Fragments go into one buffer now and are joined
+-- once at the end.
+--
+-- The old version also wrapped each key in a pcall over a fresh closure --
+-- two allocations and a protected call per key, tens of thousands of them on
+-- a real store -- to guard operations that cannot throw on the only key types
+-- this data holds. A key that is neither a string nor a number has no
+-- representation here and is skipped rather than written out as
+-- "table: 0x...", which is what the guarded path produced.
+local function SerializeInto(out, tbl, indent)
+    local childIndent = indent .. "  "
     for k, v in pairs(tbl) do
-        local keyOk, keyStr = pcall(function()
-            if type(k) == "number" then
-                return "[" .. k .. "]"
-            end
+        local keyStr
+        local kt = type(k)
+        if kt == "number" then
+            keyStr = "[" .. k .. "]"
+        elseif kt == "string" then
             -- Escaped like any other string. Table keys are not all ours to
             -- choose: books and plaques are keyed by their in-game name when
             -- they carry no item ID, and a name holding a quote -- or a
             -- backslash, or a newline -- closed the key early and left the
             -- whole export unparseable at the far end.
-            return '["' .. EscapeString(tostring(k)) .. '"]'
-        end)
-        if keyOk then
-            if type(v) == "table" then
-                table.insert(lines, indent .. keyStr .. " = {\n" .. Serialize(v, indent .. "  ") .. indent .. "},")
-            elseif type(v) == "string" then
-                local ok, escaped = pcall(EscapeString, v)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. ' = "' .. escaped .. '",')
-                end
-            elseif type(v) == "number" or type(v) == "boolean" then
-                local ok, valStr = pcall(tostring, v)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. " = " .. valStr .. ",")
-                end
+            keyStr = '["' .. EscapeString(k) .. '"]'
+        end
+        if keyStr then
+            local vt = type(v)
+            if vt == "table" then
+                out[#out + 1] = indent .. keyStr .. " = {\n"
+                SerializeInto(out, v, childIndent)
+                out[#out + 1] = indent .. "},\n"
+            elseif vt == "string" then
+                out[#out + 1] = indent .. keyStr .. ' = "' .. EscapeString(v) .. '",\n'
+            elseif vt == "number" or vt == "boolean" then
+                out[#out + 1] = indent .. keyStr .. " = " .. tostring(v) .. ",\n"
             end
         end
     end
-    return table.concat(lines, "\n") .. "\n"
 end
 
---- Build the export payload: everything captured, of every kind.
+--- How much of a payload to put in front of the player at once.
+---
+--- The export goes into a game edit box for the player to select and copy,
+--- and that widget is not built for a document. A store that has been
+--- collecting for months serialises to megabytes -- the reminder to submit
+--- fires at 250 entries and nothing prunes the store afterwards, so this is
+--- the ordinary end state of an addon left switched on, not a pathological
+--- one. Past some size the box stops being something a person can select and
+--- copy out, and the failure is silent: the text is simply not all there.
+---
+--- So the payload is cut into pieces, each a complete and valid export in its
+--- own right rather than a fragment that only means something reassembled.
+--- The website already merges and deduplicates submissions, so pasting three
+--- pieces one after another lands exactly what one big paste would have, and
+--- a player who stops after the first has still sent real, usable data rather
+--- than a broken half of something.
+---
+--- The number is deliberately conservative and has not been measured against
+--- a live client -- it wants checking against a real edit box with a real
+--- store behind it, and can be raised if the widget turns out to cope.
+local EXPORT_BATCH_BYTES = 384 * 1024
+
+--- Build the export payload: everything captured, of every kind, split into
+--- pieces no larger than `maxBytes`.
+---
+--- Returns the list of payload strings, the number of top-level entries
+--- across all of them, and the number of entries that did not fit in the
+--- first piece.
 ---
 --- There used to be a second, narrower export of "quests with no audio
 --- installed" only, promoted as the most useful thing to submit. Two things
@@ -501,34 +552,114 @@ end
 --- since neither has a table in the client or a scrapeable equivalent. The
 --- narrow export was therefore worth less than the full one it was recommended
 --- over, so there is now only the full one.
-function addon.HarvestExportText()
+function addon.HarvestExportBatches(maxBytes)
+    maxBytes = maxBytes or EXPORT_BATCH_BYTES
     local h = Store()
-    local quests = h.quests
 
-    local data = {
+    -- Every piece carries the same metadata. Which client, which build and
+    -- which player wrote a capture is not a property of the quests in it, so
+    -- a piece without it would be worth less than the whole.
+    local meta = {
         locale = GetLocale(),
         build = select(2, GetBuildInfo()),
         addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata
                         and C_AddOns.GetAddOnMetadata(addonName, "Version")) or "unknown",
-        quests = quests,
-        gossip = h.gossip,
-        itemText = h.itemText,
     }
     for key, value in pairs(PlayerMetadata()) do
-        data[key] = value
+        meta[key] = value
+    end
+    local header = {}
+    SerializeInto(header, meta, "  ")
+    header = table.concat(header)
+
+    -- One flat, ordered list of everything to write, so the cut between two
+    -- pieces can fall anywhere without either losing an entry or repeating
+    -- one. Grouped by kind, which is what lets a piece hold at most one open
+    -- sub-table at a time.
+    local plan = {}
+    for key, entry in pairs(h.quests) do plan[#plan + 1] = { "quests", key, entry } end
+    for key, entry in pairs(h.gossip) do plan[#plan + 1] = { "gossip", key, entry } end
+    for key, entry in pairs(h.itemText) do plan[#plan + 1] = { "itemText", key, entry } end
+
+    local batches = {}
+    local out, size, openKind, inBatch
+
+    local function Emit(text)
+        out[#out + 1] = text
+        size = size + #text
+    end
+    local function Begin()
+        out, size, openKind, inBatch = {}, 0, nil, 0
+        Emit("QuestReaderAddonExport = {\n")
+        Emit(header)
+    end
+    local function CloseKind()
+        if openKind then
+            Emit("  },\n")
+            openKind = nil
+        end
+    end
+    local function Finish()
+        CloseKind()
+        Emit("}")
+        batches[#batches + 1] = table.concat(out)
     end
 
+    Begin()
+    for _, item in ipairs(plan) do
+        local kind, key, entry = item[1], item[2], item[3]
+
+        -- Serialised on its own first, because whether it fits cannot be known
+        -- until its size is.
+        local piece = {}
+        piece[#piece + 1] = "    " ..
+            (type(key) == "number" and ("[" .. key .. "]")
+                                    or ('["' .. EscapeString(tostring(key)) .. '"]')) .. " = {\n"
+        SerializeInto(piece, entry, "      ")
+        piece[#piece + 1] = "    },\n"
+        piece = table.concat(piece)
+
+        local opening = (openKind ~= kind) and ('  ["' .. kind .. '"] = {\n') or nil
+        -- Room for what this entry costs plus the punctuation that has to
+        -- follow it: closing whatever sub-table is open, and the final brace.
+        local needed = #piece + (opening and #opening or 0) + (openKind and 5 or 0) + 1
+
+        -- An entry larger than a whole batch still has to go somewhere, so a
+        -- batch holding nothing yet always accepts one. Without that guard
+        -- this loop would cut forever without ever writing it.
+        if inBatch > 0 and size + needed > maxBytes then
+            Finish()
+            Begin()
+            opening = '  ["' .. kind .. '"] = {\n'
+        end
+
+        if openKind ~= kind then
+            CloseKind()
+            Emit(opening or ('  ["' .. kind .. '"] = {\n'))
+            openKind = kind
+        end
+        Emit(piece)
+        inBatch = inBatch + 1
+    end
+    Finish()
+
+    return batches, #plan
+end
+
+--- The whole capture as a single payload, however large.
+---
+--- Kept because it is the shape anything outside this file expects, and
+--- because the split above has to be able to say what it would otherwise have
+--- produced. Everything the player sees goes through HarvestExportBatches.
+function addon.HarvestExportText()
     -- Count everything the payload actually carries, not just quests. Counting
     -- quests alone made a full export refuse to open whenever a session had
     -- captured gossip but no new quest text -- which is the normal shape of a
     -- session spent talking to NPCs -- and the "nothing captured yet" message
     -- then wrongly blamed the capture setting for data that was sitting right
     -- there in the payload.
-    local count = 0
-    for _ in pairs(quests) do count = count + 1 end
-    for _ in pairs(h.gossip) do count = count + 1 end
-    for _ in pairs(h.itemText) do count = count + 1 end
-    return "QuestReaderAddonExport = {\n" .. Serialize(data, "  ") .. "}", count
+    local batches, count = addon.HarvestExportBatches(math.huge)
+    return batches[1], count
 end
 
 function addon.HarvestWipe()

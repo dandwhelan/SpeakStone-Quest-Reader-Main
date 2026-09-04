@@ -510,7 +510,10 @@ function SpeakStone:CreateWindow()
             -- Once there is a real amount sitting here, the card stops being a
             -- statistic and starts asking for something. Capture that nobody
             -- submits helps nobody.
-            if addon.HarvestShouldSubmit and addon.HarvestShouldSubmit() then
+            -- The top-level entry total is exactly what HarvestCounts just
+            -- counted, so it is handed over rather than walked for again.
+            local entries = capturedQuests + npcs + items
+            if addon.HarvestShouldSubmit and addon.HarvestShouldSubmit(entries) then
                 SetCardState(cards.captured, ACCENT_GOOD, glines,
                     summary .. "\n|cff00ff00Ready to submit -- click to export.|r")
             else
@@ -524,8 +527,10 @@ function SpeakStone:CreateWindow()
         RefreshDashboard()
         RefreshOptionStates()
     end)
-    RefreshDashboard()
-    RefreshOptionStates()
+    -- Not refreshed here as well. The window is only ever built on the way to
+    -- being shown, and Show fires OnShow, so doing it eagerly meant every
+    -- first open walked the whole capture store twice and filled the cards
+    -- twice before anyone saw either result.
 
     addon.settingsWindow = frame
     return frame
