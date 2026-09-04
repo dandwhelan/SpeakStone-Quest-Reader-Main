@@ -1,7 +1,7 @@
 local addonName, addon = ...
 
 local NUM_VISIBLE_ROWS = 14
-local ROW_HEIGHT = 26
+local ROW_HEIGHT = 34
 -- Typing in the search box used to re-filter on every keystroke, and filtering
 -- by name means resolving a title for every quest in the library. Held back by
 -- this much, a burst of typing costs one pass instead of one per character.
@@ -71,6 +71,41 @@ local function GetQuestTitle(questID)
     return resolved
 end
 
+-- The client only knows a quest's title once it has the quest's data, which
+-- for most of a pack's tens of thousands of quests it does not. Asking the
+-- server closes that gap, but it is a per-quest round trip, so it is asked
+-- only for the handful of rows actually on screen -- never for the filter
+-- pass, which walks the whole library.
+--
+-- Requests are remembered for the session: a quest the server declined to
+-- send is not going to answer differently a scroll later.
+local titleRequests = {}
+local pendingRefresh = false
+
+local function RequestQuestTitle(questID)
+    if not questID or titleCache[questID] or titleRequests[questID] then return end
+    if not (C_QuestLog and C_QuestLog.RequestLoadQuestByID) then return end
+    titleRequests[questID] = true
+    pcall(C_QuestLog.RequestLoadQuestByID, questID)
+end
+
+local titleLoader = CreateFrame("Frame")
+titleLoader:RegisterEvent("QUEST_DATA_LOAD_RESULT")
+titleLoader:SetScript("OnEvent", function(_, _, questID, success)
+    if not success or not questID or not titleRequests[questID] then return end
+    -- The title is known now, so the miss recorded for it is stale.
+    titleMisses[questID] = nil
+    if pendingRefresh then return end
+    pendingRefresh = true
+    -- Answers arrive in bursts, one per row; redrawing once covers them all.
+    C_Timer.After(0.1, function()
+        pendingRefresh = false
+        if UI and UI:IsShown() then
+            UI:UpdateList()
+        end
+    end)
+end)
+
 local function SoundExtensions()
     return addon.soundExtensions or FALLBACK_EXTS
 end
@@ -80,7 +115,7 @@ end
 -- --------------------------------------------------------------------------
 local function BuildUI()
     local frame = CreateFrame("Frame", "QuestReaderAudioLibraryUI", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(400, 500)
+    frame:SetSize(400, 612)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -181,12 +216,22 @@ local function BuildUI()
             bg:SetColorTexture(1, 1, 1, 0.025)
         end
 
+        -- Two lines: the quest's name on top, its ID beneath, so a row reads
+        -- as the quest it is and still carries the number the files are
+        -- named after.
         local text = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        text:SetPoint("LEFT", row, "LEFT", 4, 0)
+        text:SetPoint("TOPLEFT", row, "TOPLEFT", 4, -3)
         text:SetPoint("RIGHT", row, "RIGHT", -144, 0)
         text:SetJustifyH("LEFT")
         text:SetWordWrap(false)
         row.text = text
+
+        local idText = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        idText:SetPoint("TOPLEFT", text, "BOTTOMLEFT", 0, -1)
+        idText:SetPoint("RIGHT", row, "RIGHT", -144, 0)
+        idText:SetJustifyH("LEFT")
+        idText:SetWordWrap(false)
+        row.idText = idText
 
         -- Completion button
         local compBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
@@ -460,11 +505,15 @@ local function BuildUI()
                 row:Show()
 
                 local title = GetQuestTitle(data.id)
-                if title and title ~= "" then
-                    row.text:SetText("|cffffd100[" .. data.id .. "]|r " .. title)
-                else
-                    row.text:SetText("Quest ID: |cffffffff" .. data.id .. "|r")
+                if not title then
+                    RequestQuestTitle(data.id)
                 end
+                if title and title ~= "" then
+                    row.text:SetText("|cffffd100" .. title .. "|r")
+                else
+                    row.text:SetText("|cff9d9d9dUnknown quest|r")
+                end
+                row.idText:SetText("Quest " .. data.id)
 
                 -- Description
                 if data.types["description"] then
