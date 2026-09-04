@@ -71,6 +71,41 @@ local function GetQuestTitle(questID)
     return resolved
 end
 
+-- The client only knows a quest's title once it has the quest's data, which
+-- for most of a pack's tens of thousands of quests it does not. Asking the
+-- server closes that gap, but it is a per-quest round trip, so it is asked
+-- only for the handful of rows actually on screen -- never for the filter
+-- pass, which walks the whole library.
+--
+-- Requests are remembered for the session: a quest the server declined to
+-- send is not going to answer differently a scroll later.
+local titleRequests = {}
+local pendingRefresh = false
+
+local function RequestQuestTitle(questID)
+    if not questID or titleCache[questID] or titleRequests[questID] then return end
+    if not (C_QuestLog and C_QuestLog.RequestLoadQuestByID) then return end
+    titleRequests[questID] = true
+    pcall(C_QuestLog.RequestLoadQuestByID, questID)
+end
+
+local titleLoader = CreateFrame("Frame")
+titleLoader:RegisterEvent("QUEST_DATA_LOAD_RESULT")
+titleLoader:SetScript("OnEvent", function(_, _, questID, success)
+    if not success or not questID or not titleRequests[questID] then return end
+    -- The title is known now, so the miss recorded for it is stale.
+    titleMisses[questID] = nil
+    if pendingRefresh then return end
+    pendingRefresh = true
+    -- Answers arrive in bursts, one per row; redrawing once covers them all.
+    C_Timer.After(0.1, function()
+        pendingRefresh = false
+        if UI and UI:IsShown() then
+            UI:UpdateList()
+        end
+    end)
+end)
+
 local function SoundExtensions()
     return addon.soundExtensions or FALLBACK_EXTS
 end
@@ -460,6 +495,9 @@ local function BuildUI()
                 row:Show()
 
                 local title = GetQuestTitle(data.id)
+                if not title then
+                    RequestQuestTitle(data.id)
+                end
                 if title and title ~= "" then
                     row.text:SetText("|cffffd100[" .. data.id .. "]|r " .. title)
                 else
