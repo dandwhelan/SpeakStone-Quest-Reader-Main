@@ -281,6 +281,13 @@ the index, and optionally tell the website what's now voiced — and
 shows up. See `docs/walkthrough.md` for the actual step-by-step operator
 process, including the safety gates around rebuilding `SoundLengths.lua`.
 
+The addon's own Lua is covered by a small suite under `tools/tests`
+(`lua5.1 tools/tests/run_tests.lua`). It runs the addon against a stand-in for
+the client, which mostly exists so the clock is something a test holds rather
+than waits for -- the faults worth catching in a narrator are the ones that
+live in time, like a clip queued behind the autoplay delay or a muted channel
+nothing gets around to releasing.
+
 `tools/README.md` covers all of this in far more depth, including exact
 commands, what each generation setting actually does and why, and the
 Windows-specific installation quirks (PyTorch version pins, a required

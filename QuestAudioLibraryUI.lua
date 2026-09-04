@@ -409,13 +409,13 @@ local function BuildUI()
         -- -- has found only some of its matches, and narrowing from that would
         -- drop the rest for good rather than merely deferring them. That is
         -- why the completed result is kept apart from the one on screen.
-        local source = self.allQuests
+        local startingList = self.allQuests
         if self.lastQuery and self.lastQuery ~= "" and self.lastResult
             and cleanQuery:sub(1, #self.lastQuery) == self.lastQuery then
-            source = self.lastResult
+            startingList = self.lastResult
         end
 
-        local state = { query = cleanQuery, source = source, index = 1, results = {} }
+        local state = { query = cleanQuery, source = startingList, index = 1, results = {} }
         activeFilter = state
         self.filteredList = state.results
         self.filtering = true
