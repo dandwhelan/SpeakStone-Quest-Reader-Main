@@ -4,7 +4,11 @@ local icon = LibStub("LibDBIcon-1.0")
 
 -- Ogg first: new content is generated as Ogg Vorbis, and where both exist the
 -- smaller file is preferred.
-SOUND_EXTENSIONS = { ".ogg", ".wav" }
+local SOUND_EXTENSIONS = { ".ogg", ".wav" }
+-- The audio library window needs the same list. Shared through the addon
+-- table rather than a global: "SOUND_EXTENSIONS" is a name any other addon
+-- could plausibly claim, and whichever loaded second would win.
+addon.soundExtensions = SOUND_EXTENSIONS
 
 -- Sound packs (per-expansion audio, shipped as separate addons) merge their
 -- duration index in here, keyed by the pack's addon name. Every lookup below
@@ -14,6 +18,19 @@ SOUND_EXTENSIONS = { ".ogg", ".wav" }
 -- base library covers it too. No error, no crash, just silence.
 addon.soundSources = {}
 addon.soundSources["QuestReaderAddon"] = QuestReaderSoundLengths
+
+-- Anything derived from soundSources is cached, because deriving it means
+-- walking every clip in every installed pack -- tens of thousands of table
+-- entries with a string match each. A pack arriving later is the only thing
+-- that can change the answer, so this is called from the two places that
+-- register one.
+local function InvalidateAudioCaches()
+    addon.audioSummary = nil
+    if addon.AudioLibraryInvalidate then
+        addon.AudioLibraryInvalidate()
+    end
+end
+addon.InvalidateAudioCaches = InvalidateAudioCaches
 
 -- Expansion packs are independent addons, and WoW gives no guarantee about
 -- which of two independent addons finishes loading first. A pack that loads
@@ -34,11 +51,10 @@ function QuestReaderAddon_RegisterSoundPack(packName, soundLengths)
     -- with the base addon in an earlier version of this mechanism, and
     -- breaking here meant only one pack could ever be registered.
     addon.soundSources[packName] = soundLengths
-    -- The audio library caches its index on first open. A pack arriving after
-    -- that would otherwise stay invisible until reload.
-    if QuestReaderAudioLibraryUI then
-        QuestReaderAudioLibraryUI.isIndexed = false
-    end
+    -- The audio library caches its index on first open, and the settings
+    -- dashboard caches its clip counts. A pack arriving after either would
+    -- otherwise stay invisible until reload.
+    InvalidateAudioCaches()
 end
 
 -- Drain anything a pack queued before this file ran (see above).
@@ -108,6 +124,12 @@ local function AutoPlayAllowed(kind)
 end
 addon.AutoPlayAllowed = AutoPlayAllowed
 
+-- Defined at the bottom of the file, alongside the rest of the CVar
+-- handling. Declared here so everything in between can reach them, and so
+-- they stop being globals -- "MuteDialogChannel" is not a name this addon
+-- has any claim to.
+local MuteDialogChannel, UnmuteDialogChannel
+
 local function DebugPrint(...)
     if QuestReaderAddonDB and QuestReaderAddonDB.showDebugMessages then
         print(...)
@@ -144,6 +166,22 @@ local function InitializeAddonDB()
     -- in). Runs after the defaults above so the store it writes into exists.
     if addon.HarvestMigrate then
         addon.HarvestMigrate()
+    end
+end
+
+-- SetCVar writes through to the client's config file, so a session that ended
+-- while narration had the Dialog channel muted -- a crash, or a disconnect
+-- between the mute and the unmute -- comes back with the player's dialogue
+-- still silent and nothing on screen to explain it. The volume that was
+-- muted over is saved to disk at the same time, so this can put it back.
+-- Never restores a zero: that is the state being rescued from.
+local function RestoreStrandedDialogVolume()
+    local saved = QuestReaderAddonDB and QuestReaderAddonDB.savedDialogVolume
+    QuestReaderAddonDB.savedDialogVolume = nil
+    local level = tonumber(saved)
+    if level and level > 0 then
+        SetCVar("Sound_DialogVolume", saved)
+        DebugPrint("SpeakStone: restored the dialogue volume left muted by the last session.")
     end
 end
 addon.EnsureDB = InitializeAddonDB
@@ -208,6 +246,11 @@ local function UpdateMinimapButtonVisibility()
 end
 addon.UpdateMinimapButtonVisibility = UpdateMinimapButtonVisibility
 
+-- Defined further down, next to the pack-loading it does; declared here so
+-- the PLAYER_LOGIN handler below closes over the local rather than looking
+-- for a global that no longer exists.
+local DetectSoundPacks
+
 -- Create a frame to listen for the ADDON_LOADED event
 local loadingFrame = CreateFrame("Frame")
 loadingFrame:RegisterEvent("ADDON_LOADED")
@@ -215,6 +258,7 @@ loadingFrame:RegisterEvent("PLAYER_LOGIN")
 loadingFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
     if event == "ADDON_LOADED" and loadedAddonName == addonName then
         InitializeAddonDB()
+        RestoreStrandedDialogVolume()
         if questReaderLauncher then
             icon:Register("QuestReaderAddon", questReaderLauncher, {
                 hide = not QuestReaderAddonDB.showMinimapButton,
@@ -242,6 +286,14 @@ loadingFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
     elseif event == "PLAYER_LOGIN" then
         -- All addons should now be loaded, call DetectSoundPacks safely here
         DetectSoundPacks()
+        -- Held back so it is not lost in the wall of text every other addon
+        -- prints at login.
+        if addon.HarvestRemindIfLarge then
+            C_Timer.After(10, addon.HarvestRemindIfLarge)
+        end
+        -- Both events this frame exists for have now fired once, and neither
+        -- fires again in a way this addon cares about.
+        loadingFrame:UnregisterEvent("PLAYER_LOGIN")
     end
 end)
 -- Quest frame buttons are created from InitializeQuestFrameButtons on
@@ -341,12 +393,20 @@ addon.reportedMissing = {}
 -- panel has been shown. It used to be assigned from an out-of-scope variable
 -- at the bottom of the file, which made it nil and turned a click with no
 -- panel open into a "concatenate a nil value" error.
-lastTextType = ""
+local lastTextType = ""
 
 -- How much audio is actually installed, and where it came from. The settings
 -- panel shows this: "no audio for this quest" and "no packs installed at all"
 -- look identical from the player's side otherwise.
 function addon.GetInstalledAudioSummary()
+    -- Walking every clip in every pack is the single most expensive thing
+    -- this addon does, and the settings dashboard asks for it on every open.
+    -- The answer only changes when a pack registers, which invalidates this.
+    local cached = addon.audioSummary
+    if cached then
+        return cached.packs, cached.clips, cached.quests
+    end
+
     local packs, clips = {}, 0
     local quests = {}
     for packName, soundLengths in pairs(addon.soundSources or {}) do
@@ -366,6 +426,7 @@ function addon.GetInstalledAudioSummary()
     table.sort(packs, function(a, b) return a.name < b.name end)
     local questCount = 0
     for _ in pairs(quests) do questCount = questCount + 1 end
+    addon.audioSummary = { packs = packs, clips = clips, quests = questCount }
     return packs, clips, questCount
 end
 
@@ -383,9 +444,7 @@ function DetectSoundPacks()
                     -- bundled with the base addon, and breaking here meant only
                     -- one language pack could ever be active at a time.
                     addon.soundSources[name] = pack
-                    if QuestReaderAudioLibraryUI then
-                        QuestReaderAudioLibraryUI.isIndexed = false
-                    end
+                    InvalidateAudioCaches()
                     hasEntries = true
                 end
             end
@@ -412,11 +471,47 @@ end
 --     StaticPopup_Show("NO_SOUND_PACKS")
 -- end
 
-function GetCurrentSound()
+local function GetCurrentSound()
     return addon.activeSound
 end
 
-function DoPlaySound()
+-- The one place a clip is looked up, for all three playback paths. Returns
+-- the file name, its full path, and the clip's length -- which is the value
+-- SoundLengths stores against each file, and the only thing that can tell
+-- this addon when playback has finished.
+--
+-- Callers pass their candidate base names in preference order; books have
+-- several (item ID, then two name-derived shapes), quests and gossip one.
+local function FindSound(baseNames)
+    for _, baseName in ipairs(baseNames) do
+        for _, extension in ipairs(SOUND_EXTENSIONS) do
+            local candidate = baseName .. extension
+            for packName, soundLengths in pairs(addon.soundSources) do
+                if type(soundLengths) == "table" and soundLengths[candidate] then
+                    return candidate,
+                        "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. candidate,
+                        tonumber(soundLengths[candidate])
+                end
+            end
+        end
+    end
+end
+
+-- The clip has run its course, or never started. Distinct from
+-- StopCurrentSound, which interrupts one: there is no handle left to stop
+-- here. The identity check keeps a late timer from tearing down whatever
+-- clip has since replaced the one it was scheduled for.
+local function FinishPlayback(soundData)
+    if addon.activeSound ~= soundData then
+        return
+    end
+    soundData.isPlaying = false
+    soundData.endTimer = nil
+    addon.activeSound = nil
+    UnmuteDialogChannel()
+end
+
+local function DoPlaySound()
     local soundData = GetCurrentSound()
     if not soundData then
         -- This can fire when a sound was canceled while in timer
@@ -429,38 +524,52 @@ function DoPlaySound()
         audioChannel = "Master"
     end
 
-    soundData.isPlaying = true
     soundData.isPlaying, soundData.soundHandle = PlaySoundFile(soundData.soundPath, audioChannel)
 
-    if soundData.soundHandle then
-        --print("Playing audio: " .. soundData.soundPath)
-    else
-        DebugPrint("Failed to play audio: " .. soundData.soundFile)
-        soundData.isPlaying = false
+    if not soundData.soundHandle then
+        DebugPrint("Failed to play audio: " .. tostring(soundData.soundFile))
+        -- Nothing is playing, so nothing will ever finish. Release the
+        -- channel now rather than leaving Dialog muted under silence.
+        FinishPlayback(soundData)
+        return
     end
-    addon.currentSound = soundData
+
+    -- Nothing tells an addon when a PlaySoundFile clip ends. Without this the
+    -- sound stayed "playing" for the rest of the session: every later play
+    -- called StopSound on a dead handle, and with "silence Blizzard's voice
+    -- lines" on, the Dialog channel stayed at zero until the next narration
+    -- or logout -- which, with "stop narration when the window closes" off,
+    -- meant the player's dialogue simply never came back. The duration is
+    -- already in SoundLengths; a small margin covers rounding in it.
+    if soundData.duration and soundData.duration > 0 then
+        soundData.endTimer = C_Timer.NewTimer(soundData.duration + 0.25, function()
+            FinishPlayback(soundData)
+        end)
+    end
 end
 
-function IsPlaying()
+local function IsPlaying()
     local currentSound = GetCurrentSound()
     return currentSound and currentSound.isPlaying
 end
+addon.IsPlaying = IsPlaying
 
-function StopCurrentSound()
+local function StopCurrentSound()
     local currentSound = GetCurrentSound()
 
     if not currentSound then
         return
     end
-    
+
     if currentSound.nextSoundTimer then
         currentSound.nextSoundTimer:Cancel()
+    end
+    if currentSound.endTimer then
+        currentSound.endTimer:Cancel()
     end
 
     if currentSound.soundHandle then
         StopSound(currentSound.soundHandle)
-    else
-        -- print("No sound currently playing")
     end
 
     -- Unconditionally: the setting can be turned off while a clip is
@@ -470,6 +579,7 @@ function StopCurrentSound()
 
     addon.activeSound = nil
 end
+addon.StopCurrentSound = StopCurrentSound
 
 -- Capture for a passage that had no audio. The recording itself lives in
 -- Harvester.lua, which captures every quest encountered; this only marks
@@ -497,6 +607,8 @@ local function CaptureMissingQuestAudio(questID, textType)
     end
 end
 
+-- Global on purpose: Bindings.xml calls this by name. Everything else that
+-- used to sit in the global namespace alongside it now lives on addon.
 function PlayQuestAudio(textType, skipDelay)
     -- Get quest ID from Quest Log if it's open, otherwise from quest giver
     local questID
@@ -510,11 +622,11 @@ function PlayQuestAudio(textType, skipDelay)
 
     if not textType then
         -- Initialize textType based on visible panels
-        if QuestFrameDetailPanel:IsVisible() then
+        if QuestFrameDetailPanel and QuestFrameDetailPanel:IsVisible() then
             textType = "description"
-        elseif QuestFrameProgressPanel:IsVisible() then
+        elseif QuestFrameProgressPanel and QuestFrameProgressPanel:IsVisible() then
             textType = "progress"
-        elseif QuestFrameRewardPanel:IsVisible() then
+        elseif QuestFrameRewardPanel and QuestFrameRewardPanel:IsVisible() then
             textType = "completion"
         -- Gossip has its own playback path, PlayGossipAudio: it has no
         -- questID to key on, so it cannot share this function's lookup.
@@ -541,21 +653,7 @@ function PlayQuestAudio(textType, skipDelay)
         -- size of the original PCM library and is what the game itself uses.
         -- Both are accepted so a pack can mix them while it is converted over.
         local baseName = questID .. "_" .. textType
-        local soundFile, soundPath
-
-        for _, extension in ipairs(SOUND_EXTENSIONS) do
-            local candidate = baseName .. extension
-            for packName, soundLengths in pairs(addon.soundSources) do
-                if soundLengths[candidate] then
-                    soundFile = candidate
-                    soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. candidate
-                    break
-                end
-            end
-            if soundPath then
-                break
-            end
-        end
+        local soundFile, soundPath, duration = FindSound({ baseName })
 
         if not soundPath then
             -- Report the gap so players can tell "not recorded yet" apart from
@@ -578,6 +676,7 @@ function PlayQuestAudio(textType, skipDelay)
             textType = textType,
             soundFile = soundFile,
             soundPath = soundPath,
+            duration = duration,
         }
         
         -- Delay shortly to account for greeting audio when using autoplay
@@ -616,7 +715,7 @@ local function CreatureIDFromGUID(guid)
     return nil
 end
 
-function PlayGossipAudio()
+local function PlayGossipAudio()
     local guid = UnitGUID("npc")
     if not guid or IsSecret(guid) then
         return
@@ -639,21 +738,7 @@ function PlayGossipAudio()
     -- unaffected; NPCs with several will sometimes say the wrong line until
     -- variant matching is built.
     local baseName = "npc" .. npcID .. "_gossip1"
-    local soundFile, soundPath
-
-    for _, extension in ipairs(SOUND_EXTENSIONS) do
-        local candidate = baseName .. extension
-        for packName, soundLengths in pairs(addon.soundSources) do
-            if soundLengths[candidate] then
-                soundFile = candidate
-                soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. candidate
-                break
-            end
-        end
-        if soundPath then
-            break
-        end
-    end
+    local soundFile, soundPath, duration = FindSound({ baseName })
 
     if not soundPath then
         -- Same dedup as the quest path: report once per session, not once
@@ -671,6 +756,7 @@ function PlayGossipAudio()
         textType = "gossip",
         soundFile = soundFile,
         soundPath = soundPath,
+        duration = duration,
     }
     DoPlaySound()
 end
@@ -710,25 +796,7 @@ local function PlayItemAudioDirect(itemLink, page)
         return
     end
 
-    local soundFile, soundPath
-    for _, baseName in ipairs(baseNames) do
-        for _, extension in ipairs(SOUND_EXTENSIONS) do
-            local candidate = baseName .. extension
-            for packName, soundLengths in pairs(addon.soundSources) do
-                if soundLengths[candidate] then
-                    soundFile = candidate
-                    soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. candidate
-                    break
-                end
-            end
-            if soundPath then
-                break
-            end
-        end
-        if soundPath then
-            break
-        end
-    end
+    local soundFile, soundPath, duration = FindSound(baseNames)
 
     if not soundPath then
         local displayName = itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")
@@ -746,10 +814,15 @@ local function PlayItemAudioDirect(itemLink, page)
         textType = "item",
         soundFile = soundFile,
         soundPath = soundPath,
+        duration = duration,
     }
     DebugPrint("SpeakStone: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
     DoPlaySound()
 end
+
+-- Defined below, but hooked from here. A forward declaration rather than a
+-- global, which is what let the hook reach it before.
+local PlayItemAudio
 
 local function HookDialogueUI()
     if DUIBookFrame and not addon.duiHooked then
@@ -830,10 +903,19 @@ end
 -- player's dialogue at zero.
 local originalDialogVolume = nil
 
+addon.PlayQuestAudio = PlayQuestAudio
+addon.PlayGossipAudio = PlayGossipAudio
+addon.PlayItemAudio = PlayItemAudio
+
 local function OnPlayerLogout()
     local currentSound = GetCurrentSound()
-    if currentSound and currentSound.nextSoundTimer then
-        currentSound.nextSoundTimer:Cancel()
+    if currentSound then
+        if currentSound.nextSoundTimer then
+            currentSound.nextSoundTimer:Cancel()
+        end
+        if currentSound.endTimer then
+            currentSound.endTimer:Cancel()
+        end
     end
     UnmuteDialogChannel()
 end
@@ -857,6 +939,12 @@ questEventFrame:RegisterEvent("ITEM_TEXT_CLOSED")
 questEventFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "ADDON_LOADED" then
         HookDialogueUI()
+        -- ADDON_LOADED keeps firing for every on-demand addon the client
+        -- loads all session. The hook is the only reason to listen, so once
+        -- it is installed there is nothing left to wait for.
+        if addon.duiHooked then
+            self:UnregisterEvent("ADDON_LOADED")
+        end
         return
     end
     -- Gossip and Items have no questID and their own lookup, so they are handled before
@@ -944,62 +1032,71 @@ SlashCmdList["QUESTREADERDEBUG"] = function(msg)
     print("SpeakStone Debug Messages: " .. (QuestReaderAddonDB.showDebugMessages and "Enabled" or "Disabled"))
 end
 
--- Frame for copy-pasting missing quests
-local missingCopyFrame = CreateFrame("Frame", "QuestReaderMissingCopyFrame", UIParent, "BasicFrameTemplateWithInset")
-missingCopyFrame:SetSize(560, 440)
-missingCopyFrame:SetPoint("CENTER")
-missingCopyFrame:SetMovable(true)
-missingCopyFrame:EnableMouse(true)
-missingCopyFrame:RegisterForDrag("LeftButton")
-missingCopyFrame:SetScript("OnDragStart", missingCopyFrame.StartMoving)
-missingCopyFrame:SetScript("OnDragStop", missingCopyFrame.StopMovingOrSizing)
-missingCopyFrame:SetFrameStrata("DIALOG")
-missingCopyFrame:SetClampedToScreen(true)
-missingCopyFrame:Hide()
--- Escape closes it like every other addon window. Previously only the edit box
--- handled Escape, so clicking anywhere else in the frame first left the player
--- with no way out but the X.
-tinsert(UISpecialFrames, "QuestReaderMissingCopyFrame")
+-- The export window, built the first time it is asked for. It used to be
+-- created at file scope: a frame, a scroll frame, an edit box, a button and
+-- two font strings put together on every login for a window most players
+-- open rarely and many never do.
+local exportFrame, exportEditBox
 
--- Set frame title
-missingCopyFrame.TitleText:SetText("Captured Text -- Export to Submit")
+local function EnsureExportFrame()
+    if exportFrame then
+        return exportFrame, exportEditBox
+    end
 
--- ScrollFrame for the EditBox
-local scrollFrame = CreateFrame("ScrollFrame", nil, missingCopyFrame, "UIPanelScrollFrameTemplate")
-scrollFrame:SetPoint("TOPLEFT", missingCopyFrame.InsetBg, "TOPLEFT", 5, -5)
-scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27, 5)
+    local frame = CreateFrame("Frame", "QuestReaderMissingCopyFrame", UIParent, "BasicFrameTemplateWithInset")
+    frame:SetSize(560, 440)
+    frame:SetPoint("CENTER")
+    frame:SetMovable(true)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    frame:SetFrameStrata("DIALOG")
+    frame:SetClampedToScreen(true)
+    frame:Hide()
+    -- Escape closes it like every other addon window. Previously only the edit
+    -- box handled Escape, so clicking anywhere else in the frame first left the
+    -- player with no way out but the X.
+    tinsert(UISpecialFrames, "QuestReaderMissingCopyFrame")
 
--- Multi-line EditBox
-local editBox = CreateFrame("EditBox", nil, scrollFrame)
-editBox:SetSize(scrollFrame:GetSize())
-editBox:SetMultiLine(true)
--- Focus is not taken: the frame opens with everything already selected, and
--- grabbing focus meant a stray keypress replaced the export the player was
--- about to copy.
-editBox:SetAutoFocus(false)
-editBox:SetFontObject("ChatFontNormal")
-editBox:SetScript("OnEscapePressed", function(self) missingCopyFrame:Hide() end)
-scrollFrame:SetScrollChild(editBox)
+    frame.TitleText:SetText("Captured Text -- Export to Submit")
 
--- One-click re-select, for when the highlight has been lost to a click in the
--- box. Ctrl+A still works; this is just discoverable.
-local selectAllButton = CreateFrame("Button", nil, missingCopyFrame, "UIPanelButtonTemplate")
-selectAllButton:SetSize(110, 22)
-selectAllButton:SetPoint("BOTTOMLEFT", missingCopyFrame, "BOTTOMLEFT", 12, 8)
-selectAllButton:SetText("Select All")
-selectAllButton:SetScript("OnClick", function()
-    editBox:SetFocus()
-    editBox:HighlightText()
-end)
+    local scrollFrame = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
+    scrollFrame:SetPoint("TOPLEFT", frame.InsetBg, "TOPLEFT", 5, -5)
+    -- The scroll area has to end above the button row, or the two overlap.
+    scrollFrame:SetPoint("BOTTOMRIGHT", frame.InsetBg, "BOTTOMRIGHT", -27, 34)
 
-local copyHintText = missingCopyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
-copyHintText:SetPoint("RIGHT", missingCopyFrame, "RIGHT", -12, 0)
-copyHintText:SetJustifyH("LEFT")
-copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+    local editBox = CreateFrame("EditBox", nil, scrollFrame)
+    editBox:SetSize(scrollFrame:GetSize())
+    editBox:SetMultiLine(true)
+    -- Focus is not taken: the frame opens with everything already selected, and
+    -- grabbing focus meant a stray keypress replaced the export the player was
+    -- about to copy.
+    editBox:SetAutoFocus(false)
+    editBox:SetFontObject("ChatFontNormal")
+    editBox:SetScript("OnEscapePressed", function() frame:Hide() end)
+    scrollFrame:SetScrollChild(editBox)
 
--- The scroll area has to end above the button row, or the two overlap.
-scrollFrame:SetPoint("BOTTOMRIGHT", missingCopyFrame.InsetBg, "BOTTOMRIGHT", -27, 34)
+    -- One-click re-select, for when the highlight has been lost to a click in
+    -- the box. Ctrl+A still works; this is just discoverable.
+    local selectAllButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    selectAllButton:SetSize(110, 22)
+    selectAllButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 12, 8)
+    selectAllButton:SetText("Select All")
+    selectAllButton:SetScript("OnClick", function()
+        editBox:SetFocus()
+        editBox:HighlightText()
+    end)
+
+    local copyHintText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    copyHintText:SetPoint("LEFT", selectAllButton, "RIGHT", 10, 0)
+    copyHintText:SetPoint("RIGHT", frame, "RIGHT", -12, 0)
+    copyHintText:SetJustifyH("LEFT")
+    copyHintText:SetText("Ctrl+C, then paste at |cff00ccffspeakstone.beanw.co.uk|r")
+
+    exportFrame, exportEditBox = frame, editBox
+    return frame, editBox
+end
 
 -- Slash command to export the text captured for quests the installed sound
 -- packs have no audio for, ready to paste into the website's submit form --
@@ -1025,9 +1122,16 @@ function addon.ShowHarvestExport()
         return
     end
 
+    -- The player has the payload in front of them now, so the reminder clock
+    -- starts again regardless of what they do with it.
+    if addon.HarvestMarkOffered then
+        addon.HarvestMarkOffered()
+    end
+
+    local frame, editBox = EnsureExportFrame()
     editBox:SetText(text)
-    missingCopyFrame:Show()
-    missingCopyFrame:Raise()
+    frame:Show()
+    frame:Raise()
     editBox:HighlightText()
     print("SpeakStone: " .. count .. " entry(s) ready -- quests, greetings and books. Ctrl+A, Ctrl+C, then paste at speakstone.beanw.co.uk to submit.")
 end
@@ -1088,8 +1192,15 @@ function MuteDialogChannel()
     if not originalDialogVolume then
         -- Get the current dialog volume and store it
         originalDialogVolume = GetCVar("Sound_DialogVolume")
+        -- And store it to disk as well. SetCVar writes through to the
+        -- client's config, so the in-memory copy alone was lost to a crash
+        -- or a disconnect, stranding the player's dialogue at zero with
+        -- nothing to explain it. See RestoreStrandedDialogVolume.
+        if QuestReaderAddonDB then
+            QuestReaderAddonDB.savedDialogVolume = originalDialogVolume
+        end
     end
-    
+
     -- Set the dialog volume to 0 (mute)
     SetCVar("Sound_DialogVolume", 0)
 end
@@ -1097,10 +1208,15 @@ end
 -- Function to unmute the dialog channel
 function UnmuteDialogChannel()
     if originalDialogVolume then
-        -- Restore the original dialog volume
+        -- Restore the original volume
         SetCVar("Sound_DialogVolume", originalDialogVolume)
-        
+
         -- Clear the original volume to avoid accidental overwriting in future
         originalDialogVolume = nil
+    end
+    -- Cleared even when nothing was held in memory: the saved copy is only
+    -- ever a rescue for a session that did not get here.
+    if QuestReaderAddonDB then
+        QuestReaderAddonDB.savedDialogVolume = nil
     end
 end
