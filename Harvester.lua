@@ -387,8 +387,14 @@ end
 -- Whether the store has grown past the point of being worth sending in. The
 -- settings dashboard asks this to colour its card, so it carries no
 -- side-effects and no time check.
-function addon.HarvestShouldSubmit()
-    return addon.HarvestEntryCount() >= REMIND_AT
+--
+-- Takes the count when the caller already has it. The dashboard calls
+-- HarvestCounts immediately before this, which walks the whole store, and
+-- then walked it a second time here for a number the first walk had already
+-- counted -- twice over on every settings open, since the window refreshed
+-- itself once on build and again on show.
+function addon.HarvestShouldSubmit(entries)
+    return (entries or addon.HarvestEntryCount()) >= REMIND_AT
 end
 
 -- Called after an export: the player has just been handed the payload, so
@@ -451,43 +457,61 @@ end
 -- shape (top-level .quests/.gossip/.itemText plus locale and player
 -- metadata), not which addon wrote it, so this output is interchangeable with
 -- the standalone Harvester's.
--- Backslashes first, or the escapes added after would be escaped again.
+-- One pass over the string rather than four chained gsubs, each of which
+-- copied the whole thing again. Quest and gossip text is the bulk of the
+-- payload, so every passage in the store was being rebuilt four times over on
+-- every export. A replacement table also removes the ordering trap the old
+-- chain had to be careful about -- each character is matched and replaced
+-- exactly once, so an added escape can no longer be escaped again.
+local ESCAPES = { ["\\"] = "\\\\", ['"'] = '\\"', ["\r"] = "\\r", ["\n"] = "\\n" }
+
 local function EscapeString(text)
-    return (text:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("\r", "\\r"):gsub("\n", "\\n"))
+    return (text:gsub('[\\"\r\n]', ESCAPES))
 end
 
-local function Serialize(tbl, indent)
-    indent = indent or ""
-    local lines = {}
+-- Append this table's lines to `out`, depth-first.
+--
+-- This used to return a string per level, which the level above embedded in a
+-- string of its own: with the payload four tables deep, every byte of it was
+-- copied four times and the intermediates handed straight to the collector. A
+-- player with a few hundred captured quests exports megabytes, so that was
+-- the export's whole cost. Fragments go into one buffer now and are joined
+-- once at the end.
+--
+-- The old version also wrapped each key in a pcall over a fresh closure --
+-- two allocations and a protected call per key, tens of thousands of them on
+-- a real store -- to guard operations that cannot throw on the only key types
+-- this data holds. A key that is neither a string nor a number has no
+-- representation here and is skipped rather than written out as
+-- "table: 0x...", which is what the guarded path produced.
+local function SerializeInto(out, tbl, indent)
+    local childIndent = indent .. "  "
     for k, v in pairs(tbl) do
-        local keyOk, keyStr = pcall(function()
-            if type(k) == "number" then
-                return "[" .. k .. "]"
-            end
+        local keyStr
+        local kt = type(k)
+        if kt == "number" then
+            keyStr = "[" .. k .. "]"
+        elseif kt == "string" then
             -- Escaped like any other string. Table keys are not all ours to
             -- choose: books and plaques are keyed by their in-game name when
             -- they carry no item ID, and a name holding a quote -- or a
             -- backslash, or a newline -- closed the key early and left the
             -- whole export unparseable at the far end.
-            return '["' .. EscapeString(tostring(k)) .. '"]'
-        end)
-        if keyOk then
-            if type(v) == "table" then
-                table.insert(lines, indent .. keyStr .. " = {\n" .. Serialize(v, indent .. "  ") .. indent .. "},")
-            elseif type(v) == "string" then
-                local ok, escaped = pcall(EscapeString, v)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. ' = "' .. escaped .. '",')
-                end
-            elseif type(v) == "number" or type(v) == "boolean" then
-                local ok, valStr = pcall(tostring, v)
-                if ok then
-                    table.insert(lines, indent .. keyStr .. " = " .. valStr .. ",")
-                end
+            keyStr = '["' .. EscapeString(k) .. '"]'
+        end
+        if keyStr then
+            local vt = type(v)
+            if vt == "table" then
+                out[#out + 1] = indent .. keyStr .. " = {\n"
+                SerializeInto(out, v, childIndent)
+                out[#out + 1] = indent .. "},\n"
+            elseif vt == "string" then
+                out[#out + 1] = indent .. keyStr .. ' = "' .. EscapeString(v) .. '",\n'
+            elseif vt == "number" or vt == "boolean" then
+                out[#out + 1] = indent .. keyStr .. " = " .. tostring(v) .. ",\n"
             end
         end
     end
-    return table.concat(lines, "\n") .. "\n"
 end
 
 --- Build the export payload: everything captured, of every kind.
@@ -528,7 +552,9 @@ function addon.HarvestExportText()
     for _ in pairs(quests) do count = count + 1 end
     for _ in pairs(h.gossip) do count = count + 1 end
     for _ in pairs(h.itemText) do count = count + 1 end
-    return "QuestReaderAddonExport = {\n" .. Serialize(data, "  ") .. "}", count
+    local out = {}
+    SerializeInto(out, data, "  ")
+    return "QuestReaderAddonExport = {\n" .. table.concat(out) .. "}", count
 end
 
 function addon.HarvestWipe()

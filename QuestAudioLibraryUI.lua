@@ -278,42 +278,30 @@ local function BuildUI()
         return nil
     end
 
-    -- Index builder: scans addon.soundSources fast and caches results
+    -- The per-quest index is built once for the whole addon, in
+    -- QuestReaderAddon.lua, because the settings dashboard needs a walk over
+    -- the same packs to count clips. This used to repeat that walk with its
+    -- own string match per clip -- tens of thousands of them -- for an answer
+    -- the other pass had already worked out.
     function frame:BuildIndex(force)
         if self.isIndexed and not force then
             return
         end
 
-        local questMap = {}
-        for packName, soundLengths in pairs(addon.soundSources or {}) do
-            if type(soundLengths) == "table" then
-                for soundFile in pairs(soundLengths) do
-                    local questID, audioType = soundFile:match("^(%d+)_(%a+)%.")
-                    if questID and audioType then
-                        local idNum = tonumber(questID)
-                        if idNum then
-                            local entry = questMap[idNum]
-                            if not entry then
-                                entry = { id = idNum, types = {} }
-                                questMap[idNum] = entry
-                            end
-                            entry.types[audioType] = true
-                        end
-                    end
-                end
-            end
-        end
-
         local list = {}
-        for _, entry in pairs(questMap) do
-            table.insert(list, entry)
+        if addon.GetAudioIndex then
+            for _, entry in pairs(addon.GetAudioIndex().quests) do
+                table.insert(list, entry)
+            end
         end
         table.sort(list, function(a, b) return a.id < b.id end)
 
         self.allQuests = list
-        self.questMap = questMap
         self.isIndexed = true
         self.filteredList = nil
+        -- A rebuilt index invalidates the narrowing below, which assumes the
+        -- previous result was drawn from the same library.
+        self.lastQuery = nil
     end
 
     -- Real-time filter
@@ -322,13 +310,28 @@ local function BuildUI()
             self:BuildIndex()
         end
 
-        if not query or query:match("^%s*$") then
+        local cleanQuery = query and query:lower():match("^%s*(.-)%s*$") or ""
+        if cleanQuery == "" then
             self.filteredList = self.allQuests
+            self.lastQuery = ""
         else
-            local cleanQuery = query:lower():match("^%s*(.-)%s*$")
+            -- Extending a query can only ever narrow the result: a quest that
+            -- matches "westf" matched "west" too, whether it matched on ID or
+            -- on title. So the longer query is filtered over what the shorter
+            -- one produced rather than over the whole library. Without this,
+            -- every pass walked all tens of thousands of quests and resolved a
+            -- title -- two pcall'd API calls -- for every one that did not
+            -- match on ID alone.
+            local source = self.allQuests
+            local previous = self.lastQuery
+            if previous and previous ~= "" and self.filteredList
+                and cleanQuery:sub(1, #previous) == previous then
+                source = self.filteredList
+            end
+
             local filtered = {}
-            for _, entry in ipairs(self.allQuests) do
-                local idStr = tostring(entry.id)
+            for _, entry in ipairs(source) do
+                local idStr = entry.idStr or tostring(entry.id)
                 if idStr:find(cleanQuery, 1, true) then
                     table.insert(filtered, entry)
                 else
@@ -339,6 +342,7 @@ local function BuildUI()
                 end
             end
             self.filteredList = filtered
+            self.lastQuery = cleanQuery
         end
 
         local scrollBar = _G["QuestReaderAudioLibraryScrollFrameScrollBar"]
@@ -500,8 +504,11 @@ local function BuildUI()
 
     frame:SetScript("OnShow", function(self)
         self:Raise()
-        -- A title the client did not know last time it may know now.
+        -- A title the client did not know last time it may know now -- so the
+        -- narrowed result from the previous open, computed while those were
+        -- still misses, cannot be reused either.
         wipe(titleMisses)
+        self.lastQuery = nil
         self:PopulateList()
     end)
 

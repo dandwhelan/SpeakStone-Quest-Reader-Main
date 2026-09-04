@@ -25,7 +25,7 @@ addon.soundSources["QuestReaderAddon"] = QuestReaderSoundLengths
 -- that can change the answer, so this is called from the two places that
 -- register one.
 local function InvalidateAudioCaches()
-    addon.audioSummary = nil
+    addon.audioIndex = nil
     if addon.AudioLibraryInvalidate then
         addon.AudioLibraryInvalidate()
     end
@@ -395,27 +395,47 @@ addon.reportedMissing = {}
 -- panel open into a "concatenate a nil value" error.
 local lastTextType = ""
 
--- How much audio is actually installed, and where it came from. The settings
--- panel shows this: "no audio for this quest" and "no packs installed at all"
--- look identical from the player's side otherwise.
-function addon.GetInstalledAudioSummary()
-    -- Walking every clip in every pack is the single most expensive thing
-    -- this addon does, and the settings dashboard asks for it on every open.
-    -- The answer only changes when a pack registers, which invalidates this.
-    local cached = addon.audioSummary
-    if cached then
-        return cached.packs, cached.clips, cached.quests
-    end
+-- Everything derived from the installed packs, from one walk over them.
+--
+-- Walking every clip in every pack is the single most expensive thing this
+-- addon does -- around 34,000 clips with today's packs and growing with every
+-- expansion -- and it was being done twice over: once here for the settings
+-- dashboard's counts, and again in QuestAudioLibraryUI's own index for the
+-- library list, each with its own string match per clip. Both answers come
+-- out of the same pass now, and both are dropped together when a pack
+-- registers. The two used to derive the quest count with slightly different
+-- patterns, so the dashboard and the library could disagree about how many
+-- quests were voiced; sharing the pass makes that impossible.
+local function BuildAudioIndex()
+    local index = addon.audioIndex
+    if index then return index end
 
     local packs, clips = {}, 0
-    local quests = {}
+    local quests, questCount = {}, 0
     for packName, soundLengths in pairs(addon.soundSources or {}) do
         if type(soundLengths) == "table" then
             local packClips = 0
             for soundFile in pairs(soundLengths) do
                 packClips = packClips + 1
-                local questID = soundFile:match("^(%d+)_")
-                if questID then quests[questID] = true end
+                -- "<questID>_<passage>.<ext>". Gossip and book clips are named
+                -- "npc<id>_..." and "item<id>_...", so they do not match here
+                -- and stay out of the quest library, which is what we want.
+                local questID, passage = soundFile:match("^(%d+)_(%a+)%.")
+                if questID then
+                    local id = tonumber(questID)
+                    if id then
+                        local entry = quests[id]
+                        if not entry then
+                            -- idStr is kept rather than rebuilt with tostring
+                            -- in the library's search filter, which compared
+                            -- against it once per quest on every pass.
+                            entry = { id = id, idStr = questID, types = {} }
+                            quests[id] = entry
+                            questCount = questCount + 1
+                        end
+                        entry.types[passage] = true
+                    end
+                end
             end
             if packClips > 0 then
                 table.insert(packs, { name = packName, clips = packClips })
@@ -424,10 +444,19 @@ function addon.GetInstalledAudioSummary()
         end
     end
     table.sort(packs, function(a, b) return a.name < b.name end)
-    local questCount = 0
-    for _ in pairs(quests) do questCount = questCount + 1 end
-    addon.audioSummary = { packs = packs, clips = clips, quests = questCount }
-    return packs, clips, questCount
+
+    index = { packs = packs, clips = clips, quests = quests, questCount = questCount }
+    addon.audioIndex = index
+    return index
+end
+addon.GetAudioIndex = BuildAudioIndex
+
+-- How much audio is actually installed, and where it came from. The settings
+-- panel shows this: "no audio for this quest" and "no packs installed at all"
+-- look identical from the player's side otherwise.
+function addon.GetInstalledAudioSummary()
+    local index = BuildAudioIndex()
+    return index.packs, index.clips, index.questCount
 end
 
 -- Function to detect available sound packs
