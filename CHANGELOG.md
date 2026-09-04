@@ -68,6 +68,11 @@
   one pass instead of one per character.
 - The addon stopped listening for other addons loading once it has nothing
   left to wait for, rather than waking for every on-demand addon all session.
+- **The audio library only listens while it is open.** It waits on quest data
+  coming back from the server to fill in names it does not know yet, and that
+  answer arrives for every quest anything in your UI asks about. It was
+  listening from login, all session, for a window most players open rarely and
+  many never do.
 
 ### Fixed
 
@@ -84,7 +89,6 @@
   -- among them names as generic as `IsPlaying`, `GetCurrentSound` and
   `lastTextType` -- are now private to it. Any other addon defining one of
   those would have silently broken playback, or been broken by it.
-
 - **A stopped clip could still start speaking.** The delay before narration
   used a timer that could not be cancelled, so walking away during the pause
   left the queued line to play anyway. Same fault, same fix, for the short
@@ -92,6 +96,22 @@
 - **The Dialog channel could stay muted.** Turning "Silence Blizzard's own
   voice lines" off while a clip was playing meant the volume was never put
   back, and the game stayed silent for the rest of the session.
+- **A line could be spoken twice, over itself.** Narration waits a moment
+  before speaking so Blizzard's own voice line can finish, and a clip still
+  waiting out that pause did not count as playing -- so clicking on to the
+  next page of dialogue left the old timer running. It then spoke whichever
+  line had replaced it, which spoke again on its own timer: the same voice
+  twice, a fraction of a second apart, with no way to stop the first.
+- **A clip with no recorded length left the Dialog channel muted.** Nothing
+  tells an addon when a sound has finished, so narration works from the length
+  its voice pack records. Where that was missing the clip was never considered
+  finished, and with "Silence Blizzard's own voice lines" on the game's
+  dialogue stayed silent for the rest of the session -- the same dead end the
+  length was introduced to avoid, reached by another road.
+- **Previewing a clip in the audio library talked over the quest being
+  narrated**, and where narration had silenced Blizzard's voice lines the
+  preview played into that silenced channel and could not be heard at all.
+  Previewing now stops whatever is being narrated first.
 - **The SpeakStone icon in the AddOns list.** Its texture path was missing the
   `Interface\AddOns` prefix, so nothing was drawn.
 - **The Capture card went blank** rather than reporting its state when the

@@ -1,4 +1,4 @@
-local addonName, addon = ...
+local _, addon = ...
 
 local NUM_VISIBLE_ROWS = 14
 local ROW_HEIGHT = 34
@@ -6,7 +6,6 @@ local ROW_HEIGHT = 34
 -- by name means resolving a title for every quest in the library. Held back by
 -- this much, a burst of typing costs one pass instead of one per character.
 local SEARCH_DEBOUNCE = 0.2
-local FALLBACK_EXTS = { ".ogg", ".wav" }
 -- How long one pass of the filter may hold the client's frame before handing
 -- it back. Resolving a quest title is two protected API calls, and a name
 -- search asks for one per quest that does not match on ID -- tens of
@@ -89,8 +88,12 @@ local function RequestQuestTitle(questID)
     pcall(C_QuestLog.RequestLoadQuestByID, questID)
 end
 
+-- Registered only while the window is open, from its OnShow. QUEST_DATA_LOAD_RESULT
+-- fires for every quest anything in the UI asks the server about, all
+-- session, and the only reason to hear it is to redraw a list that is on
+-- screen -- so a player who never opens the library was paying for an event
+-- handler that could not have anything to do.
 local titleLoader = CreateFrame("Frame")
-titleLoader:RegisterEvent("QUEST_DATA_LOAD_RESULT")
 titleLoader:SetScript("OnEvent", function(_, _, questID, success)
     if not success or not questID or not titleRequests[questID] then return end
     -- The title is known now, so the miss recorded for it is stale.
@@ -105,10 +108,6 @@ titleLoader:SetScript("OnEvent", function(_, _, questID, success)
         end
     end)
 end)
-
-local function SoundExtensions()
-    return addon.soundExtensions or FALLBACK_EXTS
-end
 
 -- --------------------------------------------------------------------------
 -- Building the window
@@ -323,17 +322,14 @@ local function BuildUI()
     local activePlayingQuestID = nil
     local activePlayingType = nil
 
-    -- Duration lookup helper
+    -- Duration lookup helper. The walk over every installed pack, in
+    -- extension order, is the addon's own FindSound -- this file used to
+    -- carry its own copy of it here and again in PlaySpecificAudio, which is
+    -- three places to keep agreeing about which extension wins.
     function frame:GetAudioDuration(questID, audioType)
-        for _, ext in ipairs(SoundExtensions()) do
-            local filename = questID .. "_" .. audioType .. ext
-            for _, soundLengths in pairs(addon.soundSources or {}) do
-                if type(soundLengths) == "table" and soundLengths[filename] then
-                    return soundLengths[filename]
-                end
-            end
-        end
-        return nil
+        if not addon.FindSound then return nil end
+        local _, _, duration = addon.FindSound({ questID .. "_" .. audioType })
+        return duration
     end
 
     -- The filter pass currently running, if it has not finished yet. Declared
@@ -493,6 +489,10 @@ local function BuildUI()
     function frame:UpdateList()
         local list = self.filteredList or self.allQuests or {}
         local numItems = #list
+        -- Taken once. UpdateList runs on every frame of a search pass, and
+        -- each of the branches below used to build a throwaway table to take
+        -- a length from.
+        local totalItems = self.allQuests and #self.allQuests or 0
         FauxScrollFrame_Update(self.scrollFrame, numItems, NUM_VISIBLE_ROWS, ROW_HEIGHT)
         local offset = FauxScrollFrame_GetOffset(self.scrollFrame)
 
@@ -564,8 +564,8 @@ local function BuildUI()
             self.countText:SetText(string.format("Searching... %d so far", numItems))
         elseif numItems == 0 then
             self.countText:SetText("No matching quests found.")
-        elseif self.filteredList and #self.filteredList ~= #(self.allQuests or {}) then
-            self.countText:SetText(string.format("Showing %d / %d quests", numItems, #(self.allQuests or {})))
+        elseif self.filteredList and numItems ~= totalItems then
+            self.countText:SetText(string.format("Showing %d / %d quests", numItems, totalItems))
         else
             self.countText:SetText(string.format("Total: %d voiced quests", numItems))
         end
@@ -584,25 +584,33 @@ local function BuildUI()
 
     function frame:PlaySpecificAudio(questID, audioType)
         self:StopAudio()
-
-        for _, extension in ipairs(SoundExtensions()) do
-            local soundFile = questID .. "_" .. audioType .. extension
-            for packName, soundLengths in pairs(addon.soundSources or {}) do
-                if type(soundLengths) == "table" and soundLengths[soundFile] then
-                    local soundPath = "Interface\\AddOns\\" .. packName .. "\\Sounds\\" .. soundFile
-                    local willPlay, handle = PlaySoundFile(soundPath, "Dialog")
-                    if willPlay and handle then
-                        activeDebugSound = handle
-                        activePlayingQuestID = questID
-                        activePlayingType = audioType
-                        self:UpdateList()
-                    end
-                    return
-                end
-            end
+        -- Narration running behind the window would otherwise play over the
+        -- preview -- and with "silence Blizzard's own voice lines" on it is
+        -- holding Sound_DialogVolume at zero, which is the channel the
+        -- preview plays on, so the preview was silent for as long as the
+        -- narration lasted.
+        if addon.StopCurrentSound then
+            addon.StopCurrentSound()
         end
 
-        print("SpeakStone Audio Library: clip not found for Quest ID " .. tostring(questID) .. " (" .. tostring(audioType) .. ")")
+        local soundPath
+        if addon.FindSound then
+            local _, path = addon.FindSound({ questID .. "_" .. audioType })
+            soundPath = path
+        end
+
+        if not soundPath then
+            print("SpeakStone Audio Library: clip not found for Quest ID " .. tostring(questID) .. " (" .. tostring(audioType) .. ")")
+            return
+        end
+
+        local willPlay, handle = PlaySoundFile(soundPath, "Dialog")
+        if willPlay and handle then
+            activeDebugSound = handle
+            activePlayingQuestID = questID
+            activePlayingType = audioType
+            self:UpdateList()
+        end
     end
 
     -- Main populate / toggle
@@ -637,6 +645,7 @@ local function BuildUI()
 
     frame:SetScript("OnShow", function(self)
         self:Raise()
+        titleLoader:RegisterEvent("QUEST_DATA_LOAD_RESULT")
         -- A title the client did not know last time it may know now -- so the
         -- narrowed result from the previous open, computed while those were
         -- still misses, cannot be reused either.
@@ -647,6 +656,11 @@ local function BuildUI()
     end)
 
     frame:SetScript("OnHide", function(self)
+        -- Titles still in flight are of no use to a list nobody is looking
+        -- at, and the client caches what it has already sent -- so a quest
+        -- whose answer lands after this is resolved from the cache on the
+        -- next open rather than lost.
+        titleLoader:UnregisterEvent("QUEST_DATA_LOAD_RESULT")
         if searchTimer then
             searchTimer:Cancel()
             searchTimer = nil
