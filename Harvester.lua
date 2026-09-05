@@ -539,9 +539,8 @@ local EXPORT_BATCH_BYTES = 384 * 1024
 --- Build the export payload: everything captured, of every kind, split into
 --- pieces no larger than `maxBytes`.
 ---
---- Returns the list of payload strings, the number of top-level entries
---- across all of them, and the number of entries that did not fit in the
---- first piece.
+--- Returns the list of payload strings and the number of top-level entries
+--- across all of them.
 ---
 --- There used to be a second, narrower export of "quests with no audio
 --- installed" only, promoted as the most useful thing to submit. Two things

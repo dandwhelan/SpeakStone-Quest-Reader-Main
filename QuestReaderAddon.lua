@@ -4,11 +4,11 @@ local icon = LibStub("LibDBIcon-1.0")
 
 -- Ogg first: new content is generated as Ogg Vorbis, and where both exist the
 -- smaller file is preferred.
+-- Local, not a global: "SOUND_EXTENSIONS" is a name any other addon could
+-- plausibly claim, and whichever loaded second would win. The audio library
+-- used to be handed this list to walk itself; it shares FindSound now, which
+-- is the only thing that ever needed to know the order.
 local SOUND_EXTENSIONS = { ".ogg", ".wav" }
--- The audio library window needs the same list. Shared through the addon
--- table rather than a global: "SOUND_EXTENSIONS" is a name any other addon
--- could plausibly claim, and whichever loaded second would win.
-addon.soundExtensions = SOUND_EXTENSIONS
 
 -- Sound packs (per-expansion audio, shipped as separate addons) merge their
 -- duration index in here, keyed by the pack's addon name. Every lookup below
@@ -176,11 +176,19 @@ end
 -- muted over is saved to disk at the same time, so this can put it back.
 -- Never restores a zero: that is the state being rescued from.
 local function RestoreStrandedDialogVolume()
-    local saved = QuestReaderAddonDB and QuestReaderAddonDB.savedDialogVolume
+    -- Called straight after InitializeAddonDB, so the store is there -- but
+    -- the read below used to be guarded and the write beside it was not,
+    -- which is the wrong way round for a function whose whole job is to run
+    -- before anything else has touched the volume.
+    if not QuestReaderAddonDB then return end
+    local saved = QuestReaderAddonDB.savedDialogVolume
     QuestReaderAddonDB.savedDialogVolume = nil
     local level = tonumber(saved)
     if level and level > 0 then
-        SetCVar("Sound_DialogVolume", saved)
+        -- The number that was validated, not the raw saved value: a store
+        -- written by an older build holds a string, and "0.5abc" reaching the
+        -- CVar is not something to find out about at the client's discretion.
+        SetCVar("Sound_DialogVolume", level)
         DebugPrint("SpeakStone: restored the dialogue volume left muted by the last session.")
     end
 end
@@ -357,29 +365,19 @@ SlashCmdList["QRTOGGLE"] = function()
     print("SpeakStone minimap button: " .. (QuestReaderAddonDB.showMinimapButton and "|cff00ff00shown|r" or "|cffff0000hidden|r"))
 end
 
--- Function to automatically play quest audio
-local function AutoPlayQuestAudio()
-    if AutoPlayAllowed("autoPlayQuests") then
-        PlayQuestAudio()
+-- Load one of the legacy named packs and hand back its duration table, along
+-- with the folder name the client knows it by -- which is what the sound
+-- paths are built from, so it is taken from the client rather than assumed to
+-- match the name we asked for.
+local function LoadSoundPackIfAvailable(packName)
+    local name, _, _, loadable = C_AddOns.GetAddOnInfo(packName)
+    if not name or not loadable then
+        return nil
     end
-end
-
--- Hook the QuestFrame's OnShow event
--- QuestFrame:HookScript("OnShow", AutoPlayQuestAudio)
-
-local function LoadSoundPackIfAvailable(addonName)
-    local name, title, _, loadable = C_AddOns.GetAddOnInfo(addonName)
-    if name and loadable then
-        if not C_AddOns.IsAddOnLoaded(addonName) then
-            local loaded, reason = C_AddOns.LoadAddOn(addonName)
-            if not loaded then
-                return nil
-            end
-        end
-
-        return _G[addonName]  -- Return the global table for the addon
+    if not C_AddOns.IsAddOnLoaded(packName) and not C_AddOns.LoadAddOn(packName) then
+        return nil
     end
-    return nil
+    return _G[packName], name
 end
 
 -- addon.soundSources is initialised at file scope, above, so it exists
@@ -461,44 +459,28 @@ end
 
 -- Function to detect available sound packs
 function DetectSoundPacks()
-    local hasEntries = false
-    
+    local registered = false
+
     for _, depName in ipairs(optionalSoundPacks) do
-        if depName then
-            local name, _, _, loadable = C_AddOns.GetAddOnInfo(depName)
-            if loadable then
-                local pack = LoadSoundPackIfAvailable(depName)
-                if pack then
-                    -- Merge rather than replace: overwriting dropped the sounds
-                    -- bundled with the base addon, and breaking here meant only
-                    -- one language pack could ever be active at a time.
-                    addon.soundSources[name] = pack
-                    InvalidateAudioCaches()
-                    hasEntries = true
-                end
-            end
+        -- LoadSoundPackIfAvailable asks the client whether the pack is
+        -- loadable itself; asking here as well meant two GetAddOnInfo calls
+        -- per pack for one answer.
+        local pack, name = LoadSoundPackIfAvailable(depName)
+        if pack then
+            -- Merge rather than replace: overwriting dropped the sounds
+            -- bundled with the base addon, and breaking here meant only
+            -- one language pack could ever be active at a time.
+            addon.soundSources[name or depName] = pack
+            registered = true
         end
     end
 
---    if not hasEntries then
---        ShowNoSoundPacksDialog()
---    end
+    -- Once, after the loop. Invalidating per pack threw away an index that
+    -- the next pack in the same loop would only have had to rebuild.
+    if registered then
+        InvalidateAudioCaches()
+    end
 end
-
--- function ShowNoSoundPacksDialog()
---     -- Define the static popup dialog
---     StaticPopupDialogs["NO_SOUND_PACKS"] = {
---         text = "You're using SpeakStone but you've not installed any SpeakStone voice packs.",
---         button1 = "OK",
---         timeout = 0,  -- No timeout
---         whileDead = true,  -- Allow showing while dead
---         hideOnEscape = true,  -- Allow closing by pressing the Escape key
---         preferredIndex = 3,  -- Prevents interference with other dialogs
---     }-- 
-
---     -- Show the popup dialog
---     StaticPopup_Show("NO_SOUND_PACKS")
--- end
 
 local function GetCurrentSound()
     return addon.activeSound
@@ -525,6 +507,10 @@ local function FindSound(baseNames)
         end
     end
 end
+-- The audio library looks clips up too, and had its own copy of this walk in
+-- two places. One lookup means one set of rules about extension order and
+-- pack precedence.
+addon.FindSound = FindSound
 
 -- The clip has run its course, or never started. Distinct from
 -- StopCurrentSound, which interrupts one: there is no handle left to stop
@@ -540,10 +526,20 @@ local function FinishPlayback(soundData)
     UnmuteDialogChannel()
 end
 
-local function DoPlaySound()
-    local soundData = GetCurrentSound()
-    if not soundData then
-        -- This can fire when a sound was canceled while in timer
+-- Longest a clip is assumed to run when its pack does not record a length.
+-- Only ever used to release the Dialog channel, so it is not a cutoff:
+-- nothing here can stop a clip early, and one that is still going at two
+-- minutes has outlasted anything the packs contain.
+local MAX_CLIP_SECONDS = 120
+
+local function DoPlaySound(soundData)
+    soundData = soundData or GetCurrentSound()
+    -- Identity-checked, not just non-nil. A delayed clip whose timer outlived
+    -- it -- the player clicked on to the next panel while it was still
+    -- waiting -- used to reach here and play whatever had replaced it, which
+    -- then played again on its own timer: the same line twice over, with the
+    -- first handle overwritten so nothing could stop it.
+    if not soundData or addon.activeSound ~= soundData then
         return
     end
 
@@ -570,11 +566,18 @@ local function DoPlaySound()
     -- or logout -- which, with "stop narration when the window closes" off,
     -- meant the player's dialogue simply never came back. The duration is
     -- already in SoundLengths; a small margin covers rounding in it.
-    if soundData.duration and soundData.duration > 0 then
-        soundData.endTimer = C_Timer.NewTimer(soundData.duration + 0.25, function()
-            FinishPlayback(soundData)
-        end)
+    --
+    -- Scheduled even when the length is missing or unreadable. Skipping it
+    -- there reached that same dead end by another route: nothing ever
+    -- finished the clip, so activeSound stayed set for the session and the
+    -- Dialog channel stayed muted under it.
+    local duration = soundData.duration
+    if not duration or duration <= 0 then
+        duration = MAX_CLIP_SECONDS
     end
+    soundData.endTimer = C_Timer.NewTimer(duration + 0.25, function()
+        FinishPlayback(soundData)
+    end)
 end
 
 local function IsPlaying()
@@ -673,10 +676,10 @@ function PlayQuestAudio(textType, skipDelay)
 
     -- Debug: Ensure questID and textType are valid
     if questID and textType ~= "" then
-        -- Stop any sound that is currently playing
-        if IsPlaying() then
-            StopCurrentSound()
-        end
+        -- Unconditionally, not only when something is audible. A clip still
+        -- waiting out the autoplay delay is not "playing", so gating on that
+        -- left its timer running to fire over whatever came next.
+        StopCurrentSound()
 
         -- Newly generated audio ships as Ogg Vorbis, which is a fraction of the
         -- size of the original PCM library and is what the game itself uses.
@@ -700,25 +703,29 @@ function PlayQuestAudio(textType, skipDelay)
             return
         end
 
-        addon.activeSound = {
+        local soundData = {
             questID = questID,
             textType = textType,
             soundFile = soundFile,
             soundPath = soundPath,
             duration = duration,
         }
-        
+        addon.activeSound = soundData
+
         -- Delay shortly to account for greeting audio when using autoplay
         if QuestReaderAddonDB.autoPlayEnabled and not skipDelay and not QuestReaderAddonDB.muteGossip then
             local delay = tonumber(QuestReaderAddonDB.autoPlayDelay) or 2
             -- NewTimer, not After: After returns nothing, so the handle
             -- stored here was always nil and StopCurrentSound's Cancel never
             -- ran. A queued clip then fired after the player had walked away.
-            addon.activeSound.nextSoundTimer = C_Timer.NewTimer(delay, function()
-                DoPlaySound()
+            -- The clip is passed in rather than read back out of activeSound,
+            -- so a timer that survives its own cancellation plays nothing
+            -- instead of playing its successor.
+            soundData.nextSoundTimer = C_Timer.NewTimer(delay, function()
+                DoPlaySound(soundData)
             end)
         else
-            DoPlaySound()
+            DoPlaySound(soundData)
         end
     end
 end
@@ -755,9 +762,9 @@ local function PlayGossipAudio()
         return
     end
 
-    if IsPlaying() then
-        StopCurrentSound()
-    end
+    -- Also clears a clip still waiting out the autoplay delay; see the quest
+    -- path above.
+    StopCurrentSound()
 
     -- An NPC can have several greeting variants, captured as gossip1,
     -- gossip2, and so on, but nothing here can tell which one the server
@@ -780,14 +787,15 @@ local function PlayGossipAudio()
         return
     end
 
-    addon.activeSound = {
+    local soundData = {
         questID = "npc" .. npcID,
         textType = "gossip",
         soundFile = soundFile,
         soundPath = soundPath,
         duration = duration,
     }
-    DoPlaySound()
+    addon.activeSound = soundData
+    DoPlaySound(soundData)
 end
 
 local currentItemName = nil
@@ -795,9 +803,9 @@ local currentItemPage = 1
 local itemAudioTimer = nil
 
 local function PlayItemAudioDirect(itemLink, page)
-    if IsPlaying() then
-        StopCurrentSound()
-    end
+    -- Also clears a clip still waiting out the autoplay delay; see the quest
+    -- path above.
+    StopCurrentSound()
 
     page = page or 1
     local itemID
@@ -838,15 +846,16 @@ local function PlayItemAudioDirect(itemLink, page)
         return
     end
 
-    addon.activeSound = {
+    local soundData = {
         questID = baseNames[1],
         textType = "item",
         soundFile = soundFile,
         soundPath = soundPath,
         duration = duration,
     }
+    addon.activeSound = soundData
     DebugPrint("SpeakStone: playing " .. (itemID and ("item " .. itemID) or ("'" .. itemLink .. "'")) .. " (page " .. page .. ")")
-    DoPlaySound()
+    DoPlaySound(soundData)
 end
 
 -- Defined below, but hooked from here. A forward declaration rather than a
